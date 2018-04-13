@@ -2,6 +2,6 @@ package command;
 
 public interface Command {
 
-    trigger(Entity e);
+    void trigger(Entity e);
 
 }

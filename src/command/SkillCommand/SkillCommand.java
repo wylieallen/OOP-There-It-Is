@@ -5,8 +5,8 @@ public abstract class SkillCommand {
     private int level;
     private int effectiveness;
 
-    public trigger(Entity e, int distance);
-    protected success(Entity e, int distance);
-    protected fail(Entity e, int distance);
+    public abstract void trigger(Entity e, int distance);
+    protected abstract void success(Entity e, int distance);
+    protected abstract void fail(Entity e, int distance);
 
 }
