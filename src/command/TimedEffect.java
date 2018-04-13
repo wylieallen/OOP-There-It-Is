@@ -1,5 +1,7 @@
 package command;
 
+import command.ReversibleCommand.ReversibleCommand;
+
 public class TimedEffect {
 
     private ReversibleCommand command;
