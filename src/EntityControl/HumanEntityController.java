@@ -1,4 +1,4 @@
-package Entity.EntityControl;
+package EntityControl;
 
 public class HumanEntityController extends EntityController{
 

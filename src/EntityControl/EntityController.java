@@ -1,4 +1,4 @@
-package Entity.EntityControl;
+package EntityControl;
 
 
 import java.util.ArrayList;

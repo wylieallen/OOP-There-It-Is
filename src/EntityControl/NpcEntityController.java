@@ -1,6 +1,6 @@
-package Entity.EntityControl;
+package EntityControl;
 
-import Entity.EntityControl.AI.AI;
+import EntityControl.AI.AI;
 
 public class NpcEntityController extends EntityController {
 

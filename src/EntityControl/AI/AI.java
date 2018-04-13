@@ -1,4 +1,4 @@
-package Entity.EntityControl.AI;
+package EntityControl.AI;
 
 public abstract class AI {
 
