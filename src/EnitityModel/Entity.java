@@ -1,5 +1,7 @@
 package EnitityModel;
 
+import EntityControl.EntityController;
+
 import java.util.List;
 
 /**
