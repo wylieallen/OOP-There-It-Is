@@ -1,4 +1,6 @@
-package command;
+package command.ReversibleCommand;
+
+import command.Command;
 
 public abstract class ReversibleCommand implements Command {
 
