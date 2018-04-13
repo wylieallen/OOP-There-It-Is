@@ -1,6 +1,6 @@
 package command;
 
-public abstract class ReversibleCommand {
+public abstract class ReversibleCommand implements Command {
 
     private boolean isApplied;
 
