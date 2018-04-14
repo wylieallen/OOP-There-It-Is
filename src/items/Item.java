@@ -1,6 +1,6 @@
 package items;
 
-import entitymodel.Entity;
+import entity.entitymodel.Entity;
 
 public abstract class Item {
 

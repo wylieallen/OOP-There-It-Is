@@ -1,9 +1,9 @@
 package savingloading;
 
-import entitymodel.Entity;
-import tile.Tile;
-import world.Game;
-import world.World;
+import entity.entitymodel.Entity;
+import maps.tile.Tile;
+import maps.world.Game;
+import maps.world.World;
 import items.Item;
 
 /**

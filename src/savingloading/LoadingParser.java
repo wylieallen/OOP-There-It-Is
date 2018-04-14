@@ -1,7 +1,7 @@
 package savingloading;
 
-import entitymodel.Entity;
-import world.Game;
+import entity.entitymodel.Entity;
+import maps.world.Game;
 import gameview.GameDisplayState;
 
 /**

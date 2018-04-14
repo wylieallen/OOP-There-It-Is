@@ -1,6 +1,6 @@
 package utilities;
 
-import tile.Direction;
+import maps.tile.Direction;
 
 /**
  * Created by dontf on 4/14/2018.

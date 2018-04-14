@@ -1,6 +1,6 @@
 package items.takeableitems;
 
-import entitymodel.Equipment;
+import entity.entitymodel.Equipment;
 import skills.SkillType;
 import commands.Command;
 

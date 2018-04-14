@@ -1,6 +1,6 @@
 package commands.reversiblecommands;
 
-import entitymodel.Entity;
+import entity.entitymodel.Entity;
 
 public class MakeParalyzedCommand extends ReversibleCommand {
 

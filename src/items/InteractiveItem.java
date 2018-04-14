@@ -1,6 +1,6 @@
 package items;
 
-import entitymodel.Entity;
+import entity.entitymodel.Entity;
 import commands.Command;
 
 public class InteractiveItem extends Item {

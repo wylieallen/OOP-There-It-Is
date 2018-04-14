@@ -1,6 +1,6 @@
 package items.takeableitems;
 
-import entitymodel.Equipment;
+import entity.entitymodel.Equipment;
 
 public class QuestItem extends TakeableItem {
 

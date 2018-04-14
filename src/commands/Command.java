@@ -1,6 +1,6 @@
 package commands;
 
-import entitymodel.Entity;
+import entity.entitymodel.Entity;
 
 public interface Command {
 

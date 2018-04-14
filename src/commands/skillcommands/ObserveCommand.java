@@ -1,6 +1,6 @@
 package commands.skillcommands;
 
-import entitymodel.Entity;
+import entity.entitymodel.Entity;
 import skills.SkillType;
 
 public class ObserveCommand extends SkillCommand {
