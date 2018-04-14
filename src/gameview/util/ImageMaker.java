@@ -19,8 +19,8 @@ public class ImageMaker
 
     private static Shape makeHexShape()
     {
-        int[] x = {0, 16, 48, 32, 64, 64};//{0, 1, 3, 4, 1, 3};
-        int[] y = {32, 0, 0, 32, 64, 64};//{2, 0, 0, 2, 4, 4};
+        int[] x = {0, 16, 48, 64, 48, 16};
+        int[] y = {32, 0, 0, 32, 64, 64};
         return new Polygon(x, y, 6);
     }
 
@@ -35,25 +35,23 @@ public class ImageMaker
 
     private static Displayable getGrassDisplayable()
     {
-        return new ImageDisplayable(new Point(0, 0), makeBorderedHex(64,  Color.GREEN), TERRAIN_HEIGHT);
+        return new ImageDisplayable(new Point(0, 0), makeBorderedHex(Color.GREEN), TERRAIN_HEIGHT);
     }
 
     private static Displayable getMountainDisplayable()
     {
-        return new ImageDisplayable(new Point(0, 0), makeBorderedHex(64,  Color.GRAY), TERRAIN_HEIGHT);
+        return new ImageDisplayable(new Point(0, 0), makeBorderedHex(Color.GRAY), TERRAIN_HEIGHT);
     }
 
     private static Displayable getWaterDisplayable()
     {
-        return new ImageDisplayable(new Point(0, 0), makeBorderedHex(64,  Color.BLUE), TERRAIN_HEIGHT);
+        return new ImageDisplayable(new Point(0, 0), makeBorderedHex(Color.BLUE), TERRAIN_HEIGHT);
     }
 
-    private static BufferedImage makeBorderedHex(int size, Color color)
+    public static BufferedImage makeBorderedHex(Color color)
     {
-        //double scaleFactor = ((double) size) / 4;
-        BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image = new BufferedImage(64 + 1, 64 + 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = image.createGraphics();
-        //g2d.scale(scaleFactor, scaleFactor);
         g2d.setColor(color);
         g2d.fill(hexShape);
         g2d.setColor(Color.WHITE);

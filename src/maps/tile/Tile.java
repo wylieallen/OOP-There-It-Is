@@ -36,12 +36,16 @@ public abstract class Tile implements GameObjectContainer {
 
     public void add(MoveLegalityChecker mlc) { moveLegalityCheckers.add(mlc); }
 
-    public List<GameObject> getGameObjects() {
-        return null;
-    }
+    public abstract List<GameObject> getGameObjects();
 
-    public void update(){
+    public Collection<MoveLegalityChecker> getMoveLegalityCheckers() { return moveLegalityCheckers; }
 
+    public void update()
+    {
+        for(MoveLegalityChecker mlc : moveLegalityCheckers)
+        {
+            mlc.update();
+        }
     }
 
     protected abstract void do_moves();
