@@ -1,11 +1,12 @@
 package entity.entitymodel;
 
-import actions.Action;
-import commands.TimedEffect;
+import entity.entitycontrol.ControllerAction;
 import entity.entitycontrol.EntityController;
 import entity.entitymodel.interactions.EntityInteraction;
 import gameobject.GameObject;
 import maps.tile.Direction;
+import actions.Action;
+import commands.TimedEffect;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Entity implements GameObject
 
     private Direction direction;
     private EntityStats stats;
-    private List<Action> actions;
+    private List<ControllerAction> actions;//whenever an action gets added to this we need to notify the EntityController to add the same action
     private List<TimedEffect> effects;
     private List <EntityInteraction> actorInteractions;
     private List <EntityInteraction> acteeInteractions;
@@ -26,7 +27,7 @@ public class Entity implements GameObject
 
     public Entity(Direction direction,
                   EntityStats stats,
-                  List<Action> actions,
+                  List<ControllerAction> actions,
                   List<TimedEffect> effects,
                   List<EntityInteraction> actorInteractions,
                   List<EntityInteraction> acteeInteractions,

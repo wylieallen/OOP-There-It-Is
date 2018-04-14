@@ -12,7 +12,7 @@ public class NpcEntityController extends EntityController {
     private AI ai;
 
     @Override
-    public void update(Map<Coordinate, GameObjectContainer> mapOfContainers) {
+    protected void processController() {
         //TODO
     }
 

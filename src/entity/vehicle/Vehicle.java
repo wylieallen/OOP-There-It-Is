@@ -1,10 +1,11 @@
 package entity.vehicle;
 
+import entity.entitycontrol.ControllerAction;
 import entity.entitymodel.Entity;
-import entity.entitymodel.interactions.EntityInteraction;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitycontrol.EntityController;
+import entity.entitymodel.interactions.EntityInteraction;
 import maps.tile.Direction;
 import actions.Action;
 import commands.TimedEffect;
@@ -20,7 +21,7 @@ public class Vehicle extends Entity {
 
     public Vehicle(Direction direction,
                    EntityStats stats,
-                   List<Action> actions,
+                   List<ControllerAction> actions,
                    List<TimedEffect> effects,
                    List<EntityInteraction> actorInteractions,
                    List<EntityInteraction> acteeInteractions,
