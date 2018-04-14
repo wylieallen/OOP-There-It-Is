@@ -11,6 +11,8 @@ public class HumanEntityController extends EntityController{
 
     private GamePanel view;
 
+    public HumanEntityController(GamePanel view) { this.view = view; }
+
 
     @Override
     protected void processController() {

@@ -1,7 +1,8 @@
-package entityimpaction;
+package maps.entityimpaction;
 
 import entity.entitymodel.Entity;
 import commands.Command;
+import maps.entityimpaction.EntityImpactor;
 
 public abstract class AreaEffect implements EntityImpactor {
 

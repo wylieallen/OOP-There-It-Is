@@ -2,7 +2,7 @@ package entity.entitymodel;
 
 import entity.entitycontrol.ControllerAction;
 import entity.entitycontrol.EntityController;
-import entity.entitymodel.EntityInteraction;
+import entity.entitymodel.interactions.EntityInteraction;
 import gameobject.GameObject;
 import maps.tile.Direction;
 import actions.Action;
@@ -53,11 +53,11 @@ public class Entity implements GameObject
     }
 
     public int getMaxHealth () {
-        return -1;
+        return stats.getMaxHealth();
     }
 
     public int getCurrHealth () {
-        return -1;
+        return stats.getCurHealth();
     }
 
     public List <EntityInteraction> interact (Entity actor) {
