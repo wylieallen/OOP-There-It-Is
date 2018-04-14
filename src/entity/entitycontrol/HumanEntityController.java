@@ -11,8 +11,11 @@ public class HumanEntityController extends EntityController{
 
     private GamePanel view;
 
+    public HumanEntityController(GamePanel view) { this.view = view; }
+
+
     @Override
-    public void update(Map<Coordinate, GameObjectContainer> mapOfContainers) {
+    protected void processController() {
         //TODO
     }
 

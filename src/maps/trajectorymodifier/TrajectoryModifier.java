@@ -1,5 +1,7 @@
 package maps.trajectorymodifier;
 
-public interface TrajectoryModifier {
+import gameobject.GameObject;
+
+public interface TrajectoryModifier extends GameObject {
     Vector getVector();
 }

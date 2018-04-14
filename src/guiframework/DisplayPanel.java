@@ -12,9 +12,6 @@ public class DisplayPanel extends JPanel
     public DisplayPanel()
     {
         this.activeState = new DisplayState();
-        activeState.add(new ColoredRectDisplayable(new Point(256, 256), 50, 50, 0, Color.RED));
-        activeState.add(new ColoredRectDisplayable(new Point(256, 256), 50, 50, 1, Color.YELLOW));
-        activeState.add(new ColoredRectDisplayable(new Point(256, 256), 100, 100, -1, Color.GREEN));
     }
 
     public void setDisplayState(DisplayState displayState) { this.activeState = displayState; }

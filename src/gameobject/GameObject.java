@@ -1,6 +1,6 @@
 package gameobject;
 
 public interface GameObject {
-    void update();
-    boolean expired();
+    default void update() {}
+    default boolean expired() { return false; }
 }

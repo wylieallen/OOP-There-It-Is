@@ -5,6 +5,9 @@ import entity.entitycontrol.ControllerAction;
 import entity.entitycontrol.EntityController;
 import entity.entitymodel.interactions.EntityInteraction;
 import gameobject.GameObject;
+import maps.tile.Direction;
+import actions.Action;
+import commands.TimedEffect;
 import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
 import utilities.Coordinate;
@@ -24,8 +27,8 @@ public class Entity implements GameObject
 
     private Vector vector;
     private EntityStats stats;
-    private List <ControllerAction> actions;
-    private List <TimedEffect> effects;
+    private List<ControllerAction> actions;//whenever an action gets added to this we need to notify the EntityController to add the same action
+    private List<TimedEffect> effects;
     private List <EntityInteraction> actorInteractions;
     private List <EntityInteraction> acteeInteractions;
     private EntityController controller;
