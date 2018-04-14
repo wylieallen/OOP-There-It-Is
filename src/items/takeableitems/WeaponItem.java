@@ -1,8 +1,10 @@
 package items.takeableitems;
 
+import commands.Command;
+import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import skills.SkillType;
-import commands.Command;
+import utilities.Coordinate;
 
 public class WeaponItem extends TakeableItem {
 
@@ -24,7 +26,7 @@ public class WeaponItem extends TakeableItem {
 
     }
 
-    public void attack() {
+    public void attack(Entity attacker, Coordinate location) {
 
     }
 }

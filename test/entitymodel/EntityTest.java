@@ -25,6 +25,7 @@ public class EntityTest {
 
     @Before
     public void setUpEntities () {
+
         HashMap <SkillType, Integer> skillsActor = new HashMap<SkillType, Integer>();
         HashMap <SkillType, Integer> skillsActee = new HashMap<SkillType, Integer>();
 

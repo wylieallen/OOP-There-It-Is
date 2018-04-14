@@ -36,8 +36,8 @@ public class Inventory {
         items.remove(takeable);
     }
 
-    public void select (int index) {
-        items.get(index).activate ();
+    public TakeableItem select (int index) {
+        return items.get(index);
     }
 
 }

@@ -1,6 +1,7 @@
 package entity.entitymodel;
 
 import items.takeableitems.ConsumableItem;
+import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
 import utilities.Coordinate;
@@ -44,29 +45,65 @@ public class Equipment {
 
     public void add (WearableItem wearable) {
 
+        // Must remove from inventory first as to assert that there is room to add, else the item is lost forever!!!
+        inventory.remove(wearable);
+
+        WearableItem current = wearables.getOrDefault(wearable.getEquipType(), null);
+        if (current != null) {
+            this.remove(current);
+        }
+
+        wearables.put(wearable.getEquipType(), wearable);
+
     }
 
     public void add (WeaponItem weapon) {
 
+        inventory.remove(weapon);
+
+        for (int i = 0; i < weapons.length; ++i) {
+            if (weapons[i] == null) {
+                weapons [i] = weapon;
+                return;
+            }
+        }
+
+        this.remove(weapons [weapons.length - 1]);
+        weapons [weapons.length - 1] = weapon;
+
     }
 
     public void consume (ConsumableItem consumable) {
-
+        inventory.remove(consumable);
+        consumable.applyEffect(entity);
     }
 
     public void remove (WearableItem wearable) {
-
+        inventory.add(wearable);
+        wearables.remove(wearable.getEquipType());
     }
 
     public void remove (WeaponItem weapon) {
+        inventory.add(weapon);
+
+        for (WeaponItem w : weapons) {
+            if (w.equals(weapon)) {
+                w = null;
+            }
+        }
 
     }
 
     public void select (int indexOfInventory) {
-
+       TakeableItem takeable = inventory.select(indexOfInventory);
+       takeable.activate(this);
     }
 
     public void useWeaponItem (int index, Coordinate point) {
+
+        if (weapons [index] != null) {
+            weapons [index].attack(entity, point);
+        }
 
     }
 
