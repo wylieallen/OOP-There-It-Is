@@ -1,5 +1,12 @@
 package EntityControl;
 
+import EnitityModel.Entity;
+import GameObject.GameObjectContainer;
+import Utilities.Coordinate;
+import gameview.GamePanel;
+
+import java.util.Map;
+
 public class HumanEntityController extends EntityController{
 
     private GamePanel view;
@@ -25,7 +32,7 @@ public class HumanEntityController extends EntityController{
     }
 
     @Override
-    public void notifyInteraction(Enity player, Entity interactee) {
+    public void notifyInteraction(Entity player, Entity interactee) {
         //TODO
     }
 

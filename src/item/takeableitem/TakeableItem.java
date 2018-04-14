@@ -1,5 +1,7 @@
 package item.takeableitem;
 
+import EnitityModel.Entity;
+import EnitityModel.Equipment;
 import item.Item;
 
 public abstract class TakeableItem extends Item {

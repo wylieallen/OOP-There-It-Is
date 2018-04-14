@@ -1,5 +1,6 @@
 package command.SkillCommand;
 
+import EnitityModel.Entity;
 import Skills.SkillType;
 import command.Command;
 

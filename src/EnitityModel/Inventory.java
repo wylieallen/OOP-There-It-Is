@@ -1,5 +1,8 @@
 package EnitityModel;
 
+import item.takeableitem.TakeableItem;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +19,7 @@ public class Inventory {
     }
 
     public Inventory () {
-        this.items = new List <TakeableItem>();
+        this.items = new ArrayList<>();
     }
 
     public void add (TakeableItem takeable) {

@@ -1,6 +1,12 @@
 package command.ReversibleCommand;
 
+import EnitityModel.Entity;
+
 public class TimedStaminaRegenCommand extends ReversibleCommand {
+
+    public TimedStaminaRegenCommand(boolean isApplied) {
+        super(isApplied);
+    }
 
     @Override
     public void trigger(Entity e) {

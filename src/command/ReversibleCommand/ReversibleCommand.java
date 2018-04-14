@@ -1,5 +1,6 @@
 package command.ReversibleCommand;
 
+import EnitityModel.Entity;
 import command.Command;
 
 public abstract class ReversibleCommand implements Command {

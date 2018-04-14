@@ -1,5 +1,7 @@
 package item.takeableitem;
 
+import EnitityModel.Entity;
+import EnitityModel.Equipment;
 import command.Command;
 
 public class ConsumableItem extends TakeableItem {

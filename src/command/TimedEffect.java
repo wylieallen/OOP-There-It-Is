@@ -1,5 +1,6 @@
 package command;
 
+import EnitityModel.Entity;
 import command.ReversibleCommand.ReversibleCommand;
 
 public class TimedEffect {

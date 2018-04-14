@@ -1,5 +1,7 @@
 package item.takeableitem;
 
+import EnitityModel.Equipment;
+
 public class QuestItem extends TakeableItem {
 
     private int questId;

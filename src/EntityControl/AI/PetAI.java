@@ -1,5 +1,11 @@
 package EntityControl.AI;
 
+import EnitityModel.Entity;
+import GameObject.GameObjectContainer;
+import Utilities.Coordinate;
+
+import java.util.Map;
+
 public class PetAI extends AI {
 
     private Entity master;

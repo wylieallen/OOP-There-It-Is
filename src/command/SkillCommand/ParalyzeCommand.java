@@ -1,8 +1,14 @@
 package command.SkillCommand;
 
+import EnitityModel.Entity;
+import Skills.SkillType;
 import command.SkillCommand.SkillCommand;
 
 public class ParalyzeCommand extends SkillCommand {
+
+    public ParalyzeCommand(SkillType skillType, int level, int effectiveness) {
+        super(skillType, level, effectiveness);
+    }
 
     @Override
     public void trigger(Entity e, int distance) {

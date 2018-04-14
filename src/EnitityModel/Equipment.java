@@ -1,5 +1,11 @@
 package EnitityModel;
 
+import Utilities.Coordinate;
+import item.takeableitem.ConsumableItem;
+import item.takeableitem.WeaponItem;
+import item.takeableitem.WearableItem;
+
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -10,7 +16,7 @@ public class Equipment {
     private final int defaultWeaponsSize = 5;
 
     private Map <EquipSlot, WearableItem> wearables;
-    private WeaponItem [] weapons;
+    private WeaponItem[] weapons;
     private int maxSize;
     private Inventory inventory;
     private Entity entity;
@@ -19,7 +25,7 @@ public class Equipment {
         this.maxSize = maxSize;
         this.inventory = inventory;
         this.entity = entity;
-        this.wearables = new Map <EquipSlot, WearableItem>();
+        this.wearables = new HashMap<>();
         this.weapons = new WeaponItem[defaultWeaponsSize];
     }
 

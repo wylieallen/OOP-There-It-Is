@@ -1,5 +1,7 @@
 package EnitityModel;
 
+import Skills.SkillType;
+
 import java.util.Map;
 
 /**

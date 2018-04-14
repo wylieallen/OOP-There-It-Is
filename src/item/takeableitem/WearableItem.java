@@ -1,5 +1,7 @@
 package item.takeableitem;
 
+import EnitityModel.Entity;
+import EnitityModel.Equipment;
 import command.ReversibleCommand.ReversibleCommand;
 
 public class WearableItem extends TakeableItem {

@@ -1,6 +1,13 @@
 package command.SkillCommand;
 
+import EnitityModel.Entity;
+import Skills.SkillType;
+
 public class ConfuseCommand extends SkillCommand {
+
+    public ConfuseCommand(SkillType skillType, int level, int effectiveness) {
+        super(skillType, level, effectiveness);
+    }
 
     @Override
     public void trigger(Entity e, int distance) {
