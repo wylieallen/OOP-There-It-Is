@@ -1,6 +1,6 @@
 package entitymodel;
 
-import item.takeableitem.TakeableItem;
+import items.takeableitems.TakeableItem;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,0 +1,50 @@
+package world;
+
+import entitymodel.Entity;
+import gameobject.GameObjectContainer;
+import gameobject.GameObject;
+import Influence.InfluenceArea;
+import spawning.SpawnEvent;
+import spawning.SpawnObserver;
+import tile.LocalWorldTile;
+import tile.Tile;
+import utilities.Coordinate;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * Created by dontf on 4/14/2018.
+ */
+public class LocalWorld implements World, SpawnObserver {
+
+    private Map <Coordinate, LocalWorldTile> tiles;
+    private Set<InfluenceArea> influenceAreas;
+    private List<SpawnEvent> spawnEvents;
+
+    @Override
+    public void notifySpawn(InfluenceArea IA, GameObject spawner) {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void add(Coordinate p, Entity e) {
+
+    }
+
+    @Override
+    public Map<Coordinate, GameObjectContainer> getMap() {
+        return null;
+    }
+
+    @Override
+    public Tile getTileForEntity(Entity e) {
+        return null;
+    }
+}

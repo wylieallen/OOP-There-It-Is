@@ -2,13 +2,13 @@ package Influence;
 
 import entitymodel.Entity;
 import gameobject.GameObject;
-import Saving_Loading.Visitor;
-import Tiles.Tile;
-import Utilities.Coordinate;
-import World.Game;
-import World.World;
+import savingloading.Visitor;
+import tile.Tile;
+import utilities.Coordinate;
+import world.Game;
+import world.World;
 import commands.skillcommands.SkillCommand;
-import item.Item;
+import items.Item;
 
 import java.util.List;
 

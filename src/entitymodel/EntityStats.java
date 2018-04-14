@@ -1,6 +1,6 @@
 package entitymodel;
 
-import Skills.SkillType;
+import skills.SkillType;
 
 import java.util.Map;
 
@@ -131,7 +131,7 @@ public class EntityStats {
     }
 
     public int getSkillLevel (SkillType s) {
-        return skills.getOrDefault(s, -1).intValue();
+        return skills.getOrDefault(s, -1);
     }
 
 }

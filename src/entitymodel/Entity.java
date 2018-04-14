@@ -2,7 +2,7 @@ package entitymodel;
 
 import entitycontrol.EntityController;
 import gameobject.GameObject;
-import Tiles.Direction;
+import tile.Direction;
 import actions.Action;
 import commands.TimedEffect;
 
