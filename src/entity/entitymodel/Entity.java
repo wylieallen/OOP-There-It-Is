@@ -5,13 +5,10 @@ import entity.entitycontrol.ControllerAction;
 import entity.entitycontrol.EntityController;
 import entity.entitymodel.interactions.EntityInteraction;
 import gameobject.GameObject;
-import maps.tile.Direction;
-import actions.Action;
-import commands.TimedEffect;
 import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
+import maps.trajectorymodifier.Vector;
 import utilities.Coordinate;
-import utilities.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
