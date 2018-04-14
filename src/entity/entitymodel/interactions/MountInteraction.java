@@ -1,5 +1,7 @@
 package entity.entitymodel;
 
+import entity.entitymodel.interactions.EntityInteraction;
+
 /**
  * Created by dontf on 4/13/2018.
  */

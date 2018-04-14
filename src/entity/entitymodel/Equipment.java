@@ -1,9 +1,9 @@
-package entitymodel;
+package entity.entitymodel;
 
-import utilities.Coordinate;
 import items.takeableitems.ConsumableItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
+import utilities.Coordinate;
 
 import java.util.HashMap;
 import java.util.Map;
