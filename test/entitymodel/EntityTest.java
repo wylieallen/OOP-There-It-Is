@@ -7,9 +7,10 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
+import maps.tile.Direction;
+import maps.trajectorymodifier.Vector;
 import org.junit.Before;
 import skills.SkillType;
-import utilities.Vector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,8 +57,8 @@ public class EntityTest {
         Inventory actorInventory = new Inventory();
         Inventory acteeInventory = new Inventory();
 
-        actor = new Entity(new Vector(), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, actorController, actorInventory, true);
-        actee = new Entity(new Vector(), acteeStats, acteeActions, acteeEffects, acteeActorInteractions,acteeActeeInteractions, acteeController, acteeInventory, true);
+        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, actorController, actorInventory, true);
+        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions,acteeActeeInteractions, acteeController, acteeInventory, true);
 
     }
 
