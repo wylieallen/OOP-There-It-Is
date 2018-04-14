@@ -13,6 +13,8 @@ import java.util.List;
  */
 public class Vehicle extends Entity {
 
+    private Entity driver;
+
     public Vehicle(Direction direction,
                    EntityStats stats,
                    List<Action> actions,
@@ -20,8 +22,14 @@ public class Vehicle extends Entity {
                    List<EntityInteraction> actorInteractions,
                    List<EntityInteraction> acteeInteractions,
                    EntityController controller,
-                   Inventory inventory)
+                   Inventory inventory,
+                   Entity driver)
     {
         super(direction, stats, actions, effects, actorInteractions, acteeInteractions, controller, inventory);
+        this.driver = driver;
+    }
+
+    public void setDriver (Entity driver) {
+        this.driver = driver;
     }
 }
