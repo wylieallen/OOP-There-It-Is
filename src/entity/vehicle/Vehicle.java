@@ -1,14 +1,13 @@
 package entity.vehicle;
 
+import commands.TimedEffect;
 import entity.entitycontrol.ControllerAction;
+import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
-import entity.entitycontrol.EntityController;
 import entity.entitymodel.interactions.EntityInteraction;
-import maps.tile.Direction;
-import actions.Action;
-import commands.TimedEffect;
+import maps.trajectorymodifier.Vector;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class Vehicle extends Entity {
 
     private Entity driver;
 
-    public Vehicle(Direction direction,
+    public Vehicle(Vector vector,
                    EntityStats stats,
                    List<ControllerAction> actions,
                    List<TimedEffect> effects,
@@ -29,7 +28,7 @@ public class Vehicle extends Entity {
                    Inventory inventory,
                    Entity driver)
     {
-        super(direction, stats, actions, effects, actorInteractions, acteeInteractions, controller, inventory);
+        super(vector, stats, actions, effects, actorInteractions, acteeInteractions, controller, inventory, true);
         this.driver = driver;
     }
 
