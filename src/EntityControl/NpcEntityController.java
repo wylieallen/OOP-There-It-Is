@@ -1,6 +1,11 @@
 package EntityControl;
 
+import EnitityModel.Entity;
 import EntityControl.AI.AI;
+import GameObject.GameObjectContainer;
+import Utilities.Coordinate;
+
+import java.util.Map;
 
 public class NpcEntityController extends EntityController {
 
@@ -27,7 +32,7 @@ public class NpcEntityController extends EntityController {
     }
 
     @Override
-    public void notifyInteraction(Enity player, Entity interactee) {
+    public void notifyInteraction(Entity player, Entity interactee) {
         //TODO
     }
 
@@ -46,7 +51,7 @@ public class NpcEntityController extends EntityController {
         //TODO
     }
 
-    public void processAI(Map<Coordinate, GameObjectContainer>, Entity e){
+    public void processAI(Map<Coordinate, GameObjectContainer> map, Entity e){
         //TODO
     }
 

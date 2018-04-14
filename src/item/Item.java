@@ -1,5 +1,7 @@
 package item;
 
+import EnitityModel.Entity;
+
 public abstract class Item {
 
     private String name;

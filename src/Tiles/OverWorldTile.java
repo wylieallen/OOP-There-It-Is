@@ -1,5 +1,7 @@
 package Tiles;
 
+import World.LocalWorld;
+
 public class OverWorldTile extends Tile{
 
     private LocalWorld localWorld;

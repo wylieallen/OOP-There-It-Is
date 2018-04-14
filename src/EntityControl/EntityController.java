@@ -1,7 +1,13 @@
 package EntityControl;
 
 
+import EnitityModel.Entity;
+import EnitityModel.Equipment;
+import GameObject.GameObjectContainer;
+import Utilities.Coordinate;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 public abstract class EntityController {
 
@@ -15,7 +21,7 @@ public abstract class EntityController {
     public abstract void interact(EntityController interacter);
     public abstract void notifyFreeMove(Entity e);
     public abstract void notifyInventoryManagment(Entity e);
-    public abstract void notifyInteraction(Enity player, Entity interactee);
+    public abstract void notifyInteraction(Entity player, Entity interactee);
     public abstract void notifyShopping(Entity trader1, Entity trader2);
     public abstract void notifyLevelUp(Entity e);
     public abstract void notifyMainMenu(Entity e);

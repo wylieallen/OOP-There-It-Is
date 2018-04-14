@@ -1,5 +1,7 @@
 package trajectorymodifiers;
 
+import Tiles.Direction;
+
 public class Vector {
 
     private Direction direction;
@@ -11,7 +13,7 @@ public class Vector {
     }
 
     public Vector add(Vector other) {
-
+        return null;
     }
 
     public Direction getDirection() {

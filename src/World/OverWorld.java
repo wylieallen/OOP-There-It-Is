@@ -1,7 +1,11 @@
 package World;
 
 import EnitityModel.Entity;
+import GameObject.GameObjectContainer;
 import Spawning.SpawnObserver;
+import Tiles.OverWorldTile;
+import Tiles.Tile;
+import Utilities.Coordinate;
 
 import java.util.Map;
 

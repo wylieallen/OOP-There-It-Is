@@ -1,18 +1,23 @@
 package EnitityModel;
 
 import EntityControl.EntityController;
+import GameObject.GameObject;
+import Tiles.Direction;
+import action.Action;
+import command.TimedEffect;
 
 import java.util.List;
 
 /**
  * Created by dontf on 4/13/2018.
  */
-public class Entity implements GameObject {
+public class Entity implements GameObject
+{
 
     private Direction direction;
     private EntityStats stats;
-    private List <Action> actions;
-    private List <TimedEffects> effects;
+    private List<Action> actions;
+    private List<TimedEffect> effects;
     private List <EntityInteraction> actorInteractions;
     private List <EntityInteraction> acteeInteractions;
     private EntityController controller;
@@ -21,7 +26,7 @@ public class Entity implements GameObject {
     public Entity(Direction direction,
                   EntityStats stats,
                   List<Action> actions,
-                  List<TimedEffects> effects,
+                  List<TimedEffect> effects,
                   List<EntityInteraction> actorInteractions,
                   List<EntityInteraction> acteeInteractions,
                   EntityController controller,
@@ -41,20 +46,24 @@ public class Entity implements GameObject {
 
     }
 
-    public int getMaxHealth () {
+    public boolean expired() {
+        return stats.getCurHealth() <= 0;
+    }
 
+    public int getMaxHealth () {
+        return -1;
     }
 
     public int getCurrHealth () {
-
+        return -1;
     }
 
     public List <EntityInteraction> interact (Entity actor) {
-
+        return null;
     }
 
     public boolean isOnMap () {
-
+        return false;
     }
 
 }
