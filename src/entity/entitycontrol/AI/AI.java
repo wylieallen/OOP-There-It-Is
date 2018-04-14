@@ -1,7 +1,7 @@
 package entity.entitycontrol.AI;
 
 import entity.entitymodel.Entity;
-import entity.entitymodel.EntityInteraction;
+import entity.entitymodel.interactions.EntityInteraction;
 import gameobject.GameObjectContainer;
 import utilities.Coordinate;
 

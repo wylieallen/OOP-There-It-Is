@@ -2,10 +2,10 @@ package entity.vehicle;
 
 import entity.entitycontrol.ControllerAction;
 import entity.entitymodel.Entity;
-import entity.entitymodel.EntityInteraction;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitycontrol.EntityController;
+import entity.entitymodel.interactions.EntityInteraction;
 import maps.tile.Direction;
 import actions.Action;
 import commands.TimedEffect;

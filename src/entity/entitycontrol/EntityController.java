@@ -2,8 +2,8 @@ package entity.entitycontrol;
 
 
 import entity.entitymodel.Entity;
+import entity.entitymodel.Equipment;
 import entity.vehicle.Vehicle;
-import entitymodel.Equipment;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import utilities.Coordinate;
