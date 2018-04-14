@@ -3,7 +3,7 @@ package maps.tile;
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
-import movelegalitychecker.MoveLegalityChecker;
+import maps.movelegalitychecker.MoveLegalityChecker;
 
 import java.util.*;
 

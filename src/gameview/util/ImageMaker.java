@@ -3,7 +3,7 @@ package gameview.util;
 import gameobject.GameObject;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
-import movelegalitychecker.Terrain;
+import maps.movelegalitychecker.Terrain;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

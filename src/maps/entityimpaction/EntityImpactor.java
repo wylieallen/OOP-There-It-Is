@@ -1,4 +1,4 @@
-package entityimpaction;
+package maps.entityimpaction;
 
 import entity.entitymodel.Entity;
 

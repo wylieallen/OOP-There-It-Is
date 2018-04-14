@@ -1,6 +1,7 @@
 package maps.tile;
 
 import maps.entityimpaction.EntityImpactor;
+import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.trajectorymodifier.TrajectoryModifier;
 
 import java.util.HashSet;

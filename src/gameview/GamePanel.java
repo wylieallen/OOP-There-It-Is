@@ -3,7 +3,7 @@ package gameview;
 import gameview.util.ImageMaker;
 import guiframework.DisplayPanel;
 import guiframework.displayable.ColoredRectDisplayable;
-import movelegalitychecker.Terrain;
+import maps.movelegalitychecker.Terrain;
 
 import java.awt.*;
 
