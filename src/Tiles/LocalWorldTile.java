@@ -1,5 +1,7 @@
 package Tiles;
 
+import trajectorymodifiers.TrajectoryModifier;
+
 import java.util.List;
 
 public class LocalWorldTile extends Tile {
@@ -8,7 +10,7 @@ public class LocalWorldTile extends Tile {
     private List<MoveLegalityChecker> mLCs;
     private List<EntityImpactor> eIs;
 
-    public void addTM(TrajecotryModifier tm){
+    public void addTM(TrajectoryModifier tm){
         //
     }
 
