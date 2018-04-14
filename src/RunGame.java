@@ -1,3 +1,4 @@
+import gameview.GamePanel;
 import guiframework.DisplayPanel;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ public class RunGame
         frame.setSize(1280, 720);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        DisplayPanel panel = new DisplayPanel();
+        JPanel panel = new GamePanel();
         panel.setBackground(Color.BLACK);
 
         frame.getContentPane().add(panel, BorderLayout.CENTER);

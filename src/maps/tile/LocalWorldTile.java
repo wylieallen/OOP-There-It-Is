@@ -3,13 +3,21 @@ package maps.tile;
 import maps.entityimpaction.EntityImpactor;
 import maps.trajectorymodifier.TrajectoryModifier;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LocalWorldTile extends Tile {
 
-    private List<TrajectoryModifier> tMs;
-    private List<MoveLegalityChecker> mLCs;
-    private List<EntityImpactor> eIs;
+    private Set<TrajectoryModifier> trajectoryModifiers;
+    private Set<MoveLegalityChecker> moveLegalityCheckers;
+    private Set<EntityImpactor> entityImpactors;
+
+    public LocalWorldTile()
+    {
+        trajectoryModifiers = new HashSet<>();
+        moveLegalityCheckers = new HashSet<>();
+        entityImpactors = new HashSet<>();
+    }
 
     public void addTM(TrajectoryModifier tm){
         //

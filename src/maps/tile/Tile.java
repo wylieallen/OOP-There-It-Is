@@ -3,15 +3,20 @@ package maps.tile;
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
+import movelegalitychecker.MoveLegalityChecker;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class Tile implements GameObjectContainer {
 
-    private List<MoveLegalityChecker> mLCs;
+    private Set<MoveLegalityChecker> moveLegalityCheckers;
     private Entity entity;
     private Map<Direction, Tile> neighbors;
+
+    public Tile()
+    {
+        moveLegalityCheckers = new HashSet<>();
+    }
 
     public void setEntity(Entity entity){
         this.entity = entity;
@@ -28,6 +33,8 @@ public abstract class Tile implements GameObjectContainer {
     public void moveFrom(){
         //
     }
+
+    public void add(MoveLegalityChecker mlc) { moveLegalityCheckers.add(mlc); }
 
     public List<GameObject> getGameObjects() {
         return null;

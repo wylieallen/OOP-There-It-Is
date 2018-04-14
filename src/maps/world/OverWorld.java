@@ -6,6 +6,7 @@ import maps.tile.OverWorldTile;
 import maps.tile.Tile;
 import utilities.Coordinate;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,11 +14,25 @@ import java.util.Map;
  */
 public class OverWorld implements World {
 
-    private Map <Coordinate, OverWorldTile> tiles;
+    private Map<Coordinate, OverWorldTile> tiles;
+
+    public OverWorld()
+    {
+        tiles = new HashMap<>();
+    }
 
     @Override
     public void update() {
 
+    }
+
+    public void add(Coordinate p, Terrain t)
+    {
+        if(!tiles.containsKey(p))
+        {
+            tiles.put(p, new OverWorldTile());
+        }
+        tiles.get(p).add(t);
     }
 
     @Override
