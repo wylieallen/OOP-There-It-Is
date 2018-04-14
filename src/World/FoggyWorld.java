@@ -1,6 +1,9 @@
 package World;
 
 import EnitityModel.Entity;
+import GameObject.GameObjectContainer;
+import Tiles.Tile;
+import Utilities.Coordinate;
 
 import java.util.Map;
 

@@ -3,6 +3,7 @@ package World;
 import EnitityModel.Entity;
 import GameObject.GameObjectContainer;
 import GameObject.GameObject;
+import Influence.InfluenceArea;
 import Spawning.SpawnEvent;
 import Spawning.SpawnObserver;
 import Tiles.LocalWorldTile;
@@ -11,11 +12,12 @@ import Utilities.Coordinate;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by dontf on 4/14/2018.
  */
-public class LocalWorld implements World {
+public class LocalWorld implements World, SpawnObserver {
 
     private Map <Coordinate, LocalWorldTile> tiles;
     private Set<InfluenceArea> influenceAreas;

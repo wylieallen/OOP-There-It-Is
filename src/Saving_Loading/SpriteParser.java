@@ -1,14 +1,15 @@
 package Saving_Loading;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Created by dontf on 4/13/2018.
  */
 public class SpriteParser {
 
-    public Image getSprite (String s) {
-
+    public BufferedImage getSprite (String s) {
+        return null;
     }
 
 }

@@ -5,6 +5,9 @@ import EnitityModel.EntityInteraction;
 import EnitityModel.EntityStats;
 import EnitityModel.Inventory;
 import EntityControl.EntityController;
+import Tiles.Direction;
+import action.Action;
+import command.TimedEffect;
 
 import java.util.List;
 
@@ -18,7 +21,7 @@ public class Vehicle extends Entity {
     public Vehicle(Direction direction,
                    EntityStats stats,
                    List<Action> actions,
-                   List<TimedEffects> effects,
+                   List<TimedEffect> effects,
                    List<EntityInteraction> actorInteractions,
                    List<EntityInteraction> acteeInteractions,
                    EntityController controller,

@@ -1,6 +1,7 @@
 package World;
 
 import EnitityModel.Entity;
+import Utilities.Coordinate;
 
 import java.util.List;
 

@@ -1,5 +1,7 @@
 package Utilities;
 
+import Tiles.Direction;
+
 /**
  * Created by dontf on 4/14/2018.
  */

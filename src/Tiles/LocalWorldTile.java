@@ -1,5 +1,6 @@
 package Tiles;
 
+import EntityImpaction.EntityImpactor;
 import trajectorymodifiers.TrajectoryModifier;
 
 import java.util.List;
