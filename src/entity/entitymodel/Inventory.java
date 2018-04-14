@@ -22,16 +22,22 @@ public class Inventory {
         this.items = new ArrayList<>();
     }
 
-    public void add (TakeableItem takeable) {
+    public boolean add (TakeableItem takeable) {
 
+        if (items.size() < 15) {
+            items.add(takeable);
+            return true;
+        }
+
+        return false;
     }
 
     public void remove (TakeableItem takeable) {
-
+        items.remove(takeable);
     }
 
     public void select (int index) {
-
+        items.get(index).activate ();
     }
 
 }
