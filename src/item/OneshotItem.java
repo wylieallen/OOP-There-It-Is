@@ -1,7 +1,7 @@
 package item;
 
-import EnitityModel.Entity;
-import command.Command;
+import entitymodel.Entity;
+import commands.Command;
 
 public class OneshotItem extends Item {
 

@@ -1,9 +1,9 @@
-package EntityControl;
+package entitycontrol;
 
 
-import EnitityModel.Entity;
-import EnitityModel.Equipment;
-import GameObject.GameObjectContainer;
+import entitymodel.Entity;
+import entitymodel.Equipment;
+import gameobject.GameObjectContainer;
 import Utilities.Coordinate;
 
 import java.util.ArrayList;

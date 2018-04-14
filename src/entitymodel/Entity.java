@@ -1,10 +1,10 @@
-package EnitityModel;
+package entitymodel;
 
-import EntityControl.EntityController;
-import GameObject.GameObject;
+import entitycontrol.EntityController;
+import gameobject.GameObject;
 import Tiles.Direction;
-import action.Action;
-import command.TimedEffect;
+import actions.Action;
+import commands.TimedEffect;
 
 import java.util.List;
 

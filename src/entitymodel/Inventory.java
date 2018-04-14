@@ -1,4 +1,4 @@
-package EnitityModel;
+package entitymodel;
 
 import item.takeableitem.TakeableItem;
 

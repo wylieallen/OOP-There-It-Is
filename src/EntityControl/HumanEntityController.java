@@ -1,7 +1,7 @@
-package EntityControl;
+package entitycontrol;
 
-import EnitityModel.Entity;
-import GameObject.GameObjectContainer;
+import entitymodel.Entity;
+import gameobject.GameObjectContainer;
 import Utilities.Coordinate;
 import gameview.GamePanel;
 

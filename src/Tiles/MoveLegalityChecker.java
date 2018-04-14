@@ -1,6 +1,6 @@
 package Tiles;
 
-import EnitityModel.Entity;
+import entitymodel.Entity;
 
 public interface MoveLegalityChecker {
     public boolean canMoveHere(Entity entity);

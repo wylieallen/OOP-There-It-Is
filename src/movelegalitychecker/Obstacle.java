@@ -1,6 +1,6 @@
 package movelegalitychecker;
 
-import EnitityModel.Entity;
+import entitymodel.Entity;
 
 public class Obstacle implements MoveLegalityChecker {
 

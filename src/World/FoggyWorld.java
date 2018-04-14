@@ -1,7 +1,7 @@
 package World;
 
-import EnitityModel.Entity;
-import GameObject.GameObjectContainer;
+import entitymodel.Entity;
+import gameobject.GameObjectContainer;
 import Tiles.Tile;
 import Utilities.Coordinate;
 

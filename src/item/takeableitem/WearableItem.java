@@ -1,8 +1,8 @@
 package item.takeableitem;
 
-import EnitityModel.Entity;
-import EnitityModel.Equipment;
-import command.ReversibleCommand.ReversibleCommand;
+import entitymodel.Entity;
+import entitymodel.Equipment;
+import commands.reversiblecommands.ReversibleCommand;
 
 public class WearableItem extends TakeableItem {
 

@@ -1,6 +1,6 @@
 package World;
 
-import EnitityModel.Entity;
+import entitymodel.Entity;
 import Utilities.Coordinate;
 
 /**

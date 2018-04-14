@@ -1,6 +1,6 @@
-package EntityImpaction;
+package entityimpaction;
 
-import EnitityModel.Entity;
+import entitymodel.Entity;
 
 public class InfiniteAreaEffect extends AreaEffect {
 

@@ -1,4 +1,4 @@
-package EnitityModel;
+package entitymodel;
 
 import java.util.Set;
 

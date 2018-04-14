@@ -1,13 +1,13 @@
 package Vehicles;
 
-import EnitityModel.Entity;
-import EnitityModel.EntityInteraction;
-import EnitityModel.EntityStats;
-import EnitityModel.Inventory;
-import EntityControl.EntityController;
+import entitymodel.Entity;
+import entitymodel.EntityInteraction;
+import entitymodel.EntityStats;
+import entitymodel.Inventory;
+import entitycontrol.EntityController;
 import Tiles.Direction;
-import action.Action;
-import command.TimedEffect;
+import actions.Action;
+import commands.TimedEffect;
 
 import java.util.List;
 

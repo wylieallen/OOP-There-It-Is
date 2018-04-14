@@ -1,8 +1,8 @@
 package Tiles;
 
-import EnitityModel.Entity;
-import GameObject.GameObject;
-import GameObject.GameObjectContainer;
+import entitymodel.Entity;
+import gameobject.GameObject;
+import gameobject.GameObjectContainer;
 
 import java.util.List;
 import java.util.Map;

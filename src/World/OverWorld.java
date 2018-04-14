@@ -1,8 +1,7 @@
 package World;
 
-import EnitityModel.Entity;
-import GameObject.GameObjectContainer;
-import Spawning.SpawnObserver;
+import entitymodel.Entity;
+import gameobject.GameObjectContainer;
 import Tiles.OverWorldTile;
 import Tiles.Tile;
 import Utilities.Coordinate;

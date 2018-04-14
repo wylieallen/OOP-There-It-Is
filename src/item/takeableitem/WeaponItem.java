@@ -1,8 +1,8 @@
 package item.takeableitem;
 
-import EnitityModel.Equipment;
+import entitymodel.Equipment;
 import Skills.SkillType;
-import command.Command;
+import commands.Command;
 
 public class WeaponItem extends TakeableItem {
 

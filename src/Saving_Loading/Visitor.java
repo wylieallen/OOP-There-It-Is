@@ -1,6 +1,6 @@
 package Saving_Loading;
 
-import EnitityModel.Entity;
+import entitymodel.Entity;
 import Tiles.Tile;
 import World.World;
 import World.Game;

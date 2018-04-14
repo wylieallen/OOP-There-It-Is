@@ -1,8 +1,8 @@
 package World;
 
-import EnitityModel.Entity;
-import GameObject.GameObjectContainer;
-import GameObject.GameObject;
+import entitymodel.Entity;
+import gameobject.GameObjectContainer;
+import gameobject.GameObject;
 import Influence.InfluenceArea;
 import Spawning.SpawnEvent;
 import Spawning.SpawnObserver;

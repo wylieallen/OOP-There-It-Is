@@ -1,7 +1,7 @@
-package EntityControl.AI;
+package entitycontrol.AI;
 
-import EnitityModel.Entity;
-import GameObject.GameObjectContainer;
+import entitymodel.Entity;
+import gameobject.GameObjectContainer;
 import Utilities.Coordinate;
 
 import java.util.Map;
