@@ -1,6 +1,6 @@
-package entity.entitymodel;
+package entity.entitymodel.interactions;
 
-import entity.entitymodel.interactions.EntityInteraction;
+import entity.entitymodel.Entity;
 
 import java.util.Set;
 

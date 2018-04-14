@@ -37,7 +37,14 @@ public class Inventory {
     }
 
     public TakeableItem select (int index) {
-        return items.get(index);
+        if (index < items.size()) {
+            return items.get(index);
+        }
+
+        System.out.println("Cant use Item index of " + index);
+        assert false;
+
+        return null;
     }
 
 }

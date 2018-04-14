@@ -1,6 +1,6 @@
-package entity.entitymodel;
+package entity.entitymodel.interactions;
 
-import entity.entitymodel.interactions.EntityInteraction;
+import entity.entitymodel.Entity;
 
 /**
  * Created by dontf on 4/13/2018.

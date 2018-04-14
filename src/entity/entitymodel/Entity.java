@@ -114,6 +114,10 @@ public class Entity implements GameObject
 
     public int getCurXP () { return stats.getCurXP(); }
 
+    public int getCurLevel () {
+        return getCurXP() / levelUpIncreament;
+    }
+
     public void increaseXP (int amount) {
 
         boolean leveled = (getCurXP() % levelUpIncreament) + amount >= levelUpIncreament;
