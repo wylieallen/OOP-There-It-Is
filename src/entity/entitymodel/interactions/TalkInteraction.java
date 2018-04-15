@@ -1,7 +1,6 @@
 package entity.entitymodel.interactions;
 
 import entity.entitymodel.Entity;
-
 import java.util.Set;
 
 /**

@@ -10,22 +10,19 @@ public class ModifyHealthCommand extends SkillCommand {
     }
 
     @Override
-    public void trigger(Entity e, int distance) {
-
-    }
-
-    @Override
     protected void success(Entity e, int distance) {
-
+        int adjustedEffectiveness = getSkillType().calculateModification(getEffectiveness(),
+                                                        distance, getLevel());
+        if(adjustedEffectiveness > 0) {
+            e.healEntity(adjustedEffectiveness);
+        } else {
+            e.hurtEntity(-adjustedEffectiveness);
+        }
     }
 
     @Override
     protected void fail(Entity e, int distance) {
-
+        // nothing
     }
 
-    @Override
-    public void trigger(Entity e) {
-
-    }
 }

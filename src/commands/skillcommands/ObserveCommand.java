@@ -3,17 +3,16 @@ package commands.skillcommands;
 import entity.entitymodel.Entity;
 import skills.SkillType;
 
+// not sure how this will work
 public class ObserveCommand extends SkillCommand {
 
     public ObserveCommand(SkillType skillType, int level, int effectiveness) {
         super(skillType, level, effectiveness);
     }
 
-    @Override
-    public void trigger(Entity e, int distance) {
 
-    }
-
+    //This will take in the entity that is being observed and the distance they are from the entity that spawned the
+    //observation influence area and make some observation
     @Override
     protected void success(Entity e, int distance) {
 
@@ -24,8 +23,4 @@ public class ObserveCommand extends SkillCommand {
 
     }
 
-    @Override
-    public void trigger(Entity e) {
-
-    }
 }

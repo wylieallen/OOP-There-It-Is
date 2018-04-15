@@ -9,11 +9,11 @@ public interface Displayable extends Comparable<Displayable>
     boolean expired();
     Point getOrigin();
     Dimension getSize();
-    int getHeight();
+    int getDepth();
 
     @Override
     default int compareTo(Displayable displayable)
     {
-        return this.getHeight() - displayable.getHeight();
+        return this.getDepth() - displayable.getDepth();
     }
 }

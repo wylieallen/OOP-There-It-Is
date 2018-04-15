@@ -1,17 +1,22 @@
 package entity.entitycontrol;
 
+import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
-import gameobject.GameObjectContainer;
+import entity.entitymodel.Equipment;
 import utilities.Coordinate;
 import gameview.GamePanel;
 
-import java.util.Map;
+import java.util.ArrayList;
 
 public class HumanEntityController extends EntityController{
 
     private GamePanel view;
 
-    public HumanEntityController(GamePanel view) { this.view = view; }
+    public HumanEntityController(Entity entity, Equipment equipment, Coordinate entityLocation,
+                                 ArrayList<ControllerAction> actions, GamePanel view) {
+        super(entity, equipment, entityLocation, actions);
+        this.view = view;
+    }
 
 
     @Override

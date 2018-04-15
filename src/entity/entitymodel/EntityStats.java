@@ -20,9 +20,11 @@ public class EntityStats {
     private int curMana;
     private int curXP;
     private int unspentSkillPoints;
-    private int visibilityRadious;
-    private int concealment;
     private double gold;
+    private int visibilityRadious;//how far out you can see
+    private int concealment;//the max distance from which enemies can see you
+    private boolean isSearching;
+
 
     public EntityStats(Map<SkillType, Integer> skills,
                        int baseMoveSpeed,
@@ -34,7 +36,8 @@ public class EntityStats {
                        int unspentSkillPoints,
                        int visibilityRadious,
                        int concealment,
-                       double gold)
+                       double gold,
+                       boolean isSearching)
     {
         this.skills = skills;
         this.baseMoveSpeed = baseMoveSpeed;
@@ -47,6 +50,7 @@ public class EntityStats {
         this.visibilityRadious = visibilityRadious;
         this.concealment = concealment;
         this.gold = gold;
+        this.isSearching = isSearching;
     }
 
     public int getBaseMoveSpeed() {
@@ -144,6 +148,24 @@ public class EntityStats {
             curLevel = Math.min(maxSkillLevel, curLevel + amount);
             skills.replace(s, curLevel);
         }
+
     }
+
+    public boolean getIsSearching() { return isSearching; }
+
+
+    public void startSearching() {
+        if(containsSkill(SkillType.DETECTANDREMOVETRAP)) {
+            isSearching = true;
+        }
+    }
+
+    public void stopSearching() {
+        if(containsSkill(SkillType.DETECTANDREMOVETRAP)) {
+            isSearching = false;
+        }
+    }
+
+
 
 }

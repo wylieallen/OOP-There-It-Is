@@ -5,27 +5,21 @@ import skills.SkillType;
 
 public class ParalyzeCommand extends SkillCommand {
 
+    private int entityBaseMoveSpeed = 0;
+
     public ParalyzeCommand(SkillType skillType, int level, int effectiveness) {
         super(skillType, level, effectiveness);
     }
 
     @Override
-    public void trigger(Entity e, int distance) {
-
-    }
-
-    @Override
     protected void success(Entity e, int distance) {
-
+        entityBaseMoveSpeed = e.getBaseMoveSpeed();
+        e.decreaseBaseMoveSpeed(entityBaseMoveSpeed);
     }
 
     @Override
     protected void fail(Entity e, int distance) {
-
+        // TODO: make enity mad
     }
 
-    @Override
-    public void trigger(Entity e) {
-
-    }
 }

@@ -3,18 +3,18 @@ package entitymodel;
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
-import entity.entitycontrol.ControllerAction;
+import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.*;
 import maps.tile.Direction;
-import maps.trajectorymodifier.Vector;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import skills.SkillType;
+import utilities.Vector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,8 +32,8 @@ public class EntityTest {
     @BeforeClass
     public static void setUpEntities () {
 
-        HashMap <SkillType, Integer> skillsActor = new HashMap<SkillType, Integer>();
-        HashMap <SkillType, Integer> skillsActee = new HashMap<SkillType, Integer>();
+        HashMap <SkillType, Integer> skillsActor = new HashMap<>();
+        HashMap <SkillType, Integer> skillsActee = new HashMap<>();
 
         skillsActor.put(SkillType.BANE, 10);
         skillsActor.put(SkillType.BARGAIN, 62);
@@ -41,8 +41,8 @@ public class EntityTest {
         skillsActee.put(SkillType.BINDWOUNDS, 45);
         skillsActee.put(SkillType.CREEP, 32);
 
-        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65);
-        EntityStats acteeStats = new EntityStats(skillsActee, 3, 120,45, 120,43, 23, 8, 6, 69, 100);
+        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65, false);
+        EntityStats acteeStats = new EntityStats(skillsActee, 3, 120,45, 120,43, 23, 8, 6, 69, 100, false);
 
         //TODO: once concrete ControllerActions are made test this;
         ArrayList <ControllerAction> actorActions = new ArrayList<>();
@@ -51,7 +51,7 @@ public class EntityTest {
         ArrayList <TimedEffect> actorEffects = new ArrayList<>();
         ArrayList <TimedEffect> acteeEffects = new ArrayList<>();
 
-        actorEffects.add(new TimedEffect(new MakeConfusedCommand(false), 10));
+        actorEffects.add(new TimedEffect(new MakeConfusedCommand(false, 10), 10));
 
         acteeEffects.add(new TimedEffect(new MakeParalyzedCommand(false), 15));
 
@@ -67,7 +67,7 @@ public class EntityTest {
         acteeActeeInteractions.add (new UseItemInteraction());
 
         //TODO: add constructors when it needs to be tested;
-        EntityController actorController = new EntityController() {
+        EntityController actorController = new EntityController(actor, null, null, null) {
             @Override
             protected void processController() {
 
@@ -108,7 +108,7 @@ public class EntityTest {
 
             }
         };
-        EntityController acteeController = new EntityController() {
+        EntityController acteeController = new EntityController(actee, null, null, null) {
             @Override
             protected void processController() {
 
@@ -153,9 +153,11 @@ public class EntityTest {
         Inventory actorInventory = new Inventory();
         Inventory acteeInventory = new Inventory();
 
-        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, actorController, actorInventory, true);
-        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions,acteeActeeInteractions, acteeController, acteeInventory, true);
+        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, actorInventory, actorController, true);
+        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions,acteeActeeInteractions, acteeInventory, acteeController, true);
 
+        actor.setController(actorController);
+        actee.setController(acteeController);
     }
 
     @Test

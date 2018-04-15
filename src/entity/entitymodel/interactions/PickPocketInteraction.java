@@ -14,7 +14,7 @@ public class PickPocketInteraction implements EntityInteraction {
     @Override
     public boolean interact(Entity actor, Entity actee) {
 
-        if (SkillType.PICKPOCKET.checkSucess(actor.getSkillLevel(SkillType.PICKPOCKET), 1)) {
+        if (SkillType.PICKPOCKET.checkSuccess(actor.getSkillLevel(SkillType.PICKPOCKET), 1)) {
             TakeableItem picked = actee.getRandomItem();
 
             if (picked != null) {

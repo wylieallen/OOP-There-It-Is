@@ -1,5 +1,7 @@
 package maps.trajectorymodifier;
 
+import utilities.Vector;
+
 public class River implements TrajectoryModifier {
 
     private Vector force;

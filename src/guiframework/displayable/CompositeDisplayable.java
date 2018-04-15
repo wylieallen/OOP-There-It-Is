@@ -71,4 +71,8 @@ public class CompositeDisplayable extends AbstractDisplayable
     }
 
 
+    public void clear()
+    {
+        components.clear();
+    }
 }
