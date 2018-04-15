@@ -1,26 +1,18 @@
 package maps.tile;
 
+import entity.entitymodel.Entity;
 import gameobject.GameObject;
 import maps.entityimpaction.EntityImpactor;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.trajectorymodifier.TrajectoryModifier;
 import utilities.Vector;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class LocalWorldTile extends Tile {
 
     private Set<TrajectoryModifier> trajectoryModifiers;
     private Set<EntityImpactor> entityImpactors;
-
-    public LocalWorldTile()
-    {
-        trajectoryModifiers = new HashSet<>();
-        entityImpactors = new HashSet<>();
-    }
 
     public LocalWorldTile(Set<MoveLegalityChecker> mlcs, Entity entity, Set<TrajectoryModifier> tms,
                           Set<EntityImpactor> eis) {
@@ -40,7 +32,7 @@ public class LocalWorldTile extends Tile {
 
     public void update()
     {
-        super.update(super.getMoveLegalityCheckers());
+        super.do_update();
         trajectoryModifiers.forEach(GameObject::update);
         entityImpactors.forEach(GameObject::update);
     }

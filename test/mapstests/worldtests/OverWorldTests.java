@@ -16,6 +16,7 @@ import utilities.Vector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class OverWorldTests {
@@ -26,7 +27,7 @@ public class OverWorldTests {
         Map<Coordinate, OverWorldTile> tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                tiles.put(new Coordinate(i, j), new OverWorldTile());
+                tiles.put(new Coordinate(i, j), new OverWorldTile(new HashSet<>(), null));
             }
         }
         OverWorld world = new OverWorld(tiles);
@@ -92,7 +93,7 @@ public class OverWorldTests {
         Map<Coordinate, OverWorldTile> tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                tiles.put(new Coordinate(i, j), new OverWorldTile());
+                tiles.put(new Coordinate(i, j), new OverWorldTile(new HashSet<>(), null));
             }
         }
 

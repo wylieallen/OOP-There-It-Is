@@ -30,7 +30,7 @@ public abstract class Tile implements GameObjectContainer {
     }
     public Tile getNeighbor(Direction direction) { return neighbors.getOrDefault(direction, null);}
 
-    public void tryToMove(Tile tileFrom, Entity entity){
+    private void tryToMove(Tile tileFrom, Entity entity){
         if(isMoveLegal(entity)){
             tileFrom.moveFrom();
             setEntity(entity);
@@ -38,7 +38,7 @@ public abstract class Tile implements GameObjectContainer {
         entity.resetMovementVector();
     }
 
-    public void moveFrom(){
+    private void moveFrom(){
         remove(entity);
     }
 
@@ -51,8 +51,6 @@ public abstract class Tile implements GameObjectContainer {
             mlc.update();
         }
     }
-
-    public Entity getEntity() { return entity; }
 
     protected abstract void do_moves(Collection<MoveLegalityChecker> updated);
 
