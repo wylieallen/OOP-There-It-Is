@@ -8,6 +8,10 @@ public abstract class AreaEffect implements EntityImpactor {
 
     private Command command;
 
+    public AreaEffect(Command command) {
+        this.command = command;
+    }
+
     public abstract void touch(Entity entity);
 
     protected void trigger(Entity e) {
