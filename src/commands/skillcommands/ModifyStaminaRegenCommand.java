@@ -10,13 +10,8 @@ public class ModifyStaminaRegenCommand extends SkillCommand {
     }
 
     @Override
-    public void trigger(Entity e, int distance) {
-
-    }
-
-    @Override
     protected void success(Entity e, int distance) {
-
+        // TODO: decrease stamina regen in entity
     }
 
     @Override
@@ -24,8 +19,4 @@ public class ModifyStaminaRegenCommand extends SkillCommand {
 
     }
 
-    @Override
-    public void trigger(Entity e) {
-
-    }
 }

@@ -49,4 +49,8 @@ public class Game implements TransitionObserver {
         activeWorld = target;
     }
 
+    public void update()
+    {
+        activeWorld.update();
+    }
 }

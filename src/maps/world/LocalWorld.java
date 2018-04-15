@@ -94,6 +94,7 @@ public class LocalWorld implements World, SpawnObserver {
         return null;
     }
 
+
     @Override
     public void remove(Entity e) {
         for(LocalWorldTile tile: tiles.values()) {

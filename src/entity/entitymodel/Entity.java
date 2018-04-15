@@ -190,6 +190,10 @@ public class Entity implements GameObject, MoveLegalityChecker
         inventory.remove(takeableItem);
     }
 
+    public TakeableItem pickPocket() {
+        return inventory.pickPocket();
+    }
+
     public List <EntityInteraction> interact (Entity actor) {
 
         ArrayList <EntityInteraction> union = new ArrayList<>();

@@ -22,6 +22,7 @@ public class ModifyHealthCommand extends SkillCommand {
 
     @Override
     protected void fail(Entity e, int distance) {
-
+        // nothing
     }
+
 }
