@@ -2,6 +2,7 @@ package items;
 
 import entity.entitymodel.Entity;
 import commands.Command;
+import savingloading.Visitor;
 
 public class InteractiveItem extends Item {
 
@@ -16,4 +17,8 @@ public class InteractiveItem extends Item {
         command.trigger(e);
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitInteractiveItem(this);
+    }
 }

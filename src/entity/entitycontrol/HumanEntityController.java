@@ -3,6 +3,7 @@ package entity.entitycontrol;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import gameobject.GameObjectContainer;
+import savingloading.Visitor;
 import utilities.Coordinate;
 import gameview.GamePanel;
 
@@ -58,5 +59,10 @@ public class HumanEntityController extends EntityController{
     @Override
     public void notifyMainMenu(Entity e) {
         //TODO
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitHumanEntityController(this);
     }
 }

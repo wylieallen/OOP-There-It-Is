@@ -1,0 +1,158 @@
+{
+  "Player": {
+    "Type": "Player",
+    "Stats": {
+      "Skills": {
+        "Sneak": 10,
+        "PickPocket": 12
+      },
+      "BaseMoveSpeed": 10,
+      "MaxHealth": 100,
+      "CurrentHealth": 90,
+      "MaxMana": 50,
+      "CurrentMana": 20,
+      "CurrentXP": 210,
+      "UnspentSkillPoints": 5,
+      "VisibilityRadius": 10,
+      "Concealment": 5,
+      "Gold": 45
+    },
+    "DirectionFacing": "N",
+    "ActorInteractions": [
+      "BackStabInteraction",
+      "PickPocketInteraction"
+    ],
+    "ActeeInteractions": [
+      "BackStabInteraction",
+      "PickPocketInteraction"
+    ],
+    "Inventory": {
+      "WeaponItems":[
+        {
+          "Name": "Sword",
+          "Damage": 20,
+          "AttackSpeed": 2,
+          "RequiredSkill": "Slasher"
+        },
+        {
+          "Name": "FlameThrower",
+          "Damage": 30,
+          "AttackSpeed": 1,
+          "RequiredSkill": "Slasher"
+        }
+      ],
+      "WearableItems":[
+        {
+          "Name": "Ring",
+          "EquipSlot": "Hand"
+        }
+      ]
+    }
+  },
+  "OverWorld":{
+    "Width": 20,
+    "Height": 20,
+    "Locations":[
+      {
+        "X":0,
+        "Y":0,
+        "Terrain": "Grass",
+        "Obstacle": false
+      },
+      {
+        "X":0,
+        "Y":1,
+        "Terrain": "Grass",
+        "Obstacle": false
+      }
+    ]
+  },
+  "LocalWorlds":{
+    "0001":{
+      "Width": 20,
+      "Height": 20,
+      "Locations":[
+        {
+          "X":0,
+          "Y":0,
+          "Terrain": "Grass",
+          "Obstacle": false,
+          "Items":[
+
+          ],
+          "AreaEffects": [
+
+          ]
+        },
+        {
+          "X":0,
+          "Y":1,
+          "Terrain": "Grass",
+          "Obstacle": false,
+          "Items":[
+
+          ],
+          "AreaEffects": [
+
+          ]
+        }
+      ],
+      "Entities": [
+        {
+          "Type": "NPC",
+          "Stats": {
+            "Skills": {
+              "Sneak": 10,
+              "PickPocket": 12
+            },
+            "BaseMoveSpeed": 10,
+            "MaxHealth": 100,
+            "CurrentHealth": 90,
+            "MaxMana": 50,
+            "CurrentMana": 20,
+            "CurrentXP": 210,
+            "UnspentSkillPoints": 5,
+            "VisibilityRadius": 10,
+            "Concealment": 5,
+            "Gold": 45
+          },
+          "DirectionFacing": "N",
+          "ActorInteractions": [
+            "BackStabInteraction",
+            "PickPocketInteraction"
+          ],
+          "ActeeInteractions": [
+            "BackStabInteraction",
+            "PickPocketInteraction"
+          ],
+          "Inventory": {
+            "WeaponItems":[
+              {
+                "Name": "Sword",
+                "Damage": 20,
+                "AttackSpeed": 2,
+                "RequiredSkill": "Slasher"
+              },
+              {
+                "Name": "FlameThrower",
+                "Damage": 30,
+                "AttackSpeed": 1,
+                "RequiredSkill": "Slasher"
+              }
+            ],
+            "WearableItems":[
+              {
+                "Name": "Ring",
+                "EquipSlot": "Hand"
+              }
+            ]
+          },
+          "Location":{
+            "X": 5,
+            "Y": 5
+          }
+        }
+      ]
+    }
+  }
+}

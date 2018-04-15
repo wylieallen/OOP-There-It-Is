@@ -5,6 +5,7 @@ import entity.entitycontrol.AI.AI;
 import entity.entitymodel.Equipment;
 import gameobject.GameObjectContainer;
 import gameview.GamePanel;
+import savingloading.Visitor;
 import utilities.Coordinate;
 
 import java.util.ArrayList;
@@ -68,4 +69,8 @@ public class NpcEntityController extends EntityController {
         this.ai = newAI;
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitNpcEntityController(this);
+    }
 }

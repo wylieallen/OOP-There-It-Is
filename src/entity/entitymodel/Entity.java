@@ -7,6 +7,8 @@ import entity.entitymodel.interactions.EntityInteraction;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
+import savingloading.Visitable;
+import savingloading.Visitor;
 import utilities.Coordinate;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.tile.Direction;
@@ -19,7 +21,7 @@ import java.util.Map;
 /**
  * Created by dontf on 4/13/2018.
  */
-public class Entity implements GameObject, MoveLegalityChecker
+public class Entity implements GameObject, MoveLegalityChecker, Visitable
 {
 
     private final int levelUpIncreament = 100;
@@ -226,4 +228,12 @@ public class Entity implements GameObject, MoveLegalityChecker
         return false;
     }
 
+    public EntityController getController() {
+        return controller;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitEntity(this);
+    }
 }

@@ -1,6 +1,8 @@
 package entity.entitymodel;
 
 import items.takeableitems.TakeableItem;
+import savingloading.Visitable;
+import savingloading.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
 /**
  * Created by dontf on 4/13/2018.
  */
-public class Inventory {
+public class Inventory implements Visitable{
 
     private final int maxSize = 15;
 
@@ -47,4 +49,8 @@ public class Inventory {
             return null;
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitInventory(this);
+    }
 }

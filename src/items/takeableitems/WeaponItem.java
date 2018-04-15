@@ -3,6 +3,7 @@ package items.takeableitems;
 import commands.Command;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
+import savingloading.Visitor;
 import skills.SkillType;
 import utilities.Coordinate;
 
@@ -28,5 +29,10 @@ public class WeaponItem extends TakeableItem {
 
     public void attack(Entity attacker, Coordinate location) {
 
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitWeaponItem(this);
     }
 }

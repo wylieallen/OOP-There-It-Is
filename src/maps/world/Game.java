@@ -53,4 +53,16 @@ public class Game implements TransitionObserver {
     {
         activeWorld.update();
     }
+
+    public OverWorld getOverWorld(){
+        return overWorld;
+    }
+
+    public List<LocalWorld> getLocalWorlds(){
+        return localWorlds;
+    }
+
+    public Entity getPlayer() {
+        return player;
+    }
 }

@@ -11,6 +11,7 @@ import entity.entitycontrol.EntityController;
 import maps.tile.Direction;
 import actions.Action;
 import commands.TimedEffect;
+import savingloading.Visitor;
 import utilities.Vector;
 
 import java.util.List;
@@ -39,5 +40,10 @@ public class Vehicle extends Entity {
 
     public void setDriver (Entity driver) {
         this.driver = driver;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitVehicle(this);
     }
 }

@@ -3,12 +3,13 @@ package entity.entitycontrol.AI;
 import entity.entitymodel.Entity;
 import entity.entitymodel.interactions.EntityInteraction;
 import gameobject.GameObjectContainer;
+import savingloading.Visitable;
 import utilities.Coordinate;
 
 import java.util.List;
 import java.util.Map;
 
-public abstract class AI {
+public abstract class AI implements Visitable {
 
     private List<EntityInteraction> interactions;
 

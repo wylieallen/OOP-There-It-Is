@@ -2,6 +2,7 @@ package items;
 
 import entity.entitymodel.Entity;
 import commands.Command;
+import savingloading.Visitor;
 
 public class OneshotItem extends Item {
 
@@ -16,5 +17,10 @@ public class OneshotItem extends Item {
 
     public void touch(Entity e) {
 
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitOneShotItem(this);
     }
 }

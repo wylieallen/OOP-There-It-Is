@@ -2,6 +2,7 @@ package entity.entitycontrol.AI;
 
 import entity.entitymodel.Entity;
 import gameobject.GameObjectContainer;
+import savingloading.Visitor;
 import utilities.Coordinate;
 
 import java.util.List;
@@ -14,5 +15,10 @@ public class PatrolAI extends AI {
     @Override
     public void nextAction(Map<Coordinate, GameObjectContainer> map, Entity e) {
         //TODO make it follow and patrol a route
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitPatrolAI(this);
     }
 }

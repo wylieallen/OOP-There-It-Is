@@ -1,8 +1,9 @@
 package items;
 
 import entity.entitymodel.Entity;
+import savingloading.Visitable;
 
-public abstract class Item {
+public abstract class Item implements Visitable{
 
     private String name;
 

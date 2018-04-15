@@ -2,6 +2,7 @@ package entity.entitymodel.interactions;
 
 import entity.entitymodel.Entity;
 import entity.entitymodel.interactions.EntityInteraction;
+import savingloading.Visitor;
 
 
 /**
@@ -14,4 +15,8 @@ public class MountInteraction implements EntityInteraction {
         //TODO: make sure isOnMap set to false;
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitMountInteraction(this);
+    }
 }
