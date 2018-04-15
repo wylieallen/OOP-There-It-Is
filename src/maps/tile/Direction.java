@@ -1,38 +1,25 @@
 package maps.tile;
 
+import utilities.Coordinate;
+
 import java.awt.*;
 
 public enum Direction {
     N(0, -64), NE(48, -32), SE(48, 32), S(0, 64), SW(-48, 32), NW(-48, -32), NULL(0, 0);
 
-    private int dx;
+    private Coordinate offsetCoordinate;
     static {
-        N.dx = 0;
-        NE.dx = 1;
-        SE.dx = 1;
-        S.dx = 0;
-        SW.dx = -1;
-        NW.dx = -1;
-        NULL.dx = 0;
+        N.offsetCoordinate = new Coordinate(0 ,-1);
+        NE.offsetCoordinate = new Coordinate(1 ,-1);
+        SE.offsetCoordinate = new Coordinate(1 ,0);
+        S.offsetCoordinate = new Coordinate(0 ,1);
+        SW.offsetCoordinate = new Coordinate(-1 ,1);
+        NW.offsetCoordinate = new Coordinate(-1 ,0);
+        NULL.offsetCoordinate = new Coordinate(0 ,0);
     }
 
-    public int getDx() {
-        return dx;
-    }
-
-    private int dy;
-    static {
-        N.dy = -1;
-        NE.dy = -1;
-        SE.dy = 0;
-        S.dy = 1;
-        SW.dy = 1;
-        NW.dy = 0;
-        NULL.dy = 0;
-    }
-
-    public int getDy() {
-        return dy;
+    public Coordinate getOffsetCoordinate() {
+        return offsetCoordinate;
     }
 
     Direction(int pixelX, int pixelY)

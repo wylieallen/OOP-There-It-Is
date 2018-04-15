@@ -24,6 +24,7 @@ public class Entity implements GameObject, MoveLegalityChecker
 
     private final int levelUpIncreament = 100;
 
+    private Direction facing;
     private Vector movementVector;
     private EntityStats stats;
     private List<ControllerAction> actions;//whenever an action gets added to this we need to notify the EntityController to add the same action
@@ -64,12 +65,12 @@ public class Entity implements GameObject, MoveLegalityChecker
         controller.update(mapOfContainers);
     }
 
-    public void setDirection(Direction newDirection) {
-        movementVector.setDirection(newDirection);
+    public void setFacing(Direction newDirection) {
+        facing = newDirection;
     }
 
     public void setMoving() {
-        movementVector.setMagnitude(stats.getBaseMoveSpeed());
+        movementVector = new Vector(facing, getBaseMoveSpeed());
     }
 
     public boolean expired() {

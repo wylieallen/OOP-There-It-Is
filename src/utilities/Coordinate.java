@@ -7,36 +7,37 @@ import maps.tile.Direction;
  */
 public class Coordinate implements Comparable<Coordinate> {
 
-    int x;
-    int y;
+    private int x;
+    private int z;
 
-    public Coordinate(int x, int y) {
+    public Coordinate(int x, int z) {
         this.x = x;
-        this.y = y;
+        this.z = z;
     }
 
-    public int getX() {
+    public int x() {
         return x;
     }
 
-    public int getY() {
-        return y;
+    public int z() {
+        return z;
     }
 
-    public int getZ() {
-        return 0 - x - y;
+    public int y() {
+        return 0 - x() - z();
+    }
+
+    public Coordinate add(Coordinate other) {
+        return new Coordinate(x() + other.x(), z() + other.z());
     }
 
     public Coordinate getNeighbor(Direction direction) {
-        int newX = x + direction.getDx();
-        int newY = y + direction.getDy();
-
-        return new Coordinate(newX, newY);
+        return add(direction.getOffsetCoordinate());
     }
 
     @Override
     public int compareTo(Coordinate other) {
-        if(x == other.x && y == other.y) {
+        if(x() == other.x() && z() == other.z()) {
             return 1;
         }
         return 0;
@@ -48,13 +49,13 @@ public class Coordinate implements Comparable<Coordinate> {
             return false;
 
         Coordinate otherCoordinate = (Coordinate)other;
-        return (x == otherCoordinate.x && y == otherCoordinate.y);
+        return (x() == otherCoordinate.x() && z() == otherCoordinate.z());
     }
 
     @Override
     public int hashCode() {
-        int result = x;
-        result = 31 * result + y;
+        int result = x();
+        result = 31 * result + z();
         return result;
     }
 }

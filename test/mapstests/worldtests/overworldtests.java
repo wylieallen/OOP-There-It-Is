@@ -122,7 +122,7 @@ public class overworldtests {
             }
         }
 
-        entity.setDirection(Direction.N);
+        entity.setFacing(Direction.N);
         entity.setMoving();
         world.update();
 
