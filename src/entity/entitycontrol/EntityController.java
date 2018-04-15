@@ -8,9 +8,7 @@ import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import utilities.Coordinate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class EntityController {
 
@@ -49,7 +47,7 @@ public abstract class EntityController {
         boolean found = false;
 
         //find the entity in the map and set his location
-        List<GameObject> gameObjectList;
+        Collection<GameObject> gameObjectList;
         //iterate through all the entries in the map of GameObjectContainers
         for(Map.Entry<Coordinate, GameObjectContainer> container : mapOfContainers.entrySet()){
             gameObjectList = container.getValue().getGameObjects();
