@@ -4,6 +4,7 @@ import commands.TimedEffect;
 import entity.entitycontrol.ControllerAction;
 import entity.entitycontrol.EntityController;
 import entity.entitymodel.interactions.EntityInteraction;
+import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
@@ -159,14 +160,19 @@ public class Entity implements GameObject, MoveLegalityChecker {
         stats.setConcealment(Math.max(0, getConcealment() - amount));
     }
 
-    public int getGold () { return stats.getGold(); }
+    public double getGold () { return stats.getGold(); }
 
-    public void increaseGold (int amount) {
+    public void increaseGold (double amount) {
         stats.setGold(getGold() + amount);
     }
 
-    public void decreaseGold (int amount) {
-        stats.setGold(Math.max(0, getGold() - amount));
+    public boolean decreaseGold (double amount) {
+        if (amount > getGold()) {
+            return false;
+        } else {
+            stats.setGold(getGold() - amount);
+            return true;
+        }
     }
 
     public boolean addToInventory (TakeableItem takeableItem) {
@@ -178,6 +184,8 @@ public class Entity implements GameObject, MoveLegalityChecker {
     }
 
     public TakeableItem getRandomItem () { return inventory.getRandomItem (); }
+
+    public TakeableItem getItem (int index) { return inventory.select(index); }
 
     public List <EntityInteraction> interact (Entity actor) {
 
@@ -202,14 +210,16 @@ public class Entity implements GameObject, MoveLegalityChecker {
         this.onMap = onMap;
     }
 
-    public void trade (Entity tradeWith) {
-        controller.notifyShopping(this, tradeWith);
+    public void setMount (Vehicle mount) {
+        setOnMap(false);
+        // TODO: add dismount action.
+        controller.notifyMount(mount);
     }
 
     @Override   // assumes e is player.
-    public boolean canMoveHere (Entity e) {
+    public boolean canMoveHere (Entity mover) {
         // notifyInteraction will need to get the list of interactions by calling interact on its entity.
-        controller.notifyInteraction(e, this);
+        mover.controller.notifyInteraction(mover, this);
         return false;
     }
 }

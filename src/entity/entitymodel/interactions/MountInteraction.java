@@ -10,6 +10,7 @@ public class MountInteraction implements EntityInteraction {
 
     @Override
     public boolean interact(Entity actor, Entity actee) {
+        // check for driver in vehicl if so return false;
         actor.setOnMap(false);
         return false;
     }

@@ -22,7 +22,7 @@ public class EntityStats {
     private int unspentSkillPoints;
     private int visibilityRadious;
     private int concealment;
-    private int gold;
+    private double gold;
 
     public EntityStats(Map<SkillType, Integer> skills,
                        int baseMoveSpeed,
@@ -34,7 +34,7 @@ public class EntityStats {
                        int unspentSkillPoints,
                        int visibilityRadious,
                        int concealment,
-                       int gold)
+                       double gold)
     {
         this.skills = skills;
         this.baseMoveSpeed = baseMoveSpeed;
@@ -121,11 +121,11 @@ public class EntityStats {
         this.concealment = concealment;
     }
 
-    public int getGold() {
+    public double getGold() {
         return gold;
     }
 
-    public void setGold(int gold) {
+    public void setGold(double gold) {
         this.gold = gold;
     }
 

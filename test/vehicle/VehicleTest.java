@@ -1,4 +1,4 @@
-package entitymodel;
+package vehicle;
 
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeConfusedCommand;
@@ -8,9 +8,11 @@ import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
-import entity.entitymodel.interactions.*;
-import items.takeableitems.QuestItem;
-import items.takeableitems.TakeableItem;
+import entity.entitymodel.interactions.EntityInteraction;
+import entity.entitymodel.interactions.PickPocketInteraction;
+import entity.entitymodel.interactions.TradeInteraction;
+import entity.entitymodel.interactions.UseItemInteraction;
+import entity.vehicle.Vehicle;
 import maps.tile.Direction;
 import maps.trajectorymodifier.Vector;
 import org.junit.Assert;
@@ -25,18 +27,17 @@ import java.util.List;
 /**
  * Created by dontf on 4/15/2018.
  */
-public class InteractionTests {
+public class VehicleTest {
 
+    private static Vehicle yourMomPreMounted;
+    private static Vehicle yourMomNotMountedYet;
     private static Entity actor;
-    private static Entity actee;
-    private static List<TakeableItem> actorItems;
-    private static List<TakeableItem> acteeItems;
+
+    private static TradeInteraction trading = new TradeInteraction();
+    private static PickPocketInteraction picking = new PickPocketInteraction();
 
     @Before
-    public void setUpEntities() {
-
-        actorItems = new ArrayList<>();
-        acteeItems = new ArrayList<>();
+    public void setUpEntities () {
 
         HashMap<SkillType, Integer> skillsActor = new HashMap<SkillType, Integer>();
         HashMap<SkillType, Integer> skillsActee = new HashMap<SkillType, Integer>();
@@ -67,9 +68,9 @@ public class InteractionTests {
         ArrayList<EntityInteraction> acteeActorInteractions = new ArrayList<>();
         ArrayList<EntityInteraction> acteeActeeInteractions = new ArrayList<>();
 
-        actorActorInteractions.add(new PickPocketInteraction());
+        actorActorInteractions.add(picking);
 
-        acteeActeeInteractions.add(new TradeInteraction());
+        acteeActeeInteractions.add(trading);
         acteeActeeInteractions.add(new UseItemInteraction());
 
         //TODO: add constructors when it needs to be tested;
@@ -156,102 +157,26 @@ public class InteractionTests {
             }
         };
 
-        Inventory actorInventory = new Inventory(actorItems);
-        Inventory acteeInventory = new Inventory(acteeItems);
-
-        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, actorController, actorInventory, true);
-        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeActeeInteractions, acteeController, acteeInventory, true);
-
-    }
-
-
-
-
-
-    // PickPocket Test //
-
-    @Test
-    public void pickPocketEntityWithItemSuccessfully () {
-        PickPocketInteraction ppi = new PickPocketInteraction();
-        QuestItem qi = new QuestItem("cool quest", 123);
-        acteeItems.add(qi);
-
-        ppi.testInteractFunction(actor, actee, true);
-        Assert.assertTrue(actorItems.contains(qi));
-        Assert.assertFalse(acteeItems.contains(qi));
+        actor = new Entity(new Vector(Direction.N, 1), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, actorController, new Inventory(), true);
+        yourMomPreMounted = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeActeeInteractions, acteeController, new Inventory(), true, actor);
+        yourMomNotMountedYet = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeActeeInteractions, acteeController, new Inventory(), true);
     }
 
     @Test
-    public void pickPocketEntityWithItemUnsuccessfully () {
-        PickPocketInteraction ppi = new PickPocketInteraction();
-        QuestItem qi = new QuestItem("cool quest", 123);
-        acteeItems.add(qi);
-
-        ppi.testInteractFunction(actor, actee, false);
-        Assert.assertFalse(actorItems.contains(qi));
-        Assert.assertTrue(acteeItems.contains(qi));
+    public void vehicleMountedSuccessfully () {
+        Assert.assertFalse(yourMomNotMountedYet.hasDriver());
+        List<EntityInteraction> union = yourMomNotMountedYet.interact(actor);
+        Assert.assertFalse(actor.isOnMap());
+        Assert.assertTrue(yourMomNotMountedYet.hasDriver());
+        Assert.assertTrue(union.contains(trading));
     }
 
     @Test
-    public void pickPocketEntityWithoutItem () {
-        PickPocketInteraction ppi = new PickPocketInteraction();
-        ppi.testInteractFunction(actor, actee, true);
-
-        Assert.assertTrue(acteeItems.isEmpty());
-        Assert.assertTrue(actorItems.isEmpty());
+    public void vehicleMountedUnsuccessfully () {
+        List<EntityInteraction> union = yourMomPreMounted.interact(actor);
+        Assert.assertTrue(actor.isOnMap());
+        Assert.assertTrue(yourMomPreMounted.hasDriver());
+        Assert.assertTrue(union.contains(picking));
     }
-
-
-
-
-    // BackStab Test //
-
-    @Test
-    public void backStabEntitySuccessfully () {
-        BackStabInteraction bsi = new BackStabInteraction();
-
-        int previousHealth = actee.getCurrHealth();
-        int previousXP = actor.getCurXP();
-        bsi.testInteractFunction(actor, actee, true);
-        Assert.assertTrue(actee.getCurrHealth() < previousHealth);
-        Assert.assertTrue(actor.getCurXP() > previousXP);
-    }
-
-    @Test
-    public void backStabEntityUnsuccessfully () {
-        BackStabInteraction bsi = new BackStabInteraction();
-
-        int previousHealth = actee.getCurrHealth();
-        int previousXP = actor.getCurXP();
-        bsi.testInteractFunction(actor, actee, false);
-        Assert.assertTrue(actee.getCurrHealth() == previousHealth);
-        Assert.assertTrue(actor.getCurXP() == previousXP);
-    }
-
-
-
-
-
-
-    // mount interaction test //
-
-    // TODO: make mount test, still needs somethings from entity controller and view to be done.
-
-
-
-
-
-
-    // trade interaction test //
-
-    // TODO: make trade test, still needs somethings from entity controller and view to be done.
-
-
-
-
-
-    // talk interaction test //
-
-    // TODO: make talk test, still need view things and what has the messages.
 
 }
