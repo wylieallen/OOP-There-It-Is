@@ -23,4 +23,16 @@ public enum SkillType {
         this.distanceSuccessModifier = distanceSuccessModifier;
     }
 
+    public boolean checkSucess (int baseSucess, int distance) {
+        // can be changed later
+        if (distance == 0) distance = 1;
+        if (baseSucess <= 0) return false;
+
+        return ((baseSucess + successRate) / distance) > 0;
+    }
+
+    public int calculateModification (int baseAmount, int distance) {
+        // can be changed later
+        return baseAmount - distance;
+    }
 }

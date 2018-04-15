@@ -9,6 +9,9 @@ import java.util.Map;
  */
 public class EntityStats {
 
+    private final int defaultValue = -1;
+    private final int maxSkillLevel = 100;
+
     private Map <SkillType, Integer> skills;
     private int baseMoveSpeed;
     private int maxHealth;
@@ -131,7 +134,16 @@ public class EntityStats {
     }
 
     public int getSkillLevel (SkillType s) {
-        return skills.getOrDefault(s, -1);
+        return skills.getOrDefault(s, defaultValue);
+    }
+
+    public void increaseSkillLevel (SkillType s, int amount) {
+        int curLevel = skills.getOrDefault(s, defaultValue);
+
+        if (curLevel != defaultValue) {
+            curLevel = Math.min(maxSkillLevel, curLevel + amount);
+            skills.replace(s, curLevel);
+        }
     }
 
 }

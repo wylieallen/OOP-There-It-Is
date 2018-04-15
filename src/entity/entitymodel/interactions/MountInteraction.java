@@ -1,7 +1,6 @@
 package entity.entitymodel.interactions;
 
 import entity.entitymodel.Entity;
-import entity.entitymodel.interactions.EntityInteraction;
 
 
 /**
@@ -10,8 +9,9 @@ import entity.entitymodel.interactions.EntityInteraction;
 public class MountInteraction implements EntityInteraction {
 
     @Override
-    public void interact(Entity actor, Entity actee) {
-        //TODO: make sure isOnMap set to false;
+    public boolean interact(Entity actor, Entity actee) {
+        actor.setOnMap(false);
+        return false;
     }
 
 }

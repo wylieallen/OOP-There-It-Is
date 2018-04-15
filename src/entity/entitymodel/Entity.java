@@ -7,7 +7,9 @@ import entity.entitymodel.interactions.EntityInteraction;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
+import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.trajectorymodifier.Vector;
+import skills.SkillType;
 import utilities.Coordinate;
 
 import java.util.ArrayList;
@@ -17,8 +19,7 @@ import java.util.Map;
 /**
  * Created by dontf on 4/13/2018.
  */
-public class Entity implements GameObject
-{
+public class Entity implements GameObject, MoveLegalityChecker {
 
     private final int levelUpIncreament = 100;
 
@@ -176,6 +177,8 @@ public class Entity implements GameObject
         inventory.remove(takeableItem);
     }
 
+    public TakeableItem getRandomItem () { return inventory.getRandomItem (); }
+
     public List <EntityInteraction> interact (Entity actor) {
 
         ArrayList <EntityInteraction> union = new ArrayList<EntityInteraction>();
@@ -185,6 +188,12 @@ public class Entity implements GameObject
         return union;
     }
 
+    public boolean containsSkill (SkillType s) { return stats.containsSkill(s); }
+
+    public int getSkillLevel (SkillType s) { return stats.getSkillLevel(s); }
+
+    public void increaseSkillLevel (SkillType s, int amount) { stats.increaseSkillLevel (s, amount); }
+
     public boolean isOnMap () {
         return onMap;
     }
@@ -193,4 +202,14 @@ public class Entity implements GameObject
         this.onMap = onMap;
     }
 
+    public void trade (Entity tradeWith) {
+        controller.notifyShopping(this, tradeWith);
+    }
+
+    @Override   // assumes e is player.
+    public boolean canMoveHere (Entity e) {
+        // notifyInteraction will need to get the list of interactions by calling interact on its entity.
+        controller.notifyInteraction(e, this);
+        return false;
+    }
 }

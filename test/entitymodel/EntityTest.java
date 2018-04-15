@@ -60,7 +60,7 @@ public class EntityTest {
         ArrayList <EntityInteraction> acteeActorInteractions = new ArrayList<>();
         ArrayList <EntityInteraction> acteeActeeInteractions = new ArrayList<>();
 
-        actorActorInteractions.add(new TalkInteraction());
+        actorActorInteractions.add(new TradeInteraction());
         actorActorInteractions.add(new PickPocketInteraction());
 
         acteeActeeInteractions.add (new TradeInteraction());
