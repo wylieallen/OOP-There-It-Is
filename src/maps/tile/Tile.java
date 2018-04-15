@@ -58,7 +58,9 @@ public abstract class Tile implements GameObjectContainer {
             do_moves(updated);
         }
 
-        do_interactions();
+        if(hasEntity()) {
+            do_interactions(entity);
+        }
     }
 
     protected abstract void do_moves(Set<MoveLegalityChecker> updated);
@@ -95,7 +97,7 @@ public abstract class Tile implements GameObjectContainer {
         return entity != null;
     }
 
-    protected abstract void do_interactions();
+    protected abstract void do_interactions(Entity entity);
 
     public boolean has(Entity e) {
         return entity == e;

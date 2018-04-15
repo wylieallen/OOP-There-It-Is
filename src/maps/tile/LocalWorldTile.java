@@ -61,7 +61,9 @@ public class LocalWorldTile extends Tile {
         super.do_moves(updated, total);
     }
 
-    protected void do_interactions(){
-        //
+    protected void do_interactions(Entity entity){
+        for(EntityImpactor ei: entityImpactors) {
+            ei.touch(entity);
+        }
     }
 }

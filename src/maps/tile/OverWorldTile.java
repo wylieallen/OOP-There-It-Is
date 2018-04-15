@@ -34,7 +34,7 @@ public class OverWorldTile extends Tile {
         super.do_moves(updated, new Vector());
     }
 
-    protected void do_interactions() {
+    protected void do_interactions(Entity entity) {
 
     }
 }
