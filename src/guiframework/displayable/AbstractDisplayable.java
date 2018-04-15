@@ -7,13 +7,13 @@ public abstract class AbstractDisplayable implements Displayable
 {
     private Point origin;
     private Dimension size;
-    private int height;
+    private int depth;
 
-    public AbstractDisplayable(Point origin, Dimension size, int height)
+    public AbstractDisplayable(Point origin, Dimension size, int depth)
     {
         this.origin = origin;
         this.size = size;
-        this.height = height;
+        this.depth = depth;
     }
 
     public void draw(Graphics2D g2d)
@@ -24,6 +24,9 @@ public abstract class AbstractDisplayable implements Displayable
         g2d.setTransform(t);
     }
 
+    // Template Method primitive:
+    protected abstract void do_draw(Graphics2D g2d);
+
     // Hooks to be overridden by descendant classes:
     public boolean expired() { return false; }
     public void update() { }
@@ -31,7 +34,5 @@ public abstract class AbstractDisplayable implements Displayable
     // Default geometric structure implementations:
     public Point getOrigin() { return origin; }
     public Dimension getSize() { return size; }
-    public int getHeight() { return height; }
-
-    protected abstract void do_draw(Graphics2D g2d);
+    public int getDepth() { return depth; }
 }

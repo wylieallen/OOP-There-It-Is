@@ -1,7 +1,6 @@
 package maps.tile;
 
 import entity.entitymodel.Entity;
-import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import utilities.Vector;
@@ -14,10 +13,10 @@ public abstract class Tile implements GameObjectContainer {
     private Entity entity;
     private Map<Direction, Tile> neighbors;
 
-    public Tile(Set<MoveLegalityChecker> mLCs, Entity entity) {
-        this.moveLegalityCheckers = mLCs;
-        this.entity = entity;
-        this.neighbors = new HashMap<>();
+    public Tile()
+    {
+        moveLegalityCheckers = new HashSet<>();
+        neighbors = new HashMap<>();
     }
 
     public void setEntity(Entity entity){
@@ -25,7 +24,8 @@ public abstract class Tile implements GameObjectContainer {
         moveLegalityCheckers.add(entity);
     }
 
-    public void setNeighbor(Direction direction, Tile tile){
+    public void setNeighbor(Direction direction, Tile tile)
+    {
         neighbors.put(direction, tile);
     }
     public Tile getNeighbor(Direction direction) { return neighbors.getOrDefault(direction, null);}
@@ -44,11 +44,9 @@ public abstract class Tile implements GameObjectContainer {
 
     public void addMLC(MoveLegalityChecker mlc) { moveLegalityCheckers.add(mlc); }
 
-    public abstract List<GameObject> getGameObjects();
-
     public Collection<MoveLegalityChecker> getMoveLegalityCheckers() { return moveLegalityCheckers; }
 
-    public void update(Set<MoveLegalityChecker> updated) {
+    public void update(Collection<MoveLegalityChecker> updated) {
         for (MoveLegalityChecker mlc : moveLegalityCheckers) {
             if(!updated.contains(mlc)){
                 mlc.update();
@@ -63,9 +61,11 @@ public abstract class Tile implements GameObjectContainer {
         }
     }
 
-    protected abstract void do_moves(Set<MoveLegalityChecker> updated);
+    public Entity getEntity() { return entity; }
 
-    protected void do_moves(Set<MoveLegalityChecker> updated, Vector externalForce) {
+    protected abstract void do_moves(Collection<MoveLegalityChecker> updated);
+
+    protected void do_moves(Collection<MoveLegalityChecker> updated, Vector externalForce) {
         if(hasEntity()) {
             Vector entityVector = entity.getMovementVector();
 
@@ -111,4 +111,5 @@ public abstract class Tile implements GameObjectContainer {
         }
         return false;
     }
+
 }

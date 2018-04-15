@@ -20,14 +20,13 @@ import java.util.Set;
 public class OverWorld implements World {
 
     private Map<Coordinate, OverWorldTile> tiles;
-
-    /*public OverWorld()
-    {
-        tiles = new HashMap<>();
-    }*/
+    private Map<Coordinate, GameObjectContainer> gettableMap;
 
     public OverWorld(Map <Coordinate, OverWorldTile> tiles) {
         this.tiles = tiles;
+        // Cloning the whole map for every getMap() call is costly, so let's just cache it once here
+        // (Since we can only add Tiles at construction time anyway
+        gettableMap = new HashMap<>(tiles);
         buildNeighborList();
     }
 
@@ -46,6 +45,8 @@ public class OverWorld implements World {
         }
     }
 
+    public OverWorldTile getTile(Coordinate c) { return tiles.get(c); }
+
     private void updateTiles() {
         Set<MoveLegalityChecker> updated = new HashSet<>();
         for(OverWorldTile tile: tiles.values()) {
@@ -53,32 +54,20 @@ public class OverWorld implements World {
         }
     }
 
-    public void add(Coordinate p, Terrain t)
+    public Map<Coordinate, GameObjectContainer> getMap()
     {
-        if(!tiles.containsKey(p))
-        {
-            tiles.put(p, new OverWorldTile());
-        }
-        tiles.get(p).addMLC(t);
+        return gettableMap;
+    }
+
+    public void add(Coordinate p, OverWorldTile t)
+    {
+        tiles.put(p, t);
+        gettableMap.put(p, t);
     }
 
     @Override
     public void add(Coordinate p, Entity e) {
         tiles.get(p).setEntity(e);
-    }
-
-    @Override
-    public Map<Coordinate, GameObjectContainer> getMap() {
-        Map<Coordinate, GameObjectContainer> map = new HashMap<>();
-        for(Map.Entry<Coordinate, OverWorldTile> entry : tiles.entrySet()) {
-            map.put(entry.getKey(), entry.getValue());
-        }
-
-        return map;
-    }
-
-    public OverWorldTile getTile(Coordinate c) {
-        return tiles.getOrDefault(c, null);
     }
 
     @Override
