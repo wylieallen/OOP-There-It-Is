@@ -59,7 +59,7 @@ public class OverWorld implements World {
         {
             tiles.put(p, new OverWorldTile());
         }
-        tiles.get(p).add(t);
+        tiles.get(p).addMLC(t);
     }
 
     @Override

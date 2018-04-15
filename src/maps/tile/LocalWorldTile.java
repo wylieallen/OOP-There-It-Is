@@ -41,15 +41,15 @@ public class LocalWorldTile extends Tile {
     }
 
     public void addTM(TrajectoryModifier tm){
-        //
+        trajectoryModifiers.add(tm);
     }
 
     public void addMLC(MoveLegalityChecker mlc){
-        //
+        super.addMLC(mlc);
     }
 
     public void addEI(EntityImpactor ei){
-        //
+        entityImpactors.add(ei);
     }
 
     protected void do_moves(Set<MoveLegalityChecker> updated){

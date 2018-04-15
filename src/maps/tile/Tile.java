@@ -35,13 +35,14 @@ public abstract class Tile implements GameObjectContainer {
             tileFrom.moveFrom();
             setEntity(entity);
         }
+        entity.resetMovementVector();
     }
 
     public void moveFrom(){
         remove(entity);
     }
 
-    public void add(MoveLegalityChecker mlc) { moveLegalityCheckers.add(mlc); }
+    public void addMLC(MoveLegalityChecker mlc) { moveLegalityCheckers.add(mlc); }
 
     public abstract List<GameObject> getGameObjects();
 
@@ -74,6 +75,8 @@ public abstract class Tile implements GameObjectContainer {
             updated.add(entity);
             if(!total.isZeroVector()){
                 toMoveTo.tryToMove(this, entity);
+            } else {
+                entity.resetMovementVector();
             }
         }
     }
