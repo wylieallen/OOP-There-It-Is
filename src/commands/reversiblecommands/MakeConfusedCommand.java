@@ -4,22 +4,20 @@ import entity.entitymodel.Entity;
 
 public class MakeConfusedCommand extends ReversibleCommand {
 
-    public MakeConfusedCommand(boolean isApplied) {
+    private int decreaseAmount;
+
+    public MakeConfusedCommand(boolean isApplied, int decreaseAmount) {
         super(isApplied);
-    }
-
-    @Override
-    public void trigger(Entity e) {
-
+        this.decreaseAmount = decreaseAmount;
     }
 
     @Override
     protected void apply(Entity e) {
-
+        e.decreaseVisibilityRadious(decreaseAmount);
     }
 
     @Override
     protected void unapply(Entity e) {
-
+        e.increaseVisibilityRadious(decreaseAmount);
     }
 }

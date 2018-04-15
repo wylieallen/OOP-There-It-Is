@@ -11,8 +11,18 @@ public abstract class ReversibleCommand implements Command {
         this.isApplied = isApplied;
     }
 
-    public abstract void trigger(Entity e);
+    public void trigger(Entity e){
+        if (!isApplied)
+            apply(e);
+        else
+            unapply(e);
+    }
+
     protected abstract void apply(Entity e);
     protected abstract void unapply(Entity e);
+
+    protected boolean isApplied(){
+        return isApplied;
+    }
 
 }

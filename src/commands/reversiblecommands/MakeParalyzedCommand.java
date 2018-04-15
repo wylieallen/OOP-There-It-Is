@@ -9,13 +9,8 @@ public class MakeParalyzedCommand extends ReversibleCommand {
     }
 
     @Override
-    public void trigger(Entity e) {
-
-    }
-
-    @Override
     protected void apply(Entity e) {
-
+        e.decreaseBaseMoveSpeed(e.getBaseMoveSpeed());
     }
 
     @Override
