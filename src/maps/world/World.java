@@ -14,6 +14,7 @@ public interface World {
 
     void update ();
     void add (Coordinate p, Entity e);
+    void remove(Entity e);
     Map <Coordinate, GameObjectContainer> getMap ();
     Tile getTileForEntity (Entity e);
 

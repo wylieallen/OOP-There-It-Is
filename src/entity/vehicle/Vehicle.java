@@ -7,7 +7,11 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
-import maps.trajectorymodifier.Vector;
+import entity.entitycontrol.EntityController;
+import maps.tile.Direction;
+import actions.Action;
+import commands.TimedEffect;
+import utilities.Vector;
 
 import java.util.List;
 
@@ -18,7 +22,7 @@ public class Vehicle extends Entity {
 
     private Entity driver;
 
-    public Vehicle(Vector vector,
+    public Vehicle(Vector movementVector,
                    EntityStats stats,
                    List<ControllerAction> actions,
                    List<TimedEffect> effects,
@@ -26,9 +30,10 @@ public class Vehicle extends Entity {
                    List<EntityInteraction> acteeInteractions,
                    EntityController controller,
                    Inventory inventory,
-                   Entity driver)
+                   Entity driver,
+                   boolean onMap)
     {
-        super(vector, stats, actions, effects, actorInteractions, acteeInteractions, controller, inventory, true);
+        super(movementVector, stats, actions, effects, actorInteractions, acteeInteractions, inventory, onMap);
         this.driver = driver;
     }
 

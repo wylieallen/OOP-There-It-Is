@@ -8,6 +8,7 @@ import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import utilities.Coordinate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +18,18 @@ public abstract class EntityController {
     private Equipment equipment;
     private Coordinate entityLocation;
     private List<ControllerAction> actions;
-
     //make sure if we load in and we are on a vehicle that this is set correctly
     private boolean inVehicle = false;
     private Vehicle mount;
+
+    public EntityController(Entity entity, Equipment equipment,
+                            Coordinate entityLocation, ArrayList<ControllerAction> actions) {
+        this.controlledEntity = entity;
+        this.equipment = equipment;
+        this.entityLocation = entityLocation;
+        this.actions = actions;
+    }
+
 
     //this is the specific funcitonality that each entity controller is responsible for implementing
     protected abstract void processController();

@@ -4,6 +4,7 @@ import entity.entitymodel.Entity;
 import gameobject.GameObjectContainer;
 import gameobject.GameObject;
 import maps.Influence.InfluenceArea;
+import maps.tile.OverWorldTile;
 import spawning.SpawnEvent;
 import spawning.SpawnObserver;
 import maps.tile.LocalWorldTile;
@@ -46,5 +47,13 @@ public class LocalWorld implements World, SpawnObserver {
     @Override
     public Tile getTileForEntity(Entity e) {
         return null;
+    }
+
+    @Override
+    public void remove(Entity e) {
+        for(LocalWorldTile tile: tiles.values()) {
+            if(tile.remove(e))
+                return;
+        }
     }
 }
