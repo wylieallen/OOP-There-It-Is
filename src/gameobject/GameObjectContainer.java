@@ -1,7 +1,7 @@
 package gameobject;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface GameObjectContainer {
-    List<GameObject> getGameObjects();
+    Collection<GameObject> getGameObjects();
 }

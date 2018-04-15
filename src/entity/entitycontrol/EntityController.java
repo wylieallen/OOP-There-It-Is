@@ -8,8 +8,7 @@ import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import utilities.Coordinate;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class EntityController {
 
@@ -17,10 +16,18 @@ public abstract class EntityController {
     private Equipment equipment;
     private Coordinate entityLocation;
     private List<ControllerAction> actions;
-
     //make sure if we load in and we are on a vehicle that this is set correctly
     private boolean inVehicle = false;
     private Vehicle mount;
+
+    public EntityController(Entity entity, Equipment equipment,
+                            Coordinate entityLocation, ArrayList<ControllerAction> actions) {
+        this.controlledEntity = entity;
+        this.equipment = equipment;
+        this.entityLocation = entityLocation;
+        this.actions = actions;
+    }
+
 
     //this is the specific funcitonality that each entity controller is responsible for implementing
     protected abstract void processController();
@@ -40,7 +47,7 @@ public abstract class EntityController {
         boolean found = false;
 
         //find the entity in the map and set his location
-        List<GameObject> gameObjectList;
+        Collection<GameObject> gameObjectList;
         //iterate through all the entries in the map of GameObjectContainers
         for(Map.Entry<Coordinate, GameObjectContainer> container : mapOfContainers.entrySet()){
             gameObjectList = container.getValue().getGameObjects();

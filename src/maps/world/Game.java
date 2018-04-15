@@ -34,7 +34,23 @@ public class Game implements TransitionObserver {
     }
 
     public void notifyTransition (Entity e, World target, Coordinate p) {
-
+        if(isPlayer(e)) {
+            activeWorld.remove(e);
+            setActiveWorld(target);
+            activeWorld.add(p, e);
+        }
     }
 
+    private boolean isPlayer(Entity other) {
+        return player == other;
+    }
+
+    private void setActiveWorld(World target) {
+        activeWorld = target;
+    }
+
+    public void update()
+    {
+        activeWorld.update();
+    }
 }

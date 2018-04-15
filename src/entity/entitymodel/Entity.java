@@ -7,8 +7,10 @@ import entity.entitymodel.interactions.EntityInteraction;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
-import maps.trajectorymodifier.Vector;
 import utilities.Coordinate;
+import maps.movelegalitychecker.MoveLegalityChecker;
+import maps.tile.Direction;
+import utilities.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +19,13 @@ import java.util.Map;
 /**
  * Created by dontf on 4/13/2018.
  */
-public class Entity implements GameObject
+public class Entity implements GameObject, MoveLegalityChecker
 {
 
     private final int levelUpIncreament = 100;
 
-    private Vector vector;
+    private Direction facing;
+    private Vector movementVector;
     private EntityStats stats;
     private List<ControllerAction> actions;//whenever an action gets added to this we need to notify the EntityController to add the same action
     private List<TimedEffect> effects;
@@ -32,32 +35,46 @@ public class Entity implements GameObject
     private Inventory inventory;
     private boolean onMap;
 
-    public Entity(Vector vector,
+    public Entity(Vector movementVector,
                   EntityStats stats,
                   List<ControllerAction> actions,
                   List<TimedEffect> effects,
                   List<EntityInteraction> actorInteractions,
                   List<EntityInteraction> acteeInteractions,
-                  EntityController controller,
                   Inventory inventory,
                   boolean onMap)
     {
-        this.vector = vector;
+        this.movementVector = movementVector;
         this.stats = stats;
         this.actions = actions;
         this.effects = effects;
         this.actorInteractions = actorInteractions;
         this.acteeInteractions = acteeInteractions;
-        this.controller = controller;
         this.inventory = inventory;
         this.onMap = onMap;
     }
 
+    public void setController(EntityController newController) {
+        this.controller = newController;
+    }
+
     public void update () {}
 
-    public void update (Map<Coordinate, GameObjectContainer> mapOfContainers) {
+    public void update(Map<Coordinate, GameObjectContainer> mapOfContainers) {
         //TODO: add additional logic;
         controller.update(mapOfContainers);
+    }
+
+    public void setFacing(Direction newDirection) {
+        facing = newDirection;
+    }
+
+    public void setMoving() {
+        movementVector = new Vector(facing, getBaseMoveSpeed());
+    }
+
+    public void resetMovementVector() {
+        movementVector = new Vector();
     }
 
     public boolean expired() {
@@ -174,7 +191,7 @@ public class Entity implements GameObject
 
     public List <EntityInteraction> interact (Entity actor) {
 
-        ArrayList <EntityInteraction> union = new ArrayList<EntityInteraction>();
+        ArrayList <EntityInteraction> union = new ArrayList<>();
         union.addAll(acteeInteractions);
         union.addAll(actor.actorInteractions);
 
@@ -187,6 +204,22 @@ public class Entity implements GameObject
 
     public void setOnMap (boolean onMap) {
         this.onMap = onMap;
+    }
+
+    public boolean wantsToMove() {
+        return !movementVector.isZeroVector();
+    }
+
+    public Vector getMovementVector() {
+        return movementVector;
+    }
+
+    public Direction getMovementDirection() {
+        return movementVector.getDirection();
+    }
+
+    public boolean canMoveHere(Entity e){
+        return false;
     }
 
 }

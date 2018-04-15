@@ -17,11 +17,23 @@ public class RunGame
         frame.setSize(1280, 720);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        JPanel panel = new GamePanel();
+        GamePanel panel = new GamePanel();
         panel.setBackground(Color.BLACK);
 
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         frame.validate();
         frame.setVisible(true);
+
+        JMenuBar bar = new JMenuBar();
+        JMenu menu = new JMenu("Menu");
+        JMenuItem resetCamera = new JMenuItem("Reset Camera");
+
+        resetCamera.addActionListener(e -> {
+            panel.resetCamera();
+        });
+
+        menu.add(resetCamera);
+        bar.add(menu);
+        frame.setJMenuBar(bar);
     }
 }

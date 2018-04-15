@@ -3,7 +3,7 @@ import org.junit.Test;
 
 public class TestingTest
 {
-    // This test tests whether or nor we can test
+    // This test tests whether or not we can test
 
     @Test
     public void test()

@@ -34,4 +34,9 @@ public class FoggyWorld implements World {
     public Tile getTileForEntity(Entity e) {
         return null;
     }
+
+    @Override
+    public void remove(Entity e){
+        world.remove(e);
+    }
 }

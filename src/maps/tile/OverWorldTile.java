@@ -1,25 +1,32 @@
 package maps.tile;
 
+import maps.movelegalitychecker.MoveLegalityChecker;
 import gameobject.GameObject;
-import maps.world.LocalWorld;
+import utilities.Vector;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.*;
 
-public class OverWorldTile extends Tile{
+public class OverWorldTile extends Tile {
 
-    public List<GameObject> getGameObjects()
+    public OverWorldTile()
     {
-        List<GameObject> list = new ArrayList<>();
-        list.addAll(super.getMoveLegalityCheckers());
-        return list;
+        super();
     }
 
-    protected void do_moves() {
-
+    public Collection<GameObject> getGameObjects()
+    {
+        Set<GameObject> set = new HashSet<>();
+        set.addAll(super.getMoveLegalityCheckers());
+        return set;
     }
 
-    protected void do_interactions() {
+    protected void do_moves(Collection<MoveLegalityChecker> updated) {
+        super.do_moves(updated, new Vector());
+    }
+
+    protected void do_interactions(Entity entity) {
 
     }
 }
