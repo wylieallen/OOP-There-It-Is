@@ -35,13 +35,14 @@ public abstract class Tile implements GameObjectContainer {
             tileFrom.moveFrom();
             setEntity(entity);
         }
+        entity.resetMovementVector();
     }
 
     public void moveFrom(){
         remove(entity);
     }
 
-    public void add(MoveLegalityChecker mlc) { moveLegalityCheckers.add(mlc); }
+    public void addMLC(MoveLegalityChecker mlc) { moveLegalityCheckers.add(mlc); }
 
     public Collection<MoveLegalityChecker> getMoveLegalityCheckers() { return moveLegalityCheckers; }
 
@@ -55,7 +56,9 @@ public abstract class Tile implements GameObjectContainer {
             do_moves(updated);
         }
 
-        do_interactions();
+        if(hasEntity()) {
+            do_interactions(entity);
+        }
     }
 
     public Entity getEntity() { return entity; }
@@ -74,6 +77,8 @@ public abstract class Tile implements GameObjectContainer {
             updated.add(entity);
             if(!total.isZeroVector()){
                 toMoveTo.tryToMove(this, entity);
+            } else {
+                entity.resetMovementVector();
             }
         }
     }
@@ -92,7 +97,7 @@ public abstract class Tile implements GameObjectContainer {
         return entity != null;
     }
 
-    protected abstract void do_interactions();
+    protected abstract void do_interactions(Entity entity);
 
     public boolean has(Entity e) {
         return entity == e;

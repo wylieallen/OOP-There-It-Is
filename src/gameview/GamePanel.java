@@ -27,14 +27,14 @@ public class GamePanel extends DisplayPanel
         super.setDisplayState(gameDisplayState = new GameViewMaker().makeGameDisplayState());
         /*
         Tile tile = new OverWorldTile();
-        tile.add(Terrain.GRASS);
-
+        tile.addMLC(Terrain.GRASS);
+        
         gameDisplayState.add(tile, new Point(128, 128));
 
         for(Direction direction : Direction.values())
         {
             Tile newTile = new OverWorldTile();
-            newTile.add(Terrain.WATER);
+            newTile.addMLC(Terrain.WATER);
             gameDisplayState.add(newTile, new Point(128 + direction.getPixelX(), 128 + direction.getPixelY()));
         }
         */

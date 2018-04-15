@@ -73,6 +73,10 @@ public class Entity implements GameObject, MoveLegalityChecker
         movementVector = new Vector(facing, getBaseMoveSpeed());
     }
 
+    public void resetMovementVector() {
+        movementVector = new Vector();
+    }
+
     public boolean expired() {
         return stats.getCurHealth() <= 0;
     }
@@ -187,7 +191,7 @@ public class Entity implements GameObject, MoveLegalityChecker
 
     public List <EntityInteraction> interact (Entity actor) {
 
-        ArrayList <EntityInteraction> union = new ArrayList<EntityInteraction>();
+        ArrayList <EntityInteraction> union = new ArrayList<>();
         union.addAll(acteeInteractions);
         union.addAll(actor.actorInteractions);
 

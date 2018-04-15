@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class overworldtests {
+public class OverWorldTests {
 
     @Test
     public void testConstruction()
@@ -137,6 +137,20 @@ public class overworldtests {
             }
         }
 
-        Assert.assertTrue(true);
+        entity.setFacing(Direction.NE);
+        entity.setMoving();
+        world.update();
+
+        for(int i = 0; i < 5; ++i) {
+            for(int j = 0; j < 5; ++j) {
+                Tile tile = tiles.get(new Coordinate(i, j));
+                if(i == 3 && j == 0) {
+                    Assert.assertTrue(tile.has(entity));
+                } else {
+                    Assert.assertFalse(tile.has(entity));
+                }
+            }
+        }
+
     }
 }
