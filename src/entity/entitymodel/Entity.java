@@ -1,7 +1,7 @@
 package entity.entitymodel;
 
 import commands.TimedEffect;
-import entity.entitycontrol.ControllerAction;
+import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitycontrol.EntityController;
 import entity.entitymodel.interactions.EntityInteraction;
 import gameobject.GameObject;
@@ -229,7 +229,6 @@ public class Entity implements GameObject, MoveLegalityChecker
 
     public boolean isSearching() { return stats.getIsSearching(); }
 
-    public boolean isSneaking() { return stats.getIsSneaking(); }
 
     public int getSkillLevel(SkillType skillType) { return stats.getSkillLevel(skillType); }
 

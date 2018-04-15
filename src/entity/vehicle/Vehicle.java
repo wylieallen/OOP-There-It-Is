@@ -1,16 +1,12 @@
 package entity.vehicle;
 
 import commands.TimedEffect;
-import entity.entitycontrol.ControllerAction;
+import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
-import entity.entitycontrol.EntityController;
-import maps.tile.Direction;
-import actions.Action;
-import commands.TimedEffect;
 import utilities.Vector;
 
 import java.util.List;
