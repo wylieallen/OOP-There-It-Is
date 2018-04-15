@@ -4,10 +4,17 @@ import entity.entitymodel.Entity;
 import skills.SkillType;
 import commands.Command;
 
-public abstract class SkillCommand implements Command {
+import java.util.Random;
+
+// SkillCommand initially implemented Command,
+//  but trigger(Entity e) in Command is not
+//  trigger(Entity e, int distance) in SkillCommand
+//  so there would be a method not being used (mixed-instance cohesion)
+
+public abstract class SkillCommand {
     private SkillType skillType;
     private int level;
-    private int effectiveness;
+    private int effectiveness; // range: 1-100
 
     public SkillCommand(SkillType skillType, int level, int effectiveness) {
         this.skillType = skillType;
@@ -17,9 +24,15 @@ public abstract class SkillCommand implements Command {
 
     protected SkillType getSkillType() { return this.skillType; }
     protected int getLevel() { return this.level; }
-    protected int getEffectiveness() { return this.effectiveness; }
 
-    public abstract void trigger(Entity e, int distance);
+    public void trigger(Entity e, int distance){
+        Random r = new Random();
+        if(r.nextInt(101) <= effectiveness*level)
+            success(e, distance);
+        else
+            fail(e, distance);
+    }
+
     protected abstract void success(Entity e, int distance);
     protected abstract void fail(Entity e, int distance);
 

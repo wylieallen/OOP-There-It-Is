@@ -5,27 +5,21 @@ import skills.SkillType;
 
 public class ModifyHealthCommand extends SkillCommand {
 
-    public ModifyHealthCommand(SkillType skillType, int level, int effectiveness) {
+    private int healthDecrement;
+
+    public ModifyHealthCommand(SkillType skillType, int level, int effectiveness, int healthDecrement) {
         super(skillType, level, effectiveness);
-    }
-
-    @Override
-    public void trigger(Entity e, int distance) {
-
+        this.healthDecrement = healthDecrement;
     }
 
     @Override
     protected void success(Entity e, int distance) {
-
+        e.hurtEntity(healthDecrement);
     }
 
     @Override
     protected void fail(Entity e, int distance) {
-
+        // nothing
     }
 
-    @Override
-    public void trigger(Entity e) {
-
-    }
 }

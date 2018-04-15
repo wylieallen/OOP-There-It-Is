@@ -40,4 +40,11 @@ public class Inventory {
         return items.get(index);
     }
 
+    public TakeableItem pickPocket(){
+        if (!items.isEmpty())
+            return items.get(0);
+        else
+            return null;
+    }
+
 }

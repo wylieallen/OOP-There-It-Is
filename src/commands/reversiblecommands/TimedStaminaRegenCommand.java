@@ -4,18 +4,16 @@ import entity.entitymodel.Entity;
 
 public class TimedStaminaRegenCommand extends ReversibleCommand {
 
-    public TimedStaminaRegenCommand(boolean isApplied) {
+    private int staminaRegenDecrease = 0;
+
+    public TimedStaminaRegenCommand(boolean isApplied, int staminaRegenDecrease) {
         super(isApplied);
-    }
-
-    @Override
-    public void trigger(Entity e) {
-
+        this.staminaRegenDecrease = staminaRegenDecrease;
     }
 
     @Override
     protected void apply(Entity e) {
-
+        // TODO: decrease stamina regeneration rate in entity
     }
 
     @Override

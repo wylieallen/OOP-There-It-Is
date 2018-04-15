@@ -3,15 +3,11 @@ package commands.skillcommands;
 import entity.entitymodel.Entity;
 import skills.SkillType;
 
+// not sure how this will work
 public class ObserveCommand extends SkillCommand {
 
     public ObserveCommand(SkillType skillType, int level, int effectiveness) {
         super(skillType, level, effectiveness);
-    }
-
-    @Override
-    public void trigger(Entity e, int distance) {
-
     }
 
     @Override
@@ -24,8 +20,4 @@ public class ObserveCommand extends SkillCommand {
 
     }
 
-    @Override
-    public void trigger(Entity e) {
-
-    }
 }

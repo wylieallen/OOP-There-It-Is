@@ -5,27 +5,20 @@ import skills.SkillType;
 
 public class ConfuseCommand extends SkillCommand {
 
+    private int radiusDecrease = 10;
+
     public ConfuseCommand(SkillType skillType, int level, int effectiveness) {
         super(skillType, level, effectiveness);
     }
 
     @Override
-    public void trigger(Entity e, int distance) {
-
-    }
-
-    @Override
     protected void success(Entity e, int distance) {
-
+        e.decreaseVisibilityRadious(radiusDecrease-distance);
     }
 
     @Override
     protected void fail(Entity e, int distance) {
-
+        // TODO: make entity mad or something
     }
 
-    @Override
-    public void trigger(Entity e) {
-
-    }
 }
