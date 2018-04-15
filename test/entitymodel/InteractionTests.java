@@ -3,8 +3,8 @@ package entitymodel;
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
-import entity.entitycontrol.ControllerAction;
 import entity.entitycontrol.EntityController;
+import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
@@ -12,11 +12,11 @@ import entity.entitymodel.interactions.*;
 import items.takeableitems.QuestItem;
 import items.takeableitems.TakeableItem;
 import maps.tile.Direction;
-import maps.trajectorymodifier.Vector;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import skills.SkillType;
+import utilities.Vector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,8 +48,8 @@ public class InteractionTests {
         skillsActee.put(SkillType.BINDWOUNDS, 45);
         skillsActee.put(SkillType.CREEP, 32);
 
-        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65);
-        EntityStats acteeStats = new EntityStats(skillsActee, 3, 120, 45, 120, 43, 23, 8, 6, 69, 100);
+        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65, false);
+        EntityStats acteeStats = new EntityStats(skillsActee, 3, 120, 45, 120, 43, 23, 8, 6, 69, 100, false);
 
         //TODO: once concrete ControllerActions are made test this;
         ArrayList<ControllerAction> actorActions = new ArrayList<>();
@@ -58,7 +58,7 @@ public class InteractionTests {
         ArrayList<TimedEffect> actorEffects = new ArrayList<>();
         ArrayList<TimedEffect> acteeEffects = new ArrayList<>();
 
-        actorEffects.add(new TimedEffect(new MakeConfusedCommand(false), 10));
+        actorEffects.add(new TimedEffect(new MakeConfusedCommand(false, 5), 10));
 
         acteeEffects.add(new TimedEffect(new MakeParalyzedCommand(false), 15));
 
@@ -73,7 +73,7 @@ public class InteractionTests {
         acteeActeeInteractions.add(new UseItemInteraction());
 
         //TODO: add constructors when it needs to be tested;
-        EntityController actorController = new EntityController() {
+        EntityController actorController = new EntityController(actor, null, null, null) {
             @Override
             protected void processController() {
 
@@ -114,7 +114,7 @@ public class InteractionTests {
 
             }
         };
-        EntityController acteeController = new EntityController() {
+        EntityController acteeController = new EntityController(actee, null, null, null) {
             @Override
             protected void processController() {
 
@@ -159,8 +159,8 @@ public class InteractionTests {
         Inventory actorInventory = new Inventory(actorItems);
         Inventory acteeInventory = new Inventory(acteeItems);
 
-        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, actorController, actorInventory, true);
-        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeActeeInteractions, acteeController, acteeInventory, true);
+        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, actorInventory, true);
+        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeActeeInteractions, acteeInventory, true);
 
     }
 

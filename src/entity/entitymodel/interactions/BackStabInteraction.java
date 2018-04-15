@@ -14,8 +14,8 @@ public class BackStabInteraction implements EntityInteraction {
     @Override
     public boolean interact(Entity actor, Entity actee) {
 
-        if (SkillType.CREEP.checkSucess(actor.getSkillLevel(SkillType.CREEP), 1)) {
-            actee.hurtEntity(SkillType.CREEP.calculateModification(baseDamage, 1));
+        if (SkillType.CREEP.checkSuccess(actor.getSkillLevel(SkillType.CREEP), 1)) {
+            actee.hurtEntity(SkillType.CREEP.calculateModification(baseDamage, 1, actor.getSkillLevel(SkillType.CREEP)));
             actor.increaseXP(xpIncrease);
             return true;
         }

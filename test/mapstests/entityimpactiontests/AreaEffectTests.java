@@ -10,7 +10,6 @@ import maps.entityimpaction.InfiniteAreaEffect;
 import maps.entityimpaction.OneShotAreaEffect;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
-import maps.tile.Tile;
 import maps.world.LocalWorld;
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,7 +35,7 @@ public class AreaEffectTests {
 
         EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
                 100, 100, 100, 0, 0,
-                3, 3, 0, false, false);
+                3, 3, 0, false);
         Entity entity = new Entity(new Vector(), entityStats, null, null, null,
                 null, null, true);
 
@@ -80,7 +79,7 @@ public class AreaEffectTests {
 
         EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
                 100, 100, 100, 0, 0,
-                3, 3, 0, false, false);
+                3, 3, 0, false);
         Entity entity = new Entity(new Vector(), entityStats, null, null, null,
                 null, null, true);
 

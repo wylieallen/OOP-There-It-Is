@@ -3,19 +3,19 @@ package entitymodel;
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeParalyzedCommand;
 import commands.skillcommands.ParalyzeCommand;
-import entity.entitycontrol.ControllerAction;
 import entity.entitycontrol.EntityController;
+import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.EntityInteraction;
 import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
 import maps.tile.Direction;
-import maps.trajectorymodifier.Vector;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import skills.SkillType;
+import utilities.Vector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,12 +42,12 @@ public class EquipmentTest {
         inventory = new Inventory(items);
 
         HashMap<SkillType, Integer> skillsActor = new HashMap<SkillType, Integer>();
-        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65);
+        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65, false);
         ArrayList<ControllerAction> actorActions = new ArrayList<>();
         ArrayList <TimedEffect> actorEffects = new ArrayList<>();
         ArrayList <EntityInteraction> actorActorInteractions = new ArrayList<>();
         ArrayList <EntityInteraction> actorActeeInteractions = new ArrayList<>();
-        EntityController actorController = new EntityController() {
+        EntityController actorController = new EntityController(null, null, null, null) {
             @Override
             protected void processController() {
 
@@ -89,7 +89,7 @@ public class EquipmentTest {
             }
         };
 
-        Entity e = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, actorController, inventory, true);
+        Entity e = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, inventory,true);
 
         equipment = new Equipment(wearables, weapons, 5, inventory, e);
 

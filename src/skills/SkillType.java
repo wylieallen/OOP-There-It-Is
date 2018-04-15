@@ -23,7 +23,7 @@ public enum SkillType {
         this.levelSuccessModifier = levelSuccessModifier;
         this.distanceSuccessModifier = distanceSuccessModifier;
     }
-    
+
     public boolean checkSuccess(int level, int distance) {
         int rand = (int)( (Math.random() * 100) + 1 );
         int adjustedSuccessRate = (int)( successRate

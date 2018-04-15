@@ -1,18 +1,17 @@
 package entity.entitymodel;
 
 import commands.TimedEffect;
-import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitycontrol.EntityController;
+import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.interactions.EntityInteraction;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
 import maps.movelegalitychecker.MoveLegalityChecker;
+import maps.tile.Direction;
 import skills.SkillType;
 import utilities.Coordinate;
-import maps.movelegalitychecker.MoveLegalityChecker;
-import maps.tile.Direction;
 import utilities.Vector;
 
 import java.util.ArrayList;

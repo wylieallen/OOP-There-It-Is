@@ -153,8 +153,8 @@ public class EntityTest {
         Inventory actorInventory = new Inventory();
         Inventory acteeInventory = new Inventory();
 
-        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, actorInventory, actorController, true);
-        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions,acteeActeeInteractions, acteeInventory, acteeController, true);
+        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, actorInventory, true);
+        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions,acteeActeeInteractions, acteeInventory, true);
 
         actor.setController(actorController);
         actee.setController(acteeController);

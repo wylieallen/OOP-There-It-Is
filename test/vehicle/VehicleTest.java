@@ -3,8 +3,8 @@ package vehicle;
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
-import entity.entitycontrol.ControllerAction;
 import entity.entitycontrol.EntityController;
+import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
@@ -14,11 +14,11 @@ import entity.entitymodel.interactions.TradeInteraction;
 import entity.entitymodel.interactions.UseItemInteraction;
 import entity.vehicle.Vehicle;
 import maps.tile.Direction;
-import maps.trajectorymodifier.Vector;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import skills.SkillType;
+import utilities.Vector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,8 +49,8 @@ public class VehicleTest {
         skillsActee.put(SkillType.BINDWOUNDS, 45);
         skillsActee.put(SkillType.CREEP, 32);
 
-        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65);
-        EntityStats acteeStats = new EntityStats(skillsActee, 3, 120, 45, 120, 43, 23, 8, 6, 69, 100);
+        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65, false);
+        EntityStats acteeStats = new EntityStats(skillsActee, 3, 120, 45, 120, 43, 23, 8, 6, 69, 100, false);
 
         //TODO: once concrete ControllerActions are made test this;
         ArrayList<ControllerAction> actorActions = new ArrayList<>();
@@ -59,7 +59,7 @@ public class VehicleTest {
         ArrayList<TimedEffect> actorEffects = new ArrayList<>();
         ArrayList<TimedEffect> acteeEffects = new ArrayList<>();
 
-        actorEffects.add(new TimedEffect(new MakeConfusedCommand(false), 10));
+        actorEffects.add(new TimedEffect(new MakeConfusedCommand(false, 5), 10));
 
         acteeEffects.add(new TimedEffect(new MakeParalyzedCommand(false), 15));
 
@@ -74,7 +74,7 @@ public class VehicleTest {
         acteeActeeInteractions.add(new UseItemInteraction());
 
         //TODO: add constructors when it needs to be tested;
-        EntityController actorController = new EntityController() {
+        EntityController actorController = new EntityController(actor, null, null, null) {
             @Override
             protected void processController() {
 
@@ -115,7 +115,7 @@ public class VehicleTest {
 
             }
         };
-        EntityController acteeController = new EntityController() {
+        EntityController acteeController = new EntityController(yourMomNotMountedYet, null, null, null) {
             @Override
             protected void processController() {
 
@@ -157,9 +157,13 @@ public class VehicleTest {
             }
         };
 
-        actor = new Entity(new Vector(Direction.N, 1), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, actorController, new Inventory(), true);
-        yourMomPreMounted = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeActeeInteractions, acteeController, new Inventory(), true, actor);
-        yourMomNotMountedYet = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeActeeInteractions, acteeController, new Inventory(), true);
+        actor = new Entity(new Vector(Direction.N, 1), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, new Inventory(), true);
+        yourMomPreMounted = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeActeeInteractions, new Inventory(), true, actor);
+        yourMomNotMountedYet = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeActeeInteractions, new Inventory(), true);
+
+        actor.setController(actorController);
+        yourMomPreMounted.setController(acteeController);
+        yourMomNotMountedYet.setController(acteeController);
     }
 
     @Test

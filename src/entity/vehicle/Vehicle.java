@@ -2,7 +2,6 @@ package entity.vehicle;
 
 import commands.TimedEffect;
 import entity.entitycontrol.controllerActions.ControllerAction;
-import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
@@ -27,11 +26,10 @@ public class Vehicle extends Entity {
                    List<EntityInteraction> actorInteractions,
                    List<EntityInteraction> acteeInteractions,
                    Inventory inventory,
-                   EntityController controller,
                    boolean isOnMap,
                    Entity driver)
     {
-        super(movementVector, stats, actions, effects, actorInteractions, acteeInteractions, inventory, controller, isOnMap);
+        super(movementVector, stats, actions, effects, actorInteractions, acteeInteractions, inventory, isOnMap);
         this.driver = driver;
     }
 
@@ -41,11 +39,10 @@ public class Vehicle extends Entity {
                    List<TimedEffect> effects,
                    List<EntityInteraction> actorInteractions,
                    List<EntityInteraction> acteeInteractions,
-                   EntityController controller,
                    Inventory inventory,
                    boolean isOnMap)
     {
-        super(vector, stats, actions, effects, actorInteractions, acteeInteractions, inventory, controller, isOnMap);
+        super(vector, stats, actions, effects, actorInteractions, acteeInteractions, inventory, isOnMap);
         this.driver = null;
     }
 
