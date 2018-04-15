@@ -1,16 +1,17 @@
 package entity.entitymodel;
 
 import commands.TimedEffect;
-import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitycontrol.EntityController;
+import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.interactions.EntityInteraction;
+import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
-import skills.SkillType;
-import utilities.Coordinate;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.tile.Direction;
+import skills.SkillType;
+import utilities.Coordinate;
 import utilities.Vector;
 
 import java.util.ArrayList;
@@ -20,8 +21,8 @@ import java.util.Map;
 /**
  * Created by dontf on 4/13/2018.
  */
-public class Entity implements GameObject, MoveLegalityChecker
-{
+
+public class Entity implements GameObject, MoveLegalityChecker {
 
     private final int levelUpIncreament = 100;
 
@@ -53,6 +54,7 @@ public class Entity implements GameObject, MoveLegalityChecker
         this.acteeInteractions = acteeInteractions;
         this.inventory = inventory;
         this.onMap = onMap;
+        this.facing = movementVector.getDirection();
     }
 
     public void setController(EntityController newController) {
@@ -132,6 +134,10 @@ public class Entity implements GameObject, MoveLegalityChecker
 
     public int getCurXP () { return stats.getCurXP(); }
 
+    public int getCurLevel () {
+        return getCurXP() / levelUpIncreament;
+    }
+
     public void increaseXP (int amount) {
 
         boolean leveled = (getCurXP() % levelUpIncreament) + amount >= levelUpIncreament;
@@ -172,14 +178,19 @@ public class Entity implements GameObject, MoveLegalityChecker
         stats.setConcealment(Math.max(0, getConcealment() - amount));
     }
 
-    public int getGold () { return stats.getGold(); }
+    public double getGold () { return stats.getGold(); }
 
-    public void increaseGold (int amount) {
+    public void increaseGold (double amount) {
         stats.setGold(getGold() + amount);
     }
 
-    public void decreaseGold (int amount) {
-        stats.setGold(Math.max(0, getGold() - amount));
+    public boolean decreaseGold (double amount) {
+        if (amount > getGold()) {
+            return false;
+        } else {
+            stats.setGold(getGold() - amount);
+            return true;
+        }
     }
 
     public boolean addToInventory (TakeableItem takeableItem) {
@@ -190,9 +201,15 @@ public class Entity implements GameObject, MoveLegalityChecker
         inventory.remove(takeableItem);
     }
 
+    // TODO: remove and switch to pickpocket
+    public TakeableItem getRandomItem () { return inventory.getRandomItem (); }
+
+    public TakeableItem getItem (int index) { return inventory.select(index); }
+
     public TakeableItem pickPocket() {
         return inventory.pickPocket();
     }
+
 
     public List <EntityInteraction> interact (Entity actor) {
 
@@ -203,12 +220,31 @@ public class Entity implements GameObject, MoveLegalityChecker
         return union;
     }
 
+    public boolean containsSkill (SkillType s) { return stats.containsSkill(s); }
+
+    public int getSkillLevel (SkillType s) { return stats.getSkillLevel(s); }
+
+    public void increaseSkillLevel (SkillType s, int amount) { stats.increaseSkillLevel (s, amount); }
+
     public boolean isOnMap () {
         return onMap;
     }
 
     public void setOnMap (boolean onMap) {
         this.onMap = onMap;
+    }
+
+    public void setMount (Vehicle mount) {
+        setOnMap(false);
+        // TODO: add dismount action.
+        controller.notifyMount(mount);
+    }
+
+    @Override   // assumes e is player.
+    public boolean canMoveHere (Entity mover) {
+        // notifyInteraction will need to get the list of interactions by calling interact on its entity.
+        mover.controller.notifyInteraction(mover, this);
+        return false;
     }
 
     public boolean wantsToMove() {
@@ -223,15 +259,9 @@ public class Entity implements GameObject, MoveLegalityChecker
         return movementVector.getDirection();
     }
 
-    public boolean canMoveHere(Entity e){
-        return false;
-    }
-
     public boolean isSearching() { return stats.getIsSearching(); }
-
-
-    public int getSkillLevel(SkillType skillType) { return stats.getSkillLevel(skillType); }
 
     public void startSearching() { stats.startSearching(); }
     public void stopSearching() { stats.stopSearching(); }
+
 }

@@ -9,6 +9,9 @@ import java.util.Map;
  */
 public class EntityStats {
 
+    private final int defaultValue = -1;
+    private final int maxSkillLevel = 100;
+
     private Map <SkillType, Integer> skills;
     private int baseMoveSpeed;
     private int maxHealth;
@@ -17,10 +20,11 @@ public class EntityStats {
     private int curMana;
     private int curXP;
     private int unspentSkillPoints;
+    private double gold;
     private int visibilityRadious;//how far out you can see
     private int concealment;//the max distance from which enemies can see you
-    private int gold;
     private boolean isSearching;
+
 
     public EntityStats(Map<SkillType, Integer> skills,
                        int baseMoveSpeed,
@@ -32,7 +36,7 @@ public class EntityStats {
                        int unspentSkillPoints,
                        int visibilityRadious,
                        int concealment,
-                       int gold,
+                       double gold,
                        boolean isSearching)
     {
         this.skills = skills;
@@ -121,11 +125,11 @@ public class EntityStats {
         this.concealment = concealment;
     }
 
-    public int getGold() {
+    public double getGold() {
         return gold;
     }
 
-    public void setGold(int gold) {
+    public void setGold(double gold) {
         this.gold = gold;
     }
 
@@ -134,7 +138,17 @@ public class EntityStats {
     }
 
     public int getSkillLevel (SkillType s) {
-        return skills.getOrDefault(s, 0);
+        return skills.getOrDefault(s, defaultValue);
+    }
+
+    public void increaseSkillLevel (SkillType s, int amount) {
+        int curLevel = skills.getOrDefault(s, defaultValue);
+
+        if (curLevel != defaultValue) {
+            curLevel = Math.min(maxSkillLevel, curLevel + amount);
+            skills.replace(s, curLevel);
+        }
+
     }
 
     public boolean getIsSearching() { return isSearching; }

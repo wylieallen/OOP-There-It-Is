@@ -1,9 +1,6 @@
 package entity.entitymodel.interactions;
 
 import entity.entitymodel.Entity;
-
-import entity.entitymodel.interactions.EntityInteraction;
-
 import java.util.Set;
 
 /**
@@ -13,9 +10,13 @@ public class TalkInteraction implements EntityInteraction {
 
     private Set<String> messages;
 
-    @Override
-    public void interact(Entity actor, Entity actee) {
+    public TalkInteraction (Set <String> messages) {
+        this.messages = messages;
+    }
 
+    @Override
+    public boolean interact(Entity actor, Entity actee) {
+        return false;
     }
 
 }

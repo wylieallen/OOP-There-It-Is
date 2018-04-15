@@ -10,7 +10,6 @@ import maps.entityimpaction.InfiniteAreaEffect;
 import maps.entityimpaction.OneShotAreaEffect;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
-import maps.tile.Tile;
 import maps.world.LocalWorld;
 import org.junit.Assert;
 import org.junit.Test;
