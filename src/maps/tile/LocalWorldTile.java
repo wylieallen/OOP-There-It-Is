@@ -52,7 +52,19 @@ public class LocalWorldTile extends Tile {
         entityImpactors.add(ei);
     }
 
-    protected void do_moves(Set<MoveLegalityChecker> updated){
+    @Override
+    public void do_update() {
+        super.do_update();
+        for(TrajectoryModifier tm : trajectoryModifiers) {
+            tm.update();
+        }
+        for(EntityImpactor ei: entityImpactors) {
+            ei.update();
+        }
+    }
+
+    @Override
+    public void do_moves(Set<MoveLegalityChecker> updated){
         Vector total = new Vector();
         for(TrajectoryModifier tm: trajectoryModifiers) {
             total.add(tm.getVector());
@@ -61,9 +73,13 @@ public class LocalWorldTile extends Tile {
         super.do_moves(updated, total);
     }
 
-    protected void do_interactions(Entity entity){
-        for(EntityImpactor ei: entityImpactors) {
-            ei.touch(entity);
+    @Override
+    public void do_interactions(){
+        if(super.hasEntity()){
+            for(EntityImpactor ei: entityImpactors) {
+                ei.touch(super.getEntity());
+            }
         }
+
     }
 }

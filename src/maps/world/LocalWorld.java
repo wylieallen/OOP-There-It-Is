@@ -50,15 +50,30 @@ public class LocalWorld implements World, SpawnObserver {
 
     @Override
     public void update() {
-        updateTiles();
+        updatePhase();
+        movementPhase();
+        interactionPhase();
     }
 
-    private void updateTiles() {
-        Set<MoveLegalityChecker> updated = new HashSet<>();
+    private void updatePhase() {
         for(LocalWorldTile tile: tiles.values()) {
-            tile.update(updated);
+            tile.do_update();
         }
     }
+
+    private void movementPhase() {
+        Set<MoveLegalityChecker> updated = new HashSet<>();
+        for(LocalWorldTile tile: tiles.values()) {
+            tile.do_moves(updated);
+        }
+    }
+
+    private void interactionPhase() {
+        for(LocalWorldTile tile: tiles.values()) {
+            tile.do_interactions();
+        }
+    }
+
 
     @Override
     public void add(Coordinate p, Entity e) {

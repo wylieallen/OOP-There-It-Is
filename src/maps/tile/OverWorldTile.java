@@ -30,11 +30,18 @@ public class OverWorldTile extends Tile {
         return new ArrayList<>(super.getMoveLegalityCheckers());
     }
 
-    protected void do_moves(Set<MoveLegalityChecker> updated) {
+    @Override
+    public void do_update() {
+        super.do_update();
+    }
+
+    @Override
+    public void do_moves(Set<MoveLegalityChecker> updated) {
         super.do_moves(updated, new Vector());
     }
 
-    protected void do_interactions(Entity entity) {
+    @Override
+    public void do_interactions() {
 
     }
 }

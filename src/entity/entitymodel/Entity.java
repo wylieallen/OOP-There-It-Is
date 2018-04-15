@@ -7,6 +7,7 @@ import entity.entitymodel.interactions.EntityInteraction;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
+import skills.SkillType;
 import utilities.Coordinate;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.tile.Direction;
@@ -222,4 +223,12 @@ public class Entity implements GameObject, MoveLegalityChecker
         return false;
     }
 
+    public boolean isSearching() { return stats.getIsSearching(); }
+
+    public boolean isSneaking() { return stats.getIsSneaking(); }
+
+    public int getSkillLevel(SkillType skillType) { return stats.getSkillLevel(skillType); }
+
+    public void startSearching() { stats.startSearching(); }
+    public void stopSearching() { stats.stopSearching(); }
 }

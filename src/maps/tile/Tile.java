@@ -48,18 +48,9 @@ public abstract class Tile implements GameObjectContainer {
 
     public Collection<MoveLegalityChecker> getMoveLegalityCheckers() { return moveLegalityCheckers; }
 
-    public void update(Set<MoveLegalityChecker> updated) {
-        for (MoveLegalityChecker mlc : moveLegalityCheckers) {
-            if(!updated.contains(mlc)){
-                mlc.update();
-            }
-        }
-        if(hasEntity() && !updated.contains(entity)){
-            do_moves(updated);
-        }
-
-        if(hasEntity()) {
-            do_interactions(entity);
+    public void do_update() {
+        for(MoveLegalityChecker mlc: moveLegalityCheckers) {
+            mlc.update();
         }
     }
 
@@ -83,6 +74,8 @@ public abstract class Tile implements GameObjectContainer {
         }
     }
 
+    public abstract void do_interactions();
+
     public boolean isMoveLegal(Entity entity) {
         for(MoveLegalityChecker mlc: moveLegalityCheckers) {
             if(!mlc.canMoveHere(entity)) {
@@ -93,11 +86,13 @@ public abstract class Tile implements GameObjectContainer {
         return true;
     }
 
-    private boolean hasEntity() {
+    protected boolean hasEntity() {
         return entity != null;
     }
 
-    protected abstract void do_interactions(Entity entity);
+    protected Entity getEntity() {
+        return entity;
+    }
 
     public boolean has(Entity e) {
         return entity == e;
