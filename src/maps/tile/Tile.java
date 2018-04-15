@@ -32,7 +32,6 @@ public abstract class Tile implements GameObjectContainer {
 
     public void tryToMove(Tile tileFrom, Entity entity){
         if(isMoveLegal(entity)){
-            System.out.println("Moving");
             tileFrom.moveFrom();
             setEntity(entity);
         }
@@ -48,21 +47,22 @@ public abstract class Tile implements GameObjectContainer {
 
     public Collection<MoveLegalityChecker> getMoveLegalityCheckers() { return moveLegalityCheckers; }
 
-    public void update() {
+    public void update(Set<MoveLegalityChecker> updated) {
         for (MoveLegalityChecker mlc : moveLegalityCheckers) {
-            mlc.update();
+            if(!updated.contains(mlc)){
+                mlc.update();
+            }
+        }
+        if(hasEntity() && !updated.contains(entity)){
+            do_moves(updated);
         }
 
-        if (hasEntity())
-            entity.update();
-
-        do_moves();
         do_interactions();
     }
 
-    protected abstract void do_moves();
+    protected abstract void do_moves(Set<MoveLegalityChecker> updated);
 
-    protected void do_moves(Vector externalForce) {
+    protected void do_moves(Set<MoveLegalityChecker> updated, Vector externalForce) {
         if(hasEntity()) {
             Vector entityVector = entity.getMovementVector();
 
@@ -71,15 +71,15 @@ public abstract class Tile implements GameObjectContainer {
             total.add(entityVector);
 
             Tile toMoveTo = neighbors.get(total.getDirection());
-            System.out.println(this);
-            System.out.println(toMoveTo);
-            toMoveTo.tryToMove(this, entity);
+            updated.add(entity);
+            if(!total.isZeroVector()){
+                toMoveTo.tryToMove(this, entity);
+            }
         }
     }
 
     public boolean isMoveLegal(Entity entity) {
         for(MoveLegalityChecker mlc: moveLegalityCheckers) {
-            System.out.println(mlc.toString());
             if(!mlc.canMoveHere(entity)) {
                 return false;
             }

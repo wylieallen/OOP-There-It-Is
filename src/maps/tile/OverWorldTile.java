@@ -27,12 +27,11 @@ public class OverWorldTile extends Tile {
 
     public List<GameObject> getGameObjects()
     {
-        List<GameObject> list = new ArrayList<>(super.getMoveLegalityCheckers());
-        return list;
+        return new ArrayList<>(super.getMoveLegalityCheckers());
     }
 
-    protected void do_moves() {
-        super.do_moves(new Vector());
+    protected void do_moves(Set<MoveLegalityChecker> updated) {
+        super.do_moves(updated, new Vector());
     }
 
     protected void do_interactions() {

@@ -130,9 +130,9 @@ public class overworldtests {
             for(int j = 0; j < 5; ++j) {
                 Tile tile = tiles.get(new Coordinate(i, j));
                 if(i == 2 && j == 1) {
-                    //Assert.assertTrue(tile.has(entity));
+                    Assert.assertTrue(tile.has(entity));
                 } else {
-                    //Assert.assertFalse(tile.has(entity));
+                    Assert.assertFalse(tile.has(entity));
                 }
             }
         }

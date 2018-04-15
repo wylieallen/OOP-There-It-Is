@@ -2,6 +2,7 @@ package maps.world;
 
 import entity.entitymodel.Entity;
 import gameobject.GameObjectContainer;
+import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
@@ -9,7 +10,9 @@ import maps.tile.Tile;
 import utilities.Coordinate;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by dontf on 4/14/2018.
@@ -44,8 +47,9 @@ public class OverWorld implements World {
     }
 
     private void updateTiles() {
+        Set<MoveLegalityChecker> updated = new HashSet<>();
         for(OverWorldTile tile: tiles.values()) {
-            tile.update();
+            tile.update(updated);
         }
     }
 

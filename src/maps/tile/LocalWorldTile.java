@@ -52,13 +52,13 @@ public class LocalWorldTile extends Tile {
         //
     }
 
-    protected void do_moves(){
+    protected void do_moves(Set<MoveLegalityChecker> updated){
         Vector total = new Vector();
         for(TrajectoryModifier tm: trajectoryModifiers) {
             total.add(tm.getVector());
         }
 
-        super.do_moves(total);
+        super.do_moves(updated, total);
     }
 
     protected void do_interactions(){
