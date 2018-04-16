@@ -1,7 +1,6 @@
 package maps.tile;
 
 import entity.entitymodel.Entity;
-import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import utilities.Vector;
@@ -25,12 +24,13 @@ public abstract class Tile implements GameObjectContainer {
         moveLegalityCheckers.add(entity);
     }
 
-    public void setNeighbor(Direction direction, Tile tile){
+    public void setNeighbor(Direction direction, Tile tile)
+    {
         neighbors.put(direction, tile);
     }
     public Tile getNeighbor(Direction direction) { return neighbors.getOrDefault(direction, null);}
 
-    public void tryToMove(Tile tileFrom, Entity entity){
+    private void tryToMove(Tile tileFrom, Entity entity){
         if(isMoveLegal(entity)){
             tileFrom.moveFrom();
             setEntity(entity);
@@ -38,13 +38,11 @@ public abstract class Tile implements GameObjectContainer {
         entity.resetMovementVector();
     }
 
-    public void moveFrom(){
+    private void moveFrom(){
         remove(entity);
     }
 
     public void addMLC(MoveLegalityChecker mlc) { moveLegalityCheckers.add(mlc); }
-
-    public abstract List<GameObject> getGameObjects();
 
     public Collection<MoveLegalityChecker> getMoveLegalityCheckers() { return moveLegalityCheckers; }
 
@@ -54,9 +52,9 @@ public abstract class Tile implements GameObjectContainer {
         }
     }
 
-    protected abstract void do_moves(Set<MoveLegalityChecker> updated);
+    protected abstract void do_moves(Collection<MoveLegalityChecker> updated);
 
-    protected void do_moves(Set<MoveLegalityChecker> updated, Vector externalForce) {
+    protected void do_moves(Collection<MoveLegalityChecker> updated, Vector externalForce) {
         if(hasEntity()) {
             Vector entityVector = entity.getMovementVector();
 
@@ -106,4 +104,5 @@ public abstract class Tile implements GameObjectContainer {
         }
         return false;
     }
+
 }
