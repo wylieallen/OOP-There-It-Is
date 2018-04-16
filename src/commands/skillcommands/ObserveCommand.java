@@ -10,6 +10,9 @@ public class ObserveCommand extends SkillCommand {
         super(skillType, level, effectiveness);
     }
 
+
+    //This will take in the entity that is being observed and the distance they are from the entity that spawned the
+    //observation influence area and make some observation
     @Override
     protected void success(Entity e, int distance) {
 

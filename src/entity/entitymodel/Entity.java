@@ -229,7 +229,6 @@ public class Entity implements GameObject, MoveLegalityChecker
 
     public boolean isSearching() { return stats.getIsSearching(); }
 
-    public boolean isSneaking() { return stats.getIsSneaking(); }
 
     public int getSkillLevel(SkillType skillType) { return stats.getSkillLevel(skillType); }
 
