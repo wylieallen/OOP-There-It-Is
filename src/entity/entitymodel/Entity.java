@@ -313,4 +313,6 @@ public class Entity implements GameObject, MoveLegalityChecker {
     public void addItem(TakeableItem item) {
         inventory.add(item);
     }
+
+    public Inventory getInventory() { return inventory; }
 }

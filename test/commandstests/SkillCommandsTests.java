@@ -222,4 +222,15 @@ public class SkillCommandsTests {
         Assert.assertFalse(targetInventory.contains(item));
         Assert.assertTrue(casterInventory.contains(item));
     }
+
+    @Test
+    public void testObservationCommand() {
+        ObserveCommand command = new ObserveCommand(caster.getSkillLevel(SkillType.OBSERVATION), 1);
+
+        command.trigger(target);
+
+        command.trigger(target, 500);
+
+        //TODO: make meaningful unit tests
+    }
 }
