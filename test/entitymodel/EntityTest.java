@@ -1,7 +1,7 @@
 package entitymodel;
 
 import commands.TimedEffect;
-import entity.entitycontrol.ControllerAction;
+import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
