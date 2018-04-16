@@ -64,6 +64,7 @@ public class Entity implements GameObject, MoveLegalityChecker {
     }
 
     public void update () {
+        updateStats();
         for(TimedEffect effect: effects) {
             effect.decrementTimeRemaining();
             effect.triggerIfExpired(this);
@@ -74,6 +75,10 @@ public class Entity implements GameObject, MoveLegalityChecker {
     public void update(Map<Coordinate, GameObjectContainer> mapOfContainers) {
         //TODO: add additional logic;
         controller.update(mapOfContainers);
+    }
+
+    private void updateStats() {
+        stats.regenMana();
     }
 
     public void setFacing(Direction newDirection) {
@@ -299,4 +304,13 @@ public class Entity implements GameObject, MoveLegalityChecker {
 
     public boolean isConfused() { return stats.isConfused(); }
 
+    public int getManaRegenRate() { return stats.getManaRegenRate(); }
+
+    public void setManaRegenRate(int newRate) { stats.setManaRegenRate(newRate); }
+
+    public void setCurMana(int newMana) { stats.setCurMana(newMana); }
+
+    public void addItem(TakeableItem item) {
+        inventory.add(item);
+    }
 }

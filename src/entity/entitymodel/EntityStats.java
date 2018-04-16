@@ -18,6 +18,7 @@ public class EntityStats {
     private int curHealth;
     private int maxMana;
     private int curMana;
+    private int manaRegenRate;
     private int curXP;
     private int unspentSkillPoints;
     private int visibilityRadius; //how far out you can see
@@ -32,6 +33,7 @@ public class EntityStats {
                        int curHealth,
                        int maxMana,
                        int curMana,
+                       int manaRegenRate,
                        int curXP,
                        int unspentSkillPoints,
                        int visibilityRadius,
@@ -46,6 +48,7 @@ public class EntityStats {
         this.curHealth = curHealth;
         this.maxMana = maxMana;
         this.curMana = curMana;
+        this.manaRegenRate = manaRegenRate;
         this.curXP = curXP;
         this.unspentSkillPoints = unspentSkillPoints;
         this.visibilityRadius = visibilityRadius;
@@ -173,4 +176,12 @@ public class EntityStats {
     public void makeConfused() { isConfused = true; }
 
     public void makeUnconfused() { isConfused = false; }
+
+    public void regenMana() {
+        setCurMana(Math.min(maxMana, curMana + manaRegenRate));
+    }
+
+    public int getManaRegenRate() { return manaRegenRate; }
+
+    public void setManaRegenRate(int newRate) { manaRegenRate = newRate; }
 }

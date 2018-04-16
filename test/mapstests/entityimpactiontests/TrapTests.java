@@ -34,7 +34,7 @@ public class TrapTests {
         LocalWorld world = new LocalWorld(tiles, new HashSet<>(), new ArrayList<>());
 
         EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
-                100, 100, 100, 0, 0,
+                100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false);
         Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
                 null, true);
@@ -91,7 +91,7 @@ public class TrapTests {
         Map<SkillType, Integer> skills = new HashMap<>();
         skills.put(SkillType.DETECTANDREMOVETRAP, 1);
         EntityStats entityStats = new EntityStats(skills, 2, 100,
-                100, 100, 100, 0, 0,
+                100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false);
         Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
                 null, true);

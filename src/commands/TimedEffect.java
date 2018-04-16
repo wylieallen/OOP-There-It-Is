@@ -18,6 +18,7 @@ public class TimedEffect {
     }
 
     public void decrementTimeRemaining() {
+
         --timeRemaining;
     }
 

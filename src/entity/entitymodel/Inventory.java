@@ -61,10 +61,23 @@ public class Inventory {
     }
 
     public TakeableItem pickPocket(){
-        if (!items.isEmpty())
-            return items.get(0);
-        else
+        Random random = new Random();
+        if (!items.isEmpty()) {
+            int randIndex = random.nextInt(items.size());
+            TakeableItem toReturn = items.get(randIndex);
+            items.remove(randIndex);
+            return toReturn;
+        } else {
             return null;
+        }
+    }
+
+    public boolean contains(TakeableItem item) {
+        for(TakeableItem i: items) {
+            if(item == i)
+                return true;
+        }
+        return false;
     }
 
 }
