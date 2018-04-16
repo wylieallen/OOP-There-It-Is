@@ -6,19 +6,22 @@ import skills.SkillType;
 
 public class PickPocketCommand extends SkillCommand {
 
-    public PickPocketCommand(SkillType skillType, int level, int effectiveness) {
-        super(skillType, level, effectiveness);
+    private Entity caster;
+
+    public PickPocketCommand(int level, int effectiveness, Entity caster) {
+        super(SkillType.PICKPOCKET, level, effectiveness);
+        this.caster = caster;
     }
 
     @Override
     protected void success(Entity e, int distance) {
         TakeableItem item = e.pickPocket();
-        // TODO: how to get item into the Entity using the skill's inventory?
+        caster.addToInventory(item);
     }
 
     @Override
     protected void fail(Entity e, int distance) {
-        // nothing
+        e.enrage(caster);
     }
 
 }

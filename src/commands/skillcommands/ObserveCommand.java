@@ -1,13 +1,15 @@
 package commands.skillcommands;
 
 import entity.entitymodel.Entity;
+import entity.entitymodel.Inventory;
+import items.takeableitems.TakeableItem;
 import skills.SkillType;
 
 // not sure how this will work
 public class ObserveCommand extends SkillCommand {
 
-    public ObserveCommand(SkillType skillType, int level, int effectiveness) {
-        super(skillType, level, effectiveness);
+    public ObserveCommand(int level, int effectiveness) {
+        super(SkillType.OBSERVATION, level, effectiveness);
     }
 
 
@@ -15,12 +17,90 @@ public class ObserveCommand extends SkillCommand {
     //observation influence area and make some observation
     @Override
     protected void success(Entity e, int distance) {
+        String message = "";
 
+        int mode = (int)(Math.random() * 4);
+        switch(mode) {
+            //health observation
+            case 0:
+                message = healthObservation(e, distance);
+                break;
+            //move speed observation
+            case 1:
+                message = moveSpeedObservation(e, distance);
+                break;
+            //gold observation
+            case 2:
+                message = goldObservation(e, distance);
+                break;
+            //item observation
+            case 3:
+                message = itemObservation(e.getInventory(), distance);
+                break;
+        }
+
+        System.out.println(message);
+        //TODO: send message to the view
     }
 
     @Override
     protected void fail(Entity e, int distance) {
 
+    }
+
+    //0 accuracy represents perfect accuracy, -1 represents an underestimation by 100%,
+    //1 represents an overestimation by 100%
+    private double getAccuracy(int distance) {
+        //get a random number [0, 2)
+        double accuracy = Math.random() * 2;
+
+        //scale to the range [-1, 1)
+        accuracy -= 1;
+
+        accuracy = improveAccuracy(accuracy, 0.1 * getEffectiveness());
+        accuracy = worsenAccuracy(accuracy, 0.1 * distance);
+        accuracy = improveAccuracy(accuracy, 0.1 * getLevel());
+
+        return accuracy;
+    }
+
+    public double improveAccuracy(double accuracy, double factor) {
+        double newAccuracy = accuracy - (accuracy * factor);
+        if(newAccuracy < 0 && accuracy > 0
+                || newAccuracy > 0 && accuracy < 0) {
+            newAccuracy = 0;
+        }
+        return newAccuracy;
+    }
+
+    public double worsenAccuracy(double accuracy, double factor) {
+        return accuracy + (accuracy * factor);
+    }
+
+    private String healthObservation(Entity e, int distance) {
+        int health = e.getCurrHealth();
+        health += health * getAccuracy(distance);
+        return "This entity has " + health + " health.";
+    }
+
+    private String moveSpeedObservation(Entity e, int distance) {
+        int moveSpeed = e.getBaseMoveSpeed();
+        moveSpeed += moveSpeed * getAccuracy(distance);
+        return "This entity's move speed is " + moveSpeed + ".";
+    }
+
+    private String goldObservation(Entity e, int distance) {
+        double gold = e.getGold();
+        gold += gold * getAccuracy(distance);
+        return "This entity has " + gold + " gold.";
+    }
+
+    private String itemObservation(Inventory inventory, int distance) {
+        String itemName = inventory.getRandomItemName();
+        if(itemName.equals(""))
+            return "This entity has no items.";
+        else
+            return "This entity has an item named " + itemName + ".";
     }
 
 }

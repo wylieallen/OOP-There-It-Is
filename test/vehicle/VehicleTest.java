@@ -3,7 +3,11 @@ package vehicle;
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
+import entity.entitycontrol.AI.FriendlyAI;
+import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.EntityController;
+import entity.entitycontrol.HumanEntityController;
+import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
@@ -39,8 +43,8 @@ public class VehicleTest {
     @Before
     public void setUpEntities () {
 
-        HashMap<SkillType, Integer> skillsActor = new HashMap<SkillType, Integer>();
-        HashMap<SkillType, Integer> skillsActee = new HashMap<SkillType, Integer>();
+        HashMap<SkillType, Integer> skillsActor = new HashMap<>();
+        HashMap<SkillType, Integer> skillsActee = new HashMap<>();
 
         skillsActor.put(SkillType.BANE, 10);
         skillsActor.put(SkillType.PICKPOCKET, 99);
@@ -49,8 +53,8 @@ public class VehicleTest {
         skillsActee.put(SkillType.BINDWOUNDS, 45);
         skillsActee.put(SkillType.CREEP, 32);
 
-        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65, false);
-        EntityStats acteeStats = new EntityStats(skillsActee, 3, 120, 45, 120, 43, 23, 8, 6, 69, 100, false);
+        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 5, 25, 5, 5, 50, 65, false, false);
+        EntityStats acteeStats = new EntityStats(skillsActee, 3, 120, 45, 120, 43, 5, 23, 8, 6, 69, 100, false, false);
 
         //TODO: once concrete ControllerActions are made test this;
         ArrayList<ControllerAction> actorActions = new ArrayList<>();
@@ -59,7 +63,7 @@ public class VehicleTest {
         ArrayList<TimedEffect> actorEffects = new ArrayList<>();
         ArrayList<TimedEffect> acteeEffects = new ArrayList<>();
 
-        actorEffects.add(new TimedEffect(new MakeConfusedCommand(false, 5), 10));
+        actorEffects.add(new TimedEffect(new MakeConfusedCommand(false), 10));
 
         acteeEffects.add(new TimedEffect(new MakeParalyzedCommand(false), 15));
 
@@ -74,7 +78,7 @@ public class VehicleTest {
         acteeActeeInteractions.add(new UseItemInteraction());
 
         //TODO: add constructors when it needs to be tested;
-        EntityController actorController = new EntityController(actor, null, null, null) {
+        /*EntityController actorController = new EntityController(actor, null, null, null) {
             @Override
             protected void processController() {
 
@@ -114,6 +118,12 @@ public class VehicleTest {
             public void notifyMainMenu(Entity e) {
 
             }
+
+            @Override
+            public void pacify() {}
+
+            @Override
+            public void enrage(Entity e) {}
         };
         EntityController acteeController = new EntityController(yourMomNotMountedYet, null, null, null) {
             @Override
@@ -155,15 +165,33 @@ public class VehicleTest {
             public void notifyMainMenu(Entity e) {
 
             }
-        };
 
-        actor = new Entity(new Vector(Direction.N, 1), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, new Inventory(), true);
-        yourMomPreMounted = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeActeeInteractions, new Inventory(), true, actor);
-        yourMomNotMountedYet = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeActeeInteractions, new Inventory(), true);
+            @Override
+            public void pacify() {}
+
+            @Override
+            public void enrage(Entity e) {}
+        };*/
+
+        actor = new Entity(new Vector(Direction.N, 1), actorStats, actorActions, actorEffects, actorActorInteractions, new Inventory(), true);
+        yourMomPreMounted = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, new Inventory(), true, actor);
+        yourMomNotMountedYet = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, new Inventory(), true);
+
+
+        EntityController actorController = new HumanEntityController(actor,null,
+                null, null, null);
+
+        EntityController yourMomPreMountedController = new NpcEntityController(yourMomPreMounted, null,
+                null, null, new HostileAI(new ArrayList<>(), actor),
+                new FriendlyAI(acteeActeeInteractions), false);
+
+        EntityController yourMomNotMountedYetController = new NpcEntityController(yourMomNotMountedYet, null,
+                null, null, new HostileAI(new ArrayList<>(), actor),
+                new FriendlyAI(acteeActeeInteractions), false);
 
         actor.setController(actorController);
-        yourMomPreMounted.setController(acteeController);
-        yourMomNotMountedYet.setController(acteeController);
+        yourMomPreMounted.setController(yourMomPreMountedController);
+        yourMomNotMountedYet.setController(yourMomNotMountedYetController);
     }
 
     @Test

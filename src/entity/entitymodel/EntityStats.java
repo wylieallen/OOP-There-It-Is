@@ -18,13 +18,14 @@ public class EntityStats {
     private int curHealth;
     private int maxMana;
     private int curMana;
+    private int manaRegenRate;
     private int curXP;
     private int unspentSkillPoints;
+    private int visibilityRadius; //how far out you can see
+    private int concealment; //the max distance from which enemies can see you
     private double gold;
-    private int visibilityRadious;//how far out you can see
-    private int concealment;//the max distance from which enemies can see you
+    private boolean isConfused;
     private boolean isSearching;
-
 
     public EntityStats(Map<SkillType, Integer> skills,
                        int baseMoveSpeed,
@@ -32,12 +33,14 @@ public class EntityStats {
                        int curHealth,
                        int maxMana,
                        int curMana,
+                       int manaRegenRate,
                        int curXP,
                        int unspentSkillPoints,
-                       int visibilityRadious,
+                       int visibilityRadius,
                        int concealment,
                        double gold,
-                       boolean isSearching)
+                       boolean isSearching,
+                       boolean isConfused)
     {
         this.skills = skills;
         this.baseMoveSpeed = baseMoveSpeed;
@@ -45,11 +48,13 @@ public class EntityStats {
         this.curHealth = curHealth;
         this.maxMana = maxMana;
         this.curMana = curMana;
+        this.manaRegenRate = manaRegenRate;
         this.curXP = curXP;
         this.unspentSkillPoints = unspentSkillPoints;
-        this.visibilityRadious = visibilityRadious;
+        this.visibilityRadius = visibilityRadius;
         this.concealment = concealment;
         this.gold = gold;
+        this.isConfused = isConfused;
         this.isSearching = isSearching;
     }
 
@@ -109,12 +114,12 @@ public class EntityStats {
         this.unspentSkillPoints = unspentSkillPoints;
     }
 
-    public int getVisibilityRadious() {
-        return visibilityRadious;
+    public int getVisibilityRadius() {
+        return visibilityRadius;
     }
 
-    public void setVisibilityRadious(int visibilityRadious) {
-        this.visibilityRadious = visibilityRadious;
+    public void setVisibilityRadius(int visibilityRadius) {
+        this.visibilityRadius = visibilityRadius;
     }
 
     public int getConcealment() {
@@ -166,6 +171,17 @@ public class EntityStats {
         }
     }
 
+    public boolean isConfused() { return isConfused; }
 
+    public void makeConfused() { isConfused = true; }
 
+    public void makeUnconfused() { isConfused = false; }
+
+    public void regenMana() {
+        setCurMana(Math.min(maxMana, curMana + manaRegenRate));
+    }
+
+    public int getManaRegenRate() { return manaRegenRate; }
+
+    public void setManaRegenRate(int newRate) { manaRegenRate = newRate; }
 }

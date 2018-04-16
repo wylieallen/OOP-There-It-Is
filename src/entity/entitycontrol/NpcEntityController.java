@@ -1,9 +1,15 @@
 package entity.entitycontrol;
 
+import entity.entitycontrol.AI.FriendlyAI;
+import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitycontrol.AI.AI;
 import entity.entitymodel.Equipment;
+import entity.entitymodel.interactions.EntityInteraction;
+import entity.entitymodel.interactions.TalkInteraction;
+import entity.entitymodel.interactions.TradeInteraction;
+import entity.entitymodel.interactions.UseItemInteraction;
 import gameobject.GameObjectContainer;
 import utilities.Coordinate;
 
@@ -12,12 +18,23 @@ import java.util.Map;
 
 public class NpcEntityController extends EntityController {
 
-    private AI ai;
+    private AI activeAi;
+    private AI aggroAi;
+    private AI nonAggroAi;
 
     public NpcEntityController(Entity entity, Equipment equipment, Coordinate entityLocation,
-                               ArrayList<ControllerAction> actions, AI ai) {
+                               ArrayList<ControllerAction> actions, AI AggroAi, AI nonAggroAi,
+                               boolean isAggro) {
         super(entity, equipment, entityLocation, actions);
-        this.ai = ai;
+        this.aggroAi = AggroAi;
+        this.nonAggroAi = nonAggroAi;
+        if(isAggro) {
+            activeAi = aggroAi;
+        } else {
+            activeAi = nonAggroAi;
+        }
+        updateActeeInteractions();
+
     }
 
     @Override
@@ -60,12 +77,28 @@ public class NpcEntityController extends EntityController {
         //TODO
     }
 
+    @Override
+    public void enrage(Entity e) {
+        activeAi = aggroAi;
+        updateActeeInteractions();
+    }
+
+    @Override
+    public void pacify() {
+        activeAi = nonAggroAi;
+        updateActeeInteractions();
+    }
+
+    public void updateActeeInteractions() {
+        getControlledEntity().setActeeInteractions(activeAi.getInteractions());
+    }
+
     public void processAI(Map<Coordinate, GameObjectContainer> map, Entity e){
         //TODO
     }
 
-    public void setAI(AI newAI){
-        this.ai = newAI;
+    public boolean isAggro() {
+        return activeAi == aggroAi;
     }
 
 }
