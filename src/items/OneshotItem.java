@@ -19,6 +19,14 @@ public class OneshotItem extends Item {
 
     }
 
+    public Command getCommand(){
+        return command;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitOneShotItem(this);

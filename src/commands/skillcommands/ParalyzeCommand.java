@@ -1,6 +1,7 @@
 package commands.skillcommands;
 
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 import skills.SkillType;
 
 public class ParalyzeCommand extends SkillCommand {
@@ -22,4 +23,8 @@ public class ParalyzeCommand extends SkillCommand {
         // TODO: make enity mad
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitParalyzeCommand(this);
+    }
 }

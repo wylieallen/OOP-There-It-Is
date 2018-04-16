@@ -1,6 +1,7 @@
 package commands.skillcommands;
 
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 import skills.SkillType;
 
 // not sure how this will work
@@ -20,4 +21,8 @@ public class ObserveCommand extends SkillCommand {
 
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitObserveCommand(this);
+    }
 }

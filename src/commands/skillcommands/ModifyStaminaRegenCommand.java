@@ -1,6 +1,7 @@
 package commands.skillcommands;
 
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 import skills.SkillType;
 
 public class ModifyStaminaRegenCommand extends SkillCommand {
@@ -19,4 +20,8 @@ public class ModifyStaminaRegenCommand extends SkillCommand {
 
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitModifyStaminaRegenCommand(this);
+    }
 }

@@ -1,6 +1,7 @@
 {
   "Player": {
     "Type": "Player",
+    "DirectionFacing": "N",
     "Stats": {
       "Skills": {
         "Sneak": 10,
@@ -17,7 +18,6 @@
       "Concealment": 5,
       "Gold": 45
     },
-    "DirectionFacing": "N",
     "ActorInteractions": [
       "BackStabInteraction",
       "PickPocketInteraction"
@@ -26,7 +26,19 @@
       "BackStabInteraction",
       "PickPocketInteraction"
     ],
-    "Inventory": {
+    "Inventory": [
+      {
+        "Name": "QuestKey",
+        "QuestId": 123
+      },
+      {
+        "Name": "IronKnuckles",
+        "Damage": 15,
+        "AttackSpeed": 2,
+        "RequiredSkill": "Slasher"
+      }
+    ],
+    "Equipment": {
       "WeaponItems":[
         {
           "Name": "Sword",
@@ -46,7 +58,8 @@
           "Name": "Ring",
           "EquipSlot": "Hand"
         }
-      ]
+      ],
+      "InVehicle": false
     }
   },
   "OverWorld":{
@@ -145,7 +158,8 @@
                 "Name": "Ring",
                 "EquipSlot": "Hand"
               }
-            ]
+            ],
+            "InVehicle": false
           },
           "Location":{
             "X": 5,

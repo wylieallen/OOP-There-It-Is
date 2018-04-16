@@ -7,6 +7,7 @@ import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import savingloading.Visitable;
+import savingloading.Visitor;
 import utilities.Coordinate;
 
 import java.util.*;
@@ -93,6 +94,10 @@ public abstract class EntityController implements Visitable{
         }
     }
 
+    public boolean isInVehicle(){
+        return inVehicle;
+    }
 
+    public void accept(Visitor v){}
 
 }

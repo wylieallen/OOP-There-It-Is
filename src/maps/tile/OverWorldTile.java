@@ -1,7 +1,9 @@
 package maps.tile;
 
+import entity.entitymodel.Entity;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import gameobject.GameObject;
+import maps.movelegalitychecker.Terrain;
 import utilities.Vector;
 
 import java.util.HashSet;
@@ -28,5 +30,8 @@ public class OverWorldTile extends Tile {
 
     protected void do_interactions(Entity entity) {
 
+    }
+
+    public void add(Terrain terrain) {
     }
 }

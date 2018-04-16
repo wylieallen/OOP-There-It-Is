@@ -1,6 +1,7 @@
 package commands.reversiblecommands;
 
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 
 public class TimedStaminaRegenCommand extends ReversibleCommand {
 
@@ -19,5 +20,14 @@ public class TimedStaminaRegenCommand extends ReversibleCommand {
     @Override
     protected void unapply(Entity e) {
 
+    }
+
+    public int getStaminaRegenDecrease(){
+        return staminaRegenDecrease;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitTimedStaminaRegenCommand(this);
     }
 }

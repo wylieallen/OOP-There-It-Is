@@ -1,5 +1,7 @@
 package entity.entitymodel;
 
+import savingloading.Visitable;
+import savingloading.Visitor;
 import skills.SkillType;
 
 import java.util.Map;
@@ -7,7 +9,7 @@ import java.util.Map;
 /**
  * Created by dontf on 4/13/2018.
  */
-public class EntityStats {
+public class EntityStats implements Visitable {
 
     private Map <SkillType, Integer> skills;
     private int baseMoveSpeed;
@@ -134,4 +136,12 @@ public class EntityStats {
         return skills.getOrDefault(s, -1);
     }
 
+    public Map<SkillType, Integer> getSkills() {
+        return skills;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitEntityStats(this);
+    }
 }

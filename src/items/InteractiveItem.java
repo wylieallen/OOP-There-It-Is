@@ -17,6 +17,10 @@ public class InteractiveItem extends Item {
         command.trigger(e);
     }
 
+    public Command getCommand() {
+        return command;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitInteractiveItem(this);

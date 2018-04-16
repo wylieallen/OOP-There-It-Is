@@ -1,6 +1,7 @@
 package commands.reversiblecommands;
 
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 
 public class MakeConfusedCommand extends ReversibleCommand {
 
@@ -19,5 +20,14 @@ public class MakeConfusedCommand extends ReversibleCommand {
     @Override
     protected void unapply(Entity e) {
         e.increaseVisibilityRadious(visibilityDecreaseAmount);
+    }
+
+    public int getVisibilityDecreaseAmount(){
+        return visibilityDecreaseAmount;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitMakeConfusedCommand(this);
     }
 }

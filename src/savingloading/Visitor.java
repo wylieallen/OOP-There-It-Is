@@ -1,5 +1,9 @@
 package savingloading;
 
+import commands.reversiblecommands.MakeConfusedCommand;
+import commands.reversiblecommands.MakeParalyzedCommand;
+import commands.reversiblecommands.TimedStaminaRegenCommand;
+import commands.skillcommands.*;
 import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.AI.PatrolAI;
@@ -7,6 +11,7 @@ import entity.entitycontrol.AI.PetAI;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitymodel.Entity;
+import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.*;
 import entity.vehicle.Vehicle;
@@ -37,6 +42,7 @@ public interface Visitor {
     void visitHostileAI(HostileAI h);
     void visitPatrolAI(PatrolAI p);
     void visitPetAI(PetAI p);
+    void visitEntityStats(EntityStats entityStats);
 
     void visitInventory(Inventory inventory);
 
@@ -54,6 +60,17 @@ public interface Visitor {
     void visitConsumableItem(ConsumableItem c);
     void visitWeaponItem(WeaponItem w);
     void visitWearableItem(WearableItem w);
+
+    void visitConfuseCommand(ConfuseCommand confuseCommand);
+    void visitMakeFriendlyCommand(MakeFriendlyCommand makeFriendlyCommand);
+    void visitModifyHealthCommand(ModifyHealthCommand modifyHealthCommand);
+    void visitModifyStaminaRegenCommand(ModifyStaminaRegenCommand modifyStaminaRegenCommand);
+    void visitObserveCommand(ObserveCommand observeCommand);
+    void visitParalyzeCommand(ParalyzeCommand paralyzeCommand);
+    void visitPickPocketCommand(PickPocketCommand pickPocketCommand);
+    void visitMakeConfusedCommand(MakeConfusedCommand makeConfusedCommand);
+    void visitMakeParalyzedCommand(MakeParalyzedCommand makeParalyzedCommand);
+    void visitTimedStaminaRegenCommand(TimedStaminaRegenCommand timedStaminaRegenCommand);
 
     void visitWorld (World w);
     void visitOverWorld(OverWorld w);

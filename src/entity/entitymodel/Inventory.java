@@ -49,6 +49,10 @@ public class Inventory implements Visitable{
             return null;
     }
 
+    public List<TakeableItem> getItems() {
+        return items;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitInventory(this);

@@ -1,5 +1,6 @@
 package maps.tile;
 
+import entity.entitymodel.Entity;
 import gameobject.GameObject;
 import maps.entityimpaction.EntityImpactor;
 import maps.movelegalitychecker.MoveLegalityChecker;

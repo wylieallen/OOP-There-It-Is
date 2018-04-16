@@ -1,6 +1,7 @@
 package commands.skillcommands;
 
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 import skills.SkillType;
 
 public class ModifyHealthCommand extends SkillCommand {
@@ -22,4 +23,12 @@ public class ModifyHealthCommand extends SkillCommand {
         // nothing
     }
 
+    public int getHealthDecrement(){
+        return healthDecrement;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitModifyHealthCommand(this);
+    }
 }

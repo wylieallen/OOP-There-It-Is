@@ -1,6 +1,7 @@
 package commands.skillcommands;
 
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 import skills.SkillType;
 
 public class ConfuseCommand extends SkillCommand {
@@ -21,4 +22,8 @@ public class ConfuseCommand extends SkillCommand {
         // TODO: make entity mad or something
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitConfuseCommand(this);
+    }
 }

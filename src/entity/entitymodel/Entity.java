@@ -232,6 +232,22 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         return controller;
     }
 
+    public EntityStats getStats() {
+        return stats;
+    }
+
+    public List<EntityInteraction> getActeeInteractions() {
+        return acteeInteractions;
+    }
+
+    public List<EntityInteraction> getActorInteractions() {
+        return actorInteractions;
+    }
+
+    public Inventory getInventory(){
+        return inventory;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitEntity(this);

@@ -1,6 +1,7 @@
 package commands.skillcommands;
 
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 import skills.SkillType;
 
 public class MakeFriendlyCommand extends SkillCommand {
@@ -19,4 +20,8 @@ public class MakeFriendlyCommand extends SkillCommand {
         // TODO: make entity mad
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitMakeFriendlyCommand(this);
+    }
 }

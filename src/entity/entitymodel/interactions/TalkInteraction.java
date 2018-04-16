@@ -14,9 +14,17 @@ public class TalkInteraction implements EntityInteraction {
 
     private Set<String> messages;
 
+    public TalkInteraction(Set<String> messages){
+        this.messages = messages;
+    }
+
     @Override
     public void interact(Entity actor, Entity actee) {
 
+    }
+
+    public Set<String> getMessages() {
+        return messages;
     }
 
     @Override
