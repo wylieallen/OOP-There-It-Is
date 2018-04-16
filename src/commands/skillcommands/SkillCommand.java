@@ -12,7 +12,8 @@ import java.util.Random;
 //  trigger(Entity e, int distance) in SkillCommand
 //  so there would be a method not being used (mixed-instance cohesion)
 
-public abstract class SkillCommand implements Visitable {
+
+public abstract class SkillCommand implements Command, Visitable {
     private SkillType skillType;
     private int level;
     private int effectiveness; // range: 1-100
@@ -26,15 +27,24 @@ public abstract class SkillCommand implements Visitable {
     protected SkillType getSkillType() { return this.skillType; }
     protected int getLevel() { return this.level; }
 
-    public void trigger(Entity e, int distance){
-        Random r = new Random();
-        if(r.nextInt(101) <= effectiveness*level)
+    public void trigger(Entity e, int distance) {
+        boolean success = getSkillType().checkSuccess(e.getSkillLevel(getSkillType()), distance);
+        if(success) {
             success(e, distance);
-        else
+        } else {
             fail(e, distance);
+        }
     }
 
     protected abstract void success(Entity e, int distance);
     protected abstract void fail(Entity e, int distance);
 
+    @Override
+    public void trigger(Entity e) {
+        success(e, 0);
+    }
+
+    public int getEffectiveness() {
+        return effectiveness;
+    }
 }

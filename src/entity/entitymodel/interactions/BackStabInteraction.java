@@ -1,6 +1,7 @@
 package entity.entitymodel.interactions;
 
 import entity.entitymodel.Entity;
+import skills.SkillType;
 import entity.entitymodel.interactions.EntityInteraction;
 import savingloading.Visitor;
 
@@ -9,9 +10,27 @@ import savingloading.Visitor;
  */
 public class BackStabInteraction implements EntityInteraction {
 
-    @Override
-    public void interact(Entity actor, Entity actee) {
+    private final int baseDamage = 25;
+    private final int xpIncrease = 10;
 
+    @Override
+    public boolean interact(Entity actor, Entity actee) {
+
+        if (SkillType.CREEP.checkSuccess(actor.getSkillLevel(SkillType.CREEP), 1)) {
+            actee.hurtEntity(SkillType.CREEP.calculateModification(baseDamage, 1, actor.getSkillLevel(SkillType.CREEP)));
+            actor.increaseXP(xpIncrease);
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public void testInteractFunction (Entity actor, Entity actee, boolean success) {
+        if (success) {
+            actee.hurtEntity(baseDamage);
+            actor.increaseXP(xpIncrease);
+        }
     }
 
     @Override

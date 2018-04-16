@@ -19,8 +19,8 @@ public class TalkInteraction implements EntityInteraction {
     }
 
     @Override
-    public void interact(Entity actor, Entity actee) {
-
+    public boolean interact(Entity actor, Entity actee) {
+        return false;
     }
 
     public Set<String> getMessages() {

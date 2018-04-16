@@ -1,6 +1,7 @@
 package entity.entitycontrol;
 
 
+import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import entity.vehicle.Vehicle;
@@ -98,6 +99,10 @@ public abstract class EntityController implements Visitable{
         return inVehicle;
     }
 
+    public Coordinate getEntityLocation(){
+        return entityLocation;
+    }
     public void accept(Visitor v){}
+
 
 }

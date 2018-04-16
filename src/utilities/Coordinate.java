@@ -7,8 +7,8 @@ import maps.tile.Direction;
  */
 public class Coordinate implements Comparable<Coordinate> {
 
-    private int x;
-    private int z;
+    private final int x;
+    private final int z;
 
     public Coordinate(int x, int z) {
         this.x = x;

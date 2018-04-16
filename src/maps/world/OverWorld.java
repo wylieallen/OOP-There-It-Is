@@ -30,11 +30,6 @@ public class OverWorld implements World {
         buildNeighborList();
     }
 
-    @Override
-    public void update() {
-        updateTiles();
-    }
-
     private void buildNeighborList() {
         for(Map.Entry<Coordinate, OverWorldTile> entry: tiles.entrySet()) {
             Coordinate coordinate = entry.getKey();
@@ -45,14 +40,33 @@ public class OverWorld implements World {
         }
     }
 
-    public OverWorldTile getTile(Coordinate c) { return tiles.get(c); }
+    @Override
+    public void update() {
+        updatePhase();
+        movementPhase();
+        interactionPhase();
+    }
 
-    private void updateTiles() {
-        Set<MoveLegalityChecker> updated = new HashSet<>();
+    private void updatePhase() {
         for(OverWorldTile tile: tiles.values()) {
-            tile.update(updated);
+            tile.do_update();
         }
     }
+
+    private void movementPhase() {
+        Set<MoveLegalityChecker> updated = new HashSet<>();
+        for(OverWorldTile tile: tiles.values()) {
+            tile.do_moves(updated);
+        }
+    }
+
+    private void interactionPhase() {
+        for(OverWorldTile tile: tiles.values()) {
+            tile.do_interactions();
+        }
+    }
+
+    public OverWorldTile getTile(Coordinate c) { return tiles.get(c); }
 
     public Map<Coordinate, GameObjectContainer> getMap()
     {

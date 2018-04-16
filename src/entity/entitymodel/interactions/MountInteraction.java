@@ -11,8 +11,9 @@ import savingloading.Visitor;
 public class MountInteraction implements EntityInteraction {
 
     @Override
-    public void interact(Entity actor, Entity actee) {
-        //TODO: make sure isOnMap set to false;
+    public boolean interact(Entity actor, Entity actee) {
+        actee.interact(actor);
+        return true;
     }
 
     @Override

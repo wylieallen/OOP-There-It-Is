@@ -14,10 +14,11 @@ public class LocalWorldTile extends Tile {
     private Set<TrajectoryModifier> trajectoryModifiers;
     private Set<EntityImpactor> entityImpactors;
 
-    public LocalWorldTile()
-    {
-        trajectoryModifiers = new HashSet<>();
-        entityImpactors = new HashSet<>();
+    public LocalWorldTile(Set<MoveLegalityChecker> mlcs, Entity entity, Set<TrajectoryModifier> tms,
+                          Set<EntityImpactor> eis) {
+        super(mlcs, entity);
+        trajectoryModifiers = tms;
+        entityImpactors = eis;
     }
 
     @Override
@@ -31,7 +32,7 @@ public class LocalWorldTile extends Tile {
 
     public void update()
     {
-        super.update(super.getMoveLegalityCheckers());
+        super.do_update();
         trajectoryModifiers.forEach(GameObject::update);
         entityImpactors.forEach(GameObject::update);
     }
@@ -48,7 +49,19 @@ public class LocalWorldTile extends Tile {
         entityImpactors.add(ei);
     }
 
-    protected void do_moves(Collection<MoveLegalityChecker> updated){
+    @Override
+    public void do_update() {
+        super.do_update();
+        for(TrajectoryModifier tm : trajectoryModifiers) {
+            tm.update();
+        }
+        for(EntityImpactor ei: entityImpactors) {
+            ei.update();
+        }
+    }
+
+    @Override
+    public void do_moves(Collection<MoveLegalityChecker> updated){
         Vector total = new Vector();
         for(TrajectoryModifier tm: trajectoryModifiers) {
             total.add(tm.getVector());
@@ -57,9 +70,12 @@ public class LocalWorldTile extends Tile {
         super.do_moves(updated, total);
     }
 
-    protected void do_interactions(Entity entity){
-        for(EntityImpactor ei: entityImpactors) {
-            ei.touch(entity);
+    @Override
+    public void do_interactions(){
+        if(super.hasEntity()){
+            for(EntityImpactor ei: entityImpactors) {
+                ei.touch(super.getEntity());
+            }
         }
     }
 }

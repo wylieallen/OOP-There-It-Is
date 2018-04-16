@@ -273,7 +273,7 @@ public class SaveVisitor implements Visitor {
     public void visitModifyHealthCommand(ModifyHealthCommand modifyHealthCommand) {
         currentCommand = new JSONObject();
         currentCommand.put("Name", "MakeFriendly");
-        currentCommand.put("HealthDecrement", modifyHealthCommand.getHealthDecrement());
+        // TODO: other command stats
     }
 
     @Override

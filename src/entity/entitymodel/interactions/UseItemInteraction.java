@@ -1,6 +1,7 @@
 package entity.entitymodel.interactions;
 
 import entity.entitymodel.Entity;
+import items.takeableitems.TakeableItem;
 
 import entity.entitymodel.interactions.EntityInteraction;
 import savingloading.Visitor;
@@ -11,8 +12,9 @@ import savingloading.Visitor;
 public class UseItemInteraction implements EntityInteraction {
 
     @Override
-    public void interact(Entity actor, Entity actee) {
-
+    public boolean interact(Entity actor, Entity actee) {
+        TakeableItem use = actor.getRandomItem();
+        return false;
     }
 
     @Override

@@ -11,6 +11,9 @@ import java.util.Map;
  */
 public class EntityStats implements Visitable {
 
+    private final int defaultValue = -1;
+    private final int maxSkillLevel = 100;
+
     private Map <SkillType, Integer> skills;
     private int baseMoveSpeed;
     private int maxHealth;
@@ -19,9 +22,11 @@ public class EntityStats implements Visitable {
     private int curMana;
     private int curXP;
     private int unspentSkillPoints;
-    private int visibilityRadious;
-    private int concealment;
-    private int gold;
+    private double gold;
+    private int visibilityRadious;//how far out you can see
+    private int concealment;//the max distance from which enemies can see you
+    private boolean isSearching;
+
 
     public EntityStats(Map<SkillType, Integer> skills,
                        int baseMoveSpeed,
@@ -33,7 +38,8 @@ public class EntityStats implements Visitable {
                        int unspentSkillPoints,
                        int visibilityRadious,
                        int concealment,
-                       int gold)
+                       double gold,
+                       boolean isSearching)
     {
         this.skills = skills;
         this.baseMoveSpeed = baseMoveSpeed;
@@ -46,6 +52,7 @@ public class EntityStats implements Visitable {
         this.visibilityRadious = visibilityRadious;
         this.concealment = concealment;
         this.gold = gold;
+        this.isSearching = isSearching;
     }
 
     public int getBaseMoveSpeed() {
@@ -120,11 +127,11 @@ public class EntityStats implements Visitable {
         this.concealment = concealment;
     }
 
-    public int getGold() {
+    public double getGold() {
         return gold;
     }
 
-    public void setGold(int gold) {
+    public void setGold(double gold) {
         this.gold = gold;
     }
 
@@ -133,8 +140,35 @@ public class EntityStats implements Visitable {
     }
 
     public int getSkillLevel (SkillType s) {
-        return skills.getOrDefault(s, -1);
+        return skills.getOrDefault(s, defaultValue);
     }
+
+    public void increaseSkillLevel (SkillType s, int amount) {
+        int curLevel = skills.getOrDefault(s, defaultValue);
+
+        if (curLevel != defaultValue) {
+            curLevel = Math.min(maxSkillLevel, curLevel + amount);
+            skills.replace(s, curLevel);
+        }
+
+    }
+
+    public boolean getIsSearching() { return isSearching; }
+
+
+    public void startSearching() {
+        if(containsSkill(SkillType.DETECTANDREMOVETRAP)) {
+            isSearching = true;
+        }
+    }
+
+    public void stopSearching() {
+        if(containsSkill(SkillType.DETECTANDREMOVETRAP)) {
+            isSearching = false;
+        }
+    }
+
+
 
     public Map<SkillType, Integer> getSkills() {
         return skills;
