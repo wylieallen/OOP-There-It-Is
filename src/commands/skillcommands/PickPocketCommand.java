@@ -6,8 +6,8 @@ import skills.SkillType;
 
 public class PickPocketCommand extends SkillCommand {
 
-    public PickPocketCommand(SkillType skillType, int level, int effectiveness) {
-        super(skillType, level, effectiveness);
+    public PickPocketCommand(int level, int effectiveness) {
+        super(SkillType.PICKPOCKET, level, effectiveness);
     }
 
     @Override

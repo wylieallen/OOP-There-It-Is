@@ -1,5 +1,6 @@
 package mapstests.worldtests;
 
+import commands.TimedEffect;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
@@ -101,9 +102,9 @@ public class OverWorldTests {
 
         EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
                                         100, 100, 100, 0, 0,
-                                    3, 3, 0, false);
-        Entity entity = new Entity(new Vector(), entityStats, null, null, null,
-                                    null, null, true);
+                                    3, 3, 0, false, false);
+        Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+                                    null, true);
 
         EntityController entityController = new HumanEntityController(entity, null,
                                                 new Coordinate(2, 2), null, null);

@@ -17,4 +17,18 @@ public class TimedEffect {
         command.trigger(affectedEntity);
     }
 
+    public void decrementTimeRemaining() {
+        --timeRemaining;
+    }
+
+    public boolean isExpired() {
+        return timeRemaining == 0;
+    }
+
+    public void triggerIfExpired(Entity entity) {
+        if(isExpired()){
+            trigger(entity);
+        }
+    }
+
 }

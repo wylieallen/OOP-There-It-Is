@@ -6,8 +6,8 @@ import skills.SkillType;
 // not sure how this will work
 public class ObserveCommand extends SkillCommand {
 
-    public ObserveCommand(SkillType skillType, int level, int effectiveness) {
-        super(skillType, level, effectiveness);
+    public ObserveCommand(int level, int effectiveness) {
+        super(SkillType.OBSERVATION, level, effectiveness);
     }
 
 

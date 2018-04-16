@@ -4,6 +4,8 @@ import commands.TimedEffect;
 import commands.reversiblecommands.MakeParalyzedCommand;
 import commands.skillcommands.ParalyzeCommand;
 import entity.entitycontrol.EntityController;
+import entity.entitycontrol.HumanEntityController;
+import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.EntityInteraction;
@@ -41,55 +43,14 @@ public class EquipmentTest {
         wearables = new HashMap<>();
         inventory = new Inventory(items);
 
-        HashMap<SkillType, Integer> skillsActor = new HashMap<SkillType, Integer>();
-        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65, false);
+        HashMap<SkillType, Integer> skillsActor = new HashMap<>();
+        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65, false, false);
         ArrayList<ControllerAction> actorActions = new ArrayList<>();
         ArrayList <TimedEffect> actorEffects = new ArrayList<>();
         ArrayList <EntityInteraction> actorActorInteractions = new ArrayList<>();
-        ArrayList <EntityInteraction> actorActeeInteractions = new ArrayList<>();
-        EntityController actorController = new EntityController(null, null, null, null) {
-            @Override
-            protected void processController() {
+        //EntityController actorController = new HumanEntityController(null, null, null, null, null);
 
-            }
-
-            @Override
-            public void interact(EntityController interacter) {
-
-            }
-
-            @Override
-            public void notifyFreeMove(Entity e) {
-
-            }
-
-            @Override
-            public void notifyInventoryManagment(Entity e) {
-
-            }
-
-            @Override
-            public void notifyInteraction(Entity player, Entity interactee) {
-
-            }
-
-            @Override
-            public void notifyShopping(Entity trader1, Entity trader2) {
-
-            }
-
-            @Override
-            public void notifyLevelUp(Entity e) {
-                System.out.println("My Entity Leveled Up: " + e.getCurLevel());
-            }
-
-            @Override
-            public void notifyMainMenu(Entity e) {
-
-            }
-        };
-
-        Entity e = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, inventory,true);
+        Entity e = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, inventory, true);
 
         equipment = new Equipment(wearables, weapons, 5, inventory, e);
 
@@ -102,12 +63,12 @@ public class EquipmentTest {
         items.add(weapon);
         equipment.add(weapon);
 
-        Assert.assertTrue(weapons[0] == weapon);
+        Assert.assertSame(weapon, weapons[0]);
         Assert.assertFalse (items.contains(weapon));
 
         equipment.remove(weapon);
 
-        Assert.assertTrue (weapons [0] == null);
+        Assert.assertNull(weapons[0]);
         Assert.assertTrue(items.contains(weapon));
     }
 
@@ -119,7 +80,7 @@ public class EquipmentTest {
         equipment.add(wearable);
 
         Assert.assertTrue(wearables.containsKey(EquipSlot.ARMOUR));
-        Assert.assertTrue(wearables.get(EquipSlot.ARMOUR) == wearable);
+        Assert.assertSame(wearable, wearables.get(EquipSlot.ARMOUR));
         Assert.assertFalse (items.contains(wearable));
 
         equipment.remove(wearable);

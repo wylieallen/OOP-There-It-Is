@@ -3,6 +3,10 @@ package entitymodel;
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
+import entity.entitycontrol.AI.FriendlyAI;
+import entity.entitycontrol.AI.HostileAI;
+import entity.entitycontrol.HumanEntityController;
+import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
@@ -41,8 +45,8 @@ public class EntityTest {
         skillsActee.put(SkillType.BINDWOUNDS, 45);
         skillsActee.put(SkillType.CREEP, 32);
 
-        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65, false);
-        EntityStats acteeStats = new EntityStats(skillsActee, 3, 120,45, 120,43, 23, 8, 6, 69, 100, false);
+        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65, false, false);
+        EntityStats acteeStats = new EntityStats(skillsActee, 3, 120,45, 120,43, 23, 8, 6, 69, 100, false, false);
 
         //TODO: once concrete ControllerActions are made test this;
         ArrayList <ControllerAction> actorActions = new ArrayList<>();
@@ -51,7 +55,7 @@ public class EntityTest {
         ArrayList <TimedEffect> actorEffects = new ArrayList<>();
         ArrayList <TimedEffect> acteeEffects = new ArrayList<>();
 
-        actorEffects.add(new TimedEffect(new MakeConfusedCommand(false, 10), 10));
+        actorEffects.add(new TimedEffect(new MakeConfusedCommand(false), 10));
 
         acteeEffects.add(new TimedEffect(new MakeParalyzedCommand(false), 15));
 
@@ -67,7 +71,7 @@ public class EntityTest {
         acteeActeeInteractions.add (new UseItemInteraction());
 
         //TODO: add constructors when it needs to be tested;
-        EntityController actorController = new EntityController(actor, null, null, null) {
+        /*EntityController actorController = new EntityController(actor, null, null, null) {
             @Override
             protected void processController() {
 
@@ -107,6 +111,12 @@ public class EntityTest {
             public void notifyMainMenu(Entity e) {
 
             }
+
+            @Override
+            public void pacify() {}
+
+            @Override
+            public void enrage(Entity e) {}
         };
         EntityController acteeController = new EntityController(actee, null, null, null) {
             @Override
@@ -148,13 +158,27 @@ public class EntityTest {
             public void notifyMainMenu(Entity e) {
 
             }
-        };
+
+            @Override
+            public void pacify() {}
+
+            @Override
+            public void enrage(Entity e) {}
+        };*/
+
 
         Inventory actorInventory = new Inventory();
         Inventory acteeInventory = new Inventory();
 
-        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorActeeInteractions, actorInventory, true);
-        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions,acteeActeeInteractions, acteeInventory, true);
+        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorInventory, true);
+        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeInventory, true);
+
+        EntityController actorController = new HumanEntityController(actor,null,
+                null, null, null);
+
+        EntityController acteeController = new NpcEntityController(actee, null,
+                null, null, new HostileAI(new ArrayList<>(), actor),
+                new FriendlyAI(acteeActeeInteractions), false);
 
         actor.setController(actorController);
         actee.setController(acteeController);
@@ -181,6 +205,6 @@ public class EntityTest {
     public void interactReturnsUnionTest () {
         List<EntityInteraction> union = actee.interact(actor);
 
-        Assert.assertTrue(union.size() == 4);
+        Assert.assertEquals(4, union.size());
     }
 }
