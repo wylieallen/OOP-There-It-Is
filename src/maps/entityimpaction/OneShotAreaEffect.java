@@ -6,7 +6,14 @@ public class OneShotAreaEffect extends AreaEffect {
 
     private boolean hasFired;
 
-    public void touch(Entity entity) {
+    public OneShotAreaEffect(boolean hasFired) {
+        this.hasFired = hasFired;
+    }
 
+    public void touch(Entity entity) {
+        if(!hasFired) {
+            trigger(entity);
+            hasFired = true;
+        }
     }
 }

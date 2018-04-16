@@ -20,6 +20,8 @@ public class EntityStats {
     private int visibilityRadious;
     private int concealment;
     private int gold;
+    private boolean isSearching;
+    private boolean isSneaking;
 
     public EntityStats(Map<SkillType, Integer> skills,
                        int baseMoveSpeed,
@@ -31,7 +33,9 @@ public class EntityStats {
                        int unspentSkillPoints,
                        int visibilityRadious,
                        int concealment,
-                       int gold)
+                       int gold,
+                       boolean isSearching,
+                       boolean isSneaking)
     {
         this.skills = skills;
         this.baseMoveSpeed = baseMoveSpeed;
@@ -44,6 +48,8 @@ public class EntityStats {
         this.visibilityRadious = visibilityRadious;
         this.concealment = concealment;
         this.gold = gold;
+        this.isSearching = isSearching;
+        this.isSneaking = isSneaking;
     }
 
     public int getBaseMoveSpeed() {
@@ -131,7 +137,25 @@ public class EntityStats {
     }
 
     public int getSkillLevel (SkillType s) {
-        return skills.getOrDefault(s, -1);
+        return skills.getOrDefault(s, 0);
     }
+
+    public boolean getIsSearching() { return isSearching; }
+
+    public boolean getIsSneaking() { return isSneaking; }
+
+    public void startSearching() {
+        if(containsSkill(SkillType.DETECTANDREMOVETRAP)) {
+            isSearching = true;
+        }
+    }
+
+    public void stopSearching() {
+        if(containsSkill(SkillType.DETECTANDREMOVETRAP)) {
+            isSearching = false;
+        }
+    }
+
+
 
 }

@@ -1,32 +1,47 @@
 package maps.tile;
 
+import entity.entitymodel.Entity;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import gameobject.GameObject;
+import maps.world.LocalWorld;
 import utilities.Vector;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OverWorldTile extends Tile {
 
-    public OverWorldTile()
-    {
-        super();
+    private LocalWorld localWorld;
+
+    public OverWorldTile() {
+        super(new HashSet<>(), null);
+        localWorld = null;
     }
 
-    public Collection<GameObject> getGameObjects()
-    {
-        Set<GameObject> set = new HashSet<>();
-        set.addAll(super.getMoveLegalityCheckers());
-        return set;
+    public OverWorldTile(Set<MoveLegalityChecker> mLCs, Entity entity, LocalWorld localWorld) {
+        super(mLCs, entity);
+        this.localWorld = localWorld;
     }
 
-    protected void do_moves(Collection<MoveLegalityChecker> updated) {
+    public List<GameObject> getGameObjects()
+    {
+        return new ArrayList<>(super.getMoveLegalityCheckers());
+    }
+
+    @Override
+    public void do_update() {
+        super.do_update();
+    }
+
+    @Override
+    public void do_moves(Set<MoveLegalityChecker> updated) {
         super.do_moves(updated, new Vector());
     }
 
-    protected void do_interactions(Entity entity) {
+    @Override
+    public void do_interactions() {
 
     }
 }

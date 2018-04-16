@@ -36,8 +36,8 @@ public class EntityTest {
         skillsActee.put(SkillType.BINDWOUNDS, 45);
         skillsActee.put(SkillType.CREEP, 32);
 
-        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65);
-        EntityStats acteeStats = new EntityStats(skillsActee, 3, 120,45, 120,43, 23, 8, 6, 69, 100);
+        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 25, 5, 5, 50, 65, false, false);
+        EntityStats acteeStats = new EntityStats(skillsActee, 3, 120,45, 120,43, 23, 8, 6, 69, 100, false, false);
 
         ArrayList <ControllerAction> actorActions = new ArrayList<>();
         ArrayList <ControllerAction> acteeActions = new ArrayList<>();
