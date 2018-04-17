@@ -10,8 +10,8 @@ public class WearableItem extends TakeableItem {
     private ReversibleCommand command;
     private EquipSlot equipType;
 
-    public WearableItem(String name, ReversibleCommand command, EquipSlot equipType) {
-        super(name);
+    public WearableItem(String name, boolean onMap, ReversibleCommand command, EquipSlot equipType) {
+        super(name, onMap);
         this.command = command;
         this.equipType = equipType;
     }
@@ -20,10 +20,10 @@ public class WearableItem extends TakeableItem {
 
     @Override
     public void activate(Equipment e) {
-
+        e.add(this);
     }
 
     public void applyEffect(Entity e) {
-
+        command.trigger(e);
     }
 }

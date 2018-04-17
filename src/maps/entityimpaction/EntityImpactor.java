@@ -5,4 +5,5 @@ import gameobject.GameObject;
 
 public interface EntityImpactor extends GameObject {
     void touch(Entity entity);
+    boolean shouldBeRemoved();
 }

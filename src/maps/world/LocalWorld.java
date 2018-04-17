@@ -77,7 +77,7 @@ public class LocalWorld implements World, SpawnObserver {
 
     @Override
     public void add(Coordinate p, Entity e) {
-
+        tiles.get(p).setEntity(e);
     }
 
     @Override

@@ -24,13 +24,13 @@ public class InventoryTest {
         inventory = new Inventory(items);
 
         for (int i = 0; i < 14; ++i) {
-            items.add (new QuestItem("bob: " + i, i));
+            items.add (new QuestItem("bob: " + i, true, i));
         }
     }
 
     @Test
     public void addItemsToNonFullInventoryTest () {
-        TakeableItem takeable = new QuestItem("Betty", 162);
+        TakeableItem takeable = new QuestItem("Betty", true, 162);
 
         Assert.assertTrue(inventory.add(takeable));
         Assert.assertTrue(items.contains(takeable));
@@ -38,10 +38,10 @@ public class InventoryTest {
 
     @Test
     public void addItemToFullInventoryTest () {
-        TakeableItem takeable = new QuestItem("Betty", 162);
+        TakeableItem takeable = new QuestItem("Betty", true, 162);
         inventory.add(takeable);
 
-        takeable = new QuestItem("Bert", 69);
+        takeable = new QuestItem("Bert", true, 69);
 
         Assert.assertFalse(inventory.add(takeable));
         Assert.assertFalse(items.contains(takeable));
