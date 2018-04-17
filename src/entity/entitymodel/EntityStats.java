@@ -3,6 +3,8 @@ package entity.entitymodel;
 import maps.movelegalitychecker.Terrain;
 import skills.SkillType;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,6 +12,11 @@ import java.util.Set;
  * Created by dontf on 4/13/2018.
  */
 public class EntityStats {
+
+    private static final Set<Terrain> defaultCompatibleTerrains = new HashSet<>();
+    {
+        defaultCompatibleTerrains.add(Terrain.GRASS);
+    }
 
     private final int defaultValue = -1;
     private final int maxSkillLevel = 100;
@@ -29,6 +36,31 @@ public class EntityStats {
     private boolean isConfused;
     private boolean isSearching;
     private Set<Terrain> compatibleTerrains;
+
+    public EntityStats()
+    {
+        this(new HashMap<>(), 1, 10, 10, 10, 10, 1,
+                10, 0, 1, 1, 100, false, false, defaultCompatibleTerrains);
+    }
+
+    public EntityStats(Map<SkillType, Integer> skills,
+                       int baseMoveSpeed,
+                       int maxHealth,
+                       int curHealth,
+                       int maxMana,
+                       int curMana,
+                       int manaRegenRate,
+                       int curXP,
+                       int unspentSkillPoints,
+                       int visibilityRadius,
+                       int concealment,
+                       double gold,
+                       boolean isSearching,
+                       boolean isConfused)
+    {
+        this(skills, baseMoveSpeed, maxHealth, curHealth, maxMana, curMana, manaRegenRate,
+                curXP, unspentSkillPoints, visibilityRadius, concealment, gold, isSearching, isConfused, defaultCompatibleTerrains);
+    }
 
     public EntityStats(Map<SkillType, Integer> skills,
                        int baseMoveSpeed,

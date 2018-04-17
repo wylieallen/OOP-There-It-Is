@@ -1,6 +1,9 @@
 package maps.world;
 
+import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
+import gameobject.GameObject;
+import gameobject.GameObjectContainer;
 import utilities.Coordinate;
 
 import java.util.List;
@@ -25,7 +28,7 @@ public class Game implements TransitionObserver {
         this.activeWorld = activeWorld;
         this.overWorld = overWorld;
         this.localWorlds = localWorlds;
-        this.curTime = curTime;
+        Game.curTime = curTime;
         this.player = player;
     }
 
@@ -52,5 +55,15 @@ public class Game implements TransitionObserver {
     public void update()
     {
         activeWorld.update();
+    }
+
+    public void setPlayerController(EntityController controller)
+    {
+        player.setController(controller);
+    }
+
+    public Coordinate getCoordinate(Entity entity)
+    {
+        return activeWorld.getEntityCoordinate(entity);
     }
 }

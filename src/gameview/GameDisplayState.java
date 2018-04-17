@@ -7,6 +7,7 @@ import guiframework.DisplayState;
 import guiframework.displayable.CompositeDisplayable;
 import guiframework.displayable.Displayable;
 import maps.tile.Tile;
+import maps.world.Game;
 import maps.world.World;
 
 import java.awt.*;
@@ -15,15 +16,22 @@ import java.util.Map;
 
 public class GameDisplayState extends DisplayState
 {
+    private Game game;
     private Point camera;
     private double zoom = 1.0;
     private static Map<GameObject, Displayable> spriteMap;
     private Map<World, WorldDisplayable> worlds;
     private WorldDisplayable activeWorldDisplayable;
 
-    public GameDisplayState(Map<GameObject, Displayable> spriteMap, Map<World, WorldDisplayable> worlds, World initialWorld)
+    private static final int RENDERING_FRAMES_PER_GAME_TICK = 10;
+    private int gameTickCountdown = RENDERING_FRAMES_PER_GAME_TICK;
+
+    // todo: the Map<World, WorldDisplayable> doesn't need to be a constructor parameter
+    // GameDisplayState can just instantiate new WorldDisplayables as we need them
+    public GameDisplayState(Game game, Map<GameObject, Displayable> spriteMap, Map<World, WorldDisplayable> worlds, World initialWorld)
     {
-        this.spriteMap = spriteMap;
+        this.game = game;
+        GameDisplayState.spriteMap = spriteMap;
         this.camera = new Point(0, 0);
         this.worlds = worlds;
         super.add(activeWorldDisplayable = worlds.get(initialWorld));
@@ -50,7 +58,14 @@ public class GameDisplayState extends DisplayState
     @Override
     public void update()
     {
+        if(--gameTickCountdown <= 0)
+        {
+            game.update();
+            gameTickCountdown = RENDERING_FRAMES_PER_GAME_TICK;
+        }
         super.update();
+
+        // todo: this could potentially be enough of a performance drain that we should just skip it and let memory leak
         for(GameObject o : spriteMap.keySet())
         {
             if(o.expired())

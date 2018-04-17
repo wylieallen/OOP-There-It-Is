@@ -38,6 +38,12 @@ public class Entity implements GameObject, MoveLegalityChecker {
     private Inventory inventory;
     private boolean onMap;
 
+    public Entity()
+    {
+        this(new Vector(), new EntityStats(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
+                new Inventory(), true);
+    }
+
     public Entity(Vector movementVector,
                   EntityStats stats,
                   List<ControllerAction> actions,

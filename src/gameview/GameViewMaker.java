@@ -1,5 +1,10 @@
 package gameview;
 
+import entity.entitycontrol.HumanEntityController;
+import entity.entitymodel.Entity;
+import entity.entitymodel.EntityStats;
+import entity.entitymodel.Equipment;
+import entity.entitymodel.Inventory;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import gameview.displayable.sprite.WorldDisplayable;
@@ -10,11 +15,16 @@ import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
 import maps.tile.Tile;
+import maps.world.Game;
+import maps.world.LocalWorld;
 import maps.world.OverWorld;
 import maps.world.World;
 import utilities.Coordinate;
+import utilities.Vector;
 
+import java.util.List;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -30,7 +40,7 @@ public class GameViewMaker
         worldDisplayableMap = new HashMap<>();
     }
 
-    public GameDisplayState makeGameDisplayState()
+    public GameDisplayState makeGameDisplayState(GamePanel panel)
     {
         spriteMap = ImageMaker.makeDefaultMap();
         worldDisplayableMap = new HashMap<>();
@@ -55,11 +65,12 @@ public class GameViewMaker
 
 
         // expandOverworld approach:
+
+        expandOverworld(overworldMap, Terrain.GRASS);
+        expandOverworld(overworldMap, Terrain.GRASS);
+        expandOverworld(overworldMap, Terrain.WATER);
+        expandOverworld(overworldMap, Terrain.WATER);
         /*
-        expandOverworld(overworldMap, Terrain.GRASS);
-        expandOverworld(overworldMap, Terrain.GRASS);
-        expandOverworld(overworldMap, Terrain.WATER);
-        expandOverworld(overworldMap, Terrain.WATER);
         expandOverworld(overworldMap, Terrain.GRASS);
         expandOverworld(overworldMap, Terrain.GRASS);
         expandOverworld(overworldMap, Terrain.GRASS);
@@ -113,6 +124,10 @@ public class GameViewMaker
         }
         */
 
+        Entity player = new Entity();
+        spriteMap.put(player, ImageMaker.makeEntityDisplayable(player));
+
+        tile.setEntity(player);
 
         System.out.println("Tiles in overworld: " + overworldMap.keySet().size());
 
@@ -123,8 +138,12 @@ public class GameViewMaker
         worldDisplayableMap.put(overworld, overworldDisplayable);
 
         // LocalWorlds:
+        List<LocalWorld> localWorldsList = new ArrayList<>();
 
-        return new GameDisplayState(spriteMap, worldDisplayableMap, overworld);
+        Game game = new Game(overworld, overworld, localWorldsList, 0, player);
+        game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), new ArrayList<>(), panel));
+
+        return new GameDisplayState(new Game(overworld, overworld, localWorldsList, 0, player), spriteMap, worldDisplayableMap, overworld);
     }
 
     // todo: expandOverworld is very inefficient right now
