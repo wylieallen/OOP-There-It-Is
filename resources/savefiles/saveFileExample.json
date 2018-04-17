@@ -59,7 +59,9 @@
           "EquipSlot": "Hand"
         }
       ],
-      "InVehicle": false
+      "InVehicle": false,
+      "XCoordinate": 3,
+      "YCoordinate": 2
     }
   },
   "OverWorld":{

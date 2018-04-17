@@ -31,6 +31,22 @@ public class WeaponItem extends TakeableItem {
 
     }
 
+    public Command getCommand() {
+        return command;
+    }
+
+    public int getDamage(){
+        return damage;
+    }
+
+    public int getAttackSpeed(){
+        return attackSpeed;
+    }
+
+    public SkillType getRequiredSkill() {
+        return requiredSkill;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitWeaponItem(this);

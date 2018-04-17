@@ -28,6 +28,14 @@ public class WearableItem extends TakeableItem {
 
     }
 
+    public ReversibleCommand getCommand() {
+        return command;
+    }
+
+    public void setEquipType(EquipSlot equipType) {
+        this.equipType = equipType;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitWearableItem(this);

@@ -99,10 +99,13 @@ public abstract class EntityController implements Visitable{
         return inVehicle;
     }
 
+    public Equipment getEquipment() {
+        return equipment;
+    }
+
     public Coordinate getEntityLocation(){
         return entityLocation;
     }
-    public void accept(Visitor v){}
 
 
 }

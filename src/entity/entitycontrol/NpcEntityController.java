@@ -70,4 +70,12 @@ public class NpcEntityController extends EntityController {
         this.ai = newAI;
     }
 
+    public AI getAi() {
+        return ai;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitNpcEntityController(this);
+    }
 }

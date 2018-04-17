@@ -17,6 +17,10 @@ public class QuestItem extends TakeableItem {
 
     }
 
+    public int getQuestId(){
+        return questId;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitQuestItem(this);

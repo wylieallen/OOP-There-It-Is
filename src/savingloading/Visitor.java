@@ -8,10 +8,12 @@ import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.AI.PatrolAI;
 import entity.entitycontrol.AI.PetAI;
+import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
+import entity.entitymodel.Equipment;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.*;
 import entity.vehicle.Vehicle;
@@ -37,14 +39,15 @@ public interface Visitor {
 
     void visitEntity (Entity e);
     void visitHumanEntityController(HumanEntityController h);
+    void visitNpcEntityController(NpcEntityController npcEntityController);
     void visitVehicle(Vehicle vehicle);
     void visitFriendlyAI(FriendlyAI f);
     void visitHostileAI(HostileAI h);
     void visitPatrolAI(PatrolAI p);
     void visitPetAI(PetAI p);
     void visitEntityStats(EntityStats entityStats);
-
     void visitInventory(Inventory inventory);
+    void visitEquipment(Equipment equipment);
 
     void visitMountInteraction(MountInteraction m);
     void visitBackStabInteraction(BackStabInteraction b);

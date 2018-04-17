@@ -23,6 +23,10 @@ public class ConsumableItem extends TakeableItem {
 
     }
 
+    public Command getCommand() {
+        return command;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitConsumableItem(this);

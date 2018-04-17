@@ -24,9 +24,6 @@ public abstract class SkillCommand implements Command, Visitable {
         this.effectiveness = effectiveness;
     }
 
-    protected SkillType getSkillType() { return this.skillType; }
-    protected int getLevel() { return this.level; }
-
     public void trigger(Entity e, int distance) {
         boolean success = getSkillType().checkSuccess(e.getSkillLevel(getSkillType()), distance);
         if(success) {
@@ -47,4 +44,13 @@ public abstract class SkillCommand implements Command, Visitable {
     public int getEffectiveness() {
         return effectiveness;
     }
+
+    public SkillType getSkillType() {
+        return this.skillType;
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
+
 }
