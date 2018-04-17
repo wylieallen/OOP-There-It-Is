@@ -88,7 +88,7 @@ public abstract class Tile implements GameObjectContainer {
         return entity != null;
     }
 
-    protected Entity getEntity() {
+    public Entity getEntity() {
         return entity;
     }
 
