@@ -13,7 +13,7 @@ public class Game implements TransitionObserver {
     private World activeWorld;
     private OverWorld overWorld;
     private List<LocalWorld> localWorlds;
-    private int curTime;
+    private static int curTime;
     private Entity player;
 
     public Game(World activeWorld,
@@ -29,7 +29,7 @@ public class Game implements TransitionObserver {
         this.player = player;
     }
 
-    public int getCurrentTime () {
+    public static int getCurrentTime () {
         return curTime;
     }
 

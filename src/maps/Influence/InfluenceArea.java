@@ -1,67 +1,15 @@
 package maps.Influence;
 
-import entity.entitymodel.Entity;
-import gameobject.GameObject;
-import savingloading.Visitor;
-import maps.tile.Tile;
+import maps.tile.LocalWorldTile;
 import utilities.Coordinate;
-import maps.world.Game;
-import maps.world.World;
-import commands.skillcommands.SkillCommand;
-import items.Item;
 
 import java.util.List;
+import java.util.Map;
 
-/**
- * Created by dontf on 4/14/2018.
- */
-public class InfluenceArea implements Visitor {
+public interface InfluenceArea {
 
-    private InfluenceType influenceType;
-    private Coordinate center;
-    private List<GameObject> whiteList;
-    private long lastUpdateTime;
-    private List <Coordinate> offsetPoints;
-    private long updateInterval;
-    private SkillCommand skillCommand;
-
-
-
-    public void update (int curTime) {
-
-    }
-
-    public void checkArea () {
-
-    }
-
-    public void gatherPoints (InfluenceType influenceType) {
-
-    }
-
-    @Override
-    public void visitTile(Tile t) {
-
-    }
-
-    @Override
-    public void visitEntity(Entity e) {
-
-    }
-
-    @Override
-    public void visitItem(Item i) {
-
-    }
-
-    @Override
-    public void visitWorld(World w) {
-
-    }
-
-    @Override
-    public void visitGame(Game g) {
-
-    }
+    void update (Map<Coordinate, LocalWorldTile> tilesMap);//Tell the influence area to check its area against the tilesMap
+    boolean isExpired();//Will return whether the InfluenceArea is ready to be deleted, as in its time has run out, it has reached its max radius, etc.
+    List<Coordinate> getAffectedCoordinates();//Will return the list of coordinates this influence area is currently affecting
 
 }
