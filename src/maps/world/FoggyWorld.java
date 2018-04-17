@@ -40,7 +40,7 @@ public class FoggyWorld implements World {
 
         for(Map.Entry<Coordinate, GameObjectContainer> entry: wholeMap.entrySet()) {
             int distance = entry.getKey().distance(entityCoordinate);
-            if(distance <= entity.getVisibilityRadious()) {
+            if(distance <= entity.getVisibilityRadius()) {
                 visibleTiles.put(entry.getKey(), entry.getValue());
             }
         }

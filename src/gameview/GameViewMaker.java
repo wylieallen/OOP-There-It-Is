@@ -127,12 +127,13 @@ public class GameViewMaker
         Entity player = new Entity();
         spriteMap.put(player, ImageMaker.makeEntityDisplayable(player));
 
-        tile.setEntity(player);
+        //tile.setEntity(player);
+
+        overworldMap.get(new Coordinate(2, 1)).setEntity(player);
 
         System.out.println("Tiles in overworld: " + overworldMap.keySet().size());
 
         OverWorld overworld = new OverWorld(overworldMap);
-
 
         WorldDisplayable overworldDisplayable = new WorldDisplayable(new Point(0, 0), 0, overworld);
         worldDisplayableMap.put(overworld, overworldDisplayable);
@@ -143,7 +144,7 @@ public class GameViewMaker
         Game game = new Game(overworld, overworld, localWorldsList, 0, player);
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), new ArrayList<>(), panel));
 
-        return new GameDisplayState(new Game(overworld, overworld, localWorldsList, 0, player), spriteMap, worldDisplayableMap, overworld);
+        return new GameDisplayState(panel.getSize(), new Game(overworld, overworld, localWorldsList, 0, player), spriteMap, worldDisplayableMap, overworld);
     }
 
     // todo: expandOverworld is very inefficient right now

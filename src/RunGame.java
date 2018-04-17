@@ -17,7 +17,7 @@ public class RunGame
         frame.setSize(1280, 720);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        GamePanel panel = new GamePanel();
+        GamePanel panel = new GamePanel(frame.getSize());
         panel.setBackground(Color.BLACK);
 
         frame.getContentPane().add(panel, BorderLayout.CENTER);

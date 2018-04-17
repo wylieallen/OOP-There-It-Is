@@ -43,7 +43,7 @@ public class WorldDisplayable extends CompositeDisplayable
     {
         if(!tiles.containsKey(t))
         {
-            put(t, new CompositeDisplayable(getPixelPoint(c), 0));
+            put(t, new CompositeDisplayable(c.toPixelPt(), 0));
         }
         CompositeDisplayable displayable = tiles.get(t);
         displayable.clear();
@@ -51,16 +51,5 @@ public class WorldDisplayable extends CompositeDisplayable
         {
             displayable.add(GameDisplayState.getSprite(o));
         }
-    }
-
-    private Point getPixelPoint(Coordinate c)
-    {
-        int x = (int) (32.0 * 1.5 * (double) c.x());
-        // Why 37 instead of 32 here? Because fuck me, that's why
-        // Appears to work fairly well out to any reasonable distance from origin
-        // It'll be off by one pixel every once in a while but it's not too awful
-        int y = (int) (-37.0 * Math.sqrt(3) * ((double) c.y() + ((double) c.x() / 2.0)));
-        System.out.println("Cubic: " + c.x() + "," + c.y() + "," + c.z() + " Pixel: " + x + "," + y);
-        return new Point(x, y);
     }
 }
