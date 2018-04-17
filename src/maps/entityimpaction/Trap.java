@@ -60,4 +60,9 @@ public class Trap implements EntityImpactor, MoveLegalityChecker {
     public boolean isVisible() {
         return isVisible;
     }
+
+    @Override
+    public boolean shouldBeRemoved() {
+        return false;
+    }
 }

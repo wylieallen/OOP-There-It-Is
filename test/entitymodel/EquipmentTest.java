@@ -58,7 +58,7 @@ public class EquipmentTest {
 
     @Test
     public void testWeaponAddAndRemove () {
-        WeaponItem weapon = new WeaponItem("Sword", new ParalyzeCommand(SkillType.BANE, 10, 80, null), 5, 15, SkillType.BANE);
+        WeaponItem weapon = new WeaponItem("Sword", true, new ParalyzeCommand(SkillType.BANE, 10, 80, null), 5, 15, SkillType.BANE);
 
         items.add(weapon);
         equipment.add(weapon);
@@ -74,7 +74,7 @@ public class EquipmentTest {
 
     @Test
     public void testWearableAddAndRemove () {
-        WearableItem wearable = new WearableItem("ACDC shirt", new MakeParalyzedCommand(false), EquipSlot.ARMOUR);
+        WearableItem wearable = new WearableItem("ACDC shirt", true, new MakeParalyzedCommand(false), EquipSlot.ARMOUR);
 
         items.add(wearable);
         equipment.add(wearable);

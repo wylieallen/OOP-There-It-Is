@@ -18,4 +18,9 @@ public class OneShotAreaEffect extends AreaEffect {
             hasFired = true;
         }
     }
+
+    @Override
+    public boolean shouldBeRemoved() {
+        return hasFired;
+    }
 }

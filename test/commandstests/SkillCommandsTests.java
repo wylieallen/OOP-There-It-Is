@@ -208,7 +208,7 @@ public class SkillCommandsTests {
 
     @Test
     public void testPickpocketCommand() {
-        TakeableItem item = new ConsumableItem("Health Potion", new ModifyHealthCommand(SkillType.NULL, 0, 10));
+        TakeableItem item = new ConsumableItem("Health Potion", true, new ModifyHealthCommand(SkillType.NULL, 0, 10));
         target.addToInventory(item);
 
         PickPocketCommand command = new PickPocketCommand(caster.getSkillLevel(SkillType.PICKPOCKET),

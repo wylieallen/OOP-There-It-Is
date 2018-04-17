@@ -173,7 +173,7 @@ public class InteractionTests {
     @Test
     public void pickPocketEntityWithItemSuccessfully () {
         PickPocketInteraction ppi = new PickPocketInteraction();
-        QuestItem qi = new QuestItem("cool quest", 123);
+        QuestItem qi = new QuestItem("cool quest", true, 123);
         acteeItems.add(qi);
 
         ppi.testInteractFunction(actor, actee, true);
@@ -184,7 +184,7 @@ public class InteractionTests {
     @Test
     public void pickPocketEntityWithItemUnsuccessfully () {
         PickPocketInteraction ppi = new PickPocketInteraction();
-        QuestItem qi = new QuestItem("cool quest", 123);
+        QuestItem qi = new QuestItem("cool quest", true, 123);
         acteeItems.add(qi);
 
         ppi.testInteractFunction(actor, actee, false);

@@ -52,9 +52,11 @@ public class Equipment {
         WearableItem current = wearables.getOrDefault(wearable.getEquipType(), null);
         if (current != null) {
             this.remove(current);
+            current.applyEffect(entity);
         }
 
         wearables.put(wearable.getEquipType(), wearable);
+        wearable.applyEffect(entity);
 
     }
 
