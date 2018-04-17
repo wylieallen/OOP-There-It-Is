@@ -1,12 +1,15 @@
 package maps.tile;
 
+import entity.entitymodel.Entity;
 import gameobject.GameObject;
 import maps.entityimpaction.EntityImpactor;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.trajectorymodifier.TrajectoryModifier;
 import utilities.Vector;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LocalWorldTile extends Tile {
 

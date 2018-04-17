@@ -1,12 +1,13 @@
 package maps.tile;
 
-import maps.movelegalitychecker.MoveLegalityChecker;
+import entity.entitymodel.Entity;
 import gameobject.GameObject;
+import maps.movelegalitychecker.MoveLegalityChecker;
 import utilities.Vector;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.*;
 
 public class OverWorldTile extends Tile {
 

@@ -15,7 +15,7 @@ public abstract class AI {
     public abstract void nextAction(Map<Coordinate, GameObjectContainer> map, Entity e);
 
     public void setInteractions(Entity e){
-        //TODO
+        interactions = e.getActorInteractions();
     }
 
 }

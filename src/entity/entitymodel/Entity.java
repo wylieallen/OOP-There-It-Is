@@ -226,4 +226,7 @@ public class Entity implements GameObject, MoveLegalityChecker
         return false;
     }
 
+
+    public List <EntityInteraction> getActorInteractions () { return actorInteractions; }
+
 }
