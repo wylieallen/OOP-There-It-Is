@@ -13,10 +13,18 @@ public abstract class AI implements Visitable {
 
     private List<EntityInteraction> interactions;
 
+    public AI(List<EntityInteraction> interactions) {
+        this.interactions = interactions;
+    }
+
     public abstract void nextAction(Map<Coordinate, GameObjectContainer> map, Entity e);
 
     public void setInteractions(Entity e){
         //TODO
+    }
+
+    public List<EntityInteraction> getInteractions() {
+        return interactions;
     }
 
 }

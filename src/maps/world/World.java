@@ -17,4 +17,5 @@ public interface World {
     void remove(Entity e);
     Map <Coordinate, GameObjectContainer> getMap ();
     Tile getTileForEntity (Entity e);
+    Coordinate getEntityCoordinate(Entity e);
 }

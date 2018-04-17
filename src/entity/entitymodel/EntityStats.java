@@ -1,15 +1,24 @@
 package entity.entitymodel;
 
+import maps.movelegalitychecker.Terrain;
 import savingloading.Visitable;
 import savingloading.Visitor;
 import skills.SkillType;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by dontf on 4/13/2018.
  */
 public class EntityStats implements Visitable {
+
+    private static final Set<Terrain> defaultCompatibleTerrains = new HashSet<>();
+    {
+        defaultCompatibleTerrains.add(Terrain.GRASS);
+    }
 
     private final int defaultValue = -1;
     private final int maxSkillLevel = 100;
@@ -20,13 +29,21 @@ public class EntityStats implements Visitable {
     private int curHealth;
     private int maxMana;
     private int curMana;
+    private int manaRegenRate;
     private int curXP;
     private int unspentSkillPoints;
+    private int visibilityRadius; //how far out you can see
+    private int concealment; //the max distance from which enemies can see you
     private double gold;
-    private int visibilityRadious;//how far out you can see
-    private int concealment;//the max distance from which enemies can see you
+    private boolean isConfused;
     private boolean isSearching;
+    private Set<Terrain> compatibleTerrains;
 
+    public EntityStats()
+    {
+        this(new HashMap<>(), 1, 10, 10, 10, 10, 1,
+                10, 0, 1, 1, 100, false, false, defaultCompatibleTerrains);
+    }
 
     public EntityStats(Map<SkillType, Integer> skills,
                        int baseMoveSpeed,
@@ -34,12 +51,34 @@ public class EntityStats implements Visitable {
                        int curHealth,
                        int maxMana,
                        int curMana,
+                       int manaRegenRate,
                        int curXP,
                        int unspentSkillPoints,
-                       int visibilityRadious,
+                       int visibilityRadius,
                        int concealment,
                        double gold,
-                       boolean isSearching)
+                       boolean isSearching,
+                       boolean isConfused)
+    {
+        this(skills, baseMoveSpeed, maxHealth, curHealth, maxMana, curMana, manaRegenRate,
+                curXP, unspentSkillPoints, visibilityRadius, concealment, gold, isSearching, isConfused, defaultCompatibleTerrains);
+    }
+
+    public EntityStats(Map<SkillType, Integer> skills,
+                       int baseMoveSpeed,
+                       int maxHealth,
+                       int curHealth,
+                       int maxMana,
+                       int curMana,
+                       int manaRegenRate,
+                       int curXP,
+                       int unspentSkillPoints,
+                       int visibilityRadius,
+                       int concealment,
+                       double gold,
+                       boolean isSearching,
+                       boolean isConfused,
+                       Set<Terrain> compatibleTerrains)
     {
         this.skills = skills;
         this.baseMoveSpeed = baseMoveSpeed;
@@ -47,12 +86,15 @@ public class EntityStats implements Visitable {
         this.curHealth = curHealth;
         this.maxMana = maxMana;
         this.curMana = curMana;
+        this.manaRegenRate = manaRegenRate;
         this.curXP = curXP;
         this.unspentSkillPoints = unspentSkillPoints;
-        this.visibilityRadious = visibilityRadious;
+        this.visibilityRadius = visibilityRadius;
         this.concealment = concealment;
         this.gold = gold;
+        this.isConfused = isConfused;
         this.isSearching = isSearching;
+        this.compatibleTerrains = compatibleTerrains;
     }
 
     public int getBaseMoveSpeed() {
@@ -111,12 +153,12 @@ public class EntityStats implements Visitable {
         this.unspentSkillPoints = unspentSkillPoints;
     }
 
-    public int getVisibilityRadious() {
-        return visibilityRadious;
+    public int getVisibilityRadius() {
+        return visibilityRadius;
     }
 
-    public void setVisibilityRadious(int visibilityRadious) {
-        this.visibilityRadious = visibilityRadious;
+    public void setVisibilityRadius(int visibilityRadius) {
+        this.visibilityRadius = visibilityRadius;
     }
 
     public int getConcealment() {
@@ -168,7 +210,23 @@ public class EntityStats implements Visitable {
         }
     }
 
+    public boolean isConfused() { return isConfused; }
 
+    public void makeConfused() { isConfused = true; }
+
+    public void makeUnconfused() { isConfused = false; }
+
+    public void regenMana() {
+        setCurMana(Math.min(maxMana, curMana + manaRegenRate));
+    }
+
+    public int getManaRegenRate() { return manaRegenRate; }
+
+    public void setManaRegenRate(int newRate) { manaRegenRate = newRate; }
+
+    public boolean isTerrainCompatible(Terrain t) {
+        return compatibleTerrains.contains(t);
+    }
 
     public Map<SkillType, Integer> getSkills() {
         return skills;

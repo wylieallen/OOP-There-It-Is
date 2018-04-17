@@ -29,12 +29,11 @@ public class Vehicle extends Entity {
                    List<ControllerAction> actions,
                    List<TimedEffect> effects,
                    List<EntityInteraction> actorInteractions,
-                   List<EntityInteraction> acteeInteractions,
                    Inventory inventory,
                    boolean isOnMap,
                    Entity driver)
     {
-        super(movementVector, stats, actions, effects, actorInteractions, acteeInteractions, inventory, isOnMap);
+        super(movementVector, stats, actions, effects, actorInteractions, inventory, isOnMap);
         this.driver = driver;
     }
 
@@ -43,11 +42,10 @@ public class Vehicle extends Entity {
                    List<ControllerAction> actions,
                    List<TimedEffect> effects,
                    List<EntityInteraction> actorInteractions,
-                   List<EntityInteraction> acteeInteractions,
                    Inventory inventory,
                    boolean isOnMap)
     {
-        super(vector, stats, actions, effects, actorInteractions, acteeInteractions, inventory, isOnMap);
+        super(vector, stats, actions, effects, actorInteractions, inventory, isOnMap);
         this.driver = null;
     }
 

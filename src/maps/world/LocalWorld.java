@@ -77,7 +77,7 @@ public class LocalWorld implements World, SpawnObserver {
 
     @Override
     public void add(Coordinate p, Entity e) {
-
+        tiles.get(p).setEntity(e);
     }
 
     @Override
@@ -101,5 +101,15 @@ public class LocalWorld implements World, SpawnObserver {
             if(tile.remove(e))
                 return;
         }
+    }
+
+    @Override
+    public Coordinate getEntityCoordinate(Entity e) {
+        for(Map.Entry<Coordinate, LocalWorldTile> entry: tiles.entrySet()) {
+            if(entry.getValue().has(e)) {
+                return new Coordinate(entry.getKey());
+            }
+        }
+        return null;
     }
 }

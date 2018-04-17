@@ -62,6 +62,12 @@ public class HumanEntityController extends EntityController{
     }
 
     @Override
+    public void enrage(Entity e) {}
+
+    @Override
+    public void pacify() {}
+
+    @Override
     public void accept(Visitor v) {
         v.visitHumanEntityController(this);
     }

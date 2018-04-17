@@ -137,7 +137,7 @@ public class SaveVisitor implements Visitor {
         statsJson.put("CurrentMana", entityStats.getCurMana());
         statsJson.put("CurrentXP", entityStats.getCurXP());
         statsJson.put("UnspentSkillPoints", entityStats.getUnspentSkillPoints());
-        statsJson.put("VisibilityRadius", entityStats.getVisibilityRadious());
+        statsJson.put("VisibilityRadius", entityStats.getVisibilityRadius());
         statsJson.put("Concealment", entityStats.getConcealment());
         statsJson.put("Gold", entityStats.getGold());
         currentEntityJson.put("Stats", statsJson);

@@ -17,10 +17,7 @@ import skills.SkillType;
 import utilities.Coordinate;
 import utilities.Vector;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 public class AreaEffectTests {
     @Test
@@ -34,10 +31,10 @@ public class AreaEffectTests {
         LocalWorld world = new LocalWorld(tiles, new HashSet<>(), new ArrayList<>());
 
         EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
-                100, 100, 100, 0, 0,
-                3, 3, 0, false);
-        Entity entity = new Entity(new Vector(), entityStats, null, null, null,
-                null, null, true);
+                100, 100, 100, 5, 0, 0,
+                3, 3, 0, false, false, new HashSet<>());
+        Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+                null, true);
 
         EntityController entityController = new HumanEntityController(entity, null,
                 new Coordinate(2, 2), null, null);
@@ -78,10 +75,10 @@ public class AreaEffectTests {
         LocalWorld world = new LocalWorld(tiles, new HashSet<>(), new ArrayList<>());
 
         EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
-                100, 100, 100, 0, 0,
-                3, 3, 0, false);
-        Entity entity = new Entity(new Vector(), entityStats, null, null, null,
-                null, null, true);
+                100, 100, 100, 5, 0, 0,
+                3, 3, 0, false, false, new HashSet<>());
+        Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+                null, true);
 
         EntityController entityController = new HumanEntityController(entity, null,
                 new Coordinate(2, 2), null, null);

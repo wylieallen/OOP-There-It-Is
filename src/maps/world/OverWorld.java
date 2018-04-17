@@ -101,4 +101,14 @@ public class OverWorld implements World {
         }
     }
 
+    @Override
+    public Coordinate getEntityCoordinate(Entity e) {
+        for(Map.Entry<Coordinate, OverWorldTile> entry: tiles.entrySet()) {
+            if(entry.getValue().has(e)) {
+                return new Coordinate(entry.getKey());
+            }
+        }
+        return null;
+    }
+
 }

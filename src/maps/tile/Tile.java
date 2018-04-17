@@ -47,9 +47,8 @@ public abstract class Tile implements GameObjectContainer {
     public Collection<MoveLegalityChecker> getMoveLegalityCheckers() { return moveLegalityCheckers; }
 
     public void do_update() {
-        for(MoveLegalityChecker mlc: moveLegalityCheckers) {
-            mlc.update();
-        }
+        moveLegalityCheckers.forEach(MoveLegalityChecker::update);
+        //TODO: add logic to check if each MLC expired
     }
 
     protected abstract void do_moves(Collection<MoveLegalityChecker> updated);
@@ -88,7 +87,7 @@ public abstract class Tile implements GameObjectContainer {
         return entity != null;
     }
 
-    protected Entity getEntity() {
+    public Entity getEntity() {
         return entity;
     }
 

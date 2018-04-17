@@ -5,21 +5,19 @@ import savingloading.Visitor;
 
 public class MakeConfusedCommand extends ReversibleCommand {
 
-    private int visibilityDecreaseAmount;
-
-    public MakeConfusedCommand(boolean isApplied, int visibilityDecreaseAmount) {
+    public MakeConfusedCommand(boolean isApplied) {
         super(isApplied);
-        this.visibilityDecreaseAmount = visibilityDecreaseAmount;
+
     }
 
     @Override
     protected void apply(Entity e) {
-        e.decreaseVisibilityRadious(visibilityDecreaseAmount);
+        e.makeConfused();
     }
 
     @Override
     protected void unapply(Entity e) {
-        e.increaseVisibilityRadious(visibilityDecreaseAmount);
+        e.makeUnconfused();
     }
 
     public int getVisibilityDecreaseAmount(){

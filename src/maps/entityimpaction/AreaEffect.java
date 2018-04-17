@@ -17,4 +17,9 @@ public abstract class AreaEffect implements EntityImpactor {
     protected void trigger(Entity e) {
         command.trigger(e);
     }
+
+    @Override
+    public boolean shouldBeRemoved() {
+        return false;
+    }
 }

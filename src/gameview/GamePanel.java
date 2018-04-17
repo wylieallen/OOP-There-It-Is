@@ -24,7 +24,7 @@ public class GamePanel extends DisplayPanel
     public GamePanel()
     {
         super();
-        super.setDisplayState(gameDisplayState = new GameViewMaker().makeGameDisplayState());
+        super.setDisplayState(gameDisplayState = new GameViewMaker().makeGameDisplayState(this));
         /*
         Tile tile = new OverWorldTile();
         tile.addMLC(Terrain.GRASS);

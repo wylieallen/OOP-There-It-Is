@@ -16,6 +16,7 @@ public abstract class ReversibleCommand implements Command {
             apply(e);
         else
             unapply(e);
+        isApplied = !isApplied;
     }
 
     protected abstract void apply(Entity e);

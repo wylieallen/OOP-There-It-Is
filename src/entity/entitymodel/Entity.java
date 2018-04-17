@@ -12,6 +12,7 @@ import savingloading.Visitable;
 import savingloading.Visitor;
 import utilities.Coordinate;
 import maps.movelegalitychecker.MoveLegalityChecker;
+import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import skills.SkillType;
 import utilities.Coordinate;
@@ -40,12 +41,19 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     private Inventory inventory;
     private boolean onMap;
 
+    public Entity()
+    {
+        this(new Vector(), new EntityStats(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
+                new Inventory(), true);
+    }
+
     public Entity(Vector movementVector,
                   EntityStats stats,
                   List<ControllerAction> actions,
                   List<TimedEffect> effects,
                   List<EntityInteraction> actorInteractions,
-                  List<EntityInteraction> acteeInteractions,
+                  //This will be set by the AI instead
+                  //List<EntityInteraction> acteeInteractions,
                   Inventory inventory,
                   boolean onMap)
     {
@@ -54,7 +62,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         this.actions = actions;
         this.effects = effects;
         this.actorInteractions = actorInteractions;
-        this.acteeInteractions = acteeInteractions;
+        //prevents errors until the AI sets the interactions
+        this.acteeInteractions = new ArrayList<>();
         this.inventory = inventory;
         this.onMap = onMap;
         this.facing = movementVector.getDirection();
@@ -64,15 +73,30 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         this.controller = newController;
     }
 
-    public void update () {}
+    public void update () {
+        updateStats();
+        for(TimedEffect effect: effects) {
+            effect.decrementTimeRemaining();
+            effect.triggerIfExpired(this);
+        }
+        effects.removeIf(TimedEffect::isExpired);
+    }
 
     public void update(Map<Coordinate, GameObjectContainer> mapOfContainers) {
         //TODO: add additional logic;
         controller.update(mapOfContainers);
     }
 
+    private void updateStats() {
+        stats.regenMana();
+    }
+
     public void setFacing(Direction newDirection) {
-        facing = newDirection;
+        if(isConfused()) {
+            facing = Direction.getRandom();
+        } else {
+            facing = newDirection;
+        }
     }
 
     public void setMoving() {
@@ -161,14 +185,14 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         stats.setUnspentSkillPoints(Math.max(0, getUnusedSkillPoints() - amount));
     }
 
-    public int getVisibilityRadious () { return stats.getVisibilityRadious(); }
+    public int getVisibilityRadious () { return stats.getVisibilityRadius(); }
 
     public void increaseVisibilityRadious (int amount) {
-        stats.setVisibilityRadious(getVisibilityRadious() + amount);
+        stats.setVisibilityRadius(getVisibilityRadious() + amount);
     }
 
     public void decreaseVisibilityRadious (int amount) {
-        stats.setVisibilityRadious(Math.max(0, getVisibilityRadious() - amount));
+        stats.setVisibilityRadius(Math.max(0, getVisibilityRadious() - amount));
     }
 
     public int getConcealment () { return stats.getConcealment(); }
@@ -268,6 +292,40 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
 
     public void stopSearching() { stats.stopSearching(); }
 
+    public void makeConfused() { stats.makeConfused(); }
+
+    public void makeUnconfused() { stats.makeUnconfused(); }
+
+    public void addTimedEffect(TimedEffect effect) {
+        effects.add(effect);
+        effect.trigger(this);
+    }
+
+    public void enrage(Entity target) {
+        controller.enrage(target);
+    }
+
+    public void pacify() {
+        controller.pacify();
+    }
+
+    public void setActeeInteractions(List<EntityInteraction> newInteractions) {
+        this.acteeInteractions = newInteractions;
+    }
+
+    public boolean isConfused() { return stats.isConfused(); }
+
+    public int getManaRegenRate() { return stats.getManaRegenRate(); }
+
+    public void setManaRegenRate(int newRate) { stats.setManaRegenRate(newRate); }
+
+    public void setCurMana(int newMana) { stats.setCurMana(newMana); }
+
+    public void addItem(TakeableItem item) {
+        inventory.add(item);
+    }
+
+    public boolean isTerrainCompatible(Terrain t) { return stats.isTerrainCompatible(t); }
     public EntityController getController() {
         return controller;
     }

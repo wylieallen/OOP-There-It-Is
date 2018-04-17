@@ -39,16 +39,6 @@ public class Inventory implements Visitable{
         items.remove(takeable);
     }
 
-    public TakeableItem getRandomItem () {
-        Random rand = new Random();
-
-        if (hasItems()) {
-            return items.get(rand.nextInt(items.size()));
-        }
-
-        return null;
-    }
-
     private boolean hasItems () { return items.size() > 0; }
 
     public TakeableItem select (int index) {
@@ -62,11 +52,38 @@ public class Inventory implements Visitable{
         return null;
     }
 
+    public TakeableItem getRandomItem () {
+        Random rand = new Random();
+
+        if (hasItems()) {
+            return items.get(rand.nextInt(items.size()));
+        }
+
+        return null;
+    }
+
     public TakeableItem pickPocket(){
-        if (!items.isEmpty())
-            return items.get(0);
+        TakeableItem item = getRandomItem();
+        if(item != null) {
+            remove(item);
+        }
+        return item;
+    }
+
+    public String getRandomItemName() {
+        TakeableItem item = getRandomItem();
+        if(item != null)
+            return item.getName();
         else
-            return null;
+            return "";
+    }
+
+    public boolean contains(TakeableItem item) {
+        for(TakeableItem i: items) {
+            if(item == i)
+                return true;
+        }
+        return false;
     }
 
     public List<TakeableItem> getItems() {
