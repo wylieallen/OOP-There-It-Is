@@ -40,6 +40,11 @@ public abstract class EntityController {
     public abstract void notifyLevelUp(Entity e);
     public abstract void notifyMainMenu(Entity e);
 
+    public abstract void enrage(Entity e);
+    public abstract void pacify();
+
+    protected Entity getControlledEntity() { return controlledEntity; }
+
 
 
     //this is the functionality all entity controllers need

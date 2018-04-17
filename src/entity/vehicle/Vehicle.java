@@ -2,7 +2,6 @@ package entity.vehicle;
 
 import commands.TimedEffect;
 import entity.entitycontrol.controllerActions.ControllerAction;
-import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
@@ -14,6 +13,8 @@ import java.util.List;
 /**
  * Created by dontf on 4/13/2018.
  */
+
+// TODO: Override all entity functions that the vehicle must push to the driver;
 public class Vehicle extends Entity {
 
     private Entity driver;
@@ -23,17 +24,42 @@ public class Vehicle extends Entity {
                    List<ControllerAction> actions,
                    List<TimedEffect> effects,
                    List<EntityInteraction> actorInteractions,
-                   List<EntityInteraction> acteeInteractions,
-                   EntityController controller,
                    Inventory inventory,
-                   Entity driver,
-                   boolean onMap)
+                   boolean isOnMap,
+                   Entity driver)
     {
-        super(movementVector, stats, actions, effects, actorInteractions, acteeInteractions, inventory, onMap);
+        super(movementVector, stats, actions, effects, actorInteractions, inventory, isOnMap);
         this.driver = driver;
     }
 
-    public void setDriver (Entity driver) {
+    public Vehicle(Vector vector,
+                   EntityStats stats,
+                   List<ControllerAction> actions,
+                   List<TimedEffect> effects,
+                   List<EntityInteraction> actorInteractions,
+                   Inventory inventory,
+                   boolean isOnMap)
+    {
+        super(vector, stats, actions, effects, actorInteractions, inventory, isOnMap);
+        this.driver = null;
+    }
+
+    @Override
+    public List <EntityInteraction> interact (Entity actor) {
+
+        if (!hasDriver()) {
+            setDriver(actor);
+            actor.setMount (this);
+            // after mounting you interact with mount, maybe use item?
+            return super.interact(actor);
+        }
+
+        return driver.interact(actor);
+    }
+
+    private void setDriver (Entity driver) {
         this.driver = driver;
     }
+
+    public boolean hasDriver () { return driver != null; }
 }

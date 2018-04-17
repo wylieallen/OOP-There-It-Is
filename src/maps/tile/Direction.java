@@ -3,6 +3,7 @@ package maps.tile;
 import utilities.Coordinate;
 
 import java.awt.*;
+import java.util.Random;
 
 public enum Direction {
     N(0, -64), NE(48, -32), SE(48, 32), S(0, 64), SW(-48, 32), NW(-48, -32), NULL(0, 0);
@@ -32,4 +33,11 @@ public enum Direction {
 
     public int getPixelX() { return pixelOffset.x; }
     public int getPixelY() { return pixelOffset.y; }
+
+    private static Random random = new Random();
+    private static Direction[] values = values();
+    public static Direction getRandom() {
+        int rand = random.nextInt(values.length);
+        return values[rand];
+    }
 }

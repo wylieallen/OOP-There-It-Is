@@ -58,4 +58,10 @@ public class HumanEntityController extends EntityController{
     public void notifyMainMenu(Entity e) {
         //TODO
     }
+
+    @Override
+    public void enrage(Entity e) {}
+
+    @Override
+    public void pacify() {}
 }
