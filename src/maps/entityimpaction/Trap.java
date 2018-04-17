@@ -3,6 +3,7 @@ package maps.entityimpaction;
 import entity.entitymodel.Entity;
 import commands.Command;
 import maps.movelegalitychecker.MoveLegalityChecker;
+import savingloading.Visitor;
 import skills.SkillType;
 
 public class Trap implements EntityImpactor, MoveLegalityChecker {
@@ -64,5 +65,10 @@ public class Trap implements EntityImpactor, MoveLegalityChecker {
     @Override
     public boolean shouldBeRemoved() {
         return false;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitTrap(this);
     }
 }

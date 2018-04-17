@@ -1,6 +1,7 @@
 package maps.movelegalitychecker;
 
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 
 public enum Terrain implements MoveLegalityChecker{
 
@@ -9,5 +10,10 @@ public enum Terrain implements MoveLegalityChecker{
     @Override
     public boolean canMoveHere(Entity e) {
         return e.isTerrainCompatible(this);
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitTerrain(this);
     }
 }

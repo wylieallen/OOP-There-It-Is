@@ -6,6 +6,7 @@ import gameobject.GameObject;
 import maps.Influence.InfluenceArea;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.tile.Direction;
+import savingloading.Visitor;
 import spawning.SpawnEvent;
 import spawning.SpawnObserver;
 import maps.tile.LocalWorldTile;
@@ -111,5 +112,14 @@ public class LocalWorld implements World, SpawnObserver {
             }
         }
         return null;
+    }
+
+    public Map<Coordinate, LocalWorldTile> getTiles() {
+        return tiles;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitLocalWorld(this);
     }
 }

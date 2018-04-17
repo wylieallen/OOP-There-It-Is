@@ -67,7 +67,7 @@
   "OverWorld":{
     "Width": 20,
     "Height": 20,
-    "Locations":[
+    "Tiles":[
       {
         "X":0,
         "Y":0,
@@ -86,7 +86,7 @@
     "0001":{
       "Width": 20,
       "Height": 20,
-      "Locations":[
+      "Tiles":[
         {
           "X":0,
           "Y":0,

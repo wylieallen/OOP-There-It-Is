@@ -9,16 +9,20 @@ import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.AI.PatrolAI;
 import entity.entitycontrol.AI.PetAI;
-import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.*;
 import entity.vehicle.Vehicle;
-import gameobject.GameObject;
 import items.InteractiveItem;
 import items.OneshotItem;
 import items.takeableitems.*;
+import maps.entityimpaction.Trap;
+import maps.movelegalitychecker.MoveLegalityChecker;
+import maps.movelegalitychecker.Obstacle;
+import maps.movelegalitychecker.Terrain;
+import maps.tile.LocalWorldTile;
+import maps.tile.OverWorldTile;
 import maps.tile.Tile;
 import maps.world.Game;
 import maps.world.LocalWorld;
@@ -43,8 +47,9 @@ public class SaveVisitor implements Visitor {
     private List<JSONObject> localWorldJsons;
 
     private JSONObject currentEntityJson;
+    private JSONObject currentCommandJson;
+    private JSONObject currentTileJson;
     private Queue<JSONObject> itemJsonsQueue;
-    private JSONObject currentCommand;
 
     public SaveVisitor(String saveFileName){
         this.fileName = "resources/savefiles/" + saveFileName + ".json";
@@ -60,11 +65,6 @@ public class SaveVisitor implements Visitor {
             return localWorldJsons.get(localWorldJsons.size()-1);
         else
             return null;
-    }
-
-    @Override
-    public void visitTile(Tile t) {
-
     }
 
     @Override
@@ -135,11 +135,14 @@ public class SaveVisitor implements Visitor {
         statsJson.put("CurrentHealth", entityStats.getCurHealth());
         statsJson.put("MaxMana", entityStats.getMaxMana());
         statsJson.put("CurrentMana", entityStats.getCurMana());
+        statsJson.put("ManaRegenRate", entityStats.getManaRegenRate());
         statsJson.put("CurrentXP", entityStats.getCurXP());
         statsJson.put("UnspentSkillPoints", entityStats.getUnspentSkillPoints());
         statsJson.put("VisibilityRadius", entityStats.getVisibilityRadius());
         statsJson.put("Concealment", entityStats.getConcealment());
         statsJson.put("Gold", entityStats.getGold());
+        statsJson.put("IsConfused", entityStats.isConfused());
+        statsJson.put("IsSearching", entityStats.getIsSearching());
         currentEntityJson.put("Stats", statsJson);
     }
 
@@ -252,17 +255,12 @@ public class SaveVisitor implements Visitor {
     }
 
     @Override
-    public void visitItem(Item i) {
-
-    }
-
-    @Override
     public void visitInteractiveItem(InteractiveItem i) {
         JSONObject interactiveItemJson = new JSONObject();
         interactiveItemJson.put("Type", "Interactive");
         interactiveItemJson.put("Name", i.getName());
         i.getCommand().accept(this);
-        interactiveItemJson.put("Command", currentCommand);
+        interactiveItemJson.put("Command", currentCommandJson);
         itemJsonsQueue.add(interactiveItemJson);
     }
 
@@ -272,7 +270,7 @@ public class SaveVisitor implements Visitor {
         oneShotItemJson.put("Type", "OneShot");
         oneShotItemJson.put("Name", o.getName());
         o.getCommand().accept(this);
-        oneShotItemJson.put("Command", currentCommand);
+        oneShotItemJson.put("Command", currentCommandJson);
         oneShotItemJson.put("IsActive", o.isActive());
         itemJsonsQueue.add(oneShotItemJson);
     }
@@ -292,7 +290,7 @@ public class SaveVisitor implements Visitor {
         consumableItemJson.put("Type", "Consumable");
         consumableItemJson.put("Name", c.getName());
         c.getCommand().accept(this);
-        consumableItemJson.put("Command", currentCommand);
+        consumableItemJson.put("Command", currentCommandJson);
         itemJsonsQueue.add(consumableItemJson);
     }
 
@@ -302,7 +300,7 @@ public class SaveVisitor implements Visitor {
         weaponItemJson.put("Type", "Weapon");
         weaponItemJson.put("Name", w.getName());
         w.getCommand().accept(this);
-        weaponItemJson.put("Command", currentCommand);
+        weaponItemJson.put("Command", currentCommandJson);
         weaponItemJson.put("Damage", w.getDamage());
         weaponItemJson.put("AttackSpeed", w.getAttackSpeed());
         weaponItemJson.put("RequiredSkill", w.getRequiredSkill());
@@ -315,104 +313,167 @@ public class SaveVisitor implements Visitor {
         wearableItemJson.put("Type", "Wearable");
         wearableItemJson.put("Name", w.getName());
         w.getCommand().accept(this);
-        wearableItemJson.put("ReversableCommand", currentCommand);
+        wearableItemJson.put("ReversableCommand", currentCommandJson);
         wearableItemJson.put("EquipType", w.getEquipType());
         itemJsonsQueue.add(wearableItemJson);
     }
 
     @Override
     public void visitConfuseCommand(ConfuseCommand confuseCommand) {
-        currentCommand = new JSONObject();
-        currentCommand.put("Name", "ConfuseCommand");
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "ConfuseCommand");
         addSkillCommand(confuseCommand);
     }
 
     @Override
     public void visitMakeFriendlyCommand(MakeFriendlyCommand makeFriendlyCommand) {
-        currentCommand = new JSONObject();
-        currentCommand.put("Name", "MakeFriendly");
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "MakeFriendly");
         addSkillCommand(makeFriendlyCommand);
     }
 
     @Override
     public void visitModifyHealthCommand(ModifyHealthCommand modifyHealthCommand) {
-        currentCommand = new JSONObject();
-        currentCommand.put("Name", "ModifyHealth");
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "ModifyHealth");
         addSkillCommand(modifyHealthCommand);
     }
 
     @Override
     public void visitModifyStaminaRegenCommand(ModifyStaminaRegenCommand modifyStaminaRegenCommand) {
-        currentCommand = new JSONObject();
-        currentCommand.put("Name", "ModifyStaminaRegen");
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "ModifyStaminaRegen");
         addSkillCommand(modifyStaminaRegenCommand);
     }
 
     @Override
     public void visitObserveCommand(ObserveCommand observeCommand) {
-        currentCommand = new JSONObject();
-        currentCommand.put("Name", "Observe");
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "Observe");
         addSkillCommand(observeCommand);
     }
 
     @Override
     public void visitParalyzeCommand(ParalyzeCommand paralyzeCommand) {
-        currentCommand = new JSONObject();
-        currentCommand.put("Name", "Paralyze");
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "Paralyze");
         addSkillCommand(paralyzeCommand);
     }
 
     @Override
     public void visitPickPocketCommand(PickPocketCommand pickPocketCommand) {
-        currentCommand = new JSONObject();
-        currentCommand.put("Name", "PickPocket");
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "PickPocket");
         addSkillCommand(pickPocketCommand);
     }
 
     @Override
     public void visitMakeConfusedCommand(MakeConfusedCommand makeConfusedCommand) {
-        currentCommand = new JSONObject();
-        currentCommand.put("Name", "MakeConfused");
-        currentCommand.put("VisibilityDecreaseAmount", makeConfusedCommand.getVisibilityDecreaseAmount());
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "MakeConfused");
+        currentCommandJson.put("VisibilityDecreaseAmount", makeConfusedCommand.getVisibilityDecreaseAmount());
         addReversibleCommand(makeConfusedCommand);
     }
 
     @Override
     public void visitMakeParalyzedCommand(MakeParalyzedCommand makeParalyzedCommand) {
-        currentCommand = new JSONObject();
-        currentCommand.put("Name", "MakeParalyzed");
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "MakeParalyzed");
         addReversibleCommand(makeParalyzedCommand);
     }
 
     @Override
     public void visitTimedStaminaRegenCommand(TimedStaminaRegenCommand timedStaminaRegenCommand) {
-        currentCommand = new JSONObject();
-        currentCommand.put("Name", "TimedStaminaRegen");
-        currentCommand.put("StaminaRegenDecrease", timedStaminaRegenCommand.getStaminaRegenDecrease());
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "TimedStaminaRegen");
+        currentCommandJson.put("StaminaRegenDecrease", timedStaminaRegenCommand.getStaminaRegenDecrease());
         addReversibleCommand(timedStaminaRegenCommand);
     }
 
     private void addSkillCommand(SkillCommand skillCommand){
-        currentCommand.put("Level", skillCommand.getLevel());
-        currentCommand.put("SkillType", skillCommand.getSkillType());
-        currentCommand.put("Effectiveness", skillCommand.getEffectiveness());
+        currentCommandJson.put("Level", skillCommand.getLevel());
+        currentCommandJson.put("SkillType", skillCommand.getSkillType());
+        currentCommandJson.put("Effectiveness", skillCommand.getEffectiveness());
     }
 
     private void addReversibleCommand(ReversibleCommand reversibleCommand){
-        currentCommand.put("IsApplied", reversibleCommand.isApplied());
-    }
-
-    @Override
-    public void visitWorld(World w) {
-
+        currentCommandJson.put("IsApplied", reversibleCommand.isApplied());
     }
 
     public void visitOverWorld(OverWorld w){
-
+        JSONArray tilesJson = new JSONArray();
+        overWorldJson.put("Tiles", tilesJson);
+        for (Map.Entry<Coordinate, OverWorldTile> entry : w.getTiles().entrySet()) {
+            Coordinate c = entry.getKey();
+            entry.getValue().accept(this);
+            currentTileJson.put("X", c.x());
+            currentTileJson.put("Y", c.y());
+            tilesJson.put(currentTileJson);
+        }
+        // TODO: height and width?
     }
 
     public void visitLocalWorld(LocalWorld w){
+        JSONObject localWorldJson = new JSONObject();
+        localWorldJsons.add(localWorldJson);
+        JSONArray tilesJson = new JSONArray();
+        localWorldJson.put("Tiles", tilesJson);
+        localWorldJson.put("Entities", new JSONArray());
+        for (Map.Entry<Coordinate, LocalWorldTile> entry : w.getTiles().entrySet()) {
+            Coordinate c = entry.getKey();
+            entry.getValue().accept(this);
+            currentTileJson.put("X", c.x());
+            currentTileJson.put("Y", c.y());
+            tilesJson.put(currentTileJson);
+        }
+        // TODO: height and width?
+    }
 
+    @Override
+    public void visitOverWorldTile(OverWorldTile overWorldTile) {
+        addTile(overWorldTile);
+    }
+
+    @Override
+    public void visitLocalWorldTile(LocalWorldTile localWorldTile) {
+        addTile(localWorldTile);
+        addItemsToTile();
+        // TODO: do InfluenceAreas need to be saved? Or are they assumed to be created when certain items, etc. are made?
+        // TODO: do SpawnEvents need to be saved?
+    }
+
+    private void addTile(Tile tile){
+        currentTileJson = new JSONObject();
+        Collection<MoveLegalityChecker> mlcs = tile.getMoveLegalityCheckers();
+        // TODO: will the enitity on the Tile be in the entity variable and MLC Collection?
+        for (MoveLegalityChecker mlc : mlcs){
+            mlc.accept(this);
+        }
+    }
+
+    private void addItemsToTile(){
+        if (!itemJsonsQueue.isEmpty()) {
+            JSONArray itemsJson = new JSONArray();
+            currentTileJson.put("Items", itemsJson);
+            while (!itemJsonsQueue.isEmpty()) {
+                itemsJson.put(itemJsonsQueue.remove());
+            }
+        }
+    }
+
+    @Override
+    public void visitObstacle(Obstacle obstacle) {
+        currentTileJson.put("Obstacle", true);
+    }
+
+    @Override
+    public void visitTerrain(Terrain terrain) {
+        currentTileJson.put("Terrain", terrain);
+    }
+
+    @Override
+    public void visitTrap(Trap trap) {
+        currentTileJson.put("Trap", true);
     }
 
     @Override
@@ -421,5 +482,15 @@ public class SaveVisitor implements Visitor {
         visitOverWorld(g.getOverWorld());
         for (LocalWorld localWorld : g.getLocalWorlds())
             visitLocalWorld(localWorld);
+
+        saveFileJson.put("Player", playerJson);
+        saveFileJson.put("OverWorld", overWorldJson);
+        JSONObject localWorldsJson = new JSONObject();
+        int i = 1;
+        for (JSONObject localWorldJson : localWorldJsons)
+            localWorldsJson.put(("000" + Integer.toString(i)), localWorldJson);
+        saveFileJson.put("LocalWorlds", localWorldsJson);
+
+        // TODO: write saveFileJson to file
     }
 }

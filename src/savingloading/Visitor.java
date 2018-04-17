@@ -23,6 +23,11 @@ import items.takeableitems.ConsumableItem;
 import items.takeableitems.QuestItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
+import maps.entityimpaction.Trap;
+import maps.movelegalitychecker.Obstacle;
+import maps.movelegalitychecker.Terrain;
+import maps.tile.LocalWorldTile;
+import maps.tile.OverWorldTile;
 import maps.tile.Tile;
 import maps.world.LocalWorld;
 import maps.world.OverWorld;
@@ -34,8 +39,6 @@ import items.Item;
  * Created by dontf on 4/13/2018.
  */
 public interface Visitor {
-
-    void visitTile (Tile t);
 
     void visitEntity (Entity e);
     void visitHumanEntityController(HumanEntityController h);
@@ -56,7 +59,6 @@ public interface Visitor {
     void visitTradeInteraction(TradeInteraction t);
     void visitUseItemInteraction(UseItemInteraction u);
 
-    void visitItem (Item i);
     void visitInteractiveItem(InteractiveItem i);
     void visitOneShotItem(OneshotItem o);
     void visitQuestItem(QuestItem q);
@@ -75,9 +77,14 @@ public interface Visitor {
     void visitMakeParalyzedCommand(MakeParalyzedCommand makeParalyzedCommand);
     void visitTimedStaminaRegenCommand(TimedStaminaRegenCommand timedStaminaRegenCommand);
 
-    void visitWorld (World w);
     void visitOverWorld(OverWorld w);
     void visitLocalWorld(LocalWorld w);
+
+    void visitOverWorldTile(OverWorldTile overWorldTile);
+    void visitLocalWorldTile(LocalWorldTile localWorldTile);
+    void visitObstacle(Obstacle obstacle);
+    void visitTerrain(Terrain terrain);
+    void visitTrap(Trap trap);
 
     void visitGame (Game g);
 }

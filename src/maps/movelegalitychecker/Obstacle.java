@@ -1,6 +1,7 @@
 package maps.movelegalitychecker;
 
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 
 public class Obstacle implements MoveLegalityChecker {
 
@@ -14,4 +15,9 @@ public class Obstacle implements MoveLegalityChecker {
 
     @Override
     public void update() {}
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitObstacle(this);
+    }
 }
