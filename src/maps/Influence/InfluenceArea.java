@@ -1,7 +1,6 @@
 package maps.Influence;
 
 import maps.tile.LocalWorldTile;
-import savingloading.Visitor;
 import utilities.Coordinate;
 
 import java.util.List;
