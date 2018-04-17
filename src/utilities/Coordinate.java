@@ -15,6 +15,11 @@ public class Coordinate implements Comparable<Coordinate> {
         this.z = z;
     }
 
+    public Coordinate(Coordinate other) {
+        this.x = other.x;
+        this.z = other.z;
+    }
+
     public int x() {
         return x;
     }
@@ -33,6 +38,14 @@ public class Coordinate implements Comparable<Coordinate> {
 
     public Coordinate getNeighbor(Direction direction) {
         return add(direction.getOffsetCoordinate());
+    }
+
+    public int distance(Coordinate other) {
+        int dx = Math.abs(x() - other.x());
+        int dy = Math.abs(y() - other.y());
+        int dz = Math.abs(z() - other.z());
+
+        return Math.max( dx, Math.max(dy, dz) );
     }
 
     @Override

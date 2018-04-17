@@ -9,6 +9,7 @@ import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
 import maps.movelegalitychecker.MoveLegalityChecker;
+import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import skills.SkillType;
 import utilities.Coordinate;
@@ -315,4 +316,6 @@ public class Entity implements GameObject, MoveLegalityChecker {
     }
 
     public Inventory getInventory() { return inventory; }
+
+    public boolean isTerrainCompatible(Terrain t) { return stats.isTerrainCompatible(t); }
 }

@@ -1,8 +1,10 @@
 package entity.entitymodel;
 
+import maps.movelegalitychecker.Terrain;
 import skills.SkillType;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by dontf on 4/13/2018.
@@ -26,6 +28,7 @@ public class EntityStats {
     private double gold;
     private boolean isConfused;
     private boolean isSearching;
+    private Set<Terrain> compatibleTerrains;
 
     public EntityStats(Map<SkillType, Integer> skills,
                        int baseMoveSpeed,
@@ -40,7 +43,8 @@ public class EntityStats {
                        int concealment,
                        double gold,
                        boolean isSearching,
-                       boolean isConfused)
+                       boolean isConfused,
+                       Set<Terrain> compatibleTerrains)
     {
         this.skills = skills;
         this.baseMoveSpeed = baseMoveSpeed;
@@ -56,6 +60,7 @@ public class EntityStats {
         this.gold = gold;
         this.isConfused = isConfused;
         this.isSearching = isSearching;
+        this.compatibleTerrains = compatibleTerrains;
     }
 
     public int getBaseMoveSpeed() {
@@ -184,4 +189,8 @@ public class EntityStats {
     public int getManaRegenRate() { return manaRegenRate; }
 
     public void setManaRegenRate(int newRate) { manaRegenRate = newRate; }
+
+    public boolean isTerrainCompatible(Terrain t) {
+        return compatibleTerrains.contains(t);
+    }
 }

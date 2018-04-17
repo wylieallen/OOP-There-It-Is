@@ -102,4 +102,14 @@ public class LocalWorld implements World, SpawnObserver {
                 return;
         }
     }
+
+    @Override
+    public Coordinate getEntityCoordinate(Entity e) {
+        for(Map.Entry<Coordinate, LocalWorldTile> entry: tiles.entrySet()) {
+            if(entry.getValue().has(e)) {
+                return new Coordinate(entry.getKey());
+            }
+        }
+        return null;
+    }
 }
