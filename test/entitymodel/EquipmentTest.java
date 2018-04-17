@@ -19,10 +19,7 @@ import org.junit.Test;
 import skills.SkillType;
 import utilities.Vector;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by dontf on 4/14/2018.
@@ -44,7 +41,7 @@ public class EquipmentTest {
         inventory = new Inventory(items);
 
         HashMap<SkillType, Integer> skillsActor = new HashMap<>();
-        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 5, 25, 5, 5, 50, 65, false, false);
+        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 5, 25, 5, 5, 50, 65, false, false, new HashSet<>());
         ArrayList<ControllerAction> actorActions = new ArrayList<>();
         ArrayList <TimedEffect> actorEffects = new ArrayList<>();
         ArrayList <EntityInteraction> actorActorInteractions = new ArrayList<>();

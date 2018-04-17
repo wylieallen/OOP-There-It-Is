@@ -8,6 +8,6 @@ public enum Terrain implements MoveLegalityChecker{
 
     @Override
     public boolean canMoveHere(Entity e) {
-        return false;
+        return e.isTerrainCompatible(this);
     }
 }

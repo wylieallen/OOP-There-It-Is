@@ -21,6 +21,7 @@ import utilities.Vector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class SkillCommandsTests {
@@ -43,7 +44,7 @@ public class SkillCommandsTests {
         casterSkills.put(SkillType.ONEHANDEDWEAPON, 1);
         EntityStats casterStats = new EntityStats(casterSkills, 2, 100,
                 100, 100, 100, 5, 0, 0,
-                3, 3, 0, false, false);
+                3, 3, 0, false, false, new HashSet<>());
         caster = new Entity(new Vector(), casterStats, null, new ArrayList<>(), null,
                 casterInventory, true);
 
@@ -54,7 +55,7 @@ public class SkillCommandsTests {
 
         EntityStats targetStats = new EntityStats(new HashMap<>(), 2, 100,
                 100, 100, 100, 5, 0, 0,
-                3, 3, 0, false, false);
+                3, 3, 0, false, false, new HashSet<>());
         targetEffects = new ArrayList<>();
         target = new Entity(new Vector(), targetStats, null, targetEffects, null,
                 targetInventory, true);

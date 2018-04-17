@@ -100,7 +100,7 @@ public class LocalWorldTests {
 
         EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
                 100, 100, 100, 5, 0, 0,
-                3, 3, 0, false, false);
+                3, 3, 0, false, false, new HashSet<>());
         Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
                 null, true);
 
@@ -167,7 +167,7 @@ public class LocalWorldTests {
 
         EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
                 100, 100, 100, 5, 0, 0,
-                3, 3, 0, false, false);
+                3, 3, 0, false, false, new HashSet<>());
         Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
                 null, true);
 
