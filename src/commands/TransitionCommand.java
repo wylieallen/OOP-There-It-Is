@@ -22,6 +22,14 @@ public class TransitionCommand implements Command {
         transitionObserver.notifyTransition(e, targetWorld, startingCoordinate);
     }
 
+    public World getTargetWorld() {
+        return targetWorld;
+    }
+
+    public Coordinate getStartingCoordinate() {
+        return startingCoordinate;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitTransitionCommand(this);

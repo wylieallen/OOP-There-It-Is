@@ -1,5 +1,6 @@
 package savingloading;
 
+import com.sun.jdi.IntegerType;
 import commands.TransitionCommand;
 import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
@@ -45,23 +46,19 @@ import java.util.*;
 public class SaveVisitor implements Visitor {
 
     private String fileName;
-    private JSONObject saveFileJson;
-    private JSONObject playerJson;
-    private JSONObject overWorldJson;
-    private List<JSONObject> localWorldJsons;
+    private JSONObject saveFileJson = new JSONObject();
+    private JSONObject playerJson = new JSONObject();
+    private JSONObject overWorldJson = new JSONObject();
+    private List<JSONObject> localWorldJsons = new ArrayList<JSONObject>();
 
     private JSONObject currentEntityJson;
     private JSONObject currentCommandJson;
     private JSONObject currentTileJson;
-    private Queue<JSONObject> itemJsonsQueue;
+    private Queue<JSONObject> itemJsonsQueue = new ArrayDeque<JSONObject>();
+    private Map<TransitionCommand, JSONObject> transitionCommandJsons = new HashMap<TransitionCommand, JSONObject>();
 
     public SaveVisitor(String saveFileName){
         this.fileName = "resources/savefiles/" + saveFileName + ".json";
-        saveFileJson = new JSONObject();
-        playerJson = new JSONObject();
-        overWorldJson = new JSONObject();
-        localWorldJsons = new ArrayList<JSONObject>();
-        itemJsonsQueue = new ArrayDeque<>();
     }
 
     private JSONObject getCurrentLocalWorldJson(){
@@ -85,6 +82,7 @@ public class SaveVisitor implements Visitor {
         e.getInventory().accept(this);
     }
 
+    @Override
     public void visitVehicle(Vehicle v){
         addNonPlayerEntity("Vehicle");
     }
@@ -395,7 +393,26 @@ public class SaveVisitor implements Visitor {
 
     @Override
     public void visitTransitionCommand(TransitionCommand transitionCommand) {
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "Transition");
+        currentCommandJson.put("TargetX", transitionCommand.getStartingCoordinate().x());
+        currentCommandJson.put("TargetY", transitionCommand.getStartingCoordinate().y());
+        transitionCommandJsons.put(transitionCommand, currentCommandJson);
+        // addTransitionCommandTargetWorld() called at end of visitGame()
+    }
 
+    private void addTransitionCommandTargetWorlds(List<World> worlds) {
+        for (Map.Entry<TransitionCommand, JSONObject> entry : transitionCommandJsons.entrySet()) {
+            World targetWorld = entry.getKey().getTargetWorld();
+            for (int i = 0; i < worlds.size(); i++) {
+                if (targetWorld == worlds.get(i)) {
+                    if (i == 0)
+                        entry.getValue().put("TargetWorld", "OverWorld");
+                    else
+                        entry.getValue().put("TargetWorld", getLocalWorldID(i));
+                }
+            }
+        }
     }
 
     private void addSkillCommand(SkillCommand skillCommand){
@@ -435,6 +452,17 @@ public class SaveVisitor implements Visitor {
             tilesJson.put(currentTileJson);
         }
         // TODO: height and width?
+    }
+
+    private String getLocalWorldID(int localWorldNumber){
+        if(localWorldNumber < 10)
+            return "000" + Integer.toString(localWorldNumber);
+        else if (localWorldNumber < 100)
+            return "00" + Integer.toString(localWorldNumber);
+        else if (localWorldNumber < 1000)
+            return "0" + Integer.toString(localWorldNumber);
+        else
+            return Integer.toString(localWorldNumber);
     }
 
     @Override
@@ -490,13 +518,14 @@ public class SaveVisitor implements Visitor {
         visitOverWorld(g.getOverWorld());
         for (LocalWorld localWorld : g.getLocalWorlds())
             visitLocalWorld(localWorld);
+        addTransitionCommandTargetWorlds(g.getWorlds());
 
         saveFileJson.put("Player", playerJson);
         saveFileJson.put("OverWorld", overWorldJson);
         JSONObject localWorldsJson = new JSONObject();
         int i = 1;
         for (JSONObject localWorldJson : localWorldJsons)
-            localWorldsJson.put(("000" + Integer.toString(i)), localWorldJson);
+            localWorldsJson.put(getLocalWorldID(i), localWorldJson);
         saveFileJson.put("LocalWorlds", localWorldsJson);
 
         String jsonText = saveFileJson.toString(1);

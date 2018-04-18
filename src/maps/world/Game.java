@@ -6,6 +6,7 @@ import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import utilities.Coordinate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -77,7 +78,12 @@ public class Game implements TransitionObserver {
         return localWorlds;
     }
 
-    public Entity getPlayer() {
-        return player;
+    public List<World> getWorlds(){
+        List<World> worlds = new ArrayList<World>();
+        worlds.add(overWorld);
+        for (LocalWorld localWorld : localWorlds)
+            worlds.add(localWorld);
+        return worlds;
     }
+
 }
