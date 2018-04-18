@@ -1,11 +1,9 @@
 package mapstests.worldtests;
 
-import commands.TimedEffect;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
-import entity.entitymodel.Inventory;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
 import maps.tile.Tile;
@@ -104,7 +102,7 @@ public class OverWorldTests {
                                         100, 100, 100, 5, 0, 0,
                                     3, 3, 0, false, false);
         Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
-                                    null, true);
+                                    null, true, new ArrayList<>());
 
         EntityController entityController = new HumanEntityController(entity, null,
                                                 new Coordinate(2, 2), null, null);

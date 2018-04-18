@@ -80,4 +80,6 @@ public class LocalWorldTile extends Tile {
             }
         }
     }
+
+    public boolean hasImpactor () { return entityImpactors.size() > 0; }
 }

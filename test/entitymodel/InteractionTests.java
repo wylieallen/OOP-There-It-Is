@@ -3,7 +3,6 @@ package entitymodel;
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
-import entity.entitycontrol.EntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
@@ -159,8 +158,8 @@ public class InteractionTests {
         Inventory actorInventory = new Inventory(actorItems);
         Inventory acteeInventory = new Inventory(acteeItems);
 
-        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorInventory, true);
-        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeInventory, true);
+        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorInventory, true, new ArrayList<>());
+        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeInventory, true, new ArrayList<>());
 
     }
 

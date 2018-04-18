@@ -4,7 +4,6 @@ import commands.TimedEffect;
 import commands.skillcommands.*;
 import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
-import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitymodel.Entity;
@@ -45,7 +44,7 @@ public class SkillCommandsTests {
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false);
         caster = new Entity(new Vector(), casterStats, null, new ArrayList<>(), null,
-                casterInventory, true);
+                casterInventory, true, new ArrayList<>());
 
         casterController = new HumanEntityController(caster, null,
                 new Coordinate(2, 2), null, null);
@@ -57,11 +56,11 @@ public class SkillCommandsTests {
                 3, 3, 0, false, false);
         targetEffects = new ArrayList<>();
         target = new Entity(new Vector(), targetStats, null, targetEffects, null,
-                targetInventory, true);
+                targetInventory, true, new ArrayList<>());
 
         targetController = new NpcEntityController(target, null,
-                null, null, new HostileAI(new ArrayList<>(), caster),
-                new FriendlyAI(new ArrayList<>()), false);
+                null, null, new HostileAI(new ArrayList<>(), caster, null),
+                new FriendlyAI(new ArrayList<>(), null, false), false);
 
         target.setController(targetController);
     }

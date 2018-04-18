@@ -3,9 +3,6 @@ package entitymodel;
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeParalyzedCommand;
 import commands.skillcommands.ParalyzeCommand;
-import entity.entitycontrol.EntityController;
-import entity.entitycontrol.HumanEntityController;
-import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.EntityInteraction;
@@ -50,7 +47,7 @@ public class EquipmentTest {
         ArrayList <EntityInteraction> actorActorInteractions = new ArrayList<>();
         //EntityController actorController = new HumanEntityController(null, null, null, null, null);
 
-        Entity e = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, inventory, true);
+        Entity e = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, inventory, true, new ArrayList<>());
 
         equipment = new Equipment(wearables, weapons, 5, inventory, e);
 

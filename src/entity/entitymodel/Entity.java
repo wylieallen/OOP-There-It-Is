@@ -9,6 +9,7 @@ import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
 import maps.movelegalitychecker.MoveLegalityChecker;
+import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import skills.SkillType;
 import utilities.Coordinate;
@@ -36,6 +37,7 @@ public class Entity implements GameObject, MoveLegalityChecker {
     private EntityController controller;
     private Inventory inventory;
     private boolean onMap;
+    private List<Terrain> compatibleTerrains;
 
     public Entity(Vector movementVector,
                   EntityStats stats,
@@ -45,7 +47,7 @@ public class Entity implements GameObject, MoveLegalityChecker {
                   //This will be set by the AI instead
                   //List<EntityInteraction> acteeInteractions,
                   Inventory inventory,
-                  boolean onMap)
+                  boolean onMap, List<Terrain> compatibleTerrains)
     {
         this.movementVector = movementVector;
         this.stats = stats;
@@ -313,9 +315,13 @@ public class Entity implements GameObject, MoveLegalityChecker {
     public void addItem(TakeableItem item) {
         inventory.add(item);
     }
-    
+
     public List <EntityInteraction> getActorInteractions () { return actorInteractions; }
 
     public Inventory getInventory() { return inventory; }
+
+    public List <Terrain> getCompatibleTerrains () {
+        return compatibleTerrains;
+    }
 
 }

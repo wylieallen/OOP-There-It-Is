@@ -173,21 +173,21 @@ public class VehicleTest {
             public void enrage(Entity e) {}
         };*/
 
-        actor = new Entity(new Vector(Direction.N, 1), actorStats, actorActions, actorEffects, actorActorInteractions, new Inventory(), true);
-        yourMomPreMounted = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, new Inventory(), true, actor);
-        yourMomNotMountedYet = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, new Inventory(), true);
+        actor = new Entity(new Vector(Direction.N, 1), actorStats, actorActions, actorEffects, actorActorInteractions, new Inventory(), true, new ArrayList<>());
+        yourMomPreMounted = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, new Inventory(), true, actor, new ArrayList<>());
+        yourMomNotMountedYet = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, new Inventory(), true, new ArrayList<>());
 
 
         EntityController actorController = new HumanEntityController(actor,null,
                 null, null, null);
 
         EntityController yourMomPreMountedController = new NpcEntityController(yourMomPreMounted, null,
-                null, null, new HostileAI(new ArrayList<>(), actor),
-                new FriendlyAI(acteeActeeInteractions), false);
+                null, null, new HostileAI(new ArrayList<>(), actor, null),
+                new FriendlyAI(acteeActeeInteractions, null, false), false);
 
         EntityController yourMomNotMountedYetController = new NpcEntityController(yourMomNotMountedYet, null,
-                null, null, new HostileAI(new ArrayList<>(), actor),
-                new FriendlyAI(acteeActeeInteractions), false);
+                null, null, new HostileAI(new ArrayList<>(), actor, null),
+                new FriendlyAI(acteeActeeInteractions, null, false), false);
 
         actor.setController(actorController);
         yourMomPreMounted.setController(yourMomPreMountedController);

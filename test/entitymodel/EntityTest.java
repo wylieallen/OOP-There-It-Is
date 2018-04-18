@@ -170,15 +170,15 @@ public class EntityTest {
         Inventory actorInventory = new Inventory();
         Inventory acteeInventory = new Inventory();
 
-        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorInventory, true);
-        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeInventory, true);
+        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorInventory, true, new ArrayList<>());
+        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeInventory, true, new ArrayList<>());
 
         EntityController actorController = new HumanEntityController(actor,null,
                 null, null, null);
 
         EntityController acteeController = new NpcEntityController(actee, null,
-                null, null, new HostileAI(new ArrayList<>(), actor),
-                new FriendlyAI(acteeActeeInteractions), false);
+                null, null, new HostileAI(new ArrayList<>(), actor, null),
+                new FriendlyAI(acteeActeeInteractions, null, false), false);
 
         actor.setController(actorController);
         actee.setController(acteeController);

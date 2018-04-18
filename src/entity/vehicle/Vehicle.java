@@ -6,6 +6,7 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
+import maps.movelegalitychecker.Terrain;
 import utilities.Vector;
 
 import java.util.List;
@@ -26,9 +27,10 @@ public class Vehicle extends Entity {
                    List<EntityInteraction> actorInteractions,
                    Inventory inventory,
                    boolean isOnMap,
-                   Entity driver)
+                   Entity driver,
+                   List<Terrain> compatibleTerrains)
     {
-        super(movementVector, stats, actions, effects, actorInteractions, inventory, isOnMap);
+        super(movementVector, stats, actions, effects, actorInteractions, inventory, isOnMap, compatibleTerrains);
         this.driver = driver;
     }
 
@@ -38,9 +40,9 @@ public class Vehicle extends Entity {
                    List<TimedEffect> effects,
                    List<EntityInteraction> actorInteractions,
                    Inventory inventory,
-                   boolean isOnMap)
+                   boolean isOnMap, List<Terrain> compatibleTerrains)
     {
-        super(vector, stats, actions, effects, actorInteractions, inventory, isOnMap);
+        super(vector, stats, actions, effects, actorInteractions, inventory, isOnMap, compatibleTerrains);
         this.driver = null;
     }
 

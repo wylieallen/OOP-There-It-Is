@@ -35,6 +35,12 @@ public class Coordinate implements Comparable<Coordinate> {
         return add(direction.getOffsetCoordinate());
     }
 
+    //determine how far two tiles are from each other;
+    public int distance (Coordinate c) {
+        int temp = Math.max(Math.abs(c.x() - x()), Math.abs(c.z() - z()));
+        return Math.max(temp, Math.abs(c.y() - y()));
+    }
+
     @Override
     public int compareTo(Coordinate other) {
         if(x() == other.x() && z() == other.z()) {

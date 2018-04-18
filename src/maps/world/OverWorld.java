@@ -3,7 +3,6 @@ package maps.world;
 import entity.entitymodel.Entity;
 import gameobject.GameObjectContainer;
 import maps.movelegalitychecker.MoveLegalityChecker;
-import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
 import maps.tile.Tile;
