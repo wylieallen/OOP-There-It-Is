@@ -1,5 +1,6 @@
 package savingloading;
 
+import commands.TransitionCommand;
 import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
 import commands.reversiblecommands.ReversibleCommand;
@@ -33,6 +34,9 @@ import org.json.*;
 import skills.SkillType;
 import utilities.Coordinate;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -371,7 +375,6 @@ public class SaveVisitor implements Visitor {
     public void visitMakeConfusedCommand(MakeConfusedCommand makeConfusedCommand) {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "MakeConfused");
-        currentCommandJson.put("VisibilityDecreaseAmount", makeConfusedCommand.getVisibilityDecreaseAmount());
         addReversibleCommand(makeConfusedCommand);
     }
 
@@ -388,6 +391,11 @@ public class SaveVisitor implements Visitor {
         currentCommandJson.put("Name", "TimedStaminaRegen");
         currentCommandJson.put("StaminaRegenDecrease", timedStaminaRegenCommand.getStaminaRegenDecrease());
         addReversibleCommand(timedStaminaRegenCommand);
+    }
+
+    @Override
+    public void visitTransitionCommand(TransitionCommand transitionCommand) {
+
     }
 
     private void addSkillCommand(SkillCommand skillCommand){
@@ -491,6 +499,15 @@ public class SaveVisitor implements Visitor {
             localWorldsJson.put(("000" + Integer.toString(i)), localWorldJson);
         saveFileJson.put("LocalWorlds", localWorldsJson);
 
-        // TODO: write saveFileJson to file
+        String jsonText = saveFileJson.toString(1);
+        File saveFile = new File(fileName);
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(saveFile);
+            fileWriter.write(jsonText);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

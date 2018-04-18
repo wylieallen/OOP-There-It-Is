@@ -20,10 +20,6 @@ public class MakeConfusedCommand extends ReversibleCommand {
         e.makeUnconfused();
     }
 
-    public int getVisibilityDecreaseAmount(){
-        return visibilityDecreaseAmount;
-    }
-
     @Override
     public void accept(Visitor v) {
         v.visitMakeConfusedCommand(this);

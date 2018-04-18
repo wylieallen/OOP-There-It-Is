@@ -30,7 +30,7 @@ public class TimedStaminaRegenCommand extends ReversibleCommand {
     }
 
     public int getStaminaRegenDecrease(){
-        return staminaRegenDecrease;
+        return cachedStaminaRegenDifference;
     }
 
     @Override

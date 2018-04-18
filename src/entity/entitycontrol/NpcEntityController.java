@@ -104,7 +104,8 @@ public class NpcEntityController extends EntityController {
     }
 
     public AI getAi() {
-        return ai;
+        return activeAi;
+        // TODO: make different getters for 3 ais
     }
 
     @Override

@@ -176,13 +176,15 @@ public class InteractionTests {
         PickPocketInteraction ppi = new PickPocketInteraction();
         QuestItem qi = new QuestItem("cool quest", true, 123);
         acteeItems.add(qi);
+    }
 
 
     @Test
     public void pickPocketEntityWithItemUnsuccessfully () {
-        PickPocketInteraction ppi = new PickPocketInteraction();
-        QuestItem qi = new QuestItem("cool quest", true, 123);
-        acteeItems.add(qi);
+            PickPocketInteraction ppi = new PickPocketInteraction();
+            QuestItem qi = new QuestItem("cool quest", true, 123);
+            acteeItems.add(qi);
+    }
 
 
     // BackStab Test //

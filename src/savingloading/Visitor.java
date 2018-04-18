@@ -1,5 +1,6 @@
 package savingloading;
 
+import commands.TransitionCommand;
 import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
 import commands.reversiblecommands.TimedStaminaRegenCommand;
@@ -76,6 +77,9 @@ public interface Visitor {
     void visitMakeConfusedCommand(MakeConfusedCommand makeConfusedCommand);
     void visitMakeParalyzedCommand(MakeParalyzedCommand makeParalyzedCommand);
     void visitTimedStaminaRegenCommand(TimedStaminaRegenCommand timedStaminaRegenCommand);
+    void visitTransitionCommand(TransitionCommand transitionCommand);
+
+    // TODO: InfluenceAreas
 
     void visitOverWorld(OverWorld w);
     void visitLocalWorld(LocalWorld w);

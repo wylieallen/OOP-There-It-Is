@@ -34,7 +34,7 @@ public class OneshotItem extends Item {
     }
 
     public boolean isActive() {
-        return active;
+        return !hasFired;
     }
 
     @Override
