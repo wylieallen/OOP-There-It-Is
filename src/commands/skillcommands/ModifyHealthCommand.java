@@ -5,16 +5,19 @@ import skills.SkillType;
 
 public class ModifyHealthCommand extends SkillCommand {
 
-    private int healthDecrement;
-
-    public ModifyHealthCommand(SkillType skillType, int level, int effectiveness, int healthDecrement) {
+    public ModifyHealthCommand(SkillType skillType, int level, int effectiveness) {
         super(skillType, level, effectiveness);
-        this.healthDecrement = healthDecrement;
     }
 
     @Override
     protected void success(Entity e, int distance) {
-        e.hurtEntity(healthDecrement);
+        int adjustedEffectiveness = getSkillType().calculateModification(getEffectiveness(),
+                                                        distance, getLevel());
+        if(adjustedEffectiveness > 0) {
+            e.healEntity(adjustedEffectiveness);
+        } else {
+            e.hurtEntity(-adjustedEffectiveness);
+        }
     }
 
     @Override

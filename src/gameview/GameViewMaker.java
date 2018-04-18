@@ -41,16 +41,16 @@ public class GameViewMaker
 
         // Manual approach:
 
-        OverWorldTile tile = new OverWorldTile();
-        tile.add(Terrain.GRASS);
+        OverWorldTile tile = new OverWorldTile(new HashSet<>(), null);
+        tile.addMLC(Terrain.GRASS);
         overworldMap.put(new Coordinate(0, 0), tile);
 
-        OverWorldTile tile2 = new OverWorldTile();
-        tile2.add(Terrain.WATER);
+        OverWorldTile tile2 = new OverWorldTile(new HashSet<>(), null);
+        tile2.addMLC(Terrain.WATER);
         overworldMap.put(Direction.NE.getOffsetCoordinate(), tile2);
 
-        OverWorldTile tile3 = new OverWorldTile();
-        tile3.add(Terrain.MOUNTAIN);
+        OverWorldTile tile3 = new OverWorldTile(new HashSet<>(), null);
+        tile3.addMLC(Terrain.MOUNTAIN);
         overworldMap.put(Direction.S.getOffsetCoordinate(), tile3);
 
 
@@ -137,8 +137,8 @@ public class GameViewMaker
                 Coordinate newCoord = c.add(d.getOffsetCoordinate());//new Coordinate(c.getX() + d.getDx(), c.getY() + d.getDy());
                 if(!map.containsKey(newCoord))
                 {
-                    OverWorldTile newTile = new OverWorldTile();
-                    newTile.add(terrain);
+                    OverWorldTile newTile = new OverWorldTile(new HashSet<>(), null);
+                    newTile.addMLC(terrain);
                     map.put(newCoord, newTile);
                 }
             }

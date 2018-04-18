@@ -1,5 +1,6 @@
 package mapstests.worldtests;
 
+import commands.TimedEffect;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
@@ -16,6 +17,7 @@ import utilities.Vector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class OverWorldTests {
@@ -26,7 +28,7 @@ public class OverWorldTests {
         Map<Coordinate, OverWorldTile> tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                tiles.put(new Coordinate(i, j), new OverWorldTile());
+                tiles.put(new Coordinate(i, j), new OverWorldTile(new HashSet<>(), null));
             }
         }
         OverWorld world = new OverWorld(tiles);
@@ -92,17 +94,17 @@ public class OverWorldTests {
         Map<Coordinate, OverWorldTile> tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                tiles.put(new Coordinate(i, j), new OverWorldTile());
+                tiles.put(new Coordinate(i, j), new OverWorldTile(new HashSet<>(), null));
             }
         }
 
         OverWorld world = new OverWorld(tiles);
 
         EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
-                                        100, 100, 100, 0, 0,
-                                    3, 3, 0);
-        Entity entity = new Entity(new Vector(), entityStats, null, null, null,
-                                    null, null, true);
+                                        100, 100, 100, 5, 0, 0,
+                                    3, 3, 0, false, false);
+        Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+                                    null, true);
 
         EntityController entityController = new HumanEntityController(entity, null,
                                                 new Coordinate(2, 2), null, null);

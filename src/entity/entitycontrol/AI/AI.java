@@ -12,10 +12,18 @@ public abstract class AI {
 
     private List<EntityInteraction> interactions;
 
+    public AI(List<EntityInteraction> interactions) {
+        this.interactions = interactions;
+    }
+
     public abstract void nextAction(Map<Coordinate, GameObjectContainer> map, Entity e);
 
     public void setInteractions(Entity e){
         interactions = e.getActorInteractions();
+    }
+
+    public List<EntityInteraction> getInteractions() {
+        return interactions;
     }
 
 }

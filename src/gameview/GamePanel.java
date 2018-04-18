@@ -43,7 +43,7 @@ public class GamePanel extends DisplayPanel
             double clicks = e.getPreciseWheelRotation();
             if(clicks < 0)
             {
-                gameDisplayState.scaleZoom(1.25f * clicks);
+                gameDisplayState.scaleZoom(-1.25f * clicks);
             }
             else if (clicks > 0)
             {

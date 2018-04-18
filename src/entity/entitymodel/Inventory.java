@@ -4,6 +4,7 @@ import items.takeableitems.TakeableItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by dontf on 4/13/2018.
@@ -36,15 +37,51 @@ public class Inventory {
         items.remove(takeable);
     }
 
+    private boolean hasItems () { return items.size() > 0; }
+
     public TakeableItem select (int index) {
-        return items.get(index);
+        if (index < items.size()) {
+            return items.get(index);
+        }
+
+        System.out.println("Cant use Item index of " + index);
+        assert false;
+
+        return null;
+    }
+
+    public TakeableItem getRandomItem () {
+        Random rand = new Random();
+
+        if (hasItems()) {
+            return items.get(rand.nextInt(items.size()));
+        }
+
+        return null;
     }
 
     public TakeableItem pickPocket(){
-        if (!items.isEmpty())
-            return items.get(0);
+        TakeableItem item = getRandomItem();
+        if(item != null) {
+            remove(item);
+        }
+        return item;
+    }
+
+    public String getRandomItemName() {
+        TakeableItem item = getRandomItem();
+        if(item != null)
+            return item.getName();
         else
-            return null;
+            return "";
+    }
+
+    public boolean contains(TakeableItem item) {
+        for(TakeableItem i: items) {
+            if(item == i)
+                return true;
+        }
+        return false;
     }
 
 }

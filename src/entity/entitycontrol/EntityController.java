@@ -1,6 +1,7 @@
 package entity.entitycontrol;
 
 
+import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import entity.vehicle.Vehicle;
@@ -38,6 +39,11 @@ public abstract class EntityController {
     public abstract void notifyShopping(Entity trader1, Entity trader2);
     public abstract void notifyLevelUp(Entity e);
     public abstract void notifyMainMenu(Entity e);
+
+    public abstract void enrage(Entity e);
+    public abstract void pacify();
+
+    protected Entity getControlledEntity() { return controlledEntity; }
 
 
 
@@ -92,6 +98,10 @@ public abstract class EntityController {
         }
     }
 
+
+    public Coordinate getEntityLocation(){
+        return entityLocation;
+    }
 
 
 }

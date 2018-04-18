@@ -13,10 +13,10 @@ public abstract class Tile implements GameObjectContainer {
     private Entity entity;
     private Map<Direction, Tile> neighbors;
 
-    public Tile()
-    {
-        moveLegalityCheckers = new HashSet<>();
-        neighbors = new HashMap<>();
+    public Tile(Set<MoveLegalityChecker> mLCs, Entity entity) {
+        this.moveLegalityCheckers = mLCs;
+        this.entity = entity;
+        this.neighbors = new HashMap<>();
     }
 
     public void setEntity(Entity entity){
@@ -30,7 +30,7 @@ public abstract class Tile implements GameObjectContainer {
     }
     public Tile getNeighbor(Direction direction) { return neighbors.getOrDefault(direction, null);}
 
-    public void tryToMove(Tile tileFrom, Entity entity){
+    private void tryToMove(Tile tileFrom, Entity entity){
         if(isMoveLegal(entity)){
             tileFrom.moveFrom();
             setEntity(entity);
@@ -38,7 +38,7 @@ public abstract class Tile implements GameObjectContainer {
         entity.resetMovementVector();
     }
 
-    public void moveFrom(){
+    private void moveFrom(){
         remove(entity);
     }
 
@@ -46,22 +46,11 @@ public abstract class Tile implements GameObjectContainer {
 
     public Collection<MoveLegalityChecker> getMoveLegalityCheckers() { return moveLegalityCheckers; }
 
-    public void update(Collection<MoveLegalityChecker> updated) {
-        for (MoveLegalityChecker mlc : moveLegalityCheckers) {
-            if(!updated.contains(mlc)){
-                mlc.update();
-            }
-        }
-        if(hasEntity() && !updated.contains(entity)){
-            do_moves(updated);
-        }
-
-        if(hasEntity()) {
-            do_interactions(entity);
+    public void do_update() {
+        for(MoveLegalityChecker mlc: moveLegalityCheckers) {
+            mlc.update();
         }
     }
-
-    public Entity getEntity() { return entity; }
 
     protected abstract void do_moves(Collection<MoveLegalityChecker> updated);
 
@@ -83,6 +72,8 @@ public abstract class Tile implements GameObjectContainer {
         }
     }
 
+    public abstract void do_interactions();
+
     public boolean isMoveLegal(Entity entity) {
         for(MoveLegalityChecker mlc: moveLegalityCheckers) {
             if(!mlc.canMoveHere(entity)) {
@@ -93,11 +84,13 @@ public abstract class Tile implements GameObjectContainer {
         return true;
     }
 
-    private boolean hasEntity() {
+    protected boolean hasEntity() {
         return entity != null;
     }
 
-    protected abstract void do_interactions(Entity entity);
+    public Entity getEntity() {
+        return entity;
+    }
 
     public boolean has(Entity e) {
         return entity == e;

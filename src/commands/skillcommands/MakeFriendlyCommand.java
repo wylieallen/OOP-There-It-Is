@@ -5,18 +5,21 @@ import skills.SkillType;
 
 public class MakeFriendlyCommand extends SkillCommand {
 
-    public MakeFriendlyCommand(SkillType skillType, int level, int effectiveness) {
-        super(skillType, level, effectiveness);
+    Entity caster;
+
+    public MakeFriendlyCommand(int level, int effectiveness, Entity caster) {
+        super(SkillType.ENCHANTMENT, level, effectiveness);
+        this.caster = caster;
     }
 
     @Override
     protected void success(Entity e, int distance) {
-        // TODO: make friendly
+        e.pacify();
     }
 
     @Override
     protected void fail(Entity e, int distance) {
-        // TODO: make entity mad
+        e.enrage(caster);
     }
 
 }

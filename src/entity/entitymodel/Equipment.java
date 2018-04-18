@@ -30,7 +30,8 @@ public class Equipment {
         this.weapons = new WeaponItem[defaultWeaponsSize];
     }
 
-    public Equipment(Map<EquipSlot, WearableItem> wearables,
+    public Equipment(Map<EquipSlot,
+                     WearableItem> wearables,
                      WeaponItem[] weapons,
                      int maxSize,
                      Inventory inventory,
@@ -86,9 +87,9 @@ public class Equipment {
     public void remove (WeaponItem weapon) {
         inventory.add(weapon);
 
-        for (WeaponItem w : weapons) {
-            if (w.equals(weapon)) {
-                w = null;
+        for (int i = 0; i < weapons.length; ++i) {
+            if (weapons [i] == weapon) {
+                weapons [i] = null;
             }
         }
 
@@ -101,8 +102,11 @@ public class Equipment {
 
     public void useWeaponItem (int index, Coordinate point) {
 
-        if (weapons [index] != null) {
+        if (index < weapons.length && weapons [index] != null) {
             weapons [index].attack(entity, point);
+        } else if (index >= weapons.length) {
+            System.out.println("Cannot use weapon index of " + index);
+            assert false;
         }
 
     }
