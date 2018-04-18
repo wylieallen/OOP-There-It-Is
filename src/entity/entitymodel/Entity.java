@@ -185,14 +185,14 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         stats.setUnspentSkillPoints(Math.max(0, getUnusedSkillPoints() - amount));
     }
 
-    public int getVisibilityRadious () { return stats.getVisibilityRadius(); }
+    public int getVisibilityRadius() { return stats.getVisibilityRadius(); }
 
     public void increaseVisibilityRadious (int amount) {
-        stats.setVisibilityRadius(getVisibilityRadious() + amount);
+        stats.setVisibilityRadius(getVisibilityRadius() + amount);
     }
 
     public void decreaseVisibilityRadious (int amount) {
-        stats.setVisibilityRadius(Math.max(0, getVisibilityRadious() - amount));
+        stats.setVisibilityRadius(Math.max(0, getVisibilityRadius() - amount));
     }
 
     public int getConcealment () { return stats.getConcealment(); }

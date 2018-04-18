@@ -57,6 +57,8 @@ public class Game implements TransitionObserver {
         activeWorld.update();
     }
 
+    public Entity getPlayer() { return player; }
+
     public void setPlayerController(EntityController controller)
     {
         player.setController(controller);

@@ -2,6 +2,8 @@ package utilities;
 
 import maps.tile.Direction;
 
+import java.awt.*;
+
 /**
  * Created by dontf on 4/14/2018.
  */
@@ -70,5 +72,22 @@ public class Coordinate implements Comparable<Coordinate> {
         int result = x();
         result = 31 * result + z();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + "," + y() + "," + z + ")";
+    }
+
+    public Point toPixelPt()
+    {
+        int pixelX = (int) (32.0 * 1.5 * (double) x());
+        // Why 37 instead of 32 here? Because fuck me, that's why
+        // Appears to work fairly well out to any reasonable distance from origin
+        // It'll be off by one pixel every once in a while but it's not too awful
+        int pixelY = (int) (-37.0 * Math.sqrt(3) * ((double) y() + ((double) x() / 2.0)));
+        //System.out.println("Cubic: " + c.x() + "," + c.y() + "," + c.z() + " Pixel: " + x + "," + y);
+        return new Point(pixelX, pixelY);
+
     }
 }

@@ -12,6 +12,16 @@ public class StringDisplayable extends AbstractDisplayable
     private Font font;
     private FontMetrics metrics;
 
+    public StringDisplayable(Point origin, String string, Color color, int height)
+    {
+        this(origin, () -> string, color, height);
+    }
+
+    public StringDisplayable(Point origin, TypedAbstractFunction<String> stringMaker, Color color, int height)
+    {
+        this(origin, stringMaker, color, new Font("arial", Font.PLAIN, 12), height);
+    }
+
     public StringDisplayable(Point origin, TypedAbstractFunction<String> stringMaker, Color color, Font font, int height)
     {
         super(origin, new Dimension(), height);

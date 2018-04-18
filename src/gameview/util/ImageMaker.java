@@ -78,4 +78,15 @@ public class ImageMaker
         g2d.drawOval(0, 0, 32, 32);
         return image;
     }
+
+    public static BufferedImage makeBorderedRect(int width, int height, Color color)
+    {
+        BufferedImage image = new BufferedImage(width + 1, height + 1, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.setColor(color);
+        g2d.fillRect(0, 0, width, height);
+        g2d.setColor(Color.DARK_GRAY);
+        g2d.drawRect(0, 0, width, height);
+        return image;
+    }
 }

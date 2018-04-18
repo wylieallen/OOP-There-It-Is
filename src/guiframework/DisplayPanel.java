@@ -9,8 +9,10 @@ public class DisplayPanel extends JPanel
 {
     private DisplayState activeState;
 
-    public DisplayPanel()
+    public DisplayPanel(Dimension size)
     {
+        super();
+        super.setSize(size);
         this.activeState = new DisplayState();
     }
 
