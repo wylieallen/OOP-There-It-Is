@@ -79,8 +79,6 @@ public interface Visitor {
     void visitTimedStaminaRegenCommand(TimedStaminaRegenCommand timedStaminaRegenCommand);
     void visitTransitionCommand(TransitionCommand transitionCommand);
 
-    // TODO: InfluenceAreas
-
     void visitOverWorld(OverWorld w);
     void visitLocalWorld(LocalWorld w);
 

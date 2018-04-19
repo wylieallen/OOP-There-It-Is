@@ -30,7 +30,6 @@ import maps.world.Game;
 import maps.world.LocalWorld;
 import maps.world.OverWorld;
 import maps.world.World;
-import items.Item;
 import org.json.*;
 import skills.SkillType;
 import utilities.Coordinate;
@@ -55,6 +54,7 @@ public class SaveVisitor implements Visitor {
     private JSONObject currentCommandJson;
     private JSONObject currentTileJson;
     private Queue<JSONObject> itemJsonsQueue = new ArrayDeque<JSONObject>();
+    private Queue<JSONObject> influenceAreaJsonQueue = new ArrayDeque<JSONObject>();
     private Map<TransitionCommand, JSONObject> transitionCommandJsons = new HashMap<TransitionCommand, JSONObject>();
 
     public SaveVisitor(String saveFileName){
@@ -71,7 +71,7 @@ public class SaveVisitor implements Visitor {
     @Override
     public void visitEntity(Entity e) {
         e.getController().accept(this);
-        currentEntityJson.put("DirectionFacing", e.getMovementDirection());
+        currentEntityJson.put("DirectionFacing", e.getMovementDirection().name());
         e.getStats().accept(this);
         currentEntityJson.put("ActorInteractions", new JSONArray());
         for (EntityInteraction ei : e.getActorInteractions())
@@ -129,7 +129,7 @@ public class SaveVisitor implements Visitor {
         JSONObject skillsJson = new JSONObject();
         Map<SkillType, Integer> skills = entityStats.getSkills();
         for (Map.Entry<SkillType, Integer> entry : skills.entrySet()) {
-            skillsJson.put(entry.getKey().toString(), entry.getValue());
+            skillsJson.put(entry.getKey().name(), entry.getValue());
         }
         statsJson.put("Skills", skillsJson);
         statsJson.put("BaseMoveSpeed", entityStats.getBaseMoveSpeed());
@@ -186,16 +186,17 @@ public class SaveVisitor implements Visitor {
         currentEntityJson.put("Equipment", equipmentJson);
         JSONArray weaponItemsJson = new JSONArray();
         equipmentJson.put("Weapons", weaponItemsJson);
-        JSONArray wearableItemsJson = new JSONArray();
+        JSONObject wearableItemsJson = new JSONObject();
         equipmentJson.put("Wearables", wearableItemsJson);
         for(WeaponItem i : equipment.getWeapons())
             i.accept(this);
         while(!itemJsonsQueue.isEmpty())
             weaponItemsJson.put(itemJsonsQueue.remove());
-        for (Map.Entry<EquipSlot, WearableItem> entry : equipment.getWearables().entrySet())
+        for (Map.Entry<EquipSlot, WearableItem> entry : equipment.getWearables().entrySet()) {
             entry.getValue().accept(this);
-        while(!itemJsonsQueue.isEmpty())
-            wearableItemsJson.put(itemJsonsQueue.remove());
+            while(!itemJsonsQueue.isEmpty())
+                wearableItemsJson.put(entry.getKey().name(), itemJsonsQueue.remove());
+        }
     }
 
     @Override
@@ -305,7 +306,7 @@ public class SaveVisitor implements Visitor {
         weaponItemJson.put("Command", currentCommandJson);
         weaponItemJson.put("Damage", w.getDamage());
         weaponItemJson.put("AttackSpeed", w.getAttackSpeed());
-        weaponItemJson.put("RequiredSkill", w.getRequiredSkill());
+        weaponItemJson.put("RequiredSkill", w.getRequiredSkill().name());
         itemJsonsQueue.add(weaponItemJson);
     }
 
@@ -316,7 +317,7 @@ public class SaveVisitor implements Visitor {
         wearableItemJson.put("Name", w.getName());
         w.getCommand().accept(this);
         wearableItemJson.put("ReversableCommand", currentCommandJson);
-        wearableItemJson.put("EquipType", w.getEquipType());
+        wearableItemJson.put("EquipType", w.getEquipType().name());
         itemJsonsQueue.add(wearableItemJson);
     }
 
@@ -474,8 +475,6 @@ public class SaveVisitor implements Visitor {
     public void visitLocalWorldTile(LocalWorldTile localWorldTile) {
         addTile(localWorldTile);
         addItemsToTile();
-        // TODO: do InfluenceAreas need to be saved? Or are they assumed to be created when certain items, etc. are made?
-        // TODO: do SpawnEvents need to be saved?
     }
 
     private void addTile(Tile tile){
@@ -504,7 +503,7 @@ public class SaveVisitor implements Visitor {
 
     @Override
     public void visitTerrain(Terrain terrain) {
-        currentTileJson.put("Terrain", terrain);
+        currentTileJson.put("Terrain", terrain.name());
     }
 
     @Override
