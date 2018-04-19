@@ -45,4 +45,8 @@ public abstract class SkillCommand implements Command {
     public int getEffectiveness() {
         return effectiveness;
     }
+
+    public void setLevel(int newLevel) {
+        level = newLevel;
+    }
 }

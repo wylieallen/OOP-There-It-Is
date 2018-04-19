@@ -9,6 +9,8 @@ import items.takeableitems.ConsumableItem;
 import items.takeableitems.QuestItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
+import maps.Influence.InfluenceType;
+import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
 import maps.world.LocalWorld;
@@ -17,13 +19,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import skills.SkillType;
+import spawning.SpawnObserver;
 import utilities.Coordinate;
 import utilities.Vector;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 public class TakeableItemTests {
 
@@ -38,21 +38,24 @@ public class TakeableItemTests {
         tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                tiles.put(new Coordinate(i, j), new LocalWorldTile(new HashSet<>(), null, new HashSet<>(), new HashSet<>()));
+                tiles.put(new Coordinate(i, j), new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>()));
             }
         }
-        world = new LocalWorld(tiles, new HashSet<>(), new ArrayList<>());
+        world = new LocalWorld(tiles, new HashSet<>());
 
         Map<SkillType, Integer> skills = new HashMap<>();
         skills.put(SkillType.ONEHANDEDWEAPON, 1);
-        EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
+        EntityStats entityStats = new EntityStats(skills, 2, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false);
+        entityStats.addCompatibleTerrain(Terrain.GRASS);
         inventory = new Inventory();
         entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
                 inventory, true);
 
-        equipment = new Equipment(new HashMap<>(), new WeaponItem[5], 5, inventory, entity);
+        List<SpawnObserver> spawnObservers = new ArrayList<>();
+        spawnObservers.add(world);
+        equipment = new Equipment(new HashMap<>(), new WeaponItem[5], 5, inventory, entity, spawnObservers);
         EntityController entityController = new HumanEntityController(entity, null,
                 new Coordinate(2, 2), null, null);
 
@@ -147,10 +150,10 @@ public class TakeableItemTests {
         }
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
-        WeaponItem item = new WeaponItem("Sword", true,
-                new ModifyHealthCommand(SkillType.ONEHANDEDWEAPON, 1, 10),
-                20, 0, SkillType.ONEHANDEDWEAPON);
-
+        WeaponItem item = new WeaponItem("Sword", true, 10,0,
+                SkillType.ONEHANDEDWEAPON, 1, 0, 0,
+                InfluenceType.LINEARINFLUENCE, new ModifyHealthCommand(SkillType.ONEHANDEDWEAPON, 1, 10));
+        item.registerObserver(world);
 
         tiles.get(new Coordinate(2, 1)).addEI(item);
 
@@ -176,7 +179,10 @@ public class TakeableItemTests {
         equipment.add(item);
         Assert.assertFalse(inventory.contains(item));
 
-        //TODO: add tests for attacking
+        entity.setFacing(Direction.S);
+        item.attack(entity, new Coordinate(2, 1));
+
+        Assert.assertEquals(1, world.getInfluenceAreas().size());
     }
 
     @Test

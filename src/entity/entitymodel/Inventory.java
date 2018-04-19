@@ -1,5 +1,6 @@
 package entity.entitymodel;
 
+import gameobject.GameObject;
 import items.takeableitems.TakeableItem;
 
 import java.util.ArrayList;
@@ -82,6 +83,10 @@ public class Inventory {
                 return true;
         }
         return false;
+    }
+
+    public boolean has(GameObject o) {
+        return items.contains(o);
     }
 
 }

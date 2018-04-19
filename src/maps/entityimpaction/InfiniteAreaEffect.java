@@ -6,8 +6,8 @@ import maps.entityimpaction.AreaEffect;
 
 public class InfiniteAreaEffect extends AreaEffect {
 
-    public InfiniteAreaEffect(Command command) {
-        super(command);
+    public InfiniteAreaEffect(Command command, long triggerInterval, long lastTriggerTime) {
+        super(command, triggerInterval, lastTriggerTime);
     }
 
     public void touch(Entity entity) {

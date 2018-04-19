@@ -1,5 +1,6 @@
 package maps.Influence;
 
+import entity.entitymodel.Entity;
 import maps.tile.LocalWorldTile;
 import utilities.Coordinate;
 
@@ -11,5 +12,6 @@ public interface InfluenceArea {
     void update (Map<Coordinate, LocalWorldTile> tilesMap);//Tell the influence area to check its area against the tilesMap
     boolean isExpired();//Will return whether the InfluenceArea is ready to be deleted, as in its time has run out, it has reached its max radius, etc.
     List<Coordinate> getAffectedCoordinates();//Will return the list of coordinates this influence area is currently affecting
-
+    void setCenter(Coordinate coordinate);
+    void trigger(Entity e, Coordinate coordinate);
 }

@@ -68,7 +68,7 @@ public class expandingInfluenceArea implements InfluenceArea {
 
     @Override
     public List<Coordinate> getAffectedCoordinates() {
-        List<Coordinate> worldCoordinates = new ArrayList<Coordinate>();
+        List<Coordinate> worldCoordinates = new ArrayList<>();
         Vector vec;
         double distance;
         for(Coordinate offset : offsetPoints){
@@ -99,4 +99,14 @@ public class expandingInfluenceArea implements InfluenceArea {
         }
     }
 
+    @Override
+    public void setCenter(Coordinate coordinate) {
+        center = coordinate;
+    }
+
+    @Override
+    public void trigger(Entity e, Coordinate coordinate) {
+        int distance = center.distance(coordinate);
+        skillCommand.trigger(e, distance);
+    }
 }

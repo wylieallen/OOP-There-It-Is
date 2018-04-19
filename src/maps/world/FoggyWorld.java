@@ -1,7 +1,9 @@
 package maps.world;
 
 import entity.entitymodel.Entity;
+import gameobject.GameObject;
 import gameobject.GameObjectContainer;
+import maps.Influence.InfluenceArea;
 import maps.tile.Tile;
 import utilities.Coordinate;
 
@@ -61,6 +63,11 @@ public class FoggyWorld implements World {
     @Override
     public Coordinate getEntityCoordinate(Entity e) {
         return world.getEntityCoordinate(e);
+    }
+
+    @Override
+    public void notifySpawn(InfluenceArea IA, GameObject spawner) {
+        world.notifySpawn(IA, spawner);
     }
 
 }

@@ -1,12 +1,12 @@
 package maps.movelegalitychecker;
 
 import entity.entitymodel.Entity;
+import gameobject.GameObject;
 
-public enum Terrain implements MoveLegalityChecker{
+public enum Terrain implements GameObject {
 
     GRASS, WATER, MOUNTAIN;
 
-    @Override
     public boolean canMoveHere(Entity e) {
         return e.isTerrainCompatible(this);
     }

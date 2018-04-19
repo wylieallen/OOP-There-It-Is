@@ -7,6 +7,8 @@ import entity.entitymodel.Equipment;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
+import maps.world.Game;
+import spawning.SpawnObserver;
 import utilities.Coordinate;
 
 import java.util.*;
@@ -101,6 +103,15 @@ public abstract class EntityController {
 
     public Coordinate getEntityLocation(){
         return entityLocation;
+    }
+
+    public boolean has(GameObject o) {
+        return equipment.has(o);
+    }
+
+    public void updateSpawnObservers(SpawnObserver oldObserver, SpawnObserver newObserver) {
+        if(equipment != null)
+            equipment.updateSpawnObservers(oldObserver, newObserver);
     }
 
 
