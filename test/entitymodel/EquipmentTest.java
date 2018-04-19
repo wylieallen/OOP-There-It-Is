@@ -12,6 +12,7 @@ import entity.entitymodel.interactions.EntityInteraction;
 import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
+import maps.Influence.InfluenceType;
 import maps.tile.Direction;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -49,13 +50,13 @@ public class EquipmentTest {
 
         Entity e = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, inventory, true);
 
-        equipment = new Equipment(wearables, weapons, 5, inventory, e);
+        equipment = new Equipment(wearables, weapons, 5, inventory, e, new ArrayList<>());
 
     }
 
     @Test
     public void testWeaponAddAndRemove () {
-        WeaponItem weapon = new WeaponItem("Sword", true, new ParalyzeCommand(SkillType.BANE, 10, 80, null), 5, 15, SkillType.BANE);
+        WeaponItem weapon = new WeaponItem("Sword", true, 10, 5, SkillType.BANE, 1, 0, 0, InfluenceType.LINEARINFLUENCE, new ParalyzeCommand(SkillType.BANE, 10, 80, null));
 
         items.add(weapon);
         equipment.add(weapon);

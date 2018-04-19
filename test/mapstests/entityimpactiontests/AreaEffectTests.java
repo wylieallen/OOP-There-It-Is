@@ -8,8 +8,10 @@ import entity.entitymodel.EntityStats;
 import maps.entityimpaction.AreaEffect;
 import maps.entityimpaction.InfiniteAreaEffect;
 import maps.entityimpaction.OneShotAreaEffect;
+import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
+import maps.world.Game;
 import maps.world.LocalWorld;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,14 +27,15 @@ public class AreaEffectTests {
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                tiles.put(new Coordinate(i, j), new LocalWorldTile(new HashSet<>(), null, new HashSet<>(), new HashSet<>()));
+                tiles.put(new Coordinate(i, j), new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>()));
             }
         }
-        LocalWorld world = new LocalWorld(tiles, new HashSet<>(), new ArrayList<>());
+        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
         EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
+        entityStats.addCompatibleTerrain(Terrain.GRASS);
         Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
                 null, true);
 
@@ -44,7 +47,7 @@ public class AreaEffectTests {
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
         entity.hurtEntity(50);
-        AreaEffect ae = new InfiniteAreaEffect(new ModifyHealthCommand(SkillType.NULL, 0, 20));
+        AreaEffect ae = new InfiniteAreaEffect(new ModifyHealthCommand(SkillType.NULL, 0, 20), 0, 0);
 
         tiles.get(new Coordinate(2, 1)).addEI(ae);
 
@@ -53,13 +56,23 @@ public class AreaEffectTests {
         entity.setFacing(Direction.N);
         entity.setMoving();
 
+        Game.updateGameTime();
         world.update();
-
         Assert.assertEquals(70, entity.getCurrHealth());
 
+        try {
+            Thread.sleep(1);
+        } catch (Exception e) {}
+
+        Game.updateGameTime();
         world.update();
         Assert.assertEquals(90, entity.getCurrHealth());
 
+        try {
+            Thread.sleep(1);
+        } catch (Exception e) {}
+
+        Game.updateGameTime();
         world.update();
         Assert.assertEquals(100, entity.getCurrHealth());
     }
@@ -69,14 +82,15 @@ public class AreaEffectTests {
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                tiles.put(new Coordinate(i, j), new LocalWorldTile(new HashSet<>(), null, new HashSet<>(), new HashSet<>()));
+                tiles.put(new Coordinate(i, j), new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>()));
             }
         }
-        LocalWorld world = new LocalWorld(tiles, new HashSet<>(), new ArrayList<>());
+        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
         EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
+        entityStats.addCompatibleTerrain(Terrain.GRASS);
         Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
                 null, true);
 
@@ -88,7 +102,7 @@ public class AreaEffectTests {
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
         entity.hurtEntity(50);
-        AreaEffect ae = new OneShotAreaEffect(new ModifyHealthCommand(SkillType.NULL, 0, 20), false);
+        AreaEffect ae = new OneShotAreaEffect(new ModifyHealthCommand(SkillType.NULL, 0, 20), 0, 0, false);
 
         tiles.get(new Coordinate(2, 1)).addEI(ae);
 

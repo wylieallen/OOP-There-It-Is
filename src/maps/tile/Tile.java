@@ -1,8 +1,10 @@
 package maps.tile;
 
 import entity.entitymodel.Entity;
+import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import maps.movelegalitychecker.MoveLegalityChecker;
+import maps.movelegalitychecker.Terrain;
 import utilities.Vector;
 
 import java.util.*;
@@ -10,11 +12,13 @@ import java.util.*;
 public abstract class Tile implements GameObjectContainer {
 
     private Set<MoveLegalityChecker> moveLegalityCheckers;
+    private Terrain terrain;
     private Entity entity;
     private Map<Direction, Tile> neighbors;
 
-    public Tile(Set<MoveLegalityChecker> mLCs, Entity entity) {
+    public Tile(Set<MoveLegalityChecker> mLCs, Terrain terrain, Entity entity) {
         this.moveLegalityCheckers = mLCs;
+        this.terrain = terrain;
         this.entity = entity;
         this.neighbors = new HashMap<>();
     }
@@ -79,8 +83,7 @@ public abstract class Tile implements GameObjectContainer {
                 return false;
             }
         }
-
-        return true;
+        return terrain.canMoveHere(entity);
     }
 
     protected boolean hasEntity() {
@@ -102,6 +105,22 @@ public abstract class Tile implements GameObjectContainer {
             return true;
         }
         return false;
+    }
+
+    public boolean has(GameObject o) {
+        if(entity == o) {
+            return true;
+        } else if(moveLegalityCheckers.contains(o)) {
+            return true;
+        } else if(hasEntity() && entity.has(o)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Terrain getTerrain() {
+        return terrain;
     }
 
 }

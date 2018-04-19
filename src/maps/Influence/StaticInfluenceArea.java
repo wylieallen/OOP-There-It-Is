@@ -64,7 +64,7 @@ public class StaticInfluenceArea implements InfluenceArea {
 
     @Override
     public List<Coordinate> getAffectedCoordinates() {
-        List<Coordinate> worldCoordinates = new ArrayList<Coordinate>();
+        List<Coordinate> worldCoordinates = new ArrayList<>();
         for(Coordinate offset : offsetPoints){
             worldCoordinates.add(center.add(offset));
         }
@@ -91,6 +91,17 @@ public class StaticInfluenceArea implements InfluenceArea {
                 }
             }
         }
+    }
+
+    @Override
+    public void setCenter(Coordinate coordinate) {
+        center = coordinate;
+    }
+
+    @Override
+    public void trigger(Entity e, Coordinate coordinate) {
+        int distance = center.distance(coordinate);
+        skillCommand.trigger(e, distance);
     }
 
 }
