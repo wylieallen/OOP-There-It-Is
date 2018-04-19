@@ -1,174 +1,889 @@
 {
   "Player": {
     "Type": "Player",
+    "InVehicle": false,
     "DirectionFacing": "N",
     "Stats": {
       "Skills": {
-        "Sneak": 10,
-        "PickPocket": 12
+        "CREEP": 10,
+        "PICKPOCKET": 12
       },
       "BaseMoveSpeed": 10,
       "MaxHealth": 100,
       "CurrentHealth": 90,
       "MaxMana": 50,
       "CurrentMana": 20,
+      "ManaRegenRate": 5,
       "CurrentXP": 210,
       "UnspentSkillPoints": 5,
       "VisibilityRadius": 10,
       "Concealment": 5,
-      "Gold": 45
+      "Gold": 45,
+      "IsConfused": false,
+      "IsSearching": false
     },
     "ActorInteractions": [
-      "BackStabInteraction",
-      "PickPocketInteraction"
+      {
+        "Name":"BackStabInteraction"
+      },
+      {
+        "Name":"PickPocketInteraction"
+      }
     ],
     "ActeeInteractions": [
-      "BackStabInteraction",
-      "PickPocketInteraction"
+      {
+        "Name":"BackStabInteraction"
+      },
+      {
+        "Name":"PickPocketInteraction"
+      }
     ],
     "Inventory": [
       {
-        "Name": "QuestKey",
-        "QuestId": 123
-      },
-      {
-        "Name": "IronKnuckles",
+        "Type": "Weapon",
+        "Name": "BowAndArrow",
+        "Command": {
+          "Name": "ModifyHealth",
+          "Level": 1,
+          "SkillType": "TWOHANDEDWEAPON",
+          "Effectiveness": 80
+        },
         "Damage": 15,
-        "AttackSpeed": 2,
-        "RequiredSkill": "Slasher"
+        "AttackSpeed": 1,
+        "RequiredSkill": "TWOHANDEDWEAPON"
       }
     ],
     "Equipment": {
-      "WeaponItems":[
+      "WeaponItems": [
         {
+          "Type": "Weapon",
           "Name": "Sword",
-          "Damage": 20,
-          "AttackSpeed": 2,
-          "RequiredSkill": "Slasher"
+          "Command": {
+            "Name": "ModifyHealth",
+            "Level": 1,
+            "SkillType": "ONEHANDEDWEAPON",
+            "Effectiveness": 70
+          },
+          "Damage": 10,
+          "AttackSpeed": 1,
+          "RequiredSkill": "ONEHANDEDWEAPON"
         },
         {
-          "Name": "FlameThrower",
-          "Damage": 30,
+          "Type": "Weapon",
+          "Name": "ParalyzeSpell",
+          "Command": {
+            "Name": "Paralyze",
+            "Level": 1,
+            "SkillType": "ENCHANTMENT",
+            "Effectiveness": 50
+          },
+          "Damage": 10,
           "AttackSpeed": 1,
-          "RequiredSkill": "Slasher"
+          "RequiredSkill": "ENCHANTMENT"
         }
       ],
-      "WearableItems":[
+      "WearableItems": [
         {
+          "Type": "Wearable",
           "Name": "Ring",
-          "EquipSlot": "Hand"
+          "ReversibleCommand": {
+            "Name": "TimedStaminaRegen",
+            "StaminaRegenDecrease": 20,
+            "IsApplied": true
+          }
         }
-      ],
-      "InVehicle": false,
-      "XCoordinate": 3,
-      "YCoordinate": 2
-    }
+      ]
+    },
+    "XCoordinate": 3,
+    "YCoordinate": 2
   },
   "OverWorld":{
-    "Width": 20,
-    "Height": 20,
     "Tiles":[
       {
         "X":0,
         "Y":0,
         "Terrain": "Grass",
-        "Obstacle": false
+        "Obstacle": true
       },
       {
         "X":0,
         "Y":1,
+        "Terrain": "Grass"
+      },
+      {
+        "X":0,
+        "Y":2,
+        "Terrain": "Grass"
+      },
+      {
+        "X":0,
+        "Y":3,
+        "Terrain": "Grass"
+      },
+      {
+        "X":0,
+        "Y":4,
+        "Terrain": "Grass"
+      },
+      {
+        "X":0,
+        "Y":5,
+        "Terrain": "Grass"
+      },{
+        "X":1,
+        "Y":0,
+        "Terrain": "Grass"
+      },
+      {
+        "X":1,
+        "Y":1,
+        "Terrain": "Grass"
+      },
+      {
+        "X":1,
+        "Y":2,
+        "Terrain": "Grass"
+      },
+      {
+        "X":1,
+        "Y":3,
+        "Terrain": "Grass"
+      },
+      {
+        "X":1,
+        "Y":4,
+        "Terrain": "Grass"
+      },
+      {
+        "X":1,
+        "Y":5,
         "Terrain": "Grass",
-        "Obstacle": false
+        "Obstacle": true
+      },
+      {
+        "X":2,
+        "Y":0,
+        "Terrain": "Grass"
+      },
+      {
+        "X":2,
+        "Y":1,
+        "Terrain": "Grass"
+      },
+      {
+        "X":2,
+        "Y":2,
+        "Terrain": "Grass"
+      },
+      {
+        "X":2,
+        "Y":3,
+        "Terrain": "Grass"
+      },
+      {
+        "X":2,
+        "Y":4,
+        "Terrain": "Grass"
+      },
+      {
+        "X":2,
+        "Y":5,
+        "Terrain": "Grass"
+      },
+      {
+        "X":3,
+        "Y":0,
+        "Terrain": "Grass"
+      },
+      {
+        "X":3,
+        "Y":1,
+        "Terrain": "Grass"
+      },
+      {
+        "X":3,
+        "Y":2,
+        "Terrain": "Grass",
+        "Obstacle": true
+      },
+      {
+        "X":3,
+        "Y":3,
+        "Terrain": "Grass"
+      },
+      {
+        "X":3,
+        "Y":4,
+        "Terrain": "Grass"
+      },
+      {
+        "X":3,
+        "Y":5,
+        "Terrain": "Grass"
+      },
+      {
+        "X":4,
+        "Y":0,
+        "Terrain": "Grass"
+      },
+      {
+        "X":4,
+        "Y":1,
+        "Terrain": "Grass"
+      },
+      {
+        "X":4,
+        "Y":2,
+        "Terrain": "Grass"
+      },
+      {
+        "X":4,
+        "Y":3,
+        "Terrain": "Grass"
+      },
+      {
+        "X":4,
+        "Y":4,
+        "Terrain": "Grass",
+        "Obstacle": true
+      },
+      {
+        "X":4,
+        "Y":5,
+        "Terrain": "Grass"
+      },
+      {
+        "X":5,
+        "Y":0,
+        "Terrain": "Grass"
+      },
+      {
+        "X":5,
+        "Y":1,
+        "Terrain": "Grass"
+      },
+      {
+        "X":5,
+        "Y":2,
+        "Terrain": "Grass"
+      },
+      {
+        "X":5,
+        "Y":3,
+        "Terrain": "Grass"
+      },
+      {
+        "X":5,
+        "Y":4,
+        "Terrain": "Grass"
+      },
+      {
+        "X":5,
+        "Y":5,
+        "Terrain": "Grass"
       }
-    ]
+    ],
+    "Width": 6,
+    "Height": 6
   },
   "LocalWorlds":{
     "0001":{
-      "Width": 20,
-      "Height": 20,
       "Tiles":[
         {
           "X":0,
           "Y":0,
           "Terrain": "Grass",
-          "Obstacle": false,
-          "Items":[
-
-          ],
-          "AreaEffects": [
-
-          ]
+          "Obstacle": true
         },
         {
           "X":0,
           "Y":1,
+          "Terrain": "Grass"
+        },
+        {
+          "X":0,
+          "Y":2,
+          "Terrain": "Grass"
+        },
+        {
+          "X":0,
+          "Y":3,
           "Terrain": "Grass",
-          "Obstacle": false,
           "Items":[
-
-          ],
-          "AreaEffects": [
-
+            {
+              "Type": "Interactive",
+              "Name": "Teleporter",
+              "Command": {
+                "Name": "Transition",
+                "TargetX": 3,
+                "TargetY": 3,
+                "TargetWorld": "0002"
+              }
+            }
           ]
+        },
+        {
+          "X":0,
+          "Y":4,
+          "Terrain": "Grass"
+        },
+        {
+          "X":0,
+          "Y":5,
+          "Terrain": "Grass"
+        },
+        {
+          "X":1,
+          "Y":0,
+          "Terrain": "Grass"
+        },
+        {
+          "X":1,
+          "Y":1,
+          "Terrain": "Grass"
+        },
+        {
+          "X":1,
+          "Y":2,
+          "Terrain": "Grass"
+        },
+        {
+          "X":1,
+          "Y":3,
+          "Terrain": "Grass"
+        },
+        {
+          "X":1,
+          "Y":4,
+          "Terrain": "Grass"
+        },
+        {
+          "X":1,
+          "Y":5,
+          "Terrain": "Grass",
+          "Obstacle": true
+        },
+        {
+          "X":2,
+          "Y":0,
+          "Terrain": "Grass",
+          "Items":[
+            {
+              "Type": "Weapon",
+              "Name": "BowAndArrow",
+              "Command": {
+                "Name": "ModifyHealth",
+                "Level": 1,
+                "SkillType": "TWOHANDEDWEAPON",
+                "Effectiveness": 80
+              },
+              "Damage": 15,
+              "AttackSpeed": 1,
+              "RequiredSkill": "TWOHANDEDWEAPON"
+            }
+          ]
+        },
+        {
+          "X":2,
+          "Y":1,
+          "Terrain": "Grass"
+        },
+        {
+          "X":2,
+          "Y":2,
+          "Terrain": "Grass"
+        },
+        {
+          "X":2,
+          "Y":3,
+          "Terrain": "Grass"
+        },
+        {
+          "X":2,
+          "Y":4,
+          "Terrain": "Grass"
+        },
+        {
+          "X":2,
+          "Y":5,
+          "Terrain": "Grass"
+        },
+        {
+          "X":3,
+          "Y":0,
+          "Terrain": "Grass"
+        },
+        {
+          "X":3,
+          "Y":1,
+          "Terrain": "Grass",
+          "Items":[
+            {
+              "Type": "Weapon",
+              "Name": "BowAndArrow",
+              "Command": {
+                "Name": "ModifyHealth",
+                "Level": 1,
+                "SkillType": "TWOHANDEDWEAPON",
+                "Effectiveness": 80
+              },
+              "Damage": 15,
+              "AttackSpeed": 1,
+              "RequiredSkill": "TWOHANDEDWEAPON"
+            }
+          ]
+        },
+        {
+          "X":3,
+          "Y":2,
+          "Terrain": "Grass",
+          "Obstacle": true
+        },
+        {
+          "X":3,
+          "Y":3,
+          "Terrain": "Grass"
+        },
+        {
+          "X":3,
+          "Y":4,
+          "Terrain": "Grass"
+        },
+        {
+          "X":3,
+          "Y":5,
+          "Terrain": "Grass"
+        },
+        {
+          "X":4,
+          "Y":0,
+          "Terrain": "Grass"
+        },
+        {
+          "X":4,
+          "Y":1,
+          "Terrain": "Grass"
+        },
+        {
+          "X":4,
+          "Y":2,
+          "Terrain": "Grass"
+        },
+        {
+          "X":4,
+          "Y":3,
+          "Terrain": "Grass"
+        },
+        {
+          "X":4,
+          "Y":4,
+          "Terrain": "Grass",
+          "Obstacle": true
+        },
+        {
+          "X":4,
+          "Y":5,
+          "Terrain": "Grass"
+        },
+        {
+          "X":5,
+          "Y":0,
+          "Terrain": "Grass"
+        },
+        {
+          "X":5,
+          "Y":1,
+          "Terrain": "Grass"
+        },
+        {
+          "X":5,
+          "Y":2,
+          "Terrain": "Grass"
+        },
+        {
+          "X":5,
+          "Y":3,
+          "Terrain": "Grass"
+        },
+        {
+          "X":5,
+          "Y":4,
+          "Terrain": "Grass"
+        },
+        {
+          "X":5,
+          "Y":5,
+          "Terrain": "Grass"
         }
       ],
-      "Entities": [
+      "Entities":[
         {
-          "Type": "NPC",
+          "Type": "Vehicle",
+          "InVehicle": false,
+          "DirectionFacing": "N",
           "Stats": {
             "Skills": {
-              "Sneak": 10,
-              "PickPocket": 12
+              "CREEP": 10,
+              "PICKPOCKET": 12
             },
             "BaseMoveSpeed": 10,
             "MaxHealth": 100,
             "CurrentHealth": 90,
             "MaxMana": 50,
             "CurrentMana": 20,
+            "ManaRegenRate": 5,
             "CurrentXP": 210,
             "UnspentSkillPoints": 5,
             "VisibilityRadius": 10,
             "Concealment": 5,
-            "Gold": 45
+            "Gold": 45,
+            "IsConfused": false,
+            "IsSearching": false
           },
-          "DirectionFacing": "N",
           "ActorInteractions": [
-            "BackStabInteraction",
-            "PickPocketInteraction"
+            {
+              "Name":"MountInteraction"
+            }
           ],
-          "ActeeInteractions": [
-            "BackStabInteraction",
-            "PickPocketInteraction"
+          "ActeeInteractions": [],
+          "Inventory": [],
+          "Equipment": {
+            "WeaponItems": [],
+            "WearableItems": []
+          },
+          "XCoordinate": 1,
+          "YCoordinate": 1
+        },
+        {
+          "Type": "Friendly",
+          "InVehicle": false,
+          "DirectionFacing": "N",
+          "Stats": {
+            "Skills": {
+              "CREEP": 10,
+              "PICKPOCKET": 12
+            },
+            "BaseMoveSpeed": 10,
+            "MaxHealth": 100,
+            "CurrentHealth": 90,
+            "MaxMana": 50,
+            "CurrentMana": 20,
+            "ManaRegenRate": 5,
+            "CurrentXP": 210,
+            "UnspentSkillPoints": 5,
+            "VisibilityRadius": 10,
+            "Concealment": 5,
+            "Gold": 45,
+            "IsConfused": false,
+            "IsSearching": false
+          },
+          "ActorInteractions": [
+            {
+              "Name":"TalkInteraction",
+              "Messages": [
+                "Hey friend!",
+                "You want to fight me punk?!"
+              ]
+            },
+            {
+              "Name":"PickPocketInteraction"
+            }
           ],
-          "Inventory": {
-            "WeaponItems":[
+          "ActeeInteractions": [],
+          "Inventory": [
+            {
+              "Type": "Weapon",
+              "Name": "BowAndArrow",
+              "Command": {
+                "Name": "ModifyHealth",
+                "Level": 1,
+                "SkillType": "TWOHANDEDWEAPON",
+                "Effectiveness": 80
+              },
+              "Damage": 15,
+              "AttackSpeed": 1,
+              "RequiredSkill": "TWOHANDEDWEAPON"
+            }
+          ],
+          "Equipment": {
+            "WeaponItems": [
               {
+                "Type": "Weapon",
                 "Name": "Sword",
-                "Damage": 20,
-                "AttackSpeed": 2,
-                "RequiredSkill": "Slasher"
+                "Command": {
+                  "Name": "ModifyHealth",
+                  "Level": 1,
+                  "SkillType": "ONEHANDEDWEAPON",
+                  "Effectiveness": 70
+                },
+                "Damage": 10,
+                "AttackSpeed": 1,
+                "RequiredSkill": "ONEHANDEDWEAPON"
               },
               {
-                "Name": "FlameThrower",
-                "Damage": 30,
+                "Type": "Weapon",
+                "Name": "ParalyzeSpell",
+                "Command": {
+                  "Name": "Paralyze",
+                  "Level": 1,
+                  "SkillType": "ENCHANTMENT",
+                  "Effectiveness": 50
+                },
+                "Damage": 10,
                 "AttackSpeed": 1,
-                "RequiredSkill": "Slasher"
+                "RequiredSkill": "ENCHANTMENT"
               }
             ],
-            "WearableItems":[
+            "WearableItems": [
               {
+                "Type": "Wearable",
                 "Name": "Ring",
-                "EquipSlot": "Hand"
+                "ReversibleCommand": {
+                  "Name": "TimedStaminaRegen",
+                  "StaminaRegenDecrease": 20,
+                  "IsApplied": true
+                }
               }
-            ],
-            "InVehicle": false
+            ]
           },
-          "Location":{
-            "X": 5,
-            "Y": 5
-          }
+          "XCoordinate": 3,
+          "YCoordinate": 2
         }
-      ]
+      ],
+      "Width": 6,
+      "Height": 6
+    },
+    "0002":{
+      "Tiles":[
+        {
+          "X":0,
+          "Y":0,
+          "Terrain": "Grass",
+          "Obstacle": true
+        },
+        {
+          "X":0,
+          "Y":1,
+          "Terrain": "Grass"
+        },
+        {
+          "X":0,
+          "Y":2,
+          "Terrain": "Grass"
+        },
+        {
+          "X":0,
+          "Y":3,
+          "Terrain": "Grass",
+          "Items":[
+            {
+              "Type": "Interactive",
+              "Name": "Teleporter",
+              "Command": {
+                "Name": "Transition",
+                "TargetX": 3,
+                "TargetY": 3,
+                "TargetWorld": "0002"
+              }
+            }
+          ]
+        },
+        {
+          "X":0,
+          "Y":4,
+          "Terrain": "Grass"
+        },
+        {
+          "X":0,
+          "Y":5,
+          "Terrain": "Grass"
+        },
+        {
+          "X":1,
+          "Y":0,
+          "Terrain": "Grass"
+        },
+        {
+          "X":1,
+          "Y":1,
+          "Terrain": "Grass"
+        },
+        {
+          "X":1,
+          "Y":2,
+          "Terrain": "Grass"
+        },
+        {
+          "X":1,
+          "Y":3,
+          "Terrain": "Grass"
+        },
+        {
+          "X":1,
+          "Y":4,
+          "Terrain": "Grass"
+        },
+        {
+          "X":1,
+          "Y":5,
+          "Terrain": "Grass",
+          "Obstacle": true
+        },
+        {
+          "X":2,
+          "Y":0,
+          "Terrain": "Grass",
+          "Items":[
+            {
+              "Type": "Weapon",
+              "Name": "BowAndArrow",
+              "Command": {
+                "Name": "ModifyHealth",
+                "Level": 1,
+                "SkillType": "TWOHANDEDWEAPON",
+                "Effectiveness": 80
+              },
+              "Damage": 15,
+              "AttackSpeed": 1,
+              "RequiredSkill": "TWOHANDEDWEAPON"
+            }
+          ]
+        },
+        {
+          "X":2,
+          "Y":1,
+          "Terrain": "Grass"
+        },
+        {
+          "X":2,
+          "Y":2,
+          "Terrain": "Grass"
+        },
+        {
+          "X":2,
+          "Y":3,
+          "Terrain": "Grass"
+        },
+        {
+          "X":2,
+          "Y":4,
+          "Terrain": "Grass"
+        },
+        {
+          "X":2,
+          "Y":5,
+          "Terrain": "Grass"
+        },
+        {
+          "X":3,
+          "Y":0,
+          "Terrain": "Grass"
+        },
+        {
+          "X":3,
+          "Y":1,
+          "Terrain": "Grass",
+          "Items":[
+            {
+              "Type": "Weapon",
+              "Name": "BowAndArrow",
+              "Command": {
+                "Name": "ModifyHealth",
+                "Level": 1,
+                "SkillType": "TWOHANDEDWEAPON",
+                "Effectiveness": 80
+              },
+              "Damage": 15,
+              "AttackSpeed": 1,
+              "RequiredSkill": "TWOHANDEDWEAPON"
+            }
+          ]
+        },
+        {
+          "X":3,
+          "Y":2,
+          "Terrain": "Grass",
+          "Obstacle": true
+        },
+        {
+          "X":3,
+          "Y":3,
+          "Terrain": "Grass"
+        },
+        {
+          "X":3,
+          "Y":4,
+          "Terrain": "Grass"
+        },
+        {
+          "X":3,
+          "Y":5,
+          "Terrain": "Grass"
+        },
+        {
+          "X":4,
+          "Y":0,
+          "Terrain": "Grass"
+        },
+        {
+          "X":4,
+          "Y":1,
+          "Terrain": "Grass"
+        },
+        {
+          "X":4,
+          "Y":2,
+          "Terrain": "Grass"
+        },
+        {
+          "X":4,
+          "Y":3,
+          "Terrain": "Grass"
+        },
+        {
+          "X":4,
+          "Y":4,
+          "Terrain": "Grass",
+          "Obstacle": true
+        },
+        {
+          "X":4,
+          "Y":5,
+          "Terrain": "Grass"
+        },
+        {
+          "X":5,
+          "Y":0,
+          "Terrain": "Grass"
+        },
+        {
+          "X":5,
+          "Y":1,
+          "Terrain": "Grass"
+        },
+        {
+          "X":5,
+          "Y":2,
+          "Terrain": "Grass"
+        },
+        {
+          "X":5,
+          "Y":3,
+          "Terrain": "Grass"
+        },
+        {
+          "X":5,
+          "Y":4,
+          "Terrain": "Grass"
+        },
+        {
+          "X":5,
+          "Y":5,
+          "Terrain": "Grass"
+        }
+      ],
+      "Width": 6,
+      "Height": 6
     }
   }
 }

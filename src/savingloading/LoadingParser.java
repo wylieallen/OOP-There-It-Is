@@ -1,14 +1,18 @@
 package savingloading;
 
+import commands.Command;
+import commands.TransitionCommand;
+import commands.reversiblecommands.ReversibleCommand;
+import commands.skillcommands.*;
 import entity.entitycontrol.AI.AI;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
-import entity.entitymodel.Entity;
-import entity.entitymodel.EntityStats;
-import entity.entitymodel.Equipment;
+import entity.entitymodel.*;
+import entity.entitymodel.interactions.*;
 import gameview.GamePanel;
+import items.takeableitems.*;
 import maps.tile.Direction;
 import maps.world.Game;
 import gameview.GameDisplayState;
@@ -17,6 +21,7 @@ import maps.world.OverWorld;
 import org.json.*;
 import skills.SkillType;
 import utilities.Coordinate;
+import utilities.Vector;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,7 +48,7 @@ public class LoadingParser {
         loadFileToJson(saveFileName);
         loadPlayer(gameJson.getJSONObject("Player"));
         loadOverWorld(gameJson.getJSONObject("OverWorld"));
-        loadLocalWorlds(gameJson.getJSONArray("LocalWorlds"));
+        loadLocalWorlds(gameJson.getJSONObject("LocalWorlds"));
     }
 
     private void loadFileToJson(String saveFileName) throws FileNotFoundException {
@@ -55,15 +60,19 @@ public class LoadingParser {
     }
 
     private void loadPlayer(JSONObject playerJson){
+        Vector movementVector = new Vector();
         JSONObject entityStatsJson = playerJson.getJSONObject("Stats");
         EntityStats entityStats = loadEntityStats(entityStatsJson);
+        // TODO: create ControllerActions
+        List<EntityInteraction> actorInteractions = loadActorInteractions(playerJson.getJSONArray("ActorInteractions"));
+
     }
 
     private void loadOverWorld(JSONObject overWorld) {
 
     }
 
-    private void loadLocalWorlds(JSONArray localWorlds){
+    private void loadLocalWorlds(JSONObject localWorlds){
 
     }
 
@@ -90,7 +99,7 @@ public class LoadingParser {
         Iterator<String> skillStrings = entityStatsJson.getJSONObject("Skills").keys();
         while(skillStrings.hasNext()) {
             String skillString = skillStrings.next();
-            int level = (int) entityStatsJson.get(skillString);
+            int level = (int) entityStatsJson.getJSONObject("Skills").get(skillString);
             skills.put(loadSkillType(skillString), level);
         }
         return new EntityStats(skills, entityStatsJson.getInt("BaseMoveSpeed"),
@@ -134,6 +143,167 @@ public class LoadingParser {
         else
             System.out.println("ERROR: Skill type not loaded properly -- String given: " + skillString);
         return NULL;
+    }
+
+    private List<EntityInteraction> loadActorInteractions(JSONArray actorInteractionsJson){
+        List<EntityInteraction> actorInteractions = new ArrayList<EntityInteraction>();
+        for (Object interactionJson : actorInteractionsJson){
+            if (((JSONObject) interactionJson).get("Name").equals("MountInteraction"))
+                actorInteractions.add(new MountInteraction());
+            else if (((JSONObject) interactionJson).get("Name").equals("BackStabInteraction"))
+                actorInteractions.add(new BackStabInteraction());
+            else if (((JSONObject) interactionJson).get("Name").equals("PickPocketInteraction"))
+                actorInteractions.add(new PickPocketInteraction());
+            else if (((JSONObject) interactionJson).get("Name").equals("TalkInteraction")) {
+                JSONArray messagesJson = ((JSONObject) interactionJson).getJSONArray("Messages");
+                Set<String> messages = new HashSet<String>();
+                for (Object message : messagesJson){
+                    messages.add((String) message);
+                }
+                actorInteractions.add(new TalkInteraction(messages));
+            }
+            else if (((JSONObject) interactionJson).get("Name").equals("TradeInteraction"))
+                actorInteractions.add(new TradeInteraction());
+            else if (((JSONObject) interactionJson).get("Name").equals("UseItemInteraction"))
+                actorInteractions.add(new UseItemInteraction());
+            else {
+                System.out.println("ERROR: ActorInteraction not loaded properly -- String given: " + ((JSONObject) interactionJson).get("Name"));
+                return null;
+            }
+        }
+        return actorInteractions;
+    }
+
+    private Inventory loadInventory(JSONArray inventoryJson){
+        List<TakeableItem> takeableItems = new ArrayList<TakeableItem>();
+        for (Object itemJson : inventoryJson){
+            TakeableItem item = loadTakeableItem((JSONObject)itemJson);
+        }
+        return new Inventory(takeableItems);
+    }
+
+    private TakeableItem loadTakeableItem(JSONObject itemJson){
+        TakeableItem item;
+        if (itemJson.get("Type").equals("Quest")){
+            item = loadQuestItem(itemJson);
+        }
+        else if (itemJson.get("Type").equals("Consumable")){
+            item = loadConsumableItem(itemJson);
+        }
+        else if (itemJson.get("Type").equals("Weapon")){
+            item = loadWeaponItem(itemJson);
+        }
+        else if (itemJson.get("Type").equals("Wearable")){
+            item = loadWearableItem(itemJson);
+        }
+        else{
+            item = null;
+            System.out.println("ERROR: Item type not loaded properly -- String given: " + itemJson.get("Type"));
+        }
+        return item;
+    }
+
+    private QuestItem loadQuestItem(JSONObject itemJson) {
+        return new QuestItem(itemJson.getString("Name"),itemJson.getBoolean("OnMap"),itemJson.getInt("QuestId"));
+    }
+
+    private ConsumableItem loadConsumableItem(JSONObject itemJson) {
+        return new ConsumableItem(itemJson.getString("Name"), itemJson.getBoolean("OnMap"), loadCommand(itemJson.getJSONObject("Command")));
+    }
+
+    private WeaponItem loadWeaponItem(JSONObject itemJson) {
+        return new WeaponItem(itemJson.getString("Name"), itemJson.getBoolean("OnMap"), loadCommand(itemJson.getJSONObject("Command")),
+                itemJson.getInt("Damage"), itemJson.getInt("AttackSpeed"), loadSkillType(itemJson.getString("RequiredSkill")));
+    }
+
+    private WearableItem loadWearableItem(JSONObject itemJson) {
+        return new WearableItem(itemJson.getString("Name"), itemJson.getBoolean("OnMap"),
+                loadReversibleCommand(itemJson.getJSONObject("ReversableCommand")), loadEquipType(itemJson.getString("EquipType")));
+    }
+
+    private Command loadCommand(JSONObject commandJson) {
+        if (commandJson.getString("Name").equals("Transition"))
+            return loadTransitionCommand(commandJson);
+        else if (commandJson.getString("Name").equals("Confuse"))
+            return loadConfuseCommand(commandJson);
+        else if (commandJson.getString("Name").equals("MakeFriendly"))
+            return loadMakeFriendlyCommand(commandJson);
+        else if (commandJson.getString("Name").equals("ModifyHealth"))
+            return loadModifyHealthCommand(commandJson);
+        else if (commandJson.getString("Name").equals("ModifyStaminaRegen"))
+            return loadModifyStaminaRegenCommand(commandJson);
+        else if (commandJson.getString("Name").equals("Observe"))
+            return loadObserveCommand(commandJson);
+        else if (commandJson.getString("Name").equals("Paralyze"))
+            return loadParalyzeCommand(commandJson);
+        else if (commandJson.getString("Name").equals("PickPocket"))
+            return loadPickPocketCommand(commandJson);
+        else{
+            System.out.println("ERROR: Command not loaded properly -- Command name given: " + commandJson.getString("Name"));
+            return null;
+        }
+    }
+
+    private PickPocketCommand loadPickPocketCommand(JSONObject commandJson) {
+        // TODO: need to save? Entity caster is issue
+        return null;
+    }
+
+    private ParalyzeCommand loadParalyzeCommand(JSONObject commandJson) {
+        // TODO: need to save? Entity caster is issue
+        return null;
+    }
+
+    private ObserveCommand loadObserveCommand(JSONObject commandJson) {
+        return new ObserveCommand(commandJson.getInt("Level"), commandJson.getInt("Effectiveness"));
+    }
+
+    private ModifyStaminaRegenCommand loadModifyStaminaRegenCommand(JSONObject commandJson) {
+        return new ModifyStaminaRegenCommand(loadSkillType(commandJson.getString("SkillType")), commandJson.getInt("Level"),
+                commandJson.getInt("Effectiveness"), commandJson.getDouble("Factor"));
+    }
+
+    private ModifyHealthCommand loadModifyHealthCommand(JSONObject commandJson) {
+        return new ModifyHealthCommand(loadSkillType(commandJson.getString("SkillType")), commandJson.getInt("Level"),
+                commandJson.getInt("Effectiveness"));
+    }
+
+    private MakeFriendlyCommand loadMakeFriendlyCommand(JSONObject commandJson) {
+        // TODO: need to save? Entity caster is issue
+        return null;
+    }
+
+    private ConfuseCommand loadConfuseCommand(JSONObject commandJson) {
+        // TODO: need to save? Entity caster is issue
+        return null;
+    }
+
+    private TransitionCommand loadTransitionCommand(JSONObject commandJson) {
+        // TODO
+        return null;
+    }
+
+    private ReversibleCommand loadReversibleCommand(JSONObject reversableCommandJson) {
+        if (reversableCommandJson.getString("Name").equals("MakeConfused"))
+            return loadMakeConfusedCommand(reversableCommandJson);
+        //
+        return null;
+    }
+
+    private ReversibleCommand loadMakeConfusedCommand(JSONObject reversableCommandJson) {
+        // TODO
+        return null;
+    }
+
+    private EquipSlot loadEquipType(String equipType) {
+        if (equipType.equals("ARMOUR"))
+            return EquipSlot.ARMOUR;
+        else if (equipType.equals("RING"))
+            return EquipSlot.RING;
+        else{
+            System.out.println("ERROR: EquipType not loaded properly -- String given: " + equipType);
+            return null;
+        }
     }
 
     private NpcEntityController loadNpcEntityController(String entityType, Entity entity,

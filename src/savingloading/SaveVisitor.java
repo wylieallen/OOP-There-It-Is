@@ -54,7 +54,7 @@ public class SaveVisitor implements Visitor {
     private JSONObject currentCommandJson;
     private JSONObject currentTileJson;
     private Queue<JSONObject> itemJsonsQueue = new ArrayDeque<JSONObject>();
-    private Queue<JSONObject> influenceAreaJsonQueue = new ArrayDeque<JSONObject>();
+    private Queue<JSONObject> interactionsQueue = new ArrayDeque<JSONObject>();
     private Map<TransitionCommand, JSONObject> transitionCommandJsons = new HashMap<TransitionCommand, JSONObject>();
 
     public SaveVisitor(String saveFileName){
@@ -74,11 +74,15 @@ public class SaveVisitor implements Visitor {
         currentEntityJson.put("DirectionFacing", e.getMovementDirection().name());
         e.getStats().accept(this);
         currentEntityJson.put("ActorInteractions", new JSONArray());
-        for (EntityInteraction ei : e.getActorInteractions())
+        for (EntityInteraction ei : e.getActorInteractions()) {
             ei.accept(this);
+            currentEntityJson.getJSONArray("ActorInteractions").put(interactionsQueue.remove());
+        }
         currentEntityJson.put("ActeeInteractions", new JSONArray());
-        for (EntityInteraction ei : e.getActeeInteractions())
+        for (EntityInteraction ei : e.getActorInteractions()) {
             ei.accept(this);
+            currentEntityJson.getJSONArray("ActeeInteractions").put(interactionsQueue.remove());
+        }
         e.getInventory().accept(this);
     }
 
@@ -201,60 +205,50 @@ public class SaveVisitor implements Visitor {
 
     @Override
     public void visitMountInteraction(MountInteraction m) {
-        if(currentEntityJson.has("ActeeInteractions"))
-            addActeeInteraction("MountInteraction");
-        else if(currentEntityJson.has("ActorInteractions"))
-            addActorInteraction("MountInteraction");
+        JSONObject interactionJson = new JSONObject();
+        interactionJson.put("Name", "MountInteraction");
+        interactionsQueue.add(interactionJson);
     }
 
     @Override
     public void visitBackStabInteraction(BackStabInteraction b) {
-        if(currentEntityJson.has("ActeeInteractions"))
-            addActeeInteraction("BackStabInteraction");
-        else if(currentEntityJson.has("ActorInteractions"))
-            addActorInteraction("BackStabInteraction");
+        JSONObject interactionJson = new JSONObject();
+        interactionJson.put("Name", "BackStabInteraction");
+        interactionsQueue.add(interactionJson);
     }
 
     @Override
     public void visitPickPocketInteraction(PickPocketInteraction p) {
-        if(currentEntityJson.has("ActeeInteractions"))
-            addActeeInteraction("PickPocketInteraction");
-        else if(currentEntityJson.has("ActorInteractions"))
-            addActorInteraction("PickPocketInteraction");
+        JSONObject interactionJson = new JSONObject();
+        interactionJson.put("Name", "PickPocketInteraction");
+        interactionsQueue.add(interactionJson);
     }
 
     @Override
     public void visitTalkInteraction(TalkInteraction t) {
-        if(currentEntityJson.has("ActeeInteractions"))
-            addActeeInteraction("TalkInteraction");
-        else if(currentEntityJson.has("ActorInteractions"))
-            addActorInteraction("TalkInteraction");
+        JSONObject interactionJson = new JSONObject();
+        interactionJson.put("Name", "TalkInteraction");
+        JSONArray messagesJson = new JSONArray();
+        Set<String> messages = t.getMessages();
+        for (String message : messages){
+            messagesJson.put(message);
+        }
+        interactionJson.put("Messages", messagesJson);
+        interactionsQueue.add(interactionJson);
     }
 
     @Override
     public void visitTradeInteraction(TradeInteraction t) {
-        if(currentEntityJson.has("ActeeInteractions"))
-            addActeeInteraction("TradeInteraction");
-        else if(currentEntityJson.has("ActorInteractions"))
-            addActorInteraction("TradeInteraction");
+        JSONObject interactionJson = new JSONObject();
+        interactionJson.put("Name", "TradeInteraction");
+        interactionsQueue.add(interactionJson);
     }
 
     @Override
     public void visitUseItemInteraction(UseItemInteraction u) {
-        if(currentEntityJson.has("ActeeInteractions"))
-            addActeeInteraction("UseItemInteraction");
-        else if(currentEntityJson.has("ActorInteractions"))
-            addActorInteraction("UseItemInteraction");
-    }
-
-    private void addActorInteraction(String type){
-        JSONArray actorInteractionsJson = currentEntityJson.getJSONArray("ActorInteractions");
-        actorInteractionsJson.put(type);
-    }
-
-    private void addActeeInteraction(String type){
-        JSONArray acteeInteractionsJson = currentEntityJson.getJSONArray("ActorInteractions");
-        acteeInteractionsJson.put(type);
+        JSONObject interactionJson = new JSONObject();
+        interactionJson.put("Name", "UseItemInteraction");
+        interactionsQueue.add(interactionJson);
     }
 
     @Override
@@ -283,6 +277,7 @@ public class SaveVisitor implements Visitor {
         JSONObject questItemJson = new JSONObject();
         questItemJson.put("Type", "Quest");
         questItemJson.put("Name", q.getName());
+        questItemJson.put("OnMap", q.isOnMap());
         questItemJson.put("QuestId", q.getQuestId());
         itemJsonsQueue.add(questItemJson);
     }
@@ -292,6 +287,7 @@ public class SaveVisitor implements Visitor {
         JSONObject consumableItemJson = new JSONObject();
         consumableItemJson.put("Type", "Consumable");
         consumableItemJson.put("Name", c.getName());
+        consumableItemJson.put("OnMap", c.isOnMap());
         c.getCommand().accept(this);
         consumableItemJson.put("Command", currentCommandJson);
         itemJsonsQueue.add(consumableItemJson);
@@ -302,6 +298,7 @@ public class SaveVisitor implements Visitor {
         JSONObject weaponItemJson = new JSONObject();
         weaponItemJson.put("Type", "Weapon");
         weaponItemJson.put("Name", w.getName());
+        weaponItemJson.put("OnMap", w.isOnMap());
         w.getCommand().accept(this);
         weaponItemJson.put("Command", currentCommandJson);
         weaponItemJson.put("Damage", w.getDamage());
@@ -315,6 +312,7 @@ public class SaveVisitor implements Visitor {
         JSONObject wearableItemJson = new JSONObject();
         wearableItemJson.put("Type", "Wearable");
         wearableItemJson.put("Name", w.getName());
+        wearableItemJson.put("OnMap", w.isOnMap());
         w.getCommand().accept(this);
         wearableItemJson.put("ReversableCommand", currentCommandJson);
         wearableItemJson.put("EquipType", w.getEquipType().name());
@@ -324,7 +322,7 @@ public class SaveVisitor implements Visitor {
     @Override
     public void visitConfuseCommand(ConfuseCommand confuseCommand) {
         currentCommandJson = new JSONObject();
-        currentCommandJson.put("Name", "ConfuseCommand");
+        currentCommandJson.put("Name", "Confuse");
         addSkillCommand(confuseCommand);
     }
 
@@ -346,6 +344,7 @@ public class SaveVisitor implements Visitor {
     public void visitModifyStaminaRegenCommand(ModifyStaminaRegenCommand modifyStaminaRegenCommand) {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "ModifyStaminaRegen");
+        currentCommandJson.put("Factor", modifyStaminaRegenCommand.getFactor());
         addSkillCommand(modifyStaminaRegenCommand);
     }
 

@@ -2,7 +2,10 @@ package savingloading;
 
 
 import maps.world.Game;
+import maps.world.LocalWorld;
 import org.junit.Test;
+
+import java.util.List;
 
 public class SaveVistorTest {
 
@@ -10,4 +13,5 @@ public class SaveVistorTest {
     public void SaveVisitorTest(){
         Visitor v = new SaveVisitor("test");
     }
+
 }

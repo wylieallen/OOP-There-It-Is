@@ -28,6 +28,10 @@ public class ModifyStaminaRegenCommand extends SkillCommand {
 
     }
 
+    public double getFactor(){
+        return factor;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitModifyStaminaRegenCommand(this);
