@@ -18,6 +18,20 @@ public class TransitionCommand implements Command {
         this.transitionObserver = transitionObserver;
     }
 
+    public TransitionCommand(){}
+
+    public void setTargetWorld(World targetWorld) {
+        this.targetWorld = targetWorld;
+    }
+
+    public void setStartingCoordinate(Coordinate startingCoordinate) {
+        this.startingCoordinate = startingCoordinate;
+    }
+
+    public void setTransitionObserver(TransitionObserver transitionObserver) {
+        this.transitionObserver = transitionObserver;
+    }
+
     public void trigger(Entity e) {
         transitionObserver.notifyTransition(e, targetWorld, startingCoordinate);
     }

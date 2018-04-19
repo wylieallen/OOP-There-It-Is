@@ -1,33 +1,47 @@
 package savingloading;
 
 import commands.Command;
+import commands.TimedEffect;
 import commands.TransitionCommand;
 import commands.reversiblecommands.ReversibleCommand;
 import commands.skillcommands.*;
 import entity.entitycontrol.AI.AI;
-import entity.entitycontrol.EntityController;
-import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.*;
-import gameview.GamePanel;
+import items.Item;
+import items.OneshotItem;
 import items.takeableitems.*;
+import maps.Influence.InfluenceArea;
+import maps.entityimpaction.*;
+import maps.movelegalitychecker.MoveLegalityChecker;
+import maps.movelegalitychecker.Obstacle;
+import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
+import maps.tile.LocalWorldTile;
+import maps.tile.OverWorldTile;
+import maps.tile.Tile;
+import maps.trajectorymodifier.River;
+import maps.trajectorymodifier.TrajectoryModifier;
 import maps.world.Game;
 import gameview.GameDisplayState;
 import maps.world.LocalWorld;
 import maps.world.OverWorld;
+import maps.world.World;
 import org.json.*;
 import skills.SkillType;
+import spawning.SpawnEvent;
 import utilities.Coordinate;
 import utilities.Vector;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.*;
 
+import static maps.movelegalitychecker.Terrain.GRASS;
+import static maps.movelegalitychecker.Terrain.MOUNTAIN;
+import static maps.movelegalitychecker.Terrain.WATER;
 import static skills.SkillType.*;
 
 /**
@@ -44,11 +58,19 @@ public class LoadingParser {
 
     private JSONObject gameJson;
 
+    private Map<String,World> idMappings = new HashMap<String,World>();
+    private List<TransitionCommandHolder> transitionCommands = new ArrayList<TransitionCommandHolder>();
+
     public void loadGame (String saveFileName) throws FileNotFoundException {
         loadFileToJson(saveFileName);
         loadPlayer(gameJson.getJSONObject("Player"));
         loadOverWorld(gameJson.getJSONObject("OverWorld"));
         loadLocalWorlds(gameJson.getJSONObject("LocalWorlds"));
+
+        game = new Game(overWorld, overWorld, localWorlds, 0, player);
+
+        // must do this after game is made
+        setTransitionCommands();
     }
 
     private void loadFileToJson(String saveFileName) throws FileNotFoundException {
@@ -63,17 +85,162 @@ public class LoadingParser {
         Vector movementVector = new Vector();
         JSONObject entityStatsJson = playerJson.getJSONObject("Stats");
         EntityStats entityStats = loadEntityStats(entityStatsJson);
-        // TODO: create ControllerActions
+        List<ControllerAction> controllerActions = loadPlayerControllerActions(); // TODO: create ControllerActions
         List<EntityInteraction> actorInteractions = loadActorInteractions(playerJson.getJSONArray("ActorInteractions"));
-
+        List<TimedEffect> effects = new ArrayList<TimedEffect>();
+        Inventory inventory = loadInventory(playerJson.getJSONArray("Inventory"));
+        Boolean onMap = true;
+        player = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap);
+        player.setControllerActions(controllerActions);
+        // TODO: set up player in gameDisplay
     }
 
-    private void loadOverWorld(JSONObject overWorld) {
-
+    private void loadOverWorld(JSONObject overWorldJson) {
+        Map <Coordinate, OverWorldTile> tiles = loadOverWorldTiles(overWorldJson.getJSONArray("Tiles"));
+        overWorld = new OverWorld(tiles);
+        idMappings.put("OverWorld", overWorld);
+        // TODO: set up overworld in gameDisplay
     }
 
-    private void loadLocalWorlds(JSONObject localWorlds){
+    private void loadLocalWorlds(JSONObject localWorldsJson){
+        Iterator<String> localWorldIds = localWorldsJson.keys();
+        while(localWorldIds.hasNext()) {
+            String localWorldId = localWorldIds.next();
+            JSONObject localWorldJson = localWorldsJson.getJSONObject(localWorldId);
+            Map<Coordinate, LocalWorldTile> localWorldTiles = loadLocalWorldTiles(localWorldJson.getJSONArray("Tiles"));
+            if (localWorldJson.has("Entities")) {
+                JSONArray entitiesJson = localWorldJson.getJSONArray("Entities");
+                for (Object enitityJsonObj : entitiesJson) {
+                    JSONObject entityJson = (JSONObject) enitityJsonObj;
+                    Entity entity = loadEntity(entityJson);
+                    Coordinate coordinate = new Coordinate(entityJson.getInt("X"), entityJson.getInt("Y"));
+                    LocalWorldTile tile = localWorldTiles.get(coordinate);
+                    tile.setEntity(entity);
+                }
+            }
+            LocalWorld localWorld = new LocalWorld(localWorldTiles, new HashSet<InfluenceArea>(), new ArrayList<SpawnEvent>());
+            localWorlds.add(localWorld);
+            idMappings.put(localWorldId, localWorld);
+        }
+    }
 
+    private Entity loadEntity(JSONObject entityJson) {
+        Vector movementVector = new Vector();
+        JSONObject entityStatsJson = entityJson.getJSONObject("Stats");
+        EntityStats entityStats = loadEntityStats(entityStatsJson);
+//        List<ControllerAction> controllerActions = // TODO: create ControllerActions
+        List<EntityInteraction> actorInteractions = loadActorInteractions(entityJson.getJSONArray("ActorInteractions"));
+        List<TimedEffect> effects = new ArrayList<TimedEffect>();
+        Inventory inventory = loadInventory(entityJson.getJSONArray("Inventory"));
+        Boolean onMap = true;
+        Entity entity = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap);
+//        entity.setControllerActions(controllerActions);
+        // TODO: set up entity in gameDisplay
+        return entity;
+    }
+
+    private Map<Coordinate, LocalWorldTile> loadLocalWorldTiles(JSONArray tilesJson) {
+        Map<Coordinate, LocalWorldTile> tiles = new HashMap<Coordinate, LocalWorldTile>();
+        for (Object tileJsonObj : tilesJson){
+            JSONObject tileJson = (JSONObject) tileJsonObj;
+            Coordinate coordinate = new Coordinate(tileJson.getInt("X"), tileJson.getInt("Y"));
+            Set<MoveLegalityChecker> moveLegalityCheckers = new HashSet<MoveLegalityChecker>();
+            Set<TrajectoryModifier> trajectoryModifiers = new HashSet<TrajectoryModifier>();
+            Set<EntityImpactor> entityImpactors = new HashSet<EntityImpactor>();
+            if (tileJson.has("Terrain")){
+                moveLegalityCheckers.add(loadTerrain(tileJson.getString("Terrain")));
+            }
+            if (tileJson.has("Obstacle")){
+                moveLegalityCheckers.add(new Obstacle());
+            }
+            if (tileJson.has("River")){
+                JSONObject riverJson = tileJson.getJSONObject("River");
+                trajectoryModifiers.add(loadRiver(tileJson.getJSONObject("River")));
+            }
+            if (tileJson.has("AreaEffect")){
+                entityImpactors.add(loadAreaEffect(tileJson.getJSONObject("AreaEffect")));
+            }
+            if (tileJson.has("Trap")){
+                entityImpactors.add(loadTrap(tileJson.getJSONObject("Trap")));
+            }
+            if (tileJson.has("Items")){
+                for (Object itemJsonObj : tileJson.getJSONArray("Items")){
+                    JSONObject itemJson = (JSONObject) itemJsonObj;
+                    Item item = loadItem(itemJson);
+                    entityImpactors.add(item);
+                }
+            }
+            LocalWorldTile tile = new LocalWorldTile(moveLegalityCheckers, null, trajectoryModifiers, entityImpactors);
+            tiles.put(coordinate, tile);
+        }
+        return tiles;
+    }
+
+    private Trap loadTrap(JSONObject trapJson) {
+        Command command = loadCommand(trapJson.getJSONObject("Command"));
+        Boolean hasFired = trapJson.getBoolean("HasFired");
+        int strength = trapJson.getInt("Strength");
+        Boolean isVisible = trapJson.getBoolean("IsVisible");
+        return new Trap(command, hasFired, strength, isVisible);
+    }
+
+    private River loadRiver(JSONObject riverJson) {
+        double dx = riverJson.getDouble("dx");
+        double dz = riverJson.getDouble("dz");
+        Vector v = new Vector(dx, dz);
+        return new River(v);
+    }
+
+    private AreaEffect loadAreaEffect(JSONObject areaEffectJson) {
+        if (areaEffectJson.getString("Type").equals("Infinite"))
+            return loadInfiniteAreaEffect(areaEffectJson);
+        else if (areaEffectJson.getString("Type").equals("OneShot"))
+            return loadOneShotAreaEffect(areaEffectJson);
+        else{
+            System.out.println("ERROR: AreaEffect not loaded properly -- Type string given: " + areaEffectJson.getString("Type"));
+            return null;
+        }
+    }
+
+    private OneShotAreaEffect loadOneShotAreaEffect(JSONObject areaEffectJson) {
+        Command command = loadCommand(areaEffectJson.getJSONObject("Command"));
+        Boolean hasFired = areaEffectJson.getBoolean("HasFired");
+        return new OneShotAreaEffect(command, hasFired);
+    }
+
+    private InfiniteAreaEffect loadInfiniteAreaEffect(JSONObject areaEffectJson) {
+        Command command = loadCommand(areaEffectJson.getJSONObject("Command"));
+        return new InfiniteAreaEffect(command);
+    }
+
+    private Map<Coordinate, OverWorldTile> loadOverWorldTiles(JSONArray tilesJson) {
+        Map <Coordinate, OverWorldTile> tiles = new HashMap<Coordinate, OverWorldTile>();
+        for (Object tileJsonObj : tilesJson){
+            JSONObject tileJson = (JSONObject) tileJsonObj;
+            Coordinate coordinate = new Coordinate(tileJson.getInt("X"), tileJson.getInt("Y"));
+            Set<MoveLegalityChecker> moveLegalityCheckers = new HashSet<MoveLegalityChecker>();
+            if (tileJson.has("Terrain")){
+                moveLegalityCheckers.add(loadTerrain(tileJson.getString("Terrain")));
+            }
+            if (tileJson.has("Obstacle")){
+                moveLegalityCheckers.add(new Obstacle());
+            }
+            tiles.put(coordinate, new OverWorldTile(moveLegalityCheckers, null));
+        }
+        return tiles;
+    }
+
+    private Terrain loadTerrain(String terrain) {
+        if (terrain.equals("GRASS"))
+            return GRASS;
+        else if (terrain.equals("WATER"))
+            return WATER;
+        else if (terrain.equals("MOUNTAIN"))
+            return MOUNTAIN;
+        else{
+            System.out.println("ERROR: Terrain not loaded properly -- String given: " + terrain);
+            return null;
+        }
     }
 
     private Direction loadDirectionFacing(String directionFacting){
@@ -178,8 +345,35 @@ public class LoadingParser {
         List<TakeableItem> takeableItems = new ArrayList<TakeableItem>();
         for (Object itemJson : inventoryJson){
             TakeableItem item = loadTakeableItem((JSONObject)itemJson);
+            takeableItems.add(item);
         }
         return new Inventory(takeableItems);
+    }
+
+    private Item loadItem(JSONObject itemJson) {
+        if (itemJson.getString("Type").equals("OneShot"))
+            return loadOneShotItem(itemJson);
+        else if (itemJson.getString("Type").equals("Quest"))
+            return loadQuestItem(itemJson);
+        else if (itemJson.getString("Type").equals("Consumable"))
+            return loadConsumableItem(itemJson);
+        else if (itemJson.getString("Type").equals("Weapon"))
+            return loadWeaponItem(itemJson);
+        else if (itemJson.getString("Type").equals("Wearable"))
+            return loadWearableItem(itemJson);
+        else if (itemJson.getString("Type").equals("Wearable"))
+            return loadWearableItem(itemJson);
+        else{
+            System.out.println("ERROR: Item not loaded properly -- Type string given: " + itemJson.getString("Type"));
+            return null;
+        }
+    }
+
+    private OneshotItem loadOneShotItem(JSONObject itemJson) {
+        String name = itemJson.getString("Name");
+        Command command = loadCommand(itemJson.getJSONObject("Command"));
+        Boolean isActive = itemJson.getBoolean("IsActive");
+        return new OneshotItem(name, command, !isActive);
     }
 
     private TakeableItem loadTakeableItem(JSONObject itemJson){
@@ -279,14 +473,18 @@ public class LoadingParser {
     }
 
     private TransitionCommand loadTransitionCommand(JSONObject commandJson) {
-        // TODO
-        return null;
+        TransitionCommand transitionCommand = new TransitionCommand();
+        String worldId = commandJson.getString("TargetWorld");
+        Coordinate coordinate = new Coordinate(commandJson.getInt("TargetX"), commandJson.getInt("TargetY"));
+        TransitionCommandHolder holder = new TransitionCommandHolder(transitionCommand, worldId, coordinate);
+        transitionCommands.add(holder);
+        return transitionCommand;
     }
 
     private ReversibleCommand loadReversibleCommand(JSONObject reversableCommandJson) {
         if (reversableCommandJson.getString("Name").equals("MakeConfused"))
             return loadMakeConfusedCommand(reversableCommandJson);
-        //
+        // TODO: add the rest
         return null;
     }
 
@@ -331,6 +529,25 @@ public class LoadingParser {
         return new NpcEntityController(null, null, null, null, null, null, false);
     }
 
+    private List<ControllerAction> loadPlayerControllerActions() {
+        // TODO
+        return new ArrayList<ControllerAction>();
+    }
+
+    private void setTransitionCommands() {
+        for (TransitionCommandHolder holder : transitionCommands){
+            String mapId = holder.getMapId();
+            World world = idMappings.get(mapId);
+            Coordinate coordinate = holder.getCoordinate();
+            TransitionCommand transitionCommand = holder.getTransitionCommand();
+            transitionCommand.setTargetWorld(world);
+            transitionCommand.setStartingCoordinate(coordinate);
+            transitionCommand.setTransitionObserver(game);
+            Tile tile = world.getTileForCoordinate(coordinate);
+            // TODO: add transitionCommand to tile
+        }
+    }
+
     public GameDisplayState getGameDisplayState () {
         return gameDisplay;
     }
@@ -343,4 +560,30 @@ public class LoadingParser {
         return player;
     }
 
+    private class TransitionCommandHolder {
+
+        private TransitionCommand transitionCommand;
+        private String mapId;
+        private Coordinate coordinate;
+
+        public TransitionCommandHolder(TransitionCommand transitionCommand,
+                                       String mapId,
+                                       Coordinate coordinate){
+            this.transitionCommand = transitionCommand;
+            this.mapId = mapId;
+            this.coordinate = coordinate;
+        }
+
+        public TransitionCommand getTransitionCommand() {
+            return transitionCommand;
+        }
+
+        public String getMapId() {
+            return mapId;
+        }
+
+        public Coordinate getCoordinate() {
+            return coordinate;
+        }
+    }
 }

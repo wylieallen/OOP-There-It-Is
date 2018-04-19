@@ -19,4 +19,5 @@ public interface World extends Visitable {
     Map <Coordinate, GameObjectContainer> getMap ();
     Tile getTileForEntity (Entity e);
     Coordinate getEntityCoordinate(Entity e);
+    Tile getTileForCoordinate(Coordinate c);
 }

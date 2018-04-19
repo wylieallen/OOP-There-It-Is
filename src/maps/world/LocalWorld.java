@@ -114,6 +114,11 @@ public class LocalWorld implements World, SpawnObserver {
         return null;
     }
 
+    @Override
+    public Tile getTileForCoordinate(Coordinate c) {
+        return tiles.get(c);
+    }
+
     public Map<Coordinate, LocalWorldTile> getTiles() {
         return tiles;
     }

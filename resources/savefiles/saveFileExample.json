@@ -50,7 +50,8 @@
         },
         "Damage": 15,
         "AttackSpeed": 1,
-        "RequiredSkill": "TWOHANDEDWEAPON"
+        "RequiredSkill": "TWOHANDEDWEAPON",
+        "OnMap": false
       }
     ],
     "Equipment": {
@@ -66,7 +67,8 @@
           },
           "Damage": 10,
           "AttackSpeed": 1,
-          "RequiredSkill": "ONEHANDEDWEAPON"
+          "RequiredSkill": "ONEHANDEDWEAPON",
+          "OnMap": false
         },
         {
           "Type": "Weapon",
@@ -79,7 +81,8 @@
           },
           "Damage": 10,
           "AttackSpeed": 1,
-          "RequiredSkill": "ENCHANTMENT"
+          "RequiredSkill": "ENCHANTMENT",
+          "OnMap": false
         }
       ],
       "WearableItems": [
@@ -90,197 +93,198 @@
             "Name": "TimedStaminaRegen",
             "StaminaRegenDecrease": 20,
             "IsApplied": true
-          }
+          },
+          "OnMap": false
         }
       ]
     },
-    "XCoordinate": 3,
-    "YCoordinate": 2
+    "X": 3,
+    "Y": 2
   },
   "OverWorld":{
     "Tiles":[
       {
         "X":0,
         "Y":0,
-        "Terrain": "Grass",
+        "Terrain": "GRASS",
         "Obstacle": true
       },
       {
         "X":0,
         "Y":1,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":0,
         "Y":2,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":0,
         "Y":3,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":0,
         "Y":4,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":0,
         "Y":5,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },{
         "X":1,
         "Y":0,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":1,
         "Y":1,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":1,
         "Y":2,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":1,
         "Y":3,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":1,
         "Y":4,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":1,
         "Y":5,
-        "Terrain": "Grass",
+        "Terrain": "GRASS",
         "Obstacle": true
       },
       {
         "X":2,
         "Y":0,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":2,
         "Y":1,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":2,
         "Y":2,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":2,
         "Y":3,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":2,
         "Y":4,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":2,
         "Y":5,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":3,
         "Y":0,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":3,
         "Y":1,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":3,
         "Y":2,
-        "Terrain": "Grass",
+        "Terrain": "GRASS",
         "Obstacle": true
       },
       {
         "X":3,
         "Y":3,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":3,
         "Y":4,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":3,
         "Y":5,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":4,
         "Y":0,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":4,
         "Y":1,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":4,
         "Y":2,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":4,
         "Y":3,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":4,
         "Y":4,
-        "Terrain": "Grass",
+        "Terrain": "GRASS",
         "Obstacle": true
       },
       {
         "X":4,
         "Y":5,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":5,
         "Y":0,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":5,
         "Y":1,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":5,
         "Y":2,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":5,
         "Y":3,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":5,
         "Y":4,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       },
       {
         "X":5,
         "Y":5,
-        "Terrain": "Grass"
+        "Terrain": "GRASS"
       }
     ],
     "Width": 6,
@@ -292,23 +296,27 @@
         {
           "X":0,
           "Y":0,
-          "Terrain": "Grass",
+          "Terrain": "GRASS",
           "Obstacle": true
         },
         {
           "X":0,
           "Y":1,
-          "Terrain": "Grass"
+          "Terrain": "GRASS",
+          "River":{
+            "dx": 1,
+            "dz": 1
+          }
         },
         {
           "X":0,
           "Y":2,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":0,
           "Y":3,
-          "Terrain": "Grass",
+          "Terrain": "GRASS",
           "Items":[
             {
               "Type": "Interactive",
@@ -325,48 +333,48 @@
         {
           "X":0,
           "Y":4,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":0,
           "Y":5,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":1,
           "Y":0,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":1,
           "Y":1,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":1,
           "Y":2,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":1,
           "Y":3,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":1,
           "Y":4,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":1,
           "Y":5,
-          "Terrain": "Grass",
+          "Terrain": "GRASS",
           "Obstacle": true
         },
         {
           "X":2,
           "Y":0,
-          "Terrain": "Grass",
+          "Terrain": "GRASS",
           "Items":[
             {
               "Type": "Weapon",
@@ -379,44 +387,45 @@
               },
               "Damage": 15,
               "AttackSpeed": 1,
-              "RequiredSkill": "TWOHANDEDWEAPON"
+              "RequiredSkill": "TWOHANDEDWEAPON",
+              "OnMap": false
             }
           ]
         },
         {
           "X":2,
           "Y":1,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":2,
           "Y":2,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":2,
           "Y":3,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":2,
           "Y":4,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":2,
           "Y":5,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":3,
           "Y":0,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":3,
           "Y":1,
-          "Terrain": "Grass",
+          "Terrain": "GRASS",
           "Items":[
             {
               "Type": "Weapon",
@@ -429,91 +438,92 @@
               },
               "Damage": 15,
               "AttackSpeed": 1,
-              "RequiredSkill": "TWOHANDEDWEAPON"
+              "RequiredSkill": "TWOHANDEDWEAPON",
+              "OnMap": false
             }
           ]
         },
         {
           "X":3,
           "Y":2,
-          "Terrain": "Grass",
+          "Terrain": "GRASS",
           "Obstacle": true
         },
         {
           "X":3,
           "Y":3,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":3,
           "Y":4,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":3,
           "Y":5,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":4,
           "Y":0,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":4,
           "Y":1,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":4,
           "Y":2,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":4,
           "Y":3,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":4,
           "Y":4,
-          "Terrain": "Grass",
+          "Terrain": "GRASS",
           "Obstacle": true
         },
         {
           "X":4,
           "Y":5,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":5,
           "Y":0,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":5,
           "Y":1,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":5,
           "Y":2,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":5,
           "Y":3,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":5,
           "Y":4,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":5,
           "Y":5,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         }
       ],
       "Entities":[
@@ -551,8 +561,8 @@
             "WeaponItems": [],
             "WearableItems": []
           },
-          "XCoordinate": 1,
-          "YCoordinate": 1
+          "X": 1,
+          "Y": 1
         },
         {
           "Type": "Friendly",
@@ -602,7 +612,8 @@
               },
               "Damage": 15,
               "AttackSpeed": 1,
-              "RequiredSkill": "TWOHANDEDWEAPON"
+              "RequiredSkill": "TWOHANDEDWEAPON",
+              "OnMap": false
             }
           ],
           "Equipment": {
@@ -618,7 +629,8 @@
                 },
                 "Damage": 10,
                 "AttackSpeed": 1,
-                "RequiredSkill": "ONEHANDEDWEAPON"
+                "RequiredSkill": "ONEHANDEDWEAPON",
+                "OnMap": false
               },
               {
                 "Type": "Weapon",
@@ -631,7 +643,8 @@
                 },
                 "Damage": 10,
                 "AttackSpeed": 1,
-                "RequiredSkill": "ENCHANTMENT"
+                "RequiredSkill": "ENCHANTMENT",
+                "OnMap": false
               }
             ],
             "WearableItems": [
@@ -642,12 +655,13 @@
                   "Name": "TimedStaminaRegen",
                   "StaminaRegenDecrease": 20,
                   "IsApplied": true
-                }
+                },
+                "OnMap": false
               }
             ]
           },
-          "XCoordinate": 3,
-          "YCoordinate": 2
+          "X": 3,
+          "Y": 2
         }
       ],
       "Width": 6,
@@ -658,23 +672,23 @@
         {
           "X":0,
           "Y":0,
-          "Terrain": "Grass",
+          "Terrain": "GRASS",
           "Obstacle": true
         },
         {
           "X":0,
           "Y":1,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":0,
           "Y":2,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":0,
           "Y":3,
-          "Terrain": "Grass",
+          "Terrain": "GRASS",
           "Items":[
             {
               "Type": "Interactive",
@@ -691,48 +705,48 @@
         {
           "X":0,
           "Y":4,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":0,
           "Y":5,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":1,
           "Y":0,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":1,
           "Y":1,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":1,
           "Y":2,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":1,
           "Y":3,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":1,
           "Y":4,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":1,
           "Y":5,
-          "Terrain": "Grass",
+          "Terrain": "GRASS",
           "Obstacle": true
         },
         {
           "X":2,
           "Y":0,
-          "Terrain": "Grass",
+          "Terrain": "GRASS",
           "Items":[
             {
               "Type": "Weapon",
@@ -745,44 +759,45 @@
               },
               "Damage": 15,
               "AttackSpeed": 1,
-              "RequiredSkill": "TWOHANDEDWEAPON"
+              "RequiredSkill": "TWOHANDEDWEAPON",
+              "OnMap": true
             }
           ]
         },
         {
           "X":2,
           "Y":1,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":2,
           "Y":2,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":2,
           "Y":3,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":2,
           "Y":4,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":2,
           "Y":5,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":3,
           "Y":0,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":3,
           "Y":1,
-          "Terrain": "Grass",
+          "Terrain": "GRASS",
           "Items":[
             {
               "Type": "Weapon",
@@ -795,91 +810,92 @@
               },
               "Damage": 15,
               "AttackSpeed": 1,
-              "RequiredSkill": "TWOHANDEDWEAPON"
+              "RequiredSkill": "TWOHANDEDWEAPON",
+              "OnMap": true
             }
           ]
         },
         {
           "X":3,
           "Y":2,
-          "Terrain": "Grass",
+          "Terrain": "GRASS",
           "Obstacle": true
         },
         {
           "X":3,
           "Y":3,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":3,
           "Y":4,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":3,
           "Y":5,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":4,
           "Y":0,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":4,
           "Y":1,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":4,
           "Y":2,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":4,
           "Y":3,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":4,
           "Y":4,
-          "Terrain": "Grass",
+          "Terrain": "GRASS",
           "Obstacle": true
         },
         {
           "X":4,
           "Y":5,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":5,
           "Y":0,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":5,
           "Y":1,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":5,
           "Y":2,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":5,
           "Y":3,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":5,
           "Y":4,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         },
         {
           "X":5,
           "Y":5,
-          "Terrain": "Grass"
+          "Terrain": "GRASS"
         }
       ],
       "Width": 6,

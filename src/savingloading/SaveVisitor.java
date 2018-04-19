@@ -19,6 +19,8 @@ import entity.vehicle.Vehicle;
 import items.InteractiveItem;
 import items.OneshotItem;
 import items.takeableitems.*;
+import maps.entityimpaction.InfiniteAreaEffect;
+import maps.entityimpaction.OneShotAreaEffect;
 import maps.entityimpaction.Trap;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Obstacle;
@@ -170,8 +172,8 @@ public class SaveVisitor implements Visitor {
     }
 
     private void addCoordinates(Coordinate coordinate){
-        currentEntityJson.put("XCoordinate", coordinate.x());
-        currentEntityJson.put("YCoordinate", coordinate.y());
+        currentEntityJson.put("X", coordinate.x());
+        currentEntityJson.put("Y", coordinate.y());
     }
 
     @Override
@@ -506,8 +508,33 @@ public class SaveVisitor implements Visitor {
     }
 
     @Override
+    public void visitInfiniteAreaEffect(InfiniteAreaEffect infiniteAreaEffect) {
+        JSONObject areaEffectJson = new JSONObject();
+        areaEffectJson.put("Type", "Infinite");
+        infiniteAreaEffect.getCommand().accept(this);
+        areaEffectJson.put("Command", currentCommandJson);
+        currentTileJson.put("AreaEffect", areaEffectJson);
+    }
+
+    @Override
+    public void visitOneShotAreaEffect(OneShotAreaEffect oneShotAreaEffect) {
+        JSONObject areaEffectJson = new JSONObject();
+        areaEffectJson.put("Type", "OneShot");
+        oneShotAreaEffect.getCommand().accept(this);
+        areaEffectJson.put("Command", currentCommandJson);
+        areaEffectJson.put("HasFired", oneShotAreaEffect.shouldBeRemoved());
+        currentTileJson.put("AreaEffect", areaEffectJson);
+    }
+
+    @Override
     public void visitTrap(Trap trap) {
-        currentTileJson.put("Trap", true);
+        JSONObject trapJson = new JSONObject();
+        trap.getCommand().accept(this);
+        trapJson.put("Command", currentCommandJson);
+        trapJson.put("HasFired", trap.hasFired());
+        trapJson.put("Strength", trap.getStrength());
+        trapJson.put("IsVisible", trap.isVisible());
+        currentTileJson.put("Trap", trapJson);
     }
 
     @Override

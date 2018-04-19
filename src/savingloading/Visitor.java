@@ -24,6 +24,8 @@ import items.takeableitems.ConsumableItem;
 import items.takeableitems.QuestItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
+import maps.entityimpaction.InfiniteAreaEffect;
+import maps.entityimpaction.OneShotAreaEffect;
 import maps.entityimpaction.Trap;
 import maps.movelegalitychecker.Obstacle;
 import maps.movelegalitychecker.Terrain;
@@ -86,6 +88,9 @@ public interface Visitor {
     void visitLocalWorldTile(LocalWorldTile localWorldTile);
     void visitObstacle(Obstacle obstacle);
     void visitTerrain(Terrain terrain);
+
+    void visitInfiniteAreaEffect(InfiniteAreaEffect infiniteAreaEffect);
+    void visitOneShotAreaEffect(OneShotAreaEffect oneShotAreaEffect);
     void visitTrap(Trap trap);
 
     void visitGame (Game g);

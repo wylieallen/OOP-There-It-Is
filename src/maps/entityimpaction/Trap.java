@@ -67,6 +67,14 @@ public class Trap implements EntityImpactor, MoveLegalityChecker {
         return false;
     }
 
+    public Command getCommand() {
+        return command;
+    }
+
+    public int getStrength(){
+        return strength;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitTrap(this);

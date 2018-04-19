@@ -65,5 +65,10 @@ public class FoggyWorld implements World {
     }
 
     @Override
+    public Tile getTileForCoordinate(Coordinate c) {
+        return null;
+    }
+
+    @Override
     public void accept(Visitor v) { }
 }

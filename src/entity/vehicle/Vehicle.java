@@ -45,7 +45,7 @@ public class Vehicle extends Entity {
                    Inventory inventory,
                    boolean isOnMap)
     {
-        super(vector, stats, actions, effects, actorInteractions, inventory, isOnMap);
+        super(vector, stats, effects, actorInteractions, inventory, isOnMap);
         this.driver = null;
     }
 

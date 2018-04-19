@@ -22,4 +22,8 @@ public abstract class AreaEffect implements EntityImpactor {
     public boolean shouldBeRemoved() {
         return false;
     }
+
+    public Command getCommand() {
+        return command;
+    }
 }

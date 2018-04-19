@@ -112,6 +112,11 @@ public class OverWorld implements World {
         return null;
     }
 
+    @Override
+    public Tile getTileForCoordinate(Coordinate c) {
+        return tiles.get(c);
+    }
+
     public Map<Coordinate, OverWorldTile> getTiles(){
         return tiles;
     }
