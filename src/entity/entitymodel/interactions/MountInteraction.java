@@ -1,6 +1,8 @@
 package entity.entitymodel.interactions;
 
 import entity.entitymodel.Entity;
+import entity.entitymodel.interactions.EntityInteraction;
+import savingloading.Visitor;
 
 
 /**
@@ -14,4 +16,8 @@ public class MountInteraction implements EntityInteraction {
         return true;
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitMountInteraction(this);
+    }
 }

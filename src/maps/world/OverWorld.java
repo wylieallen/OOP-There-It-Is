@@ -7,6 +7,7 @@ import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
 import maps.tile.Tile;
+import savingloading.Visitor;
 import utilities.Coordinate;
 
 import java.util.HashMap;
@@ -111,4 +112,17 @@ public class OverWorld implements World {
         return null;
     }
 
+    @Override
+    public Tile getTileForCoordinate(Coordinate c) {
+        return tiles.get(c);
+    }
+
+    public Map<Coordinate, OverWorldTile> getTiles(){
+        return tiles;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitOverWorld(this);
+    }
 }

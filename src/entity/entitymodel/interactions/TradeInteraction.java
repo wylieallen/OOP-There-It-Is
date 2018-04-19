@@ -5,6 +5,8 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.Entity;
 import items.takeableitems.TakeableItem;
 import skills.SkillType;
+import entity.entitymodel.interactions.EntityInteraction;
+import savingloading.Visitor;
 
 /**
  * Created by dontf on 4/13/2018.
@@ -55,4 +57,8 @@ public class TradeInteraction implements EntityInteraction {
             giveTo.addToInventory(item);
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitTradeInteraction(this);
+    }
 }

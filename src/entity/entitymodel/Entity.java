@@ -8,6 +8,9 @@ import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
+import savingloading.Visitable;
+import savingloading.Visitor;
+import utilities.Coordinate;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
@@ -22,8 +25,8 @@ import java.util.Map;
 /**
  * Created by dontf on 4/13/2018.
  */
-
-public class Entity implements GameObject, MoveLegalityChecker {
+public class Entity implements GameObject, MoveLegalityChecker, Visitable
+{
 
     private final int levelUpIncreament = 100;
 
@@ -46,6 +49,27 @@ public class Entity implements GameObject, MoveLegalityChecker {
 
     public Entity(Vector movementVector,
                   EntityStats stats,
+                  List<TimedEffect> effects,
+                  List<EntityInteraction> actorInteractions,
+                  //This will be set by the AI instead
+                  //List<EntityInteraction> acteeInteractions,
+                  Inventory inventory,
+                  boolean onMap)
+    {
+        this.movementVector = movementVector;
+        this.stats = stats;
+        this.effects = effects;
+        this.actorInteractions = actorInteractions;
+        //prevents errors until the AI sets the interactions
+        this.acteeInteractions = new ArrayList<>();
+        this.inventory = inventory;
+        this.onMap = onMap;
+        this.facing = movementVector.getDirection();
+    }
+
+    // I kept this constructor for testing, but actions will be set later now
+    public Entity(Vector movementVector,
+                  EntityStats stats,
                   List<ControllerAction> actions,
                   List<TimedEffect> effects,
                   List<EntityInteraction> actorInteractions,
@@ -56,14 +80,18 @@ public class Entity implements GameObject, MoveLegalityChecker {
     {
         this.movementVector = movementVector;
         this.stats = stats;
-        this.actions = actions;
         this.effects = effects;
+        this.actions = actions;
         this.actorInteractions = actorInteractions;
         //prevents errors until the AI sets the interactions
         this.acteeInteractions = new ArrayList<>();
         this.inventory = inventory;
         this.onMap = onMap;
         this.facing = movementVector.getDirection();
+    }
+
+    public void setControllerActions(List<ControllerAction> actions){
+        this.actions = actions;
     }
 
     public void setController(EntityController newController) {
@@ -286,6 +314,7 @@ public class Entity implements GameObject, MoveLegalityChecker {
     public boolean isSearching() { return stats.getIsSearching(); }
 
     public void startSearching() { stats.startSearching(); }
+
     public void stopSearching() { stats.stopSearching(); }
 
     public void makeConfused() { stats.makeConfused(); }
@@ -321,7 +350,29 @@ public class Entity implements GameObject, MoveLegalityChecker {
         inventory.add(item);
     }
 
-    public Inventory getInventory() { return inventory; }
-
     public boolean isTerrainCompatible(Terrain t) { return stats.isTerrainCompatible(t); }
+    public EntityController getController() {
+        return controller;
+    }
+
+    public EntityStats getStats() {
+        return stats;
+    }
+
+    public List<EntityInteraction> getActeeInteractions() {
+        return acteeInteractions;
+    }
+
+    public List<EntityInteraction> getActorInteractions() {
+        return actorInteractions;
+    }
+
+    public Inventory getInventory(){
+        return inventory;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitEntity(this);
+    }
 }

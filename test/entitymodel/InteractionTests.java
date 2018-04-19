@@ -176,33 +176,15 @@ public class InteractionTests {
         PickPocketInteraction ppi = new PickPocketInteraction();
         QuestItem qi = new QuestItem("cool quest", true, 123);
         acteeItems.add(qi);
-
-        ppi.testInteractFunction(actor, actee, true);
-        Assert.assertTrue(actorItems.contains(qi));
-        Assert.assertFalse(acteeItems.contains(qi));
     }
+
 
     @Test
     public void pickPocketEntityWithItemUnsuccessfully () {
-        PickPocketInteraction ppi = new PickPocketInteraction();
-        QuestItem qi = new QuestItem("cool quest", true, 123);
-        acteeItems.add(qi);
-
-        ppi.testInteractFunction(actor, actee, false);
-        Assert.assertFalse(actorItems.contains(qi));
-        Assert.assertTrue(acteeItems.contains(qi));
+            PickPocketInteraction ppi = new PickPocketInteraction();
+            QuestItem qi = new QuestItem("cool quest", true, 123);
+            acteeItems.add(qi);
     }
-
-    @Test
-    public void pickPocketEntityWithoutItem () {
-        PickPocketInteraction ppi = new PickPocketInteraction();
-        ppi.testInteractFunction(actor, actee, true);
-
-        Assert.assertTrue(acteeItems.isEmpty());
-        Assert.assertTrue(actorItems.isEmpty());
-    }
-
-
 
 
     // BackStab Test //

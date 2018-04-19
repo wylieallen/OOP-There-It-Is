@@ -3,6 +3,7 @@ package maps.world;
 import entity.entitymodel.Entity;
 import gameobject.GameObjectContainer;
 import maps.tile.Tile;
+import savingloading.Visitor;
 import utilities.Coordinate;
 
 import java.util.HashMap;
@@ -63,4 +64,11 @@ public class FoggyWorld implements World {
         return world.getEntityCoordinate(e);
     }
 
+    @Override
+    public Tile getTileForCoordinate(Coordinate c) {
+        return null;
+    }
+
+    @Override
+    public void accept(Visitor v) { }
 }

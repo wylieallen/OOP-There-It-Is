@@ -3,11 +3,12 @@ package maps.tile;
 import entity.entitymodel.Entity;
 import gameobject.GameObjectContainer;
 import maps.movelegalitychecker.MoveLegalityChecker;
+import savingloading.Visitable;
 import utilities.Vector;
 
 import java.util.*;
 
-public abstract class Tile implements GameObjectContainer {
+public abstract class Tile implements GameObjectContainer, Visitable {
 
     private Set<MoveLegalityChecker> moveLegalityCheckers;
     private Entity entity;

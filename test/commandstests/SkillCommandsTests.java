@@ -45,7 +45,7 @@ public class SkillCommandsTests {
         EntityStats casterStats = new EntityStats(casterSkills, 2, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
-        caster = new Entity(new Vector(), casterStats, null, new ArrayList<>(), null,
+        caster = new Entity(new Vector(), casterStats, new ArrayList<>(), null,
                 casterInventory, true);
 
         casterController = new HumanEntityController(caster, null,
@@ -57,7 +57,7 @@ public class SkillCommandsTests {
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
         targetEffects = new ArrayList<>();
-        target = new Entity(new Vector(), targetStats, null, targetEffects, null,
+        target = new Entity(new Vector(), targetStats, targetEffects, null,
                 targetInventory, true);
 
         targetController = new NpcEntityController(target, null,

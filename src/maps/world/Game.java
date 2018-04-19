@@ -4,14 +4,17 @@ import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
+import savingloading.Visitable;
+import savingloading.Visitor;
 import utilities.Coordinate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by dontf on 4/14/2018.
  */
-public class Game implements TransitionObserver {
+public class Game implements TransitionObserver, Visitable {
 
     private World activeWorld;
     private OverWorld overWorld;
@@ -67,5 +70,26 @@ public class Game implements TransitionObserver {
     public Coordinate getCoordinate(Entity entity)
     {
         return activeWorld.getEntityCoordinate(entity);
+    }
+
+    public OverWorld getOverWorld(){
+        return overWorld;
+    }
+
+    public List<LocalWorld> getLocalWorlds(){
+        return localWorlds;
+    }
+
+    public List<World> getWorlds(){
+        List<World> worlds = new ArrayList<World>();
+        worlds.add(overWorld);
+        for (LocalWorld localWorld : localWorlds)
+            worlds.add(localWorld);
+        return worlds;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitGame(this);
     }
 }

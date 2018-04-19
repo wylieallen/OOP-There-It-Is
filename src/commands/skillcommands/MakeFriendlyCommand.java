@@ -1,6 +1,7 @@
 package commands.skillcommands;
 
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 import skills.SkillType;
 
 public class MakeFriendlyCommand extends SkillCommand {
@@ -22,4 +23,8 @@ public class MakeFriendlyCommand extends SkillCommand {
         e.enrage(caster);
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitMakeFriendlyCommand(this);
+    }
 }

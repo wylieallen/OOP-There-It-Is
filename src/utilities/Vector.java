@@ -50,6 +50,11 @@ public class Vector {
         dz = end.z() - start.z();
     }
 
+    public Vector(double dx, double dz){
+        this.dx = dx;
+        this.dz = dz;
+    }
+
     public void add (Vector other) {
         dx += other.dx();
         dz += other.dz();

@@ -4,6 +4,7 @@ import commands.Command;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import maps.Influence.InfluenceArea;
+import savingloading.Visitor;
 import skills.SkillType;
 import spawning.SpawnObservable;
 import spawning.SpawnObserver;
@@ -49,5 +50,26 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
 
     public void deregisterObserver (SpawnObserver SO) {
         spawnObservers.remove(SO);
+    }
+
+    public Command getCommand() {
+        return command;
+    }
+
+    public int getDamage(){
+        return damage;
+    }
+
+    public int getAttackSpeed(){
+        return attackSpeed;
+    }
+
+    public SkillType getRequiredSkill() {
+        return requiredSkill;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitWeaponItem(this);
     }
 }

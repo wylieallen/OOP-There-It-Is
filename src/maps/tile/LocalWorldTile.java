@@ -5,6 +5,7 @@ import gameobject.GameObject;
 import maps.entityimpaction.EntityImpactor;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.trajectorymodifier.TrajectoryModifier;
+import savingloading.Visitor;
 import utilities.Vector;
 
 import java.util.*;
@@ -77,5 +78,10 @@ public class LocalWorldTile extends Tile {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitLocalWorldTile(this);
     }
 }
