@@ -1,9 +1,9 @@
 package maps.tile;
 
 import entity.entitymodel.Entity;
+import maps.entityimpaction.EntityImpactor;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import gameobject.GameObject;
-import maps.movelegalitychecker.Terrain;
 import maps.movelegalitychecker.Terrain;
 import savingloading.Visitor;
 import utilities.Vector;
@@ -12,9 +12,18 @@ import java.util.*;
 
 public class OverWorldTile extends Tile {
 
+    private EntityImpactor encounter;
+
     public OverWorldTile(Set<MoveLegalityChecker> moveLegalityCheckers, Terrain terrain, Entity entity)
     {
         super(moveLegalityCheckers, terrain, entity);
+        encounter = null;
+    }
+
+    public OverWorldTile(Set<MoveLegalityChecker> moveLegalityCheckers, Entity entity, EntityImpactor encounter)
+    {
+        super(moveLegalityCheckers, entity);
+        this.encounter = encounter;
     }
 
     public Collection<GameObject> getGameObjects()
@@ -36,10 +45,13 @@ public class OverWorldTile extends Tile {
 
     @Override
     public void do_interactions() {
-
+        if(super.hasEntity() && hasEncounter()){
+            encounter.touch(super.getEntity());
+        }
     }
 
-    public void add(Terrain terrain) {
+    private boolean hasEncounter() {
+        return encounter != null;
     }
 
     @Override
