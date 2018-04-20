@@ -7,7 +7,6 @@ import maps.Influence.InfluenceArea;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.tile.Direction;
 import savingloading.Visitor;
-import spawning.SpawnEvent;
 import spawning.SpawnObserver;
 import maps.tile.LocalWorldTile;
 import maps.tile.Tile;

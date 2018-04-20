@@ -8,8 +8,8 @@ public class OneShotAreaEffect extends AreaEffect {
 
     private boolean hasFired;
 
-    public OneShotAreaEffect(Command command, long triggerInterval, long lastTriggerTime, boolean hasFired) {
-        super(command, triggerInterval, lastTriggerTime);
+    public OneShotAreaEffect(Command command, boolean hasFired) {
+        super(command);
         this.hasFired = hasFired;
     }
 

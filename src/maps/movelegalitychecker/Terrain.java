@@ -2,9 +2,10 @@ package maps.movelegalitychecker;
 
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
+import savingloading.Visitable;
 import savingloading.Visitor;
 
-public enum Terrain implements GameObject {
+public enum Terrain implements GameObject, Visitable {
 
     GRASS, WATER, MOUNTAIN, SPACE;
 

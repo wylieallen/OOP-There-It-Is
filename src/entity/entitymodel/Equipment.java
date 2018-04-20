@@ -10,10 +10,7 @@ import savingloading.Visitor;
 import spawning.SpawnObserver;
 import utilities.Coordinate;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by dontf on 4/13/2018.
