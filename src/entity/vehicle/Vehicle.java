@@ -26,6 +26,18 @@ public class Vehicle extends Entity {
 
     public Vehicle(Vector movementVector,
                    EntityStats stats,
+                   List<TimedEffect> effects,
+                   List<EntityInteraction> actorInteractions,
+                   Inventory inventory,
+                   boolean isOnMap,
+                   Entity driver)
+    {
+        super(movementVector, stats, effects, actorInteractions, inventory, isOnMap);
+        this.driver = driver;
+    }
+
+    public Vehicle(Vector movementVector,
+                   EntityStats stats,
                    List<ControllerAction> actions,
                    List<TimedEffect> effects,
                    List<EntityInteraction> actorInteractions,

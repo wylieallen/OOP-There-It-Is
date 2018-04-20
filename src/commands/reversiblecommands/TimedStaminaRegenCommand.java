@@ -33,6 +33,10 @@ public class TimedStaminaRegenCommand extends ReversibleCommand {
         return cachedStaminaRegenDifference;
     }
 
+    public double getFactor(){
+        return factor;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitTimedStaminaRegenCommand(this);

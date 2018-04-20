@@ -74,7 +74,7 @@
           "Type": "Weapon",
           "Name": "ParalyzeSpell",
           "Command": {
-            "Name": "Paralyze",
+            "Name": "ModifyHealth",
             "Level": 1,
             "SkillType": "ENCHANTMENT",
             "Effectiveness": 50
@@ -85,18 +85,32 @@
           "OnMap": false
         }
       ],
-      "WearableItems": [
-        {
+      "WearableItems": {
+        "RING": {
           "Type": "Wearable",
           "Name": "Ring",
-          "ReversibleCommand": {
+          "ReversableCommand": {
             "Name": "TimedStaminaRegen",
             "StaminaRegenDecrease": 20,
-            "IsApplied": true
+            "IsApplied": true,
+            "Factor": 5
           },
-          "OnMap": false
+          "OnMap": false,
+          "EquipType": "RING"
+        },
+        "ARMOUR": {
+          "Type": "Wearable",
+          "Name": "BreastPlate",
+          "ReversableCommand": {
+            "Name": "TimedStaminaRegen",
+            "StaminaRegenDecrease": 20,
+            "IsApplied": true,
+            "Factor": 5
+          },
+          "OnMap": false,
+          "EquipType": "ARMOUR"
         }
-      ]
+      }
     },
     "X": 3,
     "Y": 2
@@ -559,7 +573,7 @@
           "Inventory": [],
           "Equipment": {
             "WeaponItems": [],
-            "WearableItems": []
+            "WearableItems": {}
           },
           "X": 1,
           "Y": 1
@@ -636,7 +650,7 @@
                 "Type": "Weapon",
                 "Name": "ParalyzeSpell",
                 "Command": {
-                  "Name": "Paralyze",
+                  "Name": "ModifyHealth",
                   "Level": 1,
                   "SkillType": "ENCHANTMENT",
                   "Effectiveness": 50
@@ -647,18 +661,32 @@
                 "OnMap": false
               }
             ],
-            "WearableItems": [
-              {
+            "WearableItems": {
+              "RING": {
                 "Type": "Wearable",
                 "Name": "Ring",
-                "ReversibleCommand": {
+                "ReversableCommand": {
                   "Name": "TimedStaminaRegen",
                   "StaminaRegenDecrease": 20,
-                  "IsApplied": true
+                  "IsApplied": true,
+                  "Factor": 5
                 },
-                "OnMap": false
+                "OnMap": false,
+                "EquipType": "RING"
+              },
+              "ARMOUR": {
+                "Type": "Wearable",
+                "Name": "BreastPlate",
+                "ReversableCommand": {
+                  "Name": "TimedStaminaRegen",
+                  "StaminaRegenDecrease": 20,
+                  "IsApplied": true,
+                  "Factor": 5
+                },
+                "OnMap": false,
+                "EquipType": "ARMOUR"
               }
-            ]
+            }
           },
           "X": 3,
           "Y": 2

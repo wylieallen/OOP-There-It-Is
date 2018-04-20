@@ -24,7 +24,7 @@ public abstract class EntityController implements Visitable{
     private Vehicle mount;
 
     public EntityController(Entity entity, Equipment equipment,
-                            Coordinate entityLocation, ArrayList<ControllerAction> actions) {
+                            Coordinate entityLocation, List<ControllerAction> actions) {
         this.controlledEntity = entity;
         this.equipment = equipment;
         this.entityLocation = entityLocation;
