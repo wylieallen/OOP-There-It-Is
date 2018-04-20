@@ -10,6 +10,7 @@ import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.*;
+import items.InteractiveItem;
 import items.Item;
 import items.OneshotItem;
 import items.takeableitems.*;
@@ -357,6 +358,8 @@ public class LoadingParser {
     private Item loadItem(JSONObject itemJson) {
         if (itemJson.getString("Type").equals("OneShot"))
             return loadOneShotItem(itemJson);
+        else if (itemJson.getString("Type").equals("Interactive"))
+            return loadInteractiveItem(itemJson);
         else if (itemJson.getString("Type").equals("Quest"))
             return loadQuestItem(itemJson);
         else if (itemJson.getString("Type").equals("Consumable"))
@@ -378,6 +381,12 @@ public class LoadingParser {
         Command command = loadCommand(itemJson.getJSONObject("Command"));
         Boolean isActive = itemJson.getBoolean("IsActive");
         return new OneshotItem(name, command, !isActive);
+    }
+
+    private Item loadInteractiveItem(JSONObject itemJson) {
+        String name = itemJson.getString("Name");
+        Command command = loadCommand(itemJson.getJSONObject("Command"));
+        return new InteractiveItem(name, command);
     }
 
     private TakeableItem loadTakeableItem(JSONObject itemJson){
