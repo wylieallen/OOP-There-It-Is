@@ -5,7 +5,7 @@ import savingloading.Visitor;
 
 public enum Terrain implements MoveLegalityChecker{
 
-    GRASS, WATER, MOUNTAIN;
+    GRASS, WATER, MOUNTAIN, SPACE;
 
     @Override
     public boolean canMoveHere(Entity e) {
