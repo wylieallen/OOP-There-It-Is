@@ -228,6 +228,8 @@ public class EntityStats implements Visitable {
         return compatibleTerrains.contains(t);
     }
 
+    public Set <Terrain> getCompatibleTerrains () { return compatibleTerrains; }
+
     public Map<SkillType, Integer> getSkills() {
         return skills;
     }

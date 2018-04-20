@@ -44,7 +44,7 @@ public class EquipmentTest {
         ArrayList <EntityInteraction> actorActorInteractions = new ArrayList<>();
         //EntityController actorController = new HumanEntityController(null, null, null, null, null);
 
-        Entity e = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, inventory, true, new ArrayList<>());
+        Entity e = new Entity(new Vector(Direction.N, 0), actorStats, actorEffects, actorActorInteractions, inventory, true);
 
         equipment = new Equipment(wearables, weapons, 5, inventory, e);
 

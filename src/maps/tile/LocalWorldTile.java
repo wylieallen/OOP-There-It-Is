@@ -37,10 +37,6 @@ public class LocalWorldTile extends Tile {
         trajectoryModifiers.add(tm);
     }
 
-    public void addMLC(MoveLegalityChecker mlc){
-        super.addMLC(mlc);
-    }
-
     public void addEI(EntityImpactor ei){
         entityImpactors.add(ei);
     }

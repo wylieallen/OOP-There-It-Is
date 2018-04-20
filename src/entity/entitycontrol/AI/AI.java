@@ -37,7 +37,7 @@ public abstract class AI implements Visitable {
         return path.getOrDefault(c, Direction.N);
     }
 
-    protected final void setPath (Coordinate start, Coordinate end, List <Terrain> compatible, Map <Coordinate, LocalWorldTile> map) {
+    protected final void setPath (Coordinate start, Coordinate end, Set <Terrain> compatible, Map <Coordinate, LocalWorldTile> map) {
 
         if (!map.containsKey(end) || !map.containsKey(start)) {
             System.out.println("Incorrect End or Start Point, check your AI's.");

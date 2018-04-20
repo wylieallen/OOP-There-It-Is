@@ -2,32 +2,25 @@ package gameview;
 
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
-import entity.entitymodel.EntityStats;
 import entity.entitymodel.Equipment;
 import entity.entitymodel.Inventory;
 import gameobject.GameObject;
-import gameobject.GameObjectContainer;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
-import guiframework.displayable.CompositeDisplayable;
 import guiframework.displayable.Displayable;
+import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
-import maps.tile.Tile;
 import maps.world.Game;
 import maps.world.LocalWorld;
 import maps.world.OverWorld;
 import maps.world.World;
 import utilities.Coordinate;
-import utilities.Vector;
 
-import java.util.List;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
 
 public class GameViewMaker
 {
@@ -51,16 +44,20 @@ public class GameViewMaker
 
         // Manual approach:
 
-        OverWorldTile tile = new OverWorldTile(new HashSet<>(), null);
-        tile.addMLC(Terrain.GRASS);
+        Set<MoveLegalityChecker> mlc = new HashSet<>();
+
+        mlc.add(Terrain.GRASS);
+        OverWorldTile tile = new OverWorldTile(mlc, null);
         overworldMap.put(new Coordinate(0, 0), tile);
 
-        OverWorldTile tile2 = new OverWorldTile(new HashSet<>(), null);
-        tile2.addMLC(Terrain.WATER);
+        mlc = new HashSet<>();
+        mlc.add(Terrain.WATER);
+        OverWorldTile tile2 = new OverWorldTile(mlc, null);
         overworldMap.put(Direction.NE.getOffsetCoordinate(), tile2);
 
-        OverWorldTile tile3 = new OverWorldTile(new HashSet<>(), null);
-        tile3.addMLC(Terrain.MOUNTAIN);
+        mlc = new HashSet<>();
+        mlc.add(Terrain.WATER);
+        OverWorldTile tile3 = new OverWorldTile(mlc, null);
         overworldMap.put(Direction.S.getOffsetCoordinate(), tile3);
 
 
@@ -157,8 +154,9 @@ public class GameViewMaker
                 Coordinate newCoord = c.add(d.getOffsetCoordinate());//new Coordinate(c.getX() + d.getDx(), c.getY() + d.getDy());
                 if(!map.containsKey(newCoord))
                 {
-                    OverWorldTile newTile = new OverWorldTile(new HashSet<>(), null);
-                    newTile.addMLC(terrain);
+                    Set <MoveLegalityChecker> mlc = new HashSet<>();
+                    mlc.add(terrain);
+                    OverWorldTile newTile = new OverWorldTile(mlc, null);
                     map.put(newCoord, newTile);
                 }
             }

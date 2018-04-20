@@ -4,10 +4,10 @@ import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
+import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
-import maps.tile.Tile;
 import maps.world.LocalWorld;
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,13 +23,14 @@ public class TerrainTests {
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), null, new HashSet<>(), new HashSet<>());
+                Set <MoveLegalityChecker> mlc = new HashSet<>();
+                LocalWorldTile tile = new LocalWorldTile(mlc, null, new HashSet<>(), new HashSet<>());
                 if(i == 2 && j == 0){
-                    tile.addMLC(Terrain.WATER);
+                    mlc.add(Terrain.WATER);
                 } else if (i == 1 && j == 1) {
-                    tile.addMLC(Terrain.MOUNTAIN);
+                    mlc.add(Terrain.MOUNTAIN);
                 } else {
-                    tile.addMLC(Terrain.GRASS);
+                    mlc.add(Terrain.GRASS);
                 }
                 tiles.put(new Coordinate(i, j), tile);
             }

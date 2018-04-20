@@ -1,7 +1,7 @@
 package maps.entityimpaction;
 
-import entity.entitymodel.Entity;
 import commands.Command;
+import entity.entitymodel.Entity;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import savingloading.Visitor;
 import skills.SkillType;

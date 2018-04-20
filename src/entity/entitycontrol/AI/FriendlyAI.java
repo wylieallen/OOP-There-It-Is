@@ -36,7 +36,7 @@ public class FriendlyAI extends AI {
         e.setMoving();
 
     }
-    
+
     private boolean hasPath () { return hasPath; }
 
     @Override

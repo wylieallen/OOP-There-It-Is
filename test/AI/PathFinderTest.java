@@ -23,13 +23,13 @@ public class PathFinderTest {
     private static Coordinate start;
     private static Coordinate end;
 
-    private static List<Terrain> grass = new ArrayList <> ();
-    private static List<Terrain> mountain = new ArrayList <> ();
-    private static List<Terrain> water = new ArrayList <> ();
-    private static List<Terrain> grass_mountain = new ArrayList <> ();
-    private static List<Terrain> grass_water = new ArrayList <> ();
-    private static List<Terrain> mountain_water = new ArrayList <> ();
-    private static List<Terrain> grass_mountain_water = new ArrayList <> ();
+    private static Set<Terrain> grass = new HashSet<>();
+    private static Set<Terrain> mountain = new HashSet<>();
+    private static Set<Terrain> water = new HashSet<>();
+    private static Set<Terrain> grass_mountain = new HashSet<>();
+    private static Set<Terrain> grass_water = new HashSet<>();
+    private static Set<Terrain> mountain_water = new HashSet<>();
+    private static Set<Terrain> grass_mountain_water = new HashSet<>();
 
     @BeforeClass
     public static void setUpMap () {
@@ -61,21 +61,21 @@ public class PathFinderTest {
         grass_mountain_water.add(Terrain.WATER);
 
 
-        LocalWorldTile grass0 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
-        LocalWorldTile grass1 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
-        LocalWorldTile grass2 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
-        LocalWorldTile grass3 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
-        LocalWorldTile grass4 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
-        LocalWorldTile grass5 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
-        LocalWorldTile grass6 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
-        LocalWorldTile grass7 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
-        LocalWorldTile grass8 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
-        LocalWorldTile grass9 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
-        LocalWorldTile grass10 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
-        LocalWorldTile water0 = new LocalWorldTile(mlc_water, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
-        LocalWorldTile water1 = new LocalWorldTile(mlc_water, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
-        LocalWorldTile mountain0 = new LocalWorldTile(mlc_mountain, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
-        LocalWorldTile mountain1 = new LocalWorldTile(mlc_mountain, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false, null), null, null);
+        LocalWorldTile grass0 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass1 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass2 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass3 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass4 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass5 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass6 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass7 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass8 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass9 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass10 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile water0 = new LocalWorldTile(mlc_water, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile water1 = new LocalWorldTile(mlc_water, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile mountain0 = new LocalWorldTile(mlc_mountain, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile mountain1 = new LocalWorldTile(mlc_mountain, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
 
 
         map.put(new Coordinate(-2, 0), grass0);
@@ -120,7 +120,7 @@ public class PathFinderTest {
         start = new Coordinate(-1, -1);
         end = new Coordinate(0, 0);
 
-        HashMap <Coordinate, Direction> path = PathFinder.createLocalPath(start, end, new ArrayList<Terrain>(), map);
+        HashMap <Coordinate, Direction> path = PathFinder.createLocalPath(start, end, new HashSet<>(), map);
         Assert.assertTrue(path.isEmpty());
     }
 

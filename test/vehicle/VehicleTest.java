@@ -174,9 +174,9 @@ public class VehicleTest {
             public void enrage(Entity e) {}
         };*/
 
-        actor = new Entity(new Vector(Direction.N, 1), actorStats, actorActions, actorEffects, actorActorInteractions, new Inventory(), true, new ArrayList<>());
-        yourMomPreMounted = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, new Inventory(), true, actor, new ArrayList<>());
-        yourMomNotMountedYet = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, new Inventory(), true, new ArrayList<>());
+        actor = new Entity(new Vector(Direction.N, 1), actorStats, actorActions, actorEffects, actorActorInteractions, new Inventory(), true);
+        yourMomPreMounted = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, new Inventory(), true, actor);
+        yourMomNotMountedYet = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, new Inventory(), true);
 
 
         EntityController actorController = new HumanEntityController(actor,null,
