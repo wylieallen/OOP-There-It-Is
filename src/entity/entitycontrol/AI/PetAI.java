@@ -45,7 +45,7 @@ public class PetAI extends AI {
                 setPath(location, mastersPosition, e.getCompatibleTerrains(), map);
                 hasPath = true;
             } else if (!hasPath || myLastPosition.equals(location)) {
-                Coordinate targetPosition = findItem(map, location, maxDistanceFromMaster - distance);
+                Coordinate targetPosition = findItem(map, location);
 
                 if (targetPosition == null) {
                     targetPosition = getNextCoordinate(map.keySet(), e);
@@ -65,8 +65,7 @@ public class PetAI extends AI {
 
     }
 
-    private Coordinate findItem (Map <Coordinate, LocalWorldTile> map, Coordinate myLocation, int searchDistance) {
-        // check neighboring tiles for items only
+    private Coordinate findItem(Map<Coordinate, LocalWorldTile> map, Coordinate myLocation) {
 
         List <Coordinate> points = new ArrayList<>();
 
