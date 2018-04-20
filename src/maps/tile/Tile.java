@@ -134,4 +134,8 @@ public abstract class Tile implements GameObjectContainer, Visitable {
         return terrain;
     }
 
+    public boolean checkTerrainCompatibliity (Terrain t) {
+        return terrain.equals(t);
+    }
+
 }

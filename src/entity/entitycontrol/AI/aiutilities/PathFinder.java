@@ -89,7 +89,7 @@ public class PathFinder {
 
         if (tile != null) {
             for (Terrain t : compatiblle) {
-                if (tile.getMoveLegalityCheckers().contains(t)) {
+                if (tile.checkTerrainCompatibliity(t)) {
                     return true;
                 }
             }

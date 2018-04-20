@@ -381,7 +381,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     public void accept(Visitor v) {
         v.visitEntity(this);
     }
-    
+
     public boolean tryToAttack(long attackSpeed) {
         return stats.tryToAttack(attackSpeed);
     }

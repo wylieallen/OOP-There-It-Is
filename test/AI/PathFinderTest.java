@@ -2,17 +2,19 @@ package AI;
 
 import entity.entitycontrol.AI.aiutilities.PathFinder;
 import entity.entitymodel.Entity;
-import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import utilities.*;
+import utilities.Coordinate;
 import utilities.Vector;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by dontf on 4/19/2018.
@@ -34,13 +36,6 @@ public class PathFinderTest {
     @BeforeClass
     public static void setUpMap () {
 
-        Set <MoveLegalityChecker> mlc_grass = new HashSet<>();
-        mlc_grass.add(Terrain.GRASS);
-        Set <MoveLegalityChecker> mlc_mountain = new HashSet<>();
-        mlc_mountain.add(Terrain.MOUNTAIN);
-        Set <MoveLegalityChecker> mlc_water = new HashSet<>();
-        mlc_water.add(Terrain.WATER);
-
         grass.add(Terrain.GRASS);
 
         mountain.add(Terrain.MOUNTAIN);
@@ -61,21 +56,21 @@ public class PathFinderTest {
         grass_mountain_water.add(Terrain.WATER);
 
 
-        LocalWorldTile grass0 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass1 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass2 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass3 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass4 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass5 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass6 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass7 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass8 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass9 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass10 = new LocalWorldTile(mlc_grass, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile water0 = new LocalWorldTile(mlc_water, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile water1 = new LocalWorldTile(mlc_water, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile mountain0 = new LocalWorldTile(mlc_mountain, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile mountain1 = new LocalWorldTile(mlc_mountain, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass0 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass1 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass2 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass3 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass4 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass5 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass6 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass7 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass8 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass9 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass10 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile water0 = new LocalWorldTile(new HashSet<> (), Terrain.WATER, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile water1 = new LocalWorldTile(new HashSet<> (), Terrain.WATER, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile mountain0 = new LocalWorldTile(new HashSet<> (), Terrain.MOUNTAIN, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile mountain1 = new LocalWorldTile(new HashSet<> (), Terrain.MOUNTAIN, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
 
 
         map.put(new Coordinate(-2, 0), grass0);
