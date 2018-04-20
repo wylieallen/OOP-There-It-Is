@@ -17,24 +17,24 @@ public class circularOffsetMakerTests {
 
     @Test
     public void testCircleMaker() {
-        circularOffsetPointsMaker lineMaker = new circularOffsetPointsMaker();
+        circularOffsetPointsMaker circleMaker = new circularOffsetPointsMaker();
 
         Direction direction = Direction.N;
 
         int radius = 0;
-        List<Coordinate> offsets = lineMaker.getOffsetPoints(direction, radius);
+        List<Coordinate> offsets = circleMaker.getOffsetPoints(direction, radius);
         Assert.assertEquals(1,offsets.size());
         Assert.assertTrue(containsRadiusZeroPoints(offsets));
 
         radius = 1;
-        offsets = lineMaker.getOffsetPoints(direction, radius);
+        offsets = circleMaker.getOffsetPoints(direction, radius);
         Assert.assertEquals(7,offsets.size());
         Assert.assertTrue(containsRadiusZeroPoints(offsets));
         Assert.assertTrue(containsRadiusOnePoints(offsets));
 
 
         radius = 2;
-        offsets = lineMaker.getOffsetPoints(direction, radius);
+        offsets = circleMaker.getOffsetPoints(direction, radius);
         Assert.assertEquals(19,offsets.size());
         Assert.assertTrue(containsRadiusZeroPoints(offsets));
         Assert.assertTrue(containsRadiusOnePoints(offsets));
