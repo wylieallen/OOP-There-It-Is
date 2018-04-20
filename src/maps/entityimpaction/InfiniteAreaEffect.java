@@ -2,13 +2,12 @@ package maps.entityimpaction;
 
 import commands.Command;
 import entity.entitymodel.Entity;
-import maps.entityimpaction.AreaEffect;
 import savingloading.Visitor;
 
 public class InfiniteAreaEffect extends AreaEffect {
 
-    public InfiniteAreaEffect(Command command) {
-        super(command);
+    public InfiniteAreaEffect(Command command, String name) {
+        super(command, name);
     }
 
     public void touch(Entity entity) {

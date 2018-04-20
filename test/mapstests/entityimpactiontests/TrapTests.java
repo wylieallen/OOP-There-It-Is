@@ -37,7 +37,7 @@ public class TrapTests {
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
         Entity entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
-                null, true);
+                null, true, "Default");
 
         EntityController entityController = new HumanEntityController(entity, null,
                 new Coordinate(2, 2), null, null);
@@ -94,7 +94,7 @@ public class TrapTests {
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
         Entity entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
-                null, true);
+                null, true, "Default");
 
 
         EntityController entityController = new HumanEntityController(entity, null,

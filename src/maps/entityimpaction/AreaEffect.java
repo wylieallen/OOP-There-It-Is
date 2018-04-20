@@ -2,13 +2,13 @@ package maps.entityimpaction;
 
 import entity.entitymodel.Entity;
 import commands.Command;
-import maps.entityimpaction.EntityImpactor;
 
 public abstract class AreaEffect implements EntityImpactor {
 
     private Command command;
+    private String name;
 
-    public AreaEffect(Command command) {
+    public AreaEffect(Command command, String name) {
         this.command = command;
     }
 
@@ -25,5 +25,9 @@ public abstract class AreaEffect implements EntityImpactor {
 
     public Command getCommand() {
         return command;
+    }
+
+    public String name(){
+        return name;
     }
 }

@@ -6,10 +6,6 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
-import entity.entitycontrol.EntityController;
-import maps.tile.Direction;
-import actions.Action;
-import commands.TimedEffect;
 import savingloading.Visitor;
 import utilities.Vector;
 
@@ -32,7 +28,7 @@ public class Vehicle extends Entity {
                    boolean isOnMap,
                    Entity driver)
     {
-        super(movementVector, stats, effects, actorInteractions, inventory, isOnMap);
+        super(movementVector, stats, effects, actorInteractions, inventory, isOnMap, "Default");
         this.driver = driver;
     }
 
@@ -57,7 +53,7 @@ public class Vehicle extends Entity {
                    Inventory inventory,
                    boolean isOnMap)
     {
-        super(vector, stats, effects, actorInteractions, inventory, isOnMap);
+        super(vector, stats, effects, actorInteractions, inventory, isOnMap, "Default");
         this.driver = null;
     }
 

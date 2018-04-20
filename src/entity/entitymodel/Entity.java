@@ -15,7 +15,6 @@ import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import skills.SkillType;
-import utilities.Coordinate;
 import utilities.Vector;
 
 import java.util.ArrayList;
@@ -40,6 +39,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     private EntityController controller;
     private Inventory inventory;
     private boolean onMap;
+    private String name;
 
     public Entity()
     {
@@ -54,7 +54,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
                   //This will be set by the AI instead
                   //List<EntityInteraction> acteeInteractions,
                   Inventory inventory,
-                  boolean onMap)
+                  boolean onMap, String name)
     {
         this.movementVector = movementVector;
         this.stats = stats;
@@ -65,6 +65,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         this.inventory = inventory;
         this.onMap = onMap;
         this.facing = movementVector.getDirection();
+        this.name = name;
     }
 
     // I kept this constructor for testing, but actions will be set later now
@@ -369,6 +370,10 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
 
     public Inventory getInventory(){
         return inventory;
+    }
+
+    public String getName(){
+        return name;
     }
 
     @Override

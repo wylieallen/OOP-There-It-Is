@@ -87,6 +87,7 @@ public class SaveVisitor implements Visitor {
             currentEntityJson.getJSONArray("ActeeInteractions").put(interactionsQueue.remove());
         }
         e.getInventory().accept(this);
+        currentEntityJson.put("Name", e.getName());
     }
 
     @Override
@@ -533,6 +534,7 @@ public class SaveVisitor implements Visitor {
     public void visitInfiniteAreaEffect(InfiniteAreaEffect infiniteAreaEffect) {
         JSONObject areaEffectJson = new JSONObject();
         areaEffectJson.put("Type", "Infinite");
+        areaEffectJson.put("Name", infiniteAreaEffect.name());
         infiniteAreaEffect.getCommand().accept(this);
         areaEffectJson.put("Command", currentCommandJson);
         currentTileJson.put("AreaEffect", areaEffectJson);
@@ -542,6 +544,7 @@ public class SaveVisitor implements Visitor {
     public void visitOneShotAreaEffect(OneShotAreaEffect oneShotAreaEffect) {
         JSONObject areaEffectJson = new JSONObject();
         areaEffectJson.put("Type", "OneShot");
+        areaEffectJson.put("Name", oneShotAreaEffect.name());
         oneShotAreaEffect.getCommand().accept(this);
         areaEffectJson.put("Command", currentCommandJson);
         areaEffectJson.put("HasFired", oneShotAreaEffect.shouldBeRemoved());
