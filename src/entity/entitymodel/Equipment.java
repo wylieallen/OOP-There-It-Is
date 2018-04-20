@@ -1,11 +1,13 @@
 package entity.entitymodel;
 
+import gameobject.GameObject;
 import items.takeableitems.ConsumableItem;
 import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
 import savingloading.Visitable;
 import savingloading.Visitor;
+import spawning.SpawnObserver;
 import utilities.Coordinate;
 
 import java.util.*;
@@ -22,6 +24,7 @@ public class Equipment implements Visitable {
     private int maxSize;
     private Inventory inventory;
     private Entity entity;
+    private List<SpawnObserver> spawnObservers;
 
     public Equipment(int maxSize, Inventory inventory, Entity entity) {
         this.maxSize = maxSize;
@@ -29,6 +32,7 @@ public class Equipment implements Visitable {
         this.entity = entity;
         this.wearables = new HashMap<>();
         this.weapons = new WeaponItem[defaultWeaponsSize];
+        this.spawnObservers = new ArrayList<>();
     }
 
     public Equipment(Map<EquipSlot,
@@ -43,6 +47,7 @@ public class Equipment implements Visitable {
         this.maxSize = maxSize;
         this.inventory = inventory;
         this.entity = entity;
+        this.spawnObservers = new ArrayList<>();
     }
 
     public void add (WearableItem wearable) {
@@ -74,6 +79,7 @@ public class Equipment implements Visitable {
 
         this.remove(weapons [weapons.length - 1]);
         weapons [weapons.length - 1] = weapon;
+        weapon.setSpawnObservers(spawnObservers);
 
     }
 
@@ -127,4 +133,41 @@ public class Equipment implements Visitable {
     public void accept(Visitor v) {
         v.visitEquipment(this);
     }
+    public boolean has(GameObject o) {
+        if(wearables.values().contains(o)) {
+            return true;
+        } else if (inventory.has(o)) {
+            return true;
+        }
+
+        for(WeaponItem weapon : weapons) {
+            if(weapon == o) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void updateSpawnObservers(SpawnObserver oldObserver, SpawnObserver newObserver) {
+        spawnObservers.remove(oldObserver);
+
+        for(WeaponItem weapon: weapons) {
+            if(weapon != null) {
+                weapon.deregisterObserver(oldObserver);
+            }
+        }
+
+        addSpawnObserver(newObserver);
+    }
+
+    public void addSpawnObserver(SpawnObserver newObserver) {
+        spawnObservers.add(newObserver);
+        for(WeaponItem weapon : weapons) {
+            if(weapon != null) {
+                weapon.registerObserver(newObserver);
+            }
+        }
+    }
+
 }

@@ -19,7 +19,7 @@ public class ModifyStaminaRegenCommand extends SkillCommand {
     protected void success(Entity e, int distance) {
         int adjustedEffectiveness = getSkillType().calculateModification(getEffectiveness(), distance, getLevel());
         TimedEffect effect = new TimedEffect(
-                new TimedStaminaRegenCommand(false, 0, factor), adjustedEffectiveness);
+                new TimedStaminaRegenCommand(false, 0, factor), adjustedEffectiveness * 1000, 0);
         e.addTimedEffect(effect);
     }
 

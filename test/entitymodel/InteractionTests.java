@@ -59,9 +59,9 @@ public class InteractionTests {
         ArrayList<TimedEffect> actorEffects = new ArrayList<>();
         ArrayList<TimedEffect> acteeEffects = new ArrayList<>();
 
-        actorEffects.add(new TimedEffect(new MakeConfusedCommand(false), 10));
+        actorEffects.add(new TimedEffect(new MakeConfusedCommand(false), 10, 0));
 
-        acteeEffects.add(new TimedEffect(new MakeParalyzedCommand(false), 15));
+        acteeEffects.add(new TimedEffect(new MakeParalyzedCommand(false), 15, 0));
 
         ArrayList<EntityInteraction> actorActorInteractions = new ArrayList<>();
         ArrayList<EntityInteraction> actorActeeInteractions = new ArrayList<>();
