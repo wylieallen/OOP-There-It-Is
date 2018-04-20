@@ -32,6 +32,7 @@ public class FriendlyAI extends AI {
 
         lastLocation = location;
         e.setFacing(getNextDirection(location));
+        e.setMoving();
 
     }
 

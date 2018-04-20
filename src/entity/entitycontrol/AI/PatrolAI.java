@@ -44,6 +44,8 @@ public class PatrolAI extends AI {
         }
 
         lastPosition = location;
+        e.setFacing(face);
+        e.setMoving();
 
     }
 

@@ -6,6 +6,7 @@ import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
 import utilities.Coordinate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,18 +27,26 @@ public class HostileAI extends AI {
     public void nextAction(Map<Coordinate, LocalWorldTile> map, Entity e, Coordinate location) {
         //TODO: make it chase and attack the target
 
-        Coordinate targetPosition = findTarget (map);
+        Coordinate targetPosition;
 
-        if (isVisible (targetPosition, location) && (targetsLastPosition == null || !targetsLastPosition.equals(targetPosition))) {
-            setPath(location, targetPosition, e.getCompatibleTerrains(), map);
-            targetsLastPosition = targetPosition;
-        } else if (targetsLastPosition == null || myLastPosition.equals(location)) {
-            Coordinate end = getNextCoordinate(map.keySet(), e);
-            setPath(location, end, e.getCompatibleTerrains(), map);
+        if (target != null) {
+            targetPosition = findTarget(map);
+
+            if (isVisible(targetPosition, location) && (targetsLastPosition == null || !targetsLastPosition.equals(targetPosition))) {
+                setPath(location, targetPosition, e.getCompatibleTerrains(), map);
+                targetsLastPosition = targetPosition;
+            } else if (targetsLastPosition == null || myLastPosition.equals(location)) {
+                Coordinate end = getNextCoordinate(map.keySet(), e);
+                setPath(location, end, e.getCompatibleTerrains(), map);
+            }
+        } else {
+           targetPosition = findNewTarget (map);
+           setPath(location, targetPosition, e.getCompatibleTerrains(), map);
         }
 
         myLastPosition = location;
         e.setFacing(getNextDirection(location));
+        e.setMoving();
 
     }
 
@@ -53,5 +62,24 @@ public class HostileAI extends AI {
         }
 
         return targetsLastPosition;
+    }
+
+    private Coordinate findNewTarget (Map <Coordinate, LocalWorldTile> map) {
+
+        List <Coordinate> points = new ArrayList<>();
+
+        for (Direction d : Direction.values()) {
+            points.add(myLastPosition.getNeighbor(d));
+        }
+
+        for (Coordinate c : points) {
+            if (map.containsKey(c)) {
+                if ((target = map.get(c).getEntity()) != null) {
+                    return c;
+                }
+            }
+        }
+
+        return points.get(0);
     }
 }

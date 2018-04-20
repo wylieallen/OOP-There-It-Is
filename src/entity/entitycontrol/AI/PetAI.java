@@ -32,27 +32,35 @@ public class PetAI extends AI {
     @Override
     public void nextAction(Map<Coordinate, LocalWorldTile> map, Entity e, Coordinate location) {
 
-        Coordinate mastersPosition = findMaster(map);
-        int distance = location.distance(mastersPosition);
+        if (master != null) {
+            Coordinate mastersPosition = findMaster(map);
+            int distance = location.distance(mastersPosition);
 
-        if (distance <= 2) { hasPath = false; }
-
-        if (distance > maxDistanceFromMaster) {
-            setPath(location, mastersPosition, e.getCompatibleTerrains(), map);
-            hasPath = true;
-        } else if (!hasPath || myLastPosition.equals(location)) {
-            Coordinate targetPosition = findItem(map, location, maxDistanceFromMaster - distance);
-
-            if (targetPosition == null) {
-                targetPosition = getNextCoordinate(map.keySet(), e);
+            if (distance <= 2) {
+                hasPath = false;
             }
 
-            setPath(location, targetPosition, e.getCompatibleTerrains(), map);
-            hasPath = true;
+            if (distance > maxDistanceFromMaster) {
+                setPath(location, mastersPosition, e.getCompatibleTerrains(), map);
+                hasPath = true;
+            } else if (!hasPath || myLastPosition.equals(location)) {
+                Coordinate targetPosition = findItem(map, location, maxDistanceFromMaster - distance);
+
+                if (targetPosition == null) {
+                    targetPosition = getNextCoordinate(map.keySet(), e);
+                }
+
+                setPath(location, targetPosition, e.getCompatibleTerrains(), map);
+                hasPath = true;
+            }
+        } else {
+            mastersLastPosition = findNewMaster (map);
+            setPath(location, mastersLastPosition, e.getCompatibleTerrains(), map);
         }
 
         myLastPosition = location;
         e.setFacing(getNextDirection(location));
+        e.setMoving();
 
     }
 
@@ -82,5 +90,24 @@ public class PetAI extends AI {
         }
 
         return mastersLastPosition;
+    }
+
+    private Coordinate findNewMaster (Map <Coordinate, LocalWorldTile> map) {
+
+        List <Coordinate> points = new ArrayList<>();
+
+        for (Direction d : Direction.values()) {
+            points.add(myLastPosition.getNeighbor(d));
+        }
+
+        for (Coordinate c : points) {
+            if (map.containsKey(c)) {
+                if ((master = map.get(c).getEntity()) != null) {
+                    return c;
+                }
+            }
+        }
+
+        return points.get(0);
     }
 }

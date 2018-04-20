@@ -324,4 +324,8 @@ public class Entity implements GameObject, MoveLegalityChecker {
         return compatibleTerrains;
     }
 
+    public boolean isCompatible (Terrain t) {
+        return compatibleTerrains.contains(t);
+    }
+
 }
