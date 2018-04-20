@@ -45,6 +45,10 @@ public abstract class SkillCommand implements Command, Visitable {
         return effectiveness;
     }
 
+    public void setLevel(int newLevel) {
+        level = newLevel;
+    }
+
     public SkillType getSkillType() {
         return this.skillType;
     }

@@ -16,10 +16,12 @@ import entity.entitymodel.*;
 import entity.entitymodel.interactions.*;
 import entity.vehicle.Vehicle;
 import items.InteractiveItem;
+import items.InteractiveItem;
 import items.Item;
 import items.OneshotItem;
 import items.takeableitems.*;
 import maps.Influence.InfluenceArea;
+import maps.Influence.InfluenceType;
 import maps.entityimpaction.*;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Obstacle;
@@ -37,7 +39,6 @@ import maps.world.OverWorld;
 import maps.world.World;
 import org.json.*;
 import skills.SkillType;
-import spawning.SpawnEvent;
 import utilities.Coordinate;
 import utilities.Vector;
 
@@ -128,7 +129,7 @@ public class LoadingParser {
                     tile.setEntity(entity);
                 }
             }
-            LocalWorld localWorld = new LocalWorld(localWorldTiles, new HashSet<InfluenceArea>(), new ArrayList<SpawnEvent>());
+            LocalWorld localWorld = new LocalWorld(localWorldTiles, new HashSet<InfluenceArea>());
             localWorlds.add(localWorld);
             idMappings.put(localWorldId, localWorld);
         }
@@ -166,8 +167,9 @@ public class LoadingParser {
             Set<MoveLegalityChecker> moveLegalityCheckers = new HashSet<MoveLegalityChecker>();
             Set<TrajectoryModifier> trajectoryModifiers = new HashSet<TrajectoryModifier>();
             Set<EntityImpactor> entityImpactors = new HashSet<EntityImpactor>();
+            Terrain terrain = null;
             if (tileJson.has("Terrain")){
-                moveLegalityCheckers.add(loadTerrain(tileJson.getString("Terrain")));
+                terrain = loadTerrain(tileJson.getString("Terrain"));
             }
             if (tileJson.has("Obstacle")){
                 moveLegalityCheckers.add(new Obstacle());
@@ -189,7 +191,7 @@ public class LoadingParser {
                     entityImpactors.add(item);
                 }
             }
-            LocalWorldTile tile = new LocalWorldTile(moveLegalityCheckers, null, trajectoryModifiers, entityImpactors);
+            LocalWorldTile tile = new LocalWorldTile(moveLegalityCheckers, terrain, null, trajectoryModifiers, entityImpactors);
             tiles.put(coordinate, tile);
         }
         return tiles;
@@ -229,7 +231,9 @@ public class LoadingParser {
 
     private InfiniteAreaEffect loadInfiniteAreaEffect(JSONObject areaEffectJson) {
         Command command = loadCommand(areaEffectJson.getJSONObject("Command"));
-        return new InfiniteAreaEffect(command);
+        long triggerInterval = areaEffectJson.getLong("TriggerInterval");
+        long lastTriggerTime = areaEffectJson.getLong("LastTriggerTime");
+        return new InfiniteAreaEffect(command, triggerInterval, lastTriggerTime);
     }
 
     private Map<Coordinate, OverWorldTile> loadOverWorldTiles(JSONArray tilesJson) {
@@ -238,13 +242,14 @@ public class LoadingParser {
             JSONObject tileJson = (JSONObject) tileJsonObj;
             Coordinate coordinate = new Coordinate(tileJson.getInt("X"), tileJson.getInt("Y"));
             Set<MoveLegalityChecker> moveLegalityCheckers = new HashSet<MoveLegalityChecker>();
+            Terrain terrain = null;
             if (tileJson.has("Terrain")){
-                moveLegalityCheckers.add(loadTerrain(tileJson.getString("Terrain")));
+                terrain = loadTerrain(tileJson.getString("Terrain"));
             }
             if (tileJson.has("Obstacle")){
                 moveLegalityCheckers.add(new Obstacle());
             }
-            tiles.put(coordinate, new OverWorldTile(moveLegalityCheckers, null));
+            tiles.put(coordinate, new OverWorldTile(moveLegalityCheckers, terrain, null));
         }
         return tiles;
     }
@@ -389,6 +394,7 @@ public class LoadingParser {
         }
         int maxSize = 10; // ?
         WeaponItem[] weaponItemsArray = weaponItems.toArray(new WeaponItem[0]);
+        //TODO: reintialize list of spawn observers
         return new Equipment(wearableItems, weaponItemsArray, maxSize, inventory, entity);
     }
 
@@ -456,8 +462,30 @@ public class LoadingParser {
     }
 
     private WeaponItem loadWeaponItem(JSONObject itemJson) {
-        return new WeaponItem(itemJson.getString("Name"), itemJson.getBoolean("OnMap"), loadCommand(itemJson.getJSONObject("Command")),
-                itemJson.getInt("Damage"), itemJson.getInt("AttackSpeed"), loadSkillType(itemJson.getString("RequiredSkill")));
+        //TODO reinitialize spawn observers
+        return new WeaponItem(itemJson.getString("Name"),
+                            itemJson.getBoolean("OnMap"),
+                            itemJson.getInt("Damage"),
+                            itemJson.getInt("AttackSpeed"),
+                            loadSkillType(itemJson.getString("RequiredSkill")),
+                            itemJson.getInt("MaxRadius"),
+                            itemJson.getLong("ExpansionInterval"),
+                            itemJson.getLong("UpdateInterval"),
+                            loadInfluenceType(itemJson.getString("InfluenceType")),
+                            loadSkillCommand(itemJson.getJSONObject("Command")));
+
+    }
+
+    private InfluenceType loadInfluenceType(String type) {
+        switch(type) {
+            case "LINEARINFLUENCE":
+                return InfluenceType.LINEARINFLUENCE;
+            case "ANGULARINFLUENCE":
+                return InfluenceType.ANGULARINFLUENCE;
+            case "CIRCULARINFLUENCE":
+                return InfluenceType.CIRCULARINFLUENCE;
+        }
+        return InfluenceType.LINEARINFLUENCE;
     }
 
     private WearableItem loadWearableItem(JSONObject itemJson) {
@@ -468,7 +496,13 @@ public class LoadingParser {
     private Command loadCommand(JSONObject commandJson) {
         if (commandJson.getString("Name").equals("Transition"))
             return loadTransitionCommand(commandJson);
-        else if (commandJson.getString("Name").equals("Confuse"))
+        else {
+            return loadSkillCommand(commandJson);
+        }
+    }
+
+    private SkillCommand loadSkillCommand(JSONObject commandJson) {
+        if (commandJson.getString("Name").equals("Confuse"))
             return loadConfuseCommand(commandJson);
         else if (commandJson.getString("Name").equals("MakeFriendly"))
             return loadMakeFriendlyCommand(commandJson);

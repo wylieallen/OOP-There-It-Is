@@ -15,6 +15,7 @@ import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import skills.SkillType;
+import spawning.SpawnObserver;
 import utilities.Coordinate;
 import utilities.Vector;
 
@@ -374,5 +375,21 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     @Override
     public void accept(Visitor v) {
         v.visitEntity(this);
+    }
+
+    public boolean tryToAttack(long attackSpeed) {
+        return stats.tryToAttack(attackSpeed);
+    }
+
+    public boolean has(GameObject o) {
+        if(controller.has(o)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void updateSpawnObservers(SpawnObserver oldObserver, SpawnObserver newObserver) {
+        controller.updateSpawnObservers(oldObserver, newObserver);
     }
 }
