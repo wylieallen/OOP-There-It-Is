@@ -20,9 +20,9 @@ public class OverWorldTile extends Tile {
         encounter = null;
     }
 
-    public OverWorldTile(Set<MoveLegalityChecker> moveLegalityCheckers, Entity entity, EntityImpactor encounter)
+    public OverWorldTile(Set<MoveLegalityChecker> moveLegalityCheckers, Terrain terrain, Entity entity, EntityImpactor encounter)
     {
-        super(moveLegalityCheckers, entity);
+        super(moveLegalityCheckers, terrain, entity);
         this.encounter = encounter;
     }
 
