@@ -6,10 +6,6 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
-import entity.entitycontrol.EntityController;
-import maps.tile.Direction;
-import actions.Action;
-import commands.TimedEffect;
 import savingloading.Visitor;
 import utilities.Vector;
 

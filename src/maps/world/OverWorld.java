@@ -5,7 +5,6 @@ import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import maps.Influence.InfluenceArea;
 import maps.movelegalitychecker.MoveLegalityChecker;
-import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
 import maps.tile.Tile;
