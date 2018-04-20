@@ -6,6 +6,7 @@ import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import items.InteractiveItem;
+import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
 import maps.tile.OverWorldTile;
@@ -27,14 +28,15 @@ public class InteractiveItemTests {
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                tiles.put(new Coordinate(i, j), new LocalWorldTile(new HashSet<>(), null, new HashSet<>(), new HashSet<>()));
+                tiles.put(new Coordinate(i, j), new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>()));
             }
         }
-        LocalWorld world = new LocalWorld(tiles, new HashSet<>(), new ArrayList<>());
+        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
         EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false);
+        entityStats.addCompatibleTerrain(Terrain.GRASS);
         Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
                 null, true);
 
@@ -46,15 +48,15 @@ public class InteractiveItemTests {
         Map<Coordinate, LocalWorldTile> tiles2 = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                tiles2.put(new Coordinate(i, j), new LocalWorldTile(new HashSet<>(), null, new HashSet<>(), new HashSet<>()));
+                tiles2.put(new Coordinate(i, j), new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>()));
             }
         }
-        LocalWorld world2 = new LocalWorld(tiles2, new HashSet<>(), new ArrayList<>());
+        LocalWorld world2 = new LocalWorld(tiles2, new HashSet<>());
 
         Map<Coordinate, OverWorldTile> tiles3 = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                tiles3.put(new Coordinate(i, j), new OverWorldTile(new HashSet<>(), null));
+                tiles3.put(new Coordinate(i, j), new OverWorldTile(new HashSet<>(), Terrain.GRASS, null));
             }
         }
         OverWorld overworld = new OverWorld(tiles3);

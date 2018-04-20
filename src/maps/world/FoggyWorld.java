@@ -1,7 +1,9 @@
 package maps.world;
 
 import entity.entitymodel.Entity;
+import gameobject.GameObject;
 import gameobject.GameObjectContainer;
+import maps.Influence.InfluenceArea;
 import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
@@ -71,4 +73,10 @@ public class FoggyWorld implements World {
 
     @Override
     public void accept(Visitor v) { }
+
+    @Override
+    public void notifySpawn(InfluenceArea IA, GameObject spawner) {
+        world.notifySpawn(IA, spawner);
+    }
+
 }

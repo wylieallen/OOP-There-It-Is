@@ -18,7 +18,7 @@ public class ConfuseCommand extends SkillCommand {
     @Override
     protected void success(Entity e, int distance) {
         int adjustedEffectiveness = getSkillType().calculateModification(getEffectiveness(), distance, getLevel());
-        TimedEffect effect = new TimedEffect(new MakeConfusedCommand(false), adjustedEffectiveness);
+        TimedEffect effect = new TimedEffect(new MakeConfusedCommand(false), adjustedEffectiveness * 1000, 0);
         e.addTimedEffect(effect);
     }
 

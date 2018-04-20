@@ -7,6 +7,8 @@ import entity.entitymodel.Equipment;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
+import maps.world.Game;
+import spawning.SpawnObserver;
 import savingloading.Visitable;
 import savingloading.Visitor;
 import utilities.Coordinate;
@@ -24,7 +26,7 @@ public abstract class EntityController implements Visitable{
     private Vehicle mount;
 
     public EntityController(Entity entity, Equipment equipment,
-                            Coordinate entityLocation, ArrayList<ControllerAction> actions) {
+                            Coordinate entityLocation, List<ControllerAction> actions) {
         this.controlledEntity = entity;
         this.equipment = equipment;
         this.entityLocation = entityLocation;
@@ -110,6 +112,15 @@ public abstract class EntityController implements Visitable{
 
     public Coordinate getEntityLocation(){
         return entityLocation;
+    }
+
+    public boolean has(GameObject o) {
+        return equipment.has(o);
+    }
+
+    public void updateSpawnObservers(SpawnObserver oldObserver, SpawnObserver newObserver) {
+        if(equipment != null)
+            equipment.updateSpawnObservers(oldObserver, newObserver);
     }
 
 

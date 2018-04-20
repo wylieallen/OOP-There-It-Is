@@ -1,6 +1,7 @@
 package entity.entitymodel;
 
 import maps.movelegalitychecker.Terrain;
+import maps.world.Game;
 import savingloading.Visitable;
 import savingloading.Visitor;
 import skills.SkillType;
@@ -16,7 +17,7 @@ import java.util.Set;
 public class EntityStats implements Visitable {
 
     private static final Set<Terrain> defaultCompatibleTerrains = new HashSet<>();
-    {
+    static {
         defaultCompatibleTerrains.add(Terrain.GRASS);
     }
 
@@ -38,6 +39,8 @@ public class EntityStats implements Visitable {
     private boolean isConfused;
     private boolean isSearching;
     private Set<Terrain> compatibleTerrains;
+    private long lastAttackTime;
+    private long lastMoveTime;
 
     public EntityStats()
     {
@@ -95,6 +98,8 @@ public class EntityStats implements Visitable {
         this.isConfused = isConfused;
         this.isSearching = isSearching;
         this.compatibleTerrains = compatibleTerrains;
+        this.lastAttackTime = 0;
+        this.lastMoveTime = 0;
     }
 
     public int getBaseMoveSpeed() {
@@ -237,5 +242,15 @@ public class EntityStats implements Visitable {
     @Override
     public void accept(Visitor v) {
         v.visitEntityStats(this);
+    }
+
+    public void addCompatibleTerrain(Terrain t) { compatibleTerrains.add(t); }
+
+    public boolean tryToAttack(long attackSpeed) {
+        if(Game.getCurrentTime() - lastAttackTime > attackSpeed) {
+            lastAttackTime = Game.getCurrentTime();
+            return true;
+        }
+        return false;
     }
 }

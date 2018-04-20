@@ -2,10 +2,13 @@ package maps.tile;
 
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
+import maps.Influence.InfluenceArea;
 import maps.entityimpaction.EntityImpactor;
 import maps.movelegalitychecker.MoveLegalityChecker;
+import maps.movelegalitychecker.Terrain;
 import maps.trajectorymodifier.TrajectoryModifier;
 import savingloading.Visitor;
+import utilities.Coordinate;
 import utilities.Vector;
 
 import java.util.Collection;
@@ -17,9 +20,9 @@ public class LocalWorldTile extends Tile {
     private Set<TrajectoryModifier> trajectoryModifiers;
     private Set<EntityImpactor> entityImpactors;
 
-    public LocalWorldTile(Set<MoveLegalityChecker> mlcs, Entity entity, Set<TrajectoryModifier> tms,
+    public LocalWorldTile(Set<MoveLegalityChecker> mlcs, Terrain terrain, Entity entity, Set<TrajectoryModifier> tms,
                           Set<EntityImpactor> eis) {
-        super(mlcs, entity);
+        super(mlcs, terrain, entity);
         trajectoryModifiers = tms;
         entityImpactors = eis;
     }
@@ -29,6 +32,7 @@ public class LocalWorldTile extends Tile {
         Set<GameObject> list = new HashSet<>();
         list.addAll(trajectoryModifiers);
         list.addAll(super.getMoveLegalityCheckers());
+        list.add(super.getTerrain());
         list.addAll(entityImpactors);
         return list;
     }
@@ -76,6 +80,19 @@ public class LocalWorldTile extends Tile {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean has(GameObject o) {
+        if(super.has(o)) {
+            return true;
+        } else if (trajectoryModifiers.contains(o)) {
+            return true;
+        } else if (entityImpactors.contains(o)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

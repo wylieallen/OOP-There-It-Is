@@ -51,7 +51,12 @@
         "Damage": 15,
         "AttackSpeed": 1,
         "RequiredSkill": "TWOHANDEDWEAPON",
-        "OnMap": false
+        "OnMap": false,
+        "MaxRadius": 3,
+        "ExpansionInterval": 1000,
+        "UpdateInterval": 1000,
+        "InfluenceType": "LINEARINFLUENCE"
+
       }
     ],
     "Equipment": {
@@ -68,13 +73,17 @@
           "Damage": 10,
           "AttackSpeed": 1,
           "RequiredSkill": "ONEHANDEDWEAPON",
-          "OnMap": false
+          "OnMap": false,
+          "MaxRadius": 3,
+          "ExpansionInterval": 1000,
+          "UpdateInterval": 1000,
+          "InfluenceType": "ANGULARINFLUENCE"
         },
         {
           "Type": "Weapon",
           "Name": "ParalyzeSpell",
           "Command": {
-            "Name": "Paralyze",
+            "Name": "ModifyHealth",
             "Level": 1,
             "SkillType": "ENCHANTMENT",
             "Effectiveness": 50
@@ -82,21 +91,39 @@
           "Damage": 10,
           "AttackSpeed": 1,
           "RequiredSkill": "ENCHANTMENT",
-          "OnMap": false
+          "OnMap": false,
+          "MaxRadius": 3,
+          "ExpansionInterval": 1000,
+          "UpdateInterval": 1000,
+          "InfluenceType": "LINEARINFLUENCE"
         }
       ],
-      "WearableItems": [
-        {
+      "WearableItems": {
+        "RING": {
           "Type": "Wearable",
           "Name": "Ring",
-          "ReversibleCommand": {
+          "ReversableCommand": {
             "Name": "TimedStaminaRegen",
             "StaminaRegenDecrease": 20,
-            "IsApplied": true
+            "IsApplied": true,
+            "Factor": 5
           },
-          "OnMap": false
+          "OnMap": false,
+          "EquipType": "RING"
+        },
+        "ARMOUR": {
+          "Type": "Wearable",
+          "Name": "BreastPlate",
+          "ReversableCommand": {
+            "Name": "TimedStaminaRegen",
+            "StaminaRegenDecrease": 20,
+            "IsApplied": true,
+            "Factor": 5
+          },
+          "OnMap": false,
+          "EquipType": "ARMOUR"
         }
-      ]
+      }
     },
     "X": 3,
     "Y": 2
@@ -388,7 +415,11 @@
               "Damage": 15,
               "AttackSpeed": 1,
               "RequiredSkill": "TWOHANDEDWEAPON",
-              "OnMap": false
+              "OnMap": false,
+              "MaxRadius": 3,
+              "ExpansionInterval": 1000,
+              "UpdateInterval": 1000,
+              "InfluenceType": "LINEARINFLUENCE"
             }
           ]
         },
@@ -439,7 +470,11 @@
               "Damage": 15,
               "AttackSpeed": 1,
               "RequiredSkill": "TWOHANDEDWEAPON",
-              "OnMap": false
+              "OnMap": false,
+              "MaxRadius": 3,
+              "ExpansionInterval": 1000,
+              "UpdateInterval": 1000,
+              "InfluenceType": "LINEARINFLUENCE"
             }
           ]
         },
@@ -559,7 +594,7 @@
           "Inventory": [],
           "Equipment": {
             "WeaponItems": [],
-            "WearableItems": []
+            "WearableItems": {}
           },
           "X": 1,
           "Y": 1
@@ -613,7 +648,11 @@
               "Damage": 15,
               "AttackSpeed": 1,
               "RequiredSkill": "TWOHANDEDWEAPON",
-              "OnMap": false
+              "OnMap": false,
+              "MaxRadius": 3,
+              "ExpansionInterval": 1000,
+              "UpdateInterval": 1000,
+              "InfluenceType": "LINEARINFLUENCE"
             }
           ],
           "Equipment": {
@@ -630,13 +669,17 @@
                 "Damage": 10,
                 "AttackSpeed": 1,
                 "RequiredSkill": "ONEHANDEDWEAPON",
-                "OnMap": false
+                "OnMap": false,
+                "MaxRadius": 3,
+                "ExpansionInterval": 1000,
+                "UpdateInterval": 1000,
+                "InfluenceType": "LINEARINFLUENCE"
               },
               {
                 "Type": "Weapon",
                 "Name": "ParalyzeSpell",
                 "Command": {
-                  "Name": "Paralyze",
+                  "Name": "ModifyHealth",
                   "Level": 1,
                   "SkillType": "ENCHANTMENT",
                   "Effectiveness": 50
@@ -644,21 +687,41 @@
                 "Damage": 10,
                 "AttackSpeed": 1,
                 "RequiredSkill": "ENCHANTMENT",
-                "OnMap": false
+                "OnMap": false,
+                "MaxRadius": 3,
+                "ExpansionInterval": 1000,
+                "UpdateInterval": 1000,
+                "InfluenceType": "LINEARINFLUENCE"
               }
             ],
-            "WearableItems": [
-              {
+            "WearableItems": {
+              "RING": {
                 "Type": "Wearable",
                 "Name": "Ring",
-                "ReversibleCommand": {
+                "ReversableCommand": {
                   "Name": "TimedStaminaRegen",
                   "StaminaRegenDecrease": 20,
-                  "IsApplied": true
+                  "IsApplied": true,
+                  "Factor": 5
                 },
-                "OnMap": false
+                "OnMap": false,
+                "EquipType": "RING",
+                "MaxRadius": 0
+              },
+              "ARMOUR": {
+                "Type": "Wearable",
+                "Name": "BreastPlate",
+                "ReversableCommand": {
+                  "Name": "TimedStaminaRegen",
+                  "StaminaRegenDecrease": 20,
+                  "IsApplied": true,
+                  "Factor": 5
+                },
+                "OnMap": false,
+                "EquipType": "ARMOUR",
+                "MaxRadius": 0
               }
-            ]
+            }
           },
           "X": 3,
           "Y": 2
@@ -760,7 +823,11 @@
               "Damage": 15,
               "AttackSpeed": 1,
               "RequiredSkill": "TWOHANDEDWEAPON",
-              "OnMap": true
+              "OnMap": true,
+              "MaxRadius": 3,
+              "ExpansionInterval": 1000,
+              "UpdateInterval": 1000,
+              "InfluenceType": "LINEARINFLUENCE"
             }
           ]
         },
@@ -811,7 +878,11 @@
               "Damage": 15,
               "AttackSpeed": 1,
               "RequiredSkill": "TWOHANDEDWEAPON",
-              "OnMap": true
+              "OnMap": true,
+              "MaxRadius": 3,
+              "ExpansionInterval": 1000,
+              "UpdateInterval": 1000,
+              "InfluenceType": "LINEARINFLUENCE"
             }
           ]
         },

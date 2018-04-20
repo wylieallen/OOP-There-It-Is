@@ -1,11 +1,14 @@
 package maps.world;
 
 import entity.entitymodel.Entity;
+import gameobject.GameObject;
 import gameobject.GameObjectContainer;
+import maps.Influence.InfluenceArea;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
 import maps.tile.Tile;
+import spawning.SpawnObserver;
 import savingloading.Visitor;
 import utilities.Coordinate;
 
@@ -109,6 +112,12 @@ public class OverWorld implements World {
             }
         }
         return null;
+    }
+
+    //throw away spawn events
+    @Override
+    public void notifySpawn(InfluenceArea IA, GameObject spawner) {
+
     }
 
     @Override

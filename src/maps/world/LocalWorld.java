@@ -7,7 +7,6 @@ import maps.Influence.InfluenceArea;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.tile.Direction;
 import savingloading.Visitor;
-import spawning.SpawnEvent;
 import spawning.SpawnObserver;
 import maps.tile.LocalWorldTile;
 import maps.tile.Tile;
@@ -21,16 +20,14 @@ import java.util.Set;
 /**
  * Created by dontf on 4/14/2018.
  */
-public class LocalWorld implements World, SpawnObserver {
+public class LocalWorld implements World {
 
     private Map<Coordinate, LocalWorldTile> tiles;
     private Set<InfluenceArea> influenceAreas;
-    private List<SpawnEvent> spawnEvents;
 
-    public LocalWorld(Map<Coordinate, LocalWorldTile> tiles, Set<InfluenceArea> influenceAreas, List<SpawnEvent> spawnEvents) {
+    public LocalWorld(Map<Coordinate, LocalWorldTile> tiles, Set<InfluenceArea> influenceAreas) {
         this.tiles = tiles;
         this.influenceAreas = influenceAreas;
-        this.spawnEvents = spawnEvents;
         buildNeighborList();
     }
 
@@ -46,7 +43,7 @@ public class LocalWorld implements World, SpawnObserver {
 
     @Override
     public void notifySpawn(InfluenceArea IA, GameObject spawner) {
-
+        influenceAreas.add(IA);
     }
 
     @Override
@@ -57,6 +54,9 @@ public class LocalWorld implements World, SpawnObserver {
     }
 
     private void updatePhase() {
+        for(InfluenceArea IA: influenceAreas) {
+            IA.update(tiles);
+        }
         for(LocalWorldTile tile: tiles.values()) {
             tile.do_update();
         }
@@ -70,6 +70,9 @@ public class LocalWorld implements World, SpawnObserver {
     }
 
     private void interactionPhase() {
+        for(InfluenceArea IA: influenceAreas) {
+            IA.update(tiles);
+        }
         for(LocalWorldTile tile: tiles.values()) {
             tile.do_interactions();
         }
@@ -112,6 +115,10 @@ public class LocalWorld implements World, SpawnObserver {
             }
         }
         return null;
+    }
+
+    public Set<InfluenceArea> getInfluenceAreas() {
+        return influenceAreas;
     }
 
     @Override

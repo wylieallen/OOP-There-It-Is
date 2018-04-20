@@ -8,7 +8,6 @@ import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
-import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
@@ -44,20 +43,14 @@ public class GameViewMaker
 
         // Manual approach:
 
-        Set<MoveLegalityChecker> mlc = new HashSet<>();
-
-        mlc.add(Terrain.GRASS);
-        OverWorldTile tile = new OverWorldTile(mlc, null);
+        OverWorldTile tile = new OverWorldTile(new HashSet<>(), Terrain.GRASS, null);
         overworldMap.put(new Coordinate(0, 0), tile);
 
-        mlc = new HashSet<>();
-        mlc.add(Terrain.WATER);
-        OverWorldTile tile2 = new OverWorldTile(mlc, null);
+        OverWorldTile tile2 = new OverWorldTile(new HashSet<>(), Terrain.WATER, null);
         overworldMap.put(Direction.NE.getOffsetCoordinate(), tile2);
 
-        mlc = new HashSet<>();
-        mlc.add(Terrain.WATER);
-        OverWorldTile tile3 = new OverWorldTile(mlc, null);
+        OverWorldTile tile3 = new OverWorldTile(new HashSet<>(), Terrain.MOUNTAIN, null);
+
         overworldMap.put(Direction.S.getOffsetCoordinate(), tile3);
 
 
@@ -154,9 +147,7 @@ public class GameViewMaker
                 Coordinate newCoord = c.add(d.getOffsetCoordinate());//new Coordinate(c.getX() + d.getDx(), c.getY() + d.getDy());
                 if(!map.containsKey(newCoord))
                 {
-                    Set <MoveLegalityChecker> mlc = new HashSet<>();
-                    mlc.add(terrain);
-                    OverWorldTile newTile = new OverWorldTile(mlc, null);
+                    OverWorldTile newTile = new OverWorldTile(new HashSet<>(), terrain, null);
                     map.put(newCoord, newTile);
                 }
             }

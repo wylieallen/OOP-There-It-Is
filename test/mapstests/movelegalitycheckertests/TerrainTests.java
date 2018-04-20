@@ -23,19 +23,18 @@ public class TerrainTests {
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                Set <MoveLegalityChecker> mlc = new HashSet<>();
-                LocalWorldTile tile = new LocalWorldTile(mlc, null, new HashSet<>(), new HashSet<>());
+                LocalWorldTile tile;
                 if(i == 2 && j == 0){
-                    mlc.add(Terrain.WATER);
+                    tile = new LocalWorldTile(new HashSet<>(), Terrain.WATER, null, new HashSet<>(), new HashSet<>());
                 } else if (i == 1 && j == 1) {
-                    mlc.add(Terrain.MOUNTAIN);
+                    tile = new LocalWorldTile(new HashSet<>(), Terrain.MOUNTAIN, null, new HashSet<>(), new HashSet<>());
                 } else {
-                    mlc.add(Terrain.GRASS);
+                    tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
                 }
                 tiles.put(new Coordinate(i, j), tile);
             }
         }
-        LocalWorld world = new LocalWorld(tiles, new HashSet<>(), new ArrayList<>());
+        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
         Set<Terrain> terrains = new HashSet<>();
         terrains.add(Terrain.GRASS);

@@ -10,6 +10,7 @@ import savingloading.Visitor;
 import utilities.Coordinate;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class NpcEntityController extends EntityController {
@@ -19,7 +20,7 @@ public class NpcEntityController extends EntityController {
     private AI nonAggroAi;
 
     public NpcEntityController(Entity entity, Equipment equipment, Coordinate entityLocation,
-                               ArrayList<ControllerAction> actions, AI AggroAi, AI nonAggroAi,
+                               List<ControllerAction> actions, AI AggroAi, AI nonAggroAi,
                                boolean isAggro) {
         super(entity, equipment, entityLocation, actions);
         this.aggroAi = AggroAi;
@@ -98,9 +99,12 @@ public class NpcEntityController extends EntityController {
         return activeAi == aggroAi;
     }
 
-    public AI getAi() {
-        return activeAi;
-        // TODO: make different getters for 3 ais
+    public AI getAggroAi() {
+        return aggroAi;
+    }
+
+    public AI getNonAggroAi(){
+        return nonAggroAi;
     }
 
     @Override

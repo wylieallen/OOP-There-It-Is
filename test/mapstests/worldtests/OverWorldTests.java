@@ -4,6 +4,7 @@ import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
+import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
 import maps.tile.Tile;
@@ -26,7 +27,7 @@ public class OverWorldTests {
         Map<Coordinate, OverWorldTile> tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                tiles.put(new Coordinate(i, j), new OverWorldTile(new HashSet<>(), null));
+                tiles.put(new Coordinate(i, j), new OverWorldTile(new HashSet<>(), Terrain.GRASS, null));
             }
         }
         OverWorld world = new OverWorld(tiles);
@@ -92,7 +93,7 @@ public class OverWorldTests {
         Map<Coordinate, OverWorldTile> tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                tiles.put(new Coordinate(i, j), new OverWorldTile(new HashSet<>(), null));
+                tiles.put(new Coordinate(i, j), new OverWorldTile(new HashSet<>(), Terrain.GRASS, null));
             }
         }
 
@@ -101,6 +102,7 @@ public class OverWorldTests {
         EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
                                         100, 100, 100, 5, 0, 0,
                                     3, 3, 0, false, false, new HashSet<>());
+        entityStats.addCompatibleTerrain(Terrain.GRASS);
         Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
                                     null, true);
 
