@@ -1,6 +1,7 @@
 package commands.skillcommands;
 
 import entity.entitymodel.Entity;
+import savingloading.Visitable;
 import skills.SkillType;
 import commands.Command;
 
@@ -11,7 +12,8 @@ import java.util.Random;
 //  trigger(Entity e, int distance) in SkillCommand
 //  so there would be a method not being used (mixed-instance cohesion)
 
-public abstract class SkillCommand implements Command {
+
+public abstract class SkillCommand implements Command, Visitable {
     private SkillType skillType;
     private int level;
     private int effectiveness; // range: 1-100
@@ -21,9 +23,6 @@ public abstract class SkillCommand implements Command {
         this.level = level;
         this.effectiveness = effectiveness;
     }
-
-    protected SkillType getSkillType() { return this.skillType; }
-    protected int getLevel() { return this.level; }
 
     public void trigger(Entity e, int distance) {
         boolean success = getSkillType().checkSuccess(e.getSkillLevel(getSkillType()), distance);
@@ -49,4 +48,13 @@ public abstract class SkillCommand implements Command {
     public void setLevel(int newLevel) {
         level = newLevel;
     }
+
+    public SkillType getSkillType() {
+        return this.skillType;
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
+
 }

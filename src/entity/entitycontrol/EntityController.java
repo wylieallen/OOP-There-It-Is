@@ -9,11 +9,13 @@ import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import maps.world.Game;
 import spawning.SpawnObserver;
+import savingloading.Visitable;
+import savingloading.Visitor;
 import utilities.Coordinate;
 
 import java.util.*;
 
-public abstract class EntityController {
+public abstract class EntityController implements Visitable{
 
     private Entity controlledEntity;
     private Equipment equipment;
@@ -100,6 +102,13 @@ public abstract class EntityController {
         }
     }
 
+    public boolean isInVehicle(){
+        return inVehicle;
+    }
+
+    public Equipment getEquipment() {
+        return equipment;
+    }
 
     public Coordinate getEntityLocation(){
         return entityLocation;

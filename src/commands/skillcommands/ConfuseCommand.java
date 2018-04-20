@@ -3,6 +3,7 @@ package commands.skillcommands;
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeConfusedCommand;
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 import skills.SkillType;
 
 public class ConfuseCommand extends SkillCommand {
@@ -26,4 +27,8 @@ public class ConfuseCommand extends SkillCommand {
         e.enrage(caster);
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitConfuseCommand(this);
+    }
 }

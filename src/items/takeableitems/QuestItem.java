@@ -1,6 +1,7 @@
 package items.takeableitems;
 
 import entity.entitymodel.Equipment;
+import savingloading.Visitor;
 
 public class QuestItem extends TakeableItem {
 
@@ -14,5 +15,14 @@ public class QuestItem extends TakeableItem {
     @Override
     public void activate(Equipment e) {
 
+    }
+
+    public int getQuestId(){
+        return questId;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitQuestItem(this);
     }
 }

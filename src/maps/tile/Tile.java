@@ -5,11 +5,12 @@ import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
+import savingloading.Visitable;
 import utilities.Vector;
 
 import java.util.*;
 
-public abstract class Tile implements GameObjectContainer {
+public abstract class Tile implements GameObjectContainer, Visitable {
 
     private Set<MoveLegalityChecker> moveLegalityCheckers;
     private Terrain terrain;

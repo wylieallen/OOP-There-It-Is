@@ -7,6 +7,7 @@ import maps.entityimpaction.EntityImpactor;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.trajectorymodifier.TrajectoryModifier;
+import savingloading.Visitor;
 import utilities.Coordinate;
 import utilities.Vector;
 
@@ -100,5 +101,10 @@ public class LocalWorldTile extends Tile {
         if(hasEntity()) {
             IA.trigger(getEntity(), coordinate);
         }
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitLocalWorldTile(this);
     }
 }

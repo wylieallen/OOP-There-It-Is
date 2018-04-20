@@ -2,6 +2,8 @@ package entity.entitymodel;
 
 import maps.movelegalitychecker.Terrain;
 import maps.world.Game;
+import savingloading.Visitable;
+import savingloading.Visitor;
 import skills.SkillType;
 
 import java.util.HashMap;
@@ -12,7 +14,7 @@ import java.util.Set;
 /**
  * Created by dontf on 4/13/2018.
  */
-public class EntityStats {
+public class EntityStats implements Visitable {
 
     private static final Set<Terrain> defaultCompatibleTerrains = new HashSet<>();
     static {
@@ -229,6 +231,15 @@ public class EntityStats {
 
     public boolean isTerrainCompatible(Terrain t) {
         return compatibleTerrains.contains(t);
+    }
+
+    public Map<SkillType, Integer> getSkills() {
+        return skills;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitEntityStats(this);
     }
 
     public void addCompatibleTerrain(Terrain t) { compatibleTerrains.add(t); }

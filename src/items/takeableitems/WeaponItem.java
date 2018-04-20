@@ -6,6 +6,7 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import gameobject.GameObject;
 import maps.Influence.InfluenceArea;
+import savingloading.Visitor;
 import maps.Influence.InfluenceType;
 import maps.Influence.expandingInfluenceArea;
 import skills.SkillType;
@@ -13,7 +14,6 @@ import spawning.SpawnObservable;
 import spawning.SpawnObserver;
 import utilities.Coordinate;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,5 +85,26 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
     public void setSpawnObservers (List<SpawnObserver> newObservers) {
         spawnObservers.clear();
         spawnObservers.addAll(newObservers);
+    }
+
+    public Command getCommand() {
+        return command;
+    }
+
+    public int getDamage(){
+        return damage;
+    }
+
+    public int getAttackSpeed(){
+        return attackSpeed;
+    }
+
+    public SkillType getRequiredSkill() {
+        return requiredSkill;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitWeaponItem(this);
     }
 }

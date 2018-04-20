@@ -6,6 +6,11 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
+import entity.entitycontrol.EntityController;
+import maps.tile.Direction;
+import actions.Action;
+import commands.TimedEffect;
+import savingloading.Visitor;
 import utilities.Vector;
 
 import java.util.List;
@@ -40,7 +45,7 @@ public class Vehicle extends Entity {
                    Inventory inventory,
                    boolean isOnMap)
     {
-        super(vector, stats, actions, effects, actorInteractions, inventory, isOnMap);
+        super(vector, stats, effects, actorInteractions, inventory, isOnMap);
         this.driver = null;
     }
 
@@ -62,4 +67,9 @@ public class Vehicle extends Entity {
     }
 
     public boolean hasDriver () { return driver != null; }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitVehicle(this);
+    }
 }

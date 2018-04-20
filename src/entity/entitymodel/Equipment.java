@@ -5,6 +5,8 @@ import items.takeableitems.ConsumableItem;
 import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
+import savingloading.Visitable;
+import savingloading.Visitor;
 import spawning.SpawnObserver;
 import utilities.Coordinate;
 
@@ -16,7 +18,7 @@ import java.util.Map;
 /**
  * Created by dontf on 4/13/2018.
  */
-public class Equipment {
+public class Equipment implements Visitable {
 
     private final int defaultWeaponsSize = 5;
 
@@ -122,6 +124,19 @@ public class Equipment {
 
     }
 
+    // just converted it so external stuff doesn't depend on the internal representation
+    public List<WeaponItem> getWeapons() {
+        return new ArrayList<WeaponItem>(Arrays.asList(weapons));
+    }
+
+    public Map<EquipSlot, WearableItem> getWearables(){
+        return wearables;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitEquipment(this);
+    }
     public boolean has(GameObject o) {
         if(wearables.values().contains(o)) {
             return true;

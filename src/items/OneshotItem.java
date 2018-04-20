@@ -2,6 +2,7 @@ package items;
 
 import entity.entitymodel.Entity;
 import commands.Command;
+import savingloading.Visitor;
 
 public class OneshotItem extends Item {
 
@@ -27,4 +28,17 @@ public class OneshotItem extends Item {
 
     @Override
     public boolean shouldBeRemoved() { return hasFired; }
+
+    public Command getCommand(){
+        return command;
+    }
+
+    public boolean isActive() {
+        return !hasFired;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitOneShotItem(this);
+    }
 }

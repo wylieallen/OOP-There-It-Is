@@ -4,6 +4,7 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.EquipSlot;
 import entity.entitymodel.Equipment;
 import commands.reversiblecommands.ReversibleCommand;
+import savingloading.Visitor;
 
 public class WearableItem extends TakeableItem {
 
@@ -25,5 +26,18 @@ public class WearableItem extends TakeableItem {
 
     public void applyEffect(Entity e) {
         command.trigger(e);
+    }
+
+    public ReversibleCommand getCommand() {
+        return command;
+    }
+
+    public void setEquipType(EquipSlot equipType) {
+        this.equipType = equipType;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitWearableItem(this);
     }
 }
