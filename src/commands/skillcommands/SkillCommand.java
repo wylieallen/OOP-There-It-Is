@@ -2,6 +2,7 @@ package commands.skillcommands;
 
 import entity.entitymodel.Entity;
 import savingloading.Visitable;
+import savingloading.Visitor;
 import skills.SkillType;
 import commands.Command;
 
@@ -13,32 +14,35 @@ import java.util.Random;
 //  so there would be a method not being used (mixed-instance cohesion)
 
 
-public abstract class SkillCommand implements Command, Visitable {
+public class SkillCommand implements Visitable {
     private SkillType skillType;
     private int level;
-    private int effectiveness; // range: 1-100
+    private int effectiveness;
+    private Command successCommand;
+    private Command failureCommand;
 
-    public SkillCommand(SkillType skillType, int level, int effectiveness) {
+    public SkillCommand(SkillType skillType, int level, int effectiveness, Command successCommand,
+                        Command failureCommand) {
         this.skillType = skillType;
         this.level = level;
         this.effectiveness = effectiveness;
+        this.successCommand = successCommand;
+        this.failureCommand = failureCommand;
+    }
+
+    public void trigger(Entity e) {
+        trigger(e, 0);
     }
 
     public void trigger(Entity e, int distance) {
         boolean success = getSkillType().checkSuccess(e.getSkillLevel(getSkillType()), distance);
-        if(success) {
-            success(e, distance);
-        } else {
-            fail(e, distance);
+        int adjustedEffectiveness = getSkillType().calculateModification(effectiveness, distance, level);
+
+        if(success && successCommand != null) {
+            successCommand.trigger(e, adjustedEffectiveness);
+        } else if(failureCommand != null) {
+            failureCommand.trigger(e, adjustedEffectiveness);
         }
-    }
-
-    protected abstract void success(Entity e, int distance);
-    protected abstract void fail(Entity e, int distance);
-
-    @Override
-    public void trigger(Entity e) {
-        success(e, 0);
     }
 
     public int getEffectiveness() {
@@ -53,4 +57,8 @@ public abstract class SkillCommand implements Command, Visitable {
         return this.level;
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitSkillCommand(this);
+    }
 }

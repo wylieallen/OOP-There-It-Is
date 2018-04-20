@@ -1,16 +1,13 @@
 package itemtests;
 
-import commands.TransitionCommand;
-import commands.skillcommands.ModifyHealthCommand;
+import commands.ModifyHealthCommand;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
-import items.InteractiveItem;
 import items.OneshotItem;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
-import maps.tile.Tile;
 import maps.world.LocalWorld;
 import org.junit.Assert;
 import org.junit.Test;
@@ -49,7 +46,7 @@ public class OneshotItemTests {
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
         OneshotItem item = new OneshotItem("Health Potion",
-                new ModifyHealthCommand(SkillType.NULL, 0, 10), false);
+                new ModifyHealthCommand(10), false);
         tiles.get(new Coordinate(2, 1)).addEI(item);
 
         entity.setFacing(Direction.N);

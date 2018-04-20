@@ -1,4 +1,4 @@
-package commands.skillcommands;
+package commands;
 
 import entity.entitymodel.Entity;
 import entity.entitymodel.Inventory;
@@ -7,17 +7,30 @@ import savingloading.Visitor;
 import skills.SkillType;
 
 // not sure how this will work
-public class ObserveCommand extends SkillCommand {
+public class ObserveCommand implements Command {
 
-    public ObserveCommand(int level, int effectiveness) {
-        super(SkillType.OBSERVATION, level, effectiveness);
+    private int distance;
+    private int level;
+
+    public ObserveCommand(int level) {
+        this.level = level;
+        distance = 0;
     }
 
+    public ObserveCommand(int distance, int level) {
+        this.distance = distance;
+        this.level = level;
+    }
+
+    @Override
+    public void trigger(Entity e) {
+        trigger(e, distance);
+    }
 
     //This will take in the entity that is being observed and the distance they are from the entity that spawned the
     //observation influence area and make some observation
     @Override
-    protected void success(Entity e, int distance) {
+    public void trigger(Entity e, int distance) {
         String message = "";
 
         int mode = (int)(Math.random() * 4);
@@ -44,11 +57,6 @@ public class ObserveCommand extends SkillCommand {
         //TODO: send message to the view
     }
 
-    @Override
-    protected void fail(Entity e, int distance) {
-
-    }
-
     //0 accuracy represents perfect accuracy, -1 represents an underestimation by 100%,
     //1 represents an overestimation by 100%
     private double getAccuracy(int distance) {
@@ -58,9 +66,8 @@ public class ObserveCommand extends SkillCommand {
         //scale to the range [-1, 1)
         accuracy -= 1;
 
-        accuracy = improveAccuracy(accuracy, 0.1 * getEffectiveness());
         accuracy = worsenAccuracy(accuracy, 0.1 * distance);
-        accuracy = improveAccuracy(accuracy, 0.1 * getLevel());
+        accuracy = improveAccuracy(accuracy, 0.1 * level);
 
         return accuracy;
     }

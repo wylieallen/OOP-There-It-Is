@@ -1,6 +1,6 @@
 package mapstests.entityimpactiontests;
 
-import commands.skillcommands.ModifyHealthCommand;
+import commands.ModifyHealthCommand;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
@@ -44,7 +44,7 @@ public class AreaEffectTests {
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
         entity.hurtEntity(50);
-        AreaEffect ae = new InfiniteAreaEffect(new ModifyHealthCommand(SkillType.NULL, 0, 20));
+        AreaEffect ae = new InfiniteAreaEffect(new ModifyHealthCommand(20));
 
         tiles.get(new Coordinate(2, 1)).addEI(ae);
 
@@ -88,7 +88,7 @@ public class AreaEffectTests {
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
         entity.hurtEntity(50);
-        AreaEffect ae = new OneShotAreaEffect(new ModifyHealthCommand(SkillType.NULL, 0, 20), false);
+        AreaEffect ae = new OneShotAreaEffect(new ModifyHealthCommand(20), false);
 
         tiles.get(new Coordinate(2, 1)).addEI(ae);
 

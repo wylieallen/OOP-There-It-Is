@@ -18,8 +18,9 @@ public class TimedEffect {
     }
 
     public void decrementTimeRemaining() {
-
-        --timeRemaining;
+        if(!isExpired()){
+            --timeRemaining;
+        }
     }
 
     public boolean isExpired() {

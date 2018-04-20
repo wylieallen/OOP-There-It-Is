@@ -2,10 +2,7 @@ package entitymodel;
 
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeParalyzedCommand;
-import commands.skillcommands.ParalyzeCommand;
-import entity.entitycontrol.EntityController;
-import entity.entitycontrol.HumanEntityController;
-import entity.entitycontrol.NpcEntityController;
+import commands.ParalyzeCommand;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.EntityInteraction;
@@ -55,7 +52,7 @@ public class EquipmentTest {
 
     @Test
     public void testWeaponAddAndRemove () {
-        WeaponItem weapon = new WeaponItem("Sword", true, new ParalyzeCommand(SkillType.BANE, 10, 80, null), 5, 15, SkillType.BANE);
+        WeaponItem weapon = new WeaponItem("Sword", true, new ParalyzeCommand(10), 5, 15, SkillType.BANE);
 
         items.add(weapon);
         equipment.add(weapon);
