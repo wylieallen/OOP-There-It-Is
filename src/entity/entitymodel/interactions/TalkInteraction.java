@@ -1,6 +1,10 @@
 package entity.entitymodel.interactions;
 
 import entity.entitymodel.Entity;
+
+import entity.entitymodel.interactions.EntityInteraction;
+import savingloading.Visitor;
+
 import java.util.Set;
 
 /**
@@ -19,4 +23,12 @@ public class TalkInteraction implements EntityInteraction {
         return false;
     }
 
+    public Set<String> getMessages() {
+        return messages;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitTalkInteraction(this);
+    }
 }

@@ -5,6 +5,7 @@ import gameobject.GameObject;
 import maps.entityimpaction.EntityImpactor;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.trajectorymodifier.TrajectoryModifier;
+import savingloading.Visitor;
 import utilities.Vector;
 
 import java.util.Collection;
@@ -32,13 +33,6 @@ public class LocalWorldTile extends Tile {
         return list;
     }
 
-    public void update()
-    {
-        super.do_update();
-        trajectoryModifiers.forEach(GameObject::update);
-        entityImpactors.forEach(GameObject::update);
-    }
-
     public void addTM(TrajectoryModifier tm){
         trajectoryModifiers.add(tm);
     }
@@ -54,12 +48,9 @@ public class LocalWorldTile extends Tile {
     @Override
     public void do_update() {
         super.do_update();
-        for(TrajectoryModifier tm : trajectoryModifiers) {
-            tm.update();
-        }
-        for(EntityImpactor ei: entityImpactors) {
-            ei.update();
-        }
+        trajectoryModifiers.forEach(GameObject::update);
+        entityImpactors.forEach(GameObject::update);
+        //TODO: add logic to check if each TM and EI expired
     }
 
     @Override
@@ -79,6 +70,21 @@ public class LocalWorldTile extends Tile {
                 ei.touch(super.getEntity());
             }
         }
+
+        entityImpactors.removeIf(EntityImpactor::shouldBeRemoved);
+    }
+
+    public boolean has(EntityImpactor item){
+        for(EntityImpactor ei: entityImpactors){
+            if(item == ei)
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitLocalWorldTile(this);
     }
 
     public boolean hasImpactor () { return entityImpactors.size() > 0; }

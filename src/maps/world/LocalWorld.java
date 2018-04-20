@@ -6,6 +6,7 @@ import gameobject.GameObject;
 import maps.Influence.InfluenceArea;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.tile.Direction;
+import savingloading.Visitor;
 import spawning.SpawnEvent;
 import spawning.SpawnObserver;
 import maps.tile.LocalWorldTile;
@@ -77,7 +78,7 @@ public class LocalWorld implements World, SpawnObserver {
 
     @Override
     public void add(Coordinate p, Entity e) {
-
+        tiles.get(p).setEntity(e);
     }
 
     @Override
@@ -101,5 +102,29 @@ public class LocalWorld implements World, SpawnObserver {
             if(tile.remove(e))
                 return;
         }
+    }
+
+    @Override
+    public Coordinate getEntityCoordinate(Entity e) {
+        for(Map.Entry<Coordinate, LocalWorldTile> entry: tiles.entrySet()) {
+            if(entry.getValue().has(e)) {
+                return new Coordinate(entry.getKey());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Tile getTileForCoordinate(Coordinate c) {
+        return tiles.get(c);
+    }
+
+    public Map<Coordinate, LocalWorldTile> getTiles() {
+        return tiles;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitLocalWorld(this);
     }
 }

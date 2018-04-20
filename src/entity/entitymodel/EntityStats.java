@@ -1,13 +1,24 @@
 package entity.entitymodel;
 
+import maps.movelegalitychecker.Terrain;
+import savingloading.Visitable;
+import savingloading.Visitor;
 import skills.SkillType;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by dontf on 4/13/2018.
  */
-public class EntityStats {
+public class EntityStats implements Visitable {
+
+    private static final Set<Terrain> defaultCompatibleTerrains = new HashSet<>();
+    {
+        defaultCompatibleTerrains.add(Terrain.GRASS);
+    }
 
     private final int defaultValue = -1;
     private final int maxSkillLevel = 100;
@@ -26,6 +37,13 @@ public class EntityStats {
     private double gold;
     private boolean isConfused;
     private boolean isSearching;
+    private Set<Terrain> compatibleTerrains;
+
+    public EntityStats()
+    {
+        this(new HashMap<>(), 1, 10, 10, 10, 10, 1,
+                10, 0, 1, 1, 100, false, false, defaultCompatibleTerrains);
+    }
 
     public EntityStats(Map<SkillType, Integer> skills,
                        int baseMoveSpeed,
@@ -42,6 +60,26 @@ public class EntityStats {
                        boolean isSearching,
                        boolean isConfused)
     {
+        this(skills, baseMoveSpeed, maxHealth, curHealth, maxMana, curMana, manaRegenRate,
+                curXP, unspentSkillPoints, visibilityRadius, concealment, gold, isSearching, isConfused, defaultCompatibleTerrains);
+    }
+
+    public EntityStats(Map<SkillType, Integer> skills,
+                       int baseMoveSpeed,
+                       int maxHealth,
+                       int curHealth,
+                       int maxMana,
+                       int curMana,
+                       int manaRegenRate,
+                       int curXP,
+                       int unspentSkillPoints,
+                       int visibilityRadius,
+                       int concealment,
+                       double gold,
+                       boolean isSearching,
+                       boolean isConfused,
+                       Set<Terrain> compatibleTerrains)
+    {
         this.skills = skills;
         this.baseMoveSpeed = baseMoveSpeed;
         this.maxHealth = maxHealth;
@@ -56,6 +94,7 @@ public class EntityStats {
         this.gold = gold;
         this.isConfused = isConfused;
         this.isSearching = isSearching;
+        this.compatibleTerrains = compatibleTerrains;
     }
 
     public int getBaseMoveSpeed() {
@@ -184,4 +223,17 @@ public class EntityStats {
     public int getManaRegenRate() { return manaRegenRate; }
 
     public void setManaRegenRate(int newRate) { manaRegenRate = newRate; }
+
+    public boolean isTerrainCompatible(Terrain t) {
+        return compatibleTerrains.contains(t);
+    }
+
+    public Map<SkillType, Integer> getSkills() {
+        return skills;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitEntityStats(this);
+    }
 }

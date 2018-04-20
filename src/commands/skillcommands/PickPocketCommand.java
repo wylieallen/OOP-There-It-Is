@@ -2,6 +2,7 @@ package commands.skillcommands;
 
 import entity.entitymodel.Entity;
 import items.takeableitems.TakeableItem;
+import savingloading.Visitor;
 import skills.SkillType;
 
 public class PickPocketCommand extends SkillCommand {
@@ -24,4 +25,8 @@ public class PickPocketCommand extends SkillCommand {
         e.enrage(caster);
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitPickPocketCommand(this);
+    }
 }

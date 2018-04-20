@@ -4,6 +4,9 @@ import entity.entitymodel.Entity;
 import items.takeableitems.TakeableItem;
 import skills.SkillType;
 
+import entity.entitymodel.interactions.EntityInteraction;
+import savingloading.Visitor;
+
 /**
  * Created by dontf on 4/13/2018.
  */
@@ -28,16 +31,8 @@ public class PickPocketInteraction implements EntityInteraction {
         return false;
     }
 
-    public void testInteractFunction (Entity actor, Entity actee, boolean success) {
-        if (success) {
-            TakeableItem picked = actee.getRandomItem();
-
-            if (picked != null) {
-                actee.removeFromInventory(picked);
-                actor.addToInventory(picked);
-                actor.increaseXP(xpIncrease);
-            }
-        }
+    @Override
+    public void accept(Visitor v) {
+        v.visitPickPocketInteraction(this);
     }
-
 }

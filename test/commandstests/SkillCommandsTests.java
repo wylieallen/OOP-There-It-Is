@@ -20,6 +20,7 @@ import utilities.Vector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class SkillCommandsTests {
@@ -42,9 +43,9 @@ public class SkillCommandsTests {
         casterSkills.put(SkillType.ONEHANDEDWEAPON, 1);
         EntityStats casterStats = new EntityStats(casterSkills, 2, 100,
                 100, 100, 100, 5, 0, 0,
-                3, 3, 0, false, false);
-        caster = new Entity(new Vector(), casterStats, null, new ArrayList<>(), null,
-                casterInventory, true, new ArrayList<>());
+                3, 3, 0, false, false, new HashSet<>());
+        caster = new Entity(new Vector(), casterStats, new ArrayList<>(), null,
+                casterInventory, true);
 
         casterController = new HumanEntityController(caster, null,
                 new Coordinate(2, 2), null, null);
@@ -53,10 +54,10 @@ public class SkillCommandsTests {
 
         EntityStats targetStats = new EntityStats(new HashMap<>(), 2, 100,
                 100, 100, 100, 5, 0, 0,
-                3, 3, 0, false, false);
+                3, 3, 0, false, false, new HashSet<>());
         targetEffects = new ArrayList<>();
-        target = new Entity(new Vector(), targetStats, null, targetEffects, null,
-                targetInventory, true, new ArrayList<>());
+        target = new Entity(new Vector(), targetStats, targetEffects, null,
+                targetInventory, true);
 
         targetController = new NpcEntityController(target, null,
                 null, null, new HostileAI(new ArrayList<>(), caster, null),
@@ -207,7 +208,7 @@ public class SkillCommandsTests {
 
     @Test
     public void testPickpocketCommand() {
-        TakeableItem item = new ConsumableItem("Health Potion", new ModifyHealthCommand(SkillType.NULL, 0, 10));
+        TakeableItem item = new ConsumableItem("Health Potion", true, new ModifyHealthCommand(SkillType.NULL, 0, 10));
         target.addToInventory(item);
 
         PickPocketCommand command = new PickPocketCommand(caster.getSkillLevel(SkillType.PICKPOCKET),

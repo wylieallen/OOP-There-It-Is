@@ -3,11 +3,12 @@ package maps.tile;
 import entity.entitymodel.Entity;
 import gameobject.GameObjectContainer;
 import maps.movelegalitychecker.MoveLegalityChecker;
+import savingloading.Visitable;
 import utilities.Vector;
 
 import java.util.*;
 
-public abstract class Tile implements GameObjectContainer {
+public abstract class Tile implements GameObjectContainer, Visitable {
 
     private Set<MoveLegalityChecker> moveLegalityCheckers;
     private Entity entity;
@@ -47,9 +48,8 @@ public abstract class Tile implements GameObjectContainer {
     public Collection<MoveLegalityChecker> getMoveLegalityCheckers() { return moveLegalityCheckers; }
 
     public void do_update() {
-        for(MoveLegalityChecker mlc: moveLegalityCheckers) {
-            mlc.update();
-        }
+        moveLegalityCheckers.forEach(MoveLegalityChecker::update);
+        //TODO: add logic to check if each MLC expired
     }
 
     protected abstract void do_moves(Collection<MoveLegalityChecker> updated);

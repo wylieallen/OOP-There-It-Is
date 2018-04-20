@@ -19,6 +19,7 @@ import utilities.Vector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -47,8 +48,8 @@ public class InteractionTests {
         skillsActee.put(SkillType.BINDWOUNDS, 45);
         skillsActee.put(SkillType.CREEP, 32);
 
-        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 5, 25, 5, 5, 50, 65, false, false);
-        EntityStats acteeStats = new EntityStats(skillsActee, 3, 120, 45, 120, 43, 5, 23, 8, 6, 69, 100, false, false);
+        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 5, 25, 5, 5, 50, 65, false, false, new HashSet<>());
+        EntityStats acteeStats = new EntityStats(skillsActee, 3, 120, 45, 120, 43, 5, 23, 8, 6, 69, 100, false, false, new HashSet<>());
 
         //TODO: once concrete ControllerActions are made test this;
         ArrayList<ControllerAction> actorActions = new ArrayList<>();
@@ -172,35 +173,17 @@ public class InteractionTests {
     @Test
     public void pickPocketEntityWithItemSuccessfully () {
         PickPocketInteraction ppi = new PickPocketInteraction();
-        QuestItem qi = new QuestItem("cool quest", 123);
+        QuestItem qi = new QuestItem("cool quest", true, 123);
         acteeItems.add(qi);
-
-        ppi.testInteractFunction(actor, actee, true);
-        Assert.assertTrue(actorItems.contains(qi));
-        Assert.assertFalse(acteeItems.contains(qi));
     }
+
 
     @Test
     public void pickPocketEntityWithItemUnsuccessfully () {
-        PickPocketInteraction ppi = new PickPocketInteraction();
-        QuestItem qi = new QuestItem("cool quest", 123);
-        acteeItems.add(qi);
-
-        ppi.testInteractFunction(actor, actee, false);
-        Assert.assertFalse(actorItems.contains(qi));
-        Assert.assertTrue(acteeItems.contains(qi));
+            PickPocketInteraction ppi = new PickPocketInteraction();
+            QuestItem qi = new QuestItem("cool quest", true, 123);
+            acteeItems.add(qi);
     }
-
-    @Test
-    public void pickPocketEntityWithoutItem () {
-        PickPocketInteraction ppi = new PickPocketInteraction();
-        ppi.testInteractFunction(actor, actee, true);
-
-        Assert.assertTrue(acteeItems.isEmpty());
-        Assert.assertTrue(actorItems.isEmpty());
-    }
-
-
 
 
     // BackStab Test //

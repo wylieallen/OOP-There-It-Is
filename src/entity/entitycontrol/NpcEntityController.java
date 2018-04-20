@@ -5,6 +5,8 @@ import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import gameobject.GameObjectContainer;
+import gameview.GamePanel;
+import savingloading.Visitor;
 import utilities.Coordinate;
 
 import java.util.ArrayList;
@@ -96,4 +98,13 @@ public class NpcEntityController extends EntityController {
         return activeAi == aggroAi;
     }
 
+    public AI getAi() {
+        return activeAi;
+        // TODO: make different getters for 3 ais
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitNpcEntityController(this);
+    }
 }

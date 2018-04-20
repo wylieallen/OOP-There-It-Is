@@ -3,7 +3,8 @@ package maps.tile;
 import entity.entitymodel.Entity;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import gameobject.GameObject;
-import maps.movelegalitychecker.MoveLegalityChecker;
+import maps.movelegalitychecker.Terrain;
+import savingloading.Visitor;
 import utilities.Vector;
 import java.util.*;
 
@@ -35,5 +36,13 @@ public class OverWorldTile extends Tile {
     @Override
     public void do_interactions() {
 
+    }
+
+    public void add(Terrain terrain) {
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitOverWorldTile(this);
     }
 }

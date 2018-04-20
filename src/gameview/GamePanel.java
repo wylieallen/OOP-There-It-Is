@@ -21,10 +21,10 @@ public class GamePanel extends DisplayPanel
 {
     private GameDisplayState gameDisplayState;
 
-    public GamePanel()
+    public GamePanel(Dimension size)
     {
-        super();
-        super.setDisplayState(gameDisplayState = new GameViewMaker().makeGameDisplayState());
+        super(size);
+        super.setDisplayState(gameDisplayState = new GameViewMaker().makeGameDisplayState(this));
         /*
         Tile tile = new OverWorldTile();
         tile.addMLC(Terrain.GRASS);
@@ -103,11 +103,13 @@ public class GamePanel extends DisplayPanel
         });
 
         timer.start();
+
+        resetCamera();
     }
 
     public void resetCamera()
     {
-        gameDisplayState.snapCamera(0, 0);
+        gameDisplayState.centerOnPlayer();
         gameDisplayState.setZoom(1);
     }
 }

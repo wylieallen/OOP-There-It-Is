@@ -2,6 +2,8 @@ package utilities;
 
 import maps.tile.Direction;
 
+import java.awt.*;
+
 /**
  * Created by dontf on 4/14/2018.
  */
@@ -13,6 +15,11 @@ public class Coordinate implements Comparable<Coordinate> {
     public Coordinate(int x, int z) {
         this.x = x;
         this.z = z;
+    }
+
+    public Coordinate(Coordinate other) {
+        this.x = other.x;
+        this.z = other.z;
     }
 
     public int x() {
@@ -35,10 +42,12 @@ public class Coordinate implements Comparable<Coordinate> {
         return add(direction.getOffsetCoordinate());
     }
 
-    //determine how far two tiles are from each other;
-    public int distance (Coordinate c) {
-        int temp = Math.max(Math.abs(c.x() - x()), Math.abs(c.z() - z()));
-        return Math.max(temp, Math.abs(c.y() - y()));
+    public int distance(Coordinate other) {
+        int dx = Math.abs(x() - other.x());
+        int dy = Math.abs(y() - other.y());
+        int dz = Math.abs(z() - other.z());
+
+        return Math.max( dx, Math.max(dy, dz) );
     }
 
     @Override
@@ -63,5 +72,22 @@ public class Coordinate implements Comparable<Coordinate> {
         int result = x();
         result = 31 * result + z();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + "," + y() + "," + z + ")";
+    }
+
+    public Point toPixelPt()
+    {
+        int pixelX = (int) (32.0 * 1.5 * (double) x());
+        // Why 37 instead of 32 here? Because fuck me, that's why
+        // Appears to work fairly well out to any reasonable distance from origin
+        // It'll be off by one pixel every once in a while but it's not too awful
+        int pixelY = (int) (-37.0 * Math.sqrt(3) * ((double) y() + ((double) x() / 2.0)));
+        //System.out.println("Cubic: " + c.x() + "," + c.y() + "," + c.z() + " Pixel: " + x + "," + y);
+        return new Point(pixelX, pixelY);
+
     }
 }

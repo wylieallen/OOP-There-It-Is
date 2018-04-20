@@ -4,6 +4,7 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.interactions.EntityInteraction;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
+import savingloading.Visitor;
 import utilities.Coordinate;
 
 import java.util.ArrayList;
@@ -109,5 +110,10 @@ public class PetAI extends AI {
         }
 
         return points.get(0);
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitPetAI(this);
     }
 }

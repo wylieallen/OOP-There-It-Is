@@ -1,8 +1,11 @@
 package items;
 
 import entity.entitymodel.Entity;
+import gameobject.GameObject;
+import maps.entityimpaction.EntityImpactor;
+import savingloading.Visitable;
 
-public abstract class Item {
+public abstract class Item implements GameObject, EntityImpactor, Visitable {
 
     private String name;
 
@@ -14,5 +17,8 @@ public abstract class Item {
         return name;
     }
 
-    public abstract void touch(Entity e);
+    @Override
+    public boolean shouldBeRemoved() {
+        return false;
+    }
 }

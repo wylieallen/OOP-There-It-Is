@@ -6,11 +6,12 @@ import entity.entitymodel.interactions.EntityInteraction;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
+import savingloading.Visitable;
 import utilities.Coordinate;
 
 import java.util.*;
 
-public abstract class AI {
+public abstract class AI implements Visitable {
 
     private Random rand;
     private List<EntityInteraction> interactions;

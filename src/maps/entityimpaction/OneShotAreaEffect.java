@@ -2,6 +2,7 @@ package maps.entityimpaction;
 
 import commands.Command;
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 
 public class OneShotAreaEffect extends AreaEffect {
 
@@ -17,5 +18,15 @@ public class OneShotAreaEffect extends AreaEffect {
             trigger(entity);
             hasFired = true;
         }
+    }
+
+    @Override
+    public boolean shouldBeRemoved() {
+        return hasFired;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitOneShotAreaEffect(this);
     }
 }

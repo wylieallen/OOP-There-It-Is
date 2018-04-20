@@ -4,6 +4,7 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.interactions.EntityInteraction;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
+import savingloading.Visitor;
 import utilities.Coordinate;
 import utilities.Vector;
 
@@ -50,4 +51,10 @@ public class PatrolAI extends AI {
     }
 
     private boolean isOnPath () { return onPath; }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitPatrolAI(this);
+    }
+
 }
