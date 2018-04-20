@@ -40,15 +40,14 @@ public class Equipment implements Visitable {
                      WeaponItem[] weapons,
                      int maxSize,
                      Inventory inventory,
-                     Entity entity,
-                     List<SpawnObserver> spawnObservers)
+                     Entity entity)
     {
         this.wearables = wearables;
         this.weapons = weapons;
         this.maxSize = maxSize;
         this.inventory = inventory;
         this.entity = entity;
-        this.spawnObservers = spawnObservers;
+        this.spawnObservers = new ArrayList<>();
     }
 
     public void add (WearableItem wearable) {
@@ -152,11 +151,22 @@ public class Equipment implements Visitable {
 
     public void updateSpawnObservers(SpawnObserver oldObserver, SpawnObserver newObserver) {
         spawnObservers.remove(oldObserver);
-        spawnObservers.add(newObserver);
 
         for(WeaponItem weapon: weapons) {
-            weapon.deregisterObserver(oldObserver);
-            weapon.registerObserver(newObserver);
+            if(weapon != null) {
+                weapon.deregisterObserver(oldObserver);
+            }
+        }
+
+        addSpawnObserver(newObserver);
+    }
+
+    public void addSpawnObserver(SpawnObserver newObserver) {
+        spawnObservers.add(newObserver);
+        for(WeaponItem weapon : weapons) {
+            if(weapon != null) {
+                weapon.registerObserver(newObserver);
+            }
         }
     }
 

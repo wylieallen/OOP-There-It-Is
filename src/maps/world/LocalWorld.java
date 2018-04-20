@@ -71,10 +71,7 @@ public class LocalWorld implements World {
 
     private void interactionPhase() {
         for(InfluenceArea IA: influenceAreas) {
-            List<Coordinate> affectedCoordinates = IA.getAffectedCoordinates();
-            for(Coordinate coordinate: affectedCoordinates) {
-                tiles.get(coordinate).trigger(IA, coordinate);
-            }
+            IA.update(tiles);
         }
         for(LocalWorldTile tile: tiles.values()) {
             tile.do_interactions();

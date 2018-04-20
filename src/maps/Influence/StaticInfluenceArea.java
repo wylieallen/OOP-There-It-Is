@@ -98,10 +98,4 @@ public class StaticInfluenceArea implements InfluenceArea {
         center = coordinate;
     }
 
-    @Override
-    public void trigger(Entity e, Coordinate coordinate) {
-        int distance = center.distance(coordinate);
-        skillCommand.trigger(e, distance);
-    }
-
 }

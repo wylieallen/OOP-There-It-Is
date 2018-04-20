@@ -53,9 +53,8 @@ public class TakeableItemTests {
         entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
                 inventory, true);
 
-        List<SpawnObserver> spawnObservers = new ArrayList<>();
-        spawnObservers.add(world);
-        equipment = new Equipment(new HashMap<>(), new WeaponItem[5], 5, inventory, entity, spawnObservers);
+        equipment = new Equipment(new HashMap<>(), new WeaponItem[5], 5, inventory, entity);
+        equipment.addSpawnObserver(world);
         EntityController entityController = new HumanEntityController(entity, null,
                 new Coordinate(2, 2), null, null);
 

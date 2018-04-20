@@ -394,6 +394,7 @@ public class LoadingParser {
         }
         int maxSize = 10; // ?
         WeaponItem[] weaponItemsArray = weaponItems.toArray(new WeaponItem[0]);
+        //TODO: reintialize list of spawn observers
         return new Equipment(wearableItems, weaponItemsArray, maxSize, inventory, entity);
     }
 
@@ -423,12 +424,6 @@ public class LoadingParser {
         Command command = loadCommand(itemJson.getJSONObject("Command"));
         Boolean isActive = itemJson.getBoolean("IsActive");
         return new OneshotItem(name, command, !isActive);
-    }
-
-    private Item loadInteractiveItem(JSONObject itemJson) {
-        String name = itemJson.getString("Name");
-        Command command = loadCommand(itemJson.getJSONObject("Command"));
-        return new InteractiveItem(name, command);
     }
 
     private InteractiveItem loadInteractiveItem(JSONObject itemJson) {

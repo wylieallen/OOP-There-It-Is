@@ -13,5 +13,4 @@ public interface InfluenceArea {
     boolean isExpired();//Will return whether the InfluenceArea is ready to be deleted, as in its time has run out, it has reached its max radius, etc.
     List<Coordinate> getAffectedCoordinates();//Will return the list of coordinates this influence area is currently affecting
     void setCenter(Coordinate coordinate);
-    void trigger(Entity e, Coordinate coordinate);
 }

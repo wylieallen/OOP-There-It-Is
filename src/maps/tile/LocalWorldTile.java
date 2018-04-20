@@ -97,12 +97,6 @@ public class LocalWorldTile extends Tile {
         }
     }
 
-    public void trigger(InfluenceArea IA, Coordinate coordinate){
-        if(hasEntity()) {
-            IA.trigger(getEntity(), coordinate);
-        }
-    }
-
     @Override
     public void accept(Visitor v) {
         v.visitLocalWorldTile(this);

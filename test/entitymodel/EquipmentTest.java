@@ -50,7 +50,7 @@ public class EquipmentTest {
 
         Entity e = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, inventory, true);
 
-        equipment = new Equipment(wearables, weapons, 5, inventory, e, new ArrayList<>());
+        equipment = new Equipment(wearables, weapons, 5, inventory, e);
 
     }
 
