@@ -441,14 +441,16 @@ public class LoadingParser {
                 loadReversibleCommand(itemJson.getJSONObject("ReversableCommand")), loadEquipType(itemJson.getString("EquipType")));
     }
 
-    private SkillCommand loadSkillCommand(JSONObject skillCommandJSON) {
-        return null;
-    }
-
     private Command loadCommand(JSONObject commandJson) {
         if (commandJson.getString("Name").equals("Transition"))
             return loadTransitionCommand(commandJson);
-        else if (commandJson.getString("Name").equals("Confuse"))
+        else {
+            return loadSkillCommand(commandJson);
+        }
+    }
+
+    private SkillCommand loadSkillCommand(JSONObject commandJson) {
+        if (commandJson.getString("Name").equals("Confuse"))
             return loadConfuseCommand(commandJson);
         else if (commandJson.getString("Name").equals("MakeFriendly"))
             return loadMakeFriendlyCommand(commandJson);

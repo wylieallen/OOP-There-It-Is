@@ -51,7 +51,12 @@
         "Damage": 15,
         "AttackSpeed": 1,
         "RequiredSkill": "TWOHANDEDWEAPON",
-        "OnMap": false
+        "OnMap": false,
+        "MaxRadius": 3,
+        "ExpansionInterval": 1000,
+        "UpdateInterval": 1000,
+        "InfluenceType": "LINEARINFLUENCE"
+
       }
     ],
     "Equipment": {
@@ -68,7 +73,11 @@
           "Damage": 10,
           "AttackSpeed": 1,
           "RequiredSkill": "ONEHANDEDWEAPON",
-          "OnMap": false
+          "OnMap": false,
+          "MaxRadius": 3,
+          "ExpansionInterval": 1000,
+          "UpdateInterval": 1000,
+          "InfluenceType": "ANGULARINFLUENCE"
         },
         {
           "Type": "Weapon",
@@ -82,7 +91,11 @@
           "Damage": 10,
           "AttackSpeed": 1,
           "RequiredSkill": "ENCHANTMENT",
-          "OnMap": false
+          "OnMap": false,
+          "MaxRadius": 3,
+          "ExpansionInterval": 1000,
+          "UpdateInterval": 1000,
+          "InfluenceType": "LINEARINFLUENCE"
         }
       ],
       "WearableItems": [
@@ -388,7 +401,11 @@
               "Damage": 15,
               "AttackSpeed": 1,
               "RequiredSkill": "TWOHANDEDWEAPON",
-              "OnMap": false
+              "OnMap": false,
+              "MaxRadius": 3,
+              "ExpansionInterval": 1000,
+              "UpdateInterval": 1000,
+              "InfluenceType": "LINEARINFLUENCE"
             }
           ]
         },
@@ -439,7 +456,11 @@
               "Damage": 15,
               "AttackSpeed": 1,
               "RequiredSkill": "TWOHANDEDWEAPON",
-              "OnMap": false
+              "OnMap": false,
+              "MaxRadius": 3,
+              "ExpansionInterval": 1000,
+              "UpdateInterval": 1000,
+              "InfluenceType": "LINEARINFLUENCE"
             }
           ]
         },
@@ -613,7 +634,11 @@
               "Damage": 15,
               "AttackSpeed": 1,
               "RequiredSkill": "TWOHANDEDWEAPON",
-              "OnMap": false
+              "OnMap": false,
+              "MaxRadius": 3,
+              "ExpansionInterval": 1000,
+              "UpdateInterval": 1000,
+              "InfluenceType": "LINEARINFLUENCE"
             }
           ],
           "Equipment": {
@@ -630,7 +655,11 @@
                 "Damage": 10,
                 "AttackSpeed": 1,
                 "RequiredSkill": "ONEHANDEDWEAPON",
-                "OnMap": false
+                "OnMap": false,
+                "MaxRadius": 3,
+                "ExpansionInterval": 1000,
+                "UpdateInterval": 1000,
+                "InfluenceType": "LINEARINFLUENCE"
               },
               {
                 "Type": "Weapon",
@@ -644,7 +673,11 @@
                 "Damage": 10,
                 "AttackSpeed": 1,
                 "RequiredSkill": "ENCHANTMENT",
-                "OnMap": false
+                "OnMap": false,
+                "MaxRadius": 3,
+                "ExpansionInterval": 1000,
+                "UpdateInterval": 1000,
+                "InfluenceType": "LINEARINFLUENCE"
               }
             ],
             "WearableItems": [
@@ -656,7 +689,8 @@
                   "StaminaRegenDecrease": 20,
                   "IsApplied": true
                 },
-                "OnMap": false
+                "OnMap": false,
+                "MaxRadius": 3
               }
             ]
           },
@@ -760,7 +794,11 @@
               "Damage": 15,
               "AttackSpeed": 1,
               "RequiredSkill": "TWOHANDEDWEAPON",
-              "OnMap": true
+              "OnMap": true,
+              "MaxRadius": 3,
+              "ExpansionInterval": 1000,
+              "UpdateInterval": 1000,
+              "InfluenceType": "LINEARINFLUENCE"
             }
           ]
         },
@@ -811,7 +849,11 @@
               "Damage": 15,
               "AttackSpeed": 1,
               "RequiredSkill": "TWOHANDEDWEAPON",
-              "OnMap": true
+              "OnMap": true,
+              "MaxRadius": 3,
+              "ExpansionInterval": 1000,
+              "UpdateInterval": 1000,
+              "InfluenceType": "LINEARINFLUENCE"
             }
           ]
         },
