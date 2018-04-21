@@ -85,7 +85,12 @@ public class LocalWorld implements World {
 
     @Override
     public Map<Coordinate, GameObjectContainer> getMap() {
-        return null;
+        Map<Coordinate, GameObjectContainer> ret = new HashMap<>();
+        for(Coordinate c : tiles.keySet())
+        {
+            ret.put(c, tiles.get(c));
+        }
+        return ret;
     }
 
     public LocalWorldTile getTile(Coordinate c) {
@@ -94,6 +99,11 @@ public class LocalWorld implements World {
 
     @Override
     public Tile getTileForEntity(Entity e) {
+        for(LocalWorldTile tile: tiles.values()) {
+            if(tile.has(e)) {
+                return tile;
+            }
+        }
         return null;
     }
 

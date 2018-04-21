@@ -1,6 +1,7 @@
 package gameview;
 
 import entity.entitycontrol.controllerActions.*;
+import entity.entitymodel.Entity;
 import gameview.util.ImageMaker;
 import guiframework.DisplayPanel;
 import guiframework.displayable.ColoredRectDisplayable;
@@ -9,6 +10,9 @@ import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
 import maps.tile.Tile;
+import maps.world.TransitionObserver;
+import maps.world.World;
+import utilities.Coordinate;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +22,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class GamePanel extends DisplayPanel implements ControllerActionVisitor
+public class GamePanel extends DisplayPanel implements ControllerActionVisitor, TransitionObserver
 {
     private GameDisplayState gameDisplayState;
 
@@ -141,6 +145,13 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor
 
         timer.start();
 
+        resetCamera();
+    }
+
+    @Override
+    public void notifyTransition(Entity entity, World world, Coordinate p)
+    {
+        gameDisplayState.transitionWorld(world);
         resetCamera();
     }
 

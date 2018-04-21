@@ -136,7 +136,7 @@ public class GameViewMaker
         npc.getController().getEquipment().add(w);
 
         spriteMap.put(player, ImageMaker.makeEntityDisplayable(player));
-        spriteMap.put(npc, ImageMaker.makeEntityDisplayable(npc));
+        spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
 
         //tile.setEntity(player);
 
@@ -165,15 +165,19 @@ public class GameViewMaker
         worldDisplayableMap.put(localWorld, localworldDisplayable);
 
         Game game = new Game(overworld, overworld, localWorldsList, 0, player);
+        game.setTransitionObserver(panel);
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), player.getControllerActions(), panel));
 
         //setup world transitions
         InteractiveItem localWorld1Entrance = new InteractiveItem("Teleporter", new TransitionCommand(localWorldsList.get(0), new Coordinate(0, 0), game));
+        spriteMap.put(localWorld1Entrance, ImageMaker.makeTeleporterDisplayable());
         overworld.getTile(new Coordinate(1, -2)).setEncounter(localWorld1Entrance);
+
         InteractiveItem localWorld1Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
+        spriteMap.put(localWorld1Exit, ImageMaker.makeTeleporterDisplayable());
         localWorldsList.get(0).getTile(new Coordinate(-5, -5)).addEI(localWorld1Exit);
 
-        return new GameDisplayState(panel.getSize(), new Game(overworld, overworld, localWorldsList, 0, player), spriteMap, worldDisplayableMap, overworld);
+        return new GameDisplayState(panel.getSize(), game, spriteMap, worldDisplayableMap, overworld);
     }
 
     // todo: expandOverworld is very inefficient right now
@@ -209,9 +213,9 @@ public class GameViewMaker
 
         Equipment e = new Equipment(5, i, entity);
 
-        HostileAI hostil = new HostileAI(entity.getActeeInteractions(), aggroTarget, new HashMap<>());
+        HostileAI hostile = new HostileAI(entity.getActeeInteractions(), aggroTarget, new HashMap<>());
         FriendlyAI friendly = new FriendlyAI(entity.getActeeInteractions(), new HashMap<>(), false);
-        NpcEntityController controller = new NpcEntityController(entity, e, loc, new ArrayList<>(), hostil, friendly, isHostile);
+        NpcEntityController controller = new NpcEntityController(entity, e, loc, new ArrayList<>(), hostile, friendly, isHostile);
         entity.setController(controller);
 
         return entity;
@@ -220,7 +224,6 @@ public class GameViewMaker
     private LocalWorld createLocalWorld1(OverWorld overworld) {
 
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
-        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
         for(int i = -5; i <= 5; ++i) {
             for(int j = -5; j <= 5; ++j) {
@@ -231,6 +234,8 @@ public class GameViewMaker
                 );
             }
         }
+
+        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
         return world;
     }

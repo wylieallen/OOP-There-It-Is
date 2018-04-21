@@ -47,23 +47,31 @@ public class GameDisplayState extends DisplayState
 
         // Initialize GUI widgets:
         this.widgets = new PriorityQueue<>();
+
         CompositeDisplayable playerStatus = new CompositeDisplayable(new Point(16, 16), 1);
         Entity player = game.getPlayer();
-        playerStatus.add(new ImageDisplayable(new Point(0, 0), ImageMaker.makeBorderedRect(128, 164, Color.WHITE), -1));
+        playerStatus.add(new ImageDisplayable(new Point(0, 0), ImageMaker.makeBorderedRect(128 + 32, 194, Color.WHITE), -1));
         playerStatus.add(new StringDisplayable(new Point(4, 16), "Player Status:", Color.BLACK, 1));
         playerStatus.add(new StringDisplayable(new Point(4, 32), () -> "Health: " + player.getCurrHealth() + " / " + player.getMaxHealth(), Color.BLACK, 1));
         playerStatus.add(new StringDisplayable(new Point(4, 48), () -> "Mana:   " + player.getCurMana() + " / " + player.getMaxMana(), Color.BLACK, 1));
         playerStatus.add(new StringDisplayable(new Point(4, 64), () -> "Exp:    " + player.getCurXP(), Color.BLACK, 1));
         playerStatus.add(new StringDisplayable(new Point(4, 80), () -> "Level:  " + player.getCurLevel(), Color.BLACK, 1));
-        playerStatus.add(new StringDisplayable(new Point(4, 96), () -> "Dir:    " + player.getMovementDirection(), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 96), () -> "Dir:    " + player.getFacing(), Color.BLACK, 1));
         playerStatus.add(new StringDisplayable(new Point(4, 112),() -> "Vis:    " + player.getVisibilityRadius(), Color.BLACK, 1));
         playerStatus.add(new StringDisplayable(new Point(4, 128),() -> "Cncl:   " + player.getConcealment(), Color.BLACK, 1));
         playerStatus.add(new StringDisplayable(new Point(4, 144),() -> "Speed:  " + player.getBaseMoveSpeed(), Color.BLACK, 1));
         playerStatus.add(new StringDisplayable(new Point(4, 160),() -> "Loc: " + game.getCoordinate(player), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 176),() -> "Vec: " + player.getMovementVector(), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 190),() -> "VecDir: " + player.getMovementDirection(), Color.BLACK, 1));
         widgets.add(playerStatus);
+
+        CompositeDisplayable playerInventory = new CompositeDisplayable(new Point(16, 256), 1);
+        playerInventory.add(new ImageDisplayable(new Point(0, 0), ImageMaker.makeBorderedRect(128 + 32, 384, Color.WHITE), -1));
+        playerInventory.add(new StringDisplayable(new Point(4, 16), "Player Inventory:", Color.BLACK, 1));
+        widgets.add(playerInventory);
     }
 
-    public static Displayable getSprite(GameObject o) { return spriteMap.get(o); }
+    public static Displayable getSprite(GameObject o) { return spriteMap.getOrDefault(o, ImageMaker.getNullDisplayable()); }
 
     public static void registerSprite(GameObject o, Displayable d) { spriteMap.put(o, d); }
 

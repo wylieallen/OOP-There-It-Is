@@ -33,7 +33,11 @@ public class OverWorldTile extends Tile {
 
     public Collection<GameObject> getGameObjects()
     {
-        return super.getGameObjects();
+        Set<GameObject> set = new HashSet<>();
+        set.addAll(super.getGameObjects());
+        if(encounter != null)
+            set.add(encounter);
+        return set;
     }
 
     @Override
