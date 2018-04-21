@@ -75,8 +75,11 @@ public class Vehicle extends Entity {
 
     @Override
     public void update(Map<Coordinate, Tile> map) {
-        super.update(map);
+        if (driver.isOnMap()) {
+            driver = null;
+        }
 
+        super.update(map);
     }
 
     private void setDriver (Entity driver) {

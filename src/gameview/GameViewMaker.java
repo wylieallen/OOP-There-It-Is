@@ -17,7 +17,6 @@ import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
 import items.InteractiveItem;
 import items.takeableitems.QuestItem;
-import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
 import maps.Influence.InfluenceType;
 import maps.movelegalitychecker.Terrain;

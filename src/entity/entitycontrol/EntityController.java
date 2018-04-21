@@ -34,6 +34,8 @@ public abstract class EntityController implements Visitable{
         this.actions = actions;
         if (this.actions == null)
             this.actions = new ArrayList<>();
+        this.inVehicle = !controlledEntity.isOnMap();
+        dismounting = false;
     }
 
 
