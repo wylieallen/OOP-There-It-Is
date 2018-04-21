@@ -74,7 +74,7 @@ public class GameDisplayState extends DisplayState
 
         // Todo: base this off the Inventory/Equipment's actual max size
 //        int numInventorySlots = 8;
-        int numInventorySlots = 0; // made it zero for now to stop null item assert error
+        int numInventorySlots = player.getInventory().getItems().size(); // made it zero for now to stop null item assert error
         for(int i = 0; i < numInventorySlots; i++)
         {
             int index = i;
