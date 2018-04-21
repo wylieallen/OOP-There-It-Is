@@ -21,7 +21,7 @@ public class HostileAI extends AI {
         super(interactions, path);
         target = entity;
         targetsLastPosition = new Coordinate(0, 0);
-        myLastPosition = null;
+        myLastPosition = new Coordinate(0, 0);
     }
 
     @Override
