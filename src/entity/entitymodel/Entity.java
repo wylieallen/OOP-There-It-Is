@@ -33,8 +33,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     private Vector movementVector;
     private EntityStats stats;
     private List<TimedEffect> effects;
-    private List <EntityInteraction> actorInteractions;
-    private List <EntityInteraction> acteeInteractions;
+    private List<EntityInteraction> actorInteractions;
+    private List<EntityInteraction> acteeInteractions;
     private EntityController controller;
     private Inventory inventory;
     private boolean onMap;
