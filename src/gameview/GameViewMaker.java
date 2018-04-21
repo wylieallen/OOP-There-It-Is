@@ -170,7 +170,7 @@ public class GameViewMaker
 
         //setup world transitions
         InteractiveItem localWorld1Entrance = new InteractiveItem("Encounter 1", new TransitionCommand(localWorldsList.get(0), new Coordinate(0, 0), game));
-        //spriteMap.put(localWorld1Entrance, ImageMaker.makeEncounterDisplayable1());
+        spriteMap.put(localWorld1Entrance, ImageMaker.makeEncounterDisplayable1());
         overworld.getTile(new Coordinate(1, -2)).setEncounter(localWorld1Entrance);
 
         InteractiveItem localWorld1Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
