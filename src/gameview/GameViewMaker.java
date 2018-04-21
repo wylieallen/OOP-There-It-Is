@@ -202,7 +202,7 @@ public class GameViewMaker
     private Entity createNPC (Coordinate loc, Entity aggroTarget, boolean isHostile) {
 
         Map <SkillType, Integer> skills = new HashMap<>();
-        skills.put(SkillType.TWOHANDEDWEAPON, 100);
+        skills.put(SkillType.TWOHANDEDWEAPON, 1);
 
         Set <Terrain> compatible = new HashSet<>();
         compatible.add(Terrain.GRASS);
@@ -241,10 +241,9 @@ public class GameViewMaker
         Coordinate npcLoc = new Coordinate(-2, 0);
         Entity npc = createNPC (npcLoc, player, true);
         npc.addCompatibleTerrain(Terrain.SPACE);
-        npc.increaseSkillLevel(SkillType.TWOHANDEDWEAPON, 1);
 
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), -10, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Bob", false, 0, 1, SkillType.TWOHANDEDWEAPON, 5, 1, 1, InfluenceType.CIRCULARINFLUENCE, skill);
+        WeaponItem w = new WeaponItem ("Bob", false, 0, 5000, SkillType.TWOHANDEDWEAPON, 1, 1, 1, InfluenceType.CIRCULARINFLUENCE, skill);
         npc.getController().getEquipment().add(w);
         //must add overworld as observer
         w.registerObserver(world);
