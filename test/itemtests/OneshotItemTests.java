@@ -41,7 +41,7 @@ public class OneshotItemTests {
                 null, true);
 
         EntityController entityController = new HumanEntityController(entity, null,
-                new Coordinate(2, 2), new ArrayList<>(), null);
+                new Coordinate(2, 2), null);
 
         entity.setController(entityController);
 

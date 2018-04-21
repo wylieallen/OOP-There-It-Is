@@ -39,7 +39,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     private EntityController controller;
     private Inventory inventory;
     private boolean onMap;
-    private String name;
+    private String name = "default";
 
     private MovementObserver movementObserver = () -> {};
 

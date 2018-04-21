@@ -175,10 +175,10 @@ public class EntityTest {
         actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeInventory, true);
 
         EntityController actorController = new HumanEntityController(actor,null,
-                null, new ArrayList<>(), null);
+                null, null);
 
         EntityController acteeController = new NpcEntityController(actee, null,
-                null, new ArrayList<>(), new HostileAI(new ArrayList<>(), actor, null),
+                null, new HostileAI(new ArrayList<>(), actor, null),
                 new FriendlyAI(acteeActeeInteractions, null, false), false);
 
         actor.setController(actorController);

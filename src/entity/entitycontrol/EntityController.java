@@ -13,7 +13,6 @@ import utilities.Coordinate;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 public abstract class EntityController implements Visitable{
@@ -27,11 +26,10 @@ public abstract class EntityController implements Visitable{
     private Vehicle mount;
 
     public EntityController(Entity entity, Equipment equipment,
-                            Coordinate entityLocation, Collection<ControllerAction> actions) {
+                            Coordinate entityLocation) {
         this.controlledEntity = entity;
         this.equipment = equipment;
         this.entityLocation = entityLocation;
-        this.actions = actions;
         if (this.actions == null)
             this.actions = new ArrayList<>();
     }
@@ -55,7 +53,9 @@ public abstract class EntityController implements Visitable{
 
     protected Entity getControlledEntity() { return controlledEntity; }
 
-
+    public void setControllerActions(Collection<ControllerAction> actions){
+        this.actions = actions;
+    }
 
     //this is the functionality all entity controllers need
 

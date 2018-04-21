@@ -10,8 +10,6 @@ public class LoadingParserTest {
     @Test
     public void LoadingParserTest() throws FileNotFoundException {
 //        LoadingParser l = new LoadingParser();
-//        l.loadGame("saveFileExample", new Dimension());
-//        Visitor v = new SaveVisitor("saved");
-//        l.getGame().accept(v);
+//        l.loadGame("test", new Dimension());
     }
 }

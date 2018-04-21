@@ -8,6 +8,7 @@ import commands.reversiblecommands.TimedStaminaRegenCommand;
 import commands.PickPocketCommand;
 import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.*;
+import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
@@ -17,6 +18,7 @@ import entity.entitymodel.interactions.*;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
+import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
 import items.InteractiveItem;
@@ -44,6 +46,7 @@ import utilities.Coordinate;
 import utilities.Vector;
 
 import java.awt.*;
+import java.awt.geom.Dimension2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -101,23 +104,20 @@ public class LoadingParser {
         Vector movementVector = new Vector();
         JSONObject entityStatsJson = playerJson.getJSONObject("Stats");
         EntityStats entityStats = loadEntityStats(entityStatsJson);
-        List<ControllerAction> controllerActions = loadControllerActions(playerJson.getString("Name")); // TODO: create ControllerActions
         List<EntityInteraction> actorInteractions = loadActorInteractions(playerJson.getJSONArray("ActorInteractions"));
         List<TimedEffect> effects = new ArrayList<>();
         Inventory inventory = loadInventory(playerJson.getJSONArray("Inventory"));
-        Boolean onMap = true;
+        Boolean onMap = !playerJson.getBoolean("InVehicle");
         player = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, "Default");
         Equipment equipment = loadEquipment(playerJson.getJSONObject("Equipment"), inventory, player);
         Coordinate coordinate = new Coordinate(playerJson.getInt("X"), playerJson.getInt("Y"));
-        HumanEntityController controller = new HumanEntityController(player, equipment, coordinate, controllerActions, null);
+        HumanEntityController controller = new HumanEntityController(player, equipment, coordinate, null);
         player.setController(controller);
+        List<ControllerAction> controllerActions = loadControllerActions(playerJson.getString("Name"), player, controller, equipment);
+        controller.setControllerActions(controllerActions);
         player.setControllerActions(controllerActions);
-        ImageDisplayable displayable = loadDisplayable(playerJson.getString("Name"));
+        Displayable displayable = loadDisplayable(playerJson.getString("Name"));
         spriteMap.put(player, displayable);
-    }
-
-    private List<ControllerAction> loadControllerActions(String name) {
-        return null;
     }
 
     private void loadOverWorld(JSONObject overWorldJson) {
@@ -160,24 +160,40 @@ public class LoadingParser {
         Vector movementVector = new Vector();
         JSONObject entityStatsJson = entityJson.getJSONObject("Stats");
         EntityStats entityStats = loadEntityStats(entityStatsJson);
-        List<ControllerAction> controllerActions = loadControllerActions("default"); // TODO: create ControllerActions
         List<EntityInteraction> actorInteractions = loadActorInteractions(entityJson.getJSONArray("ActorInteractions"));
         List<TimedEffect> effects = new ArrayList<>();
         Inventory inventory = loadInventory(entityJson.getJSONArray("Inventory"));
-        Boolean onMap = true;
+        Boolean onMap = !entityJson.getBoolean("InVehicle");
         Entity entity;
         if (entityJson.getString("Type").equals("Vehicle"))
             entity = new Vehicle(movementVector, entityStats, effects, actorInteractions, inventory, onMap, null);
         else
             entity = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, "Default");
-        Equipment equipment = loadEquipment(entityJson.getJSONObject("Equipment"), inventory, player);
+        Equipment equipment = loadEquipment(entityJson.getJSONObject("Equipment"), inventory, entity);
         Coordinate coordinate = new Coordinate(entityJson.getInt("X"), entityJson.getInt("Y"));
-        NpcEntityController controller = loadNpcEntityController(entityJson, entity, equipment, coordinate, controllerActions);
+        NpcEntityController controller = loadNpcEntityController(entityJson, entity, equipment, coordinate);
         entity.setController(controller);
+        List<ControllerAction> controllerActions = loadControllerActions(entityJson.getString("Name"), entity, controller, equipment);
+        controller.setControllerActions(controllerActions);
         entity.setControllerActions(controllerActions);
-        ImageDisplayable displayable = loadDisplayable(entityJson.getString("Name"));
+        Displayable displayable = loadDisplayable(entityJson.getString("Name"));
         spriteMap.put(entity, displayable);
         return entity;
+    }
+
+    private List<ControllerAction> loadControllerActions(String name, Entity entity, EntityController controller, Equipment equipment) {
+        if (name.equals("Smasher")){
+            return ControllerActionFactory.makeSmasherActions(entity, controller, equipment);
+        }
+        else if (name.equals("Summoner")){
+            return ControllerActionFactory.makeSummonerActions(entity, controller, equipment);
+        }
+        else if (name.equals("Sneak")){
+            return ControllerActionFactory.makeSneakActions(entity, controller, equipment);
+        }
+        else{
+            return ControllerActionFactory.makeBasicNPCActions(entity, controller, equipment);
+        }
     }
 
     private Map<Coordinate, LocalWorldTile> loadLocalWorldTiles(JSONArray tilesJson) {
@@ -224,7 +240,7 @@ public class LoadingParser {
         int strength = trapJson.getInt("Strength");
         Boolean isVisible = trapJson.getBoolean("IsVisible");
         Trap trap = new Trap(command, hasFired, strength, isVisible);
-        ImageDisplayable displayable = loadDisplayable("Trap");
+        Displayable displayable = loadDisplayable("Trap");
         spriteMap.put(trap, displayable);
         return trap;
     }
@@ -234,7 +250,7 @@ public class LoadingParser {
         double dz = riverJson.getDouble("dz");
         Vector v = new Vector(dx, dz);
         River river = new River(v);
-        ImageDisplayable displayable = loadDisplayable("River");
+        Displayable displayable = loadDisplayable("River");
         spriteMap.put(river, displayable);
         return river;
     }
@@ -256,7 +272,7 @@ public class LoadingParser {
         Command command = loadCommand(areaEffectJson.getJSONObject("Command"));
         Boolean hasFired = areaEffectJson.getBoolean("HasFired");
         OneShotAreaEffect areaEffect = new OneShotAreaEffect(command, hasFired, areaEffectJson.getString("Name"));
-        ImageDisplayable displayable = loadDisplayable(areaEffectJson.getString("Name"));
+        Displayable displayable = loadDisplayable(areaEffectJson.getString("Name"));
         spriteMap.put(areaEffect, displayable);
         return areaEffect;
     }
@@ -266,7 +282,7 @@ public class LoadingParser {
         long triggerInterval = areaEffectJson.getLong("TriggerInterval");
         long lastTriggerTime = areaEffectJson.getLong("LastTriggerTime");
         InfiniteAreaEffect areaEffect = new InfiniteAreaEffect(command, triggerInterval, lastTriggerTime, areaEffectJson.getString("Name"));
-        ImageDisplayable displayable = loadDisplayable(areaEffectJson.getString("Name"));
+        Displayable displayable = loadDisplayable(areaEffectJson.getString("Name"));
         spriteMap.put(areaEffect, displayable);
         return areaEffect;
     }
@@ -429,8 +445,8 @@ public class LoadingParser {
     }
 
     private Equipment loadEquipment(JSONObject equipmentJson, Inventory inventory, Entity entity) {
-        JSONArray weaponItemsJson = equipmentJson.getJSONArray("WeaponItems");
-        JSONObject wearableItemsJson = equipmentJson.getJSONObject("WearableItems");
+        JSONArray weaponItemsJson = equipmentJson.getJSONArray("Weapons");
+        JSONObject wearableItemsJson = equipmentJson.getJSONObject("Wearables");
         List<WeaponItem> weaponItems = new ArrayList<WeaponItem>();
         Map<EquipSlot, WearableItem> wearableItems = new HashMap<EquipSlot, WearableItem>();
         for (Object weaponItemJsonObj : weaponItemsJson){
@@ -600,8 +616,7 @@ public class LoadingParser {
     }
 
     private EnrageCommand loadEnrageCommand(JSONObject commandJson) {
-        // TODO: need to save? Entity caster is issue
-        return null;
+        return new EnrageCommand();
     }
 
     private MakeFriendlyCommand loadMakeFriendlyCommand(JSONObject commandJson) {
@@ -659,14 +674,12 @@ public class LoadingParser {
     }
 
     private NpcEntityController loadNpcEntityController(JSONObject entityJson, Entity entity,
-                                                        Equipment equipment, Coordinate entityLocation,
-                                                        List<ControllerAction> actions){
+                                                        Equipment equipment, Coordinate entityLocation){
         String entityTypeString = entityJson.getString("Type");
         JSONObject aggroAiJson = entityJson.getJSONObject("AggroAi");
         JSONObject nonAggroAiJson = entityJson.getJSONObject("NonAggroAi");
         Boolean isAggro = entityJson.getBoolean("IsAggro");
-        return new NpcEntityController(entity, equipment, entityLocation, actions, loadAI(aggroAiJson), loadAI(nonAggroAiJson), isAggro);
-
+        return new NpcEntityController(entity, equipment, entityLocation, loadAI(aggroAiJson), loadAI(nonAggroAiJson), isAggro);
     }
 
     private AI loadAI(JSONObject aiJson) {
@@ -701,9 +714,30 @@ public class LoadingParser {
         }
     }
 
-    private ImageDisplayable loadDisplayable(String name) {
-        // TODO
-        return null;
+    private Displayable loadDisplayable(String name) {
+        if (name.equals("Smasher"))
+            return ImageMaker.makeSmasherEntityDisplayable();
+        else if (name.equals("Summoner"))
+            return ImageMaker.makeSummonerEntityDisplayable();
+        else if (name.equals("Sneak"))
+            return ImageMaker.makeSneakEntityDisplayable();
+        else if (name.equals("ShopKeep"))
+            return ImageMaker.makeShopKeepDisplayable();
+        else if (name.equals("Grass"))
+            return ImageMaker.makeGrassDisplayable();
+        else if (name.equals("Water"))
+            return ImageMaker.makeWaterDisplayable();
+        else if (name.equals("Mountain"))
+            return ImageMaker.makeMountainDisplayable();
+        else if (name.equals("Teleporter"))
+            return ImageMaker.makeTeleporterDisplayable();
+        else if (name.equals("Vehicle"))
+            return ImageMaker.makeVehicleDisplayable();
+        ///... TODO: add more for each new game object
+        else{
+            System.out.println("No Displayable for GameObject type -- " + name);
+            return ImageMaker.getNullDisplayable();
+        }
     }
 
     public GameDisplayState getGameDisplayState () {
