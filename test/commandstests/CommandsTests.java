@@ -154,14 +154,14 @@ public class CommandsTests {
     public void testParalyzeCommand() {
         ParalyzeCommand command = new ParalyzeCommand(0);
 
-        Assert.assertEquals(2, target.getBaseMoveSpeed());
+        Assert.assertEquals(2, target.getBaseMoveSpeed(), 0.01);
 
         command.trigger(target);
 
-        Assert.assertEquals(0, target.getBaseMoveSpeed());
+        Assert.assertEquals(0, target.getBaseMoveSpeed(), 0.01);
 
         target.update();
-        Assert.assertEquals(2, target.getBaseMoveSpeed());
+        Assert.assertEquals(2, target.getBaseMoveSpeed(), 0.01);
     }
 
     @Test

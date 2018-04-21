@@ -107,6 +107,16 @@ public class ImageMaker
         return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/interactives/transitionitem.png"), ITEM_HEIGHT);
     }
 
+    public static Displayable makeEncounterDisplayable1()
+    {
+        return new ImageDisplayable(new Point(8, 8), loadImage("assets/items/interactives/encounter1.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeEncounterDisplayable2()
+    {
+        return new ImageDisplayable(new Point(8, 8), loadImage("assets/items/interactives/encounter2.png"), ITEM_HEIGHT);
+    }
+
 
 
 
@@ -156,16 +166,25 @@ public class ImageMaker
         return image;
     }
 
+    private static BufferedImage nullImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+
     private static BufferedImage loadImage(String path)
     {
         try
         {
-            return ImageIO.read(new File(path));
+            BufferedImage image = ImageIO.read(new File(path));
+            if(image == null)
+            {
+                System.out.println("ERROR! File at " + path + " resulted in null image");
+                image = nullImage;
+            }
+            return image;
         }
-        catch(IOException e)
+        catch(Exception e)
         {
+            System.out.println("ERROR! Failed to read file at " + path);
             e.printStackTrace();
-            return null;
+            return nullImage;
         }
     }
 }

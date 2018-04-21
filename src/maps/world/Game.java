@@ -20,6 +20,7 @@ public class Game implements TransitionObserver, Visitable {
     private OverWorld overWorld;
     private List<LocalWorld> localWorlds;
     private static long curTime;
+    private static long lastTimeUpdated;
     private Entity player;
 
     private TransitionObserver transitionObserver;
@@ -34,6 +35,7 @@ public class Game implements TransitionObserver, Visitable {
         this.overWorld = overWorld;
         this.localWorlds = localWorlds;
         Game.curTime = curTime;
+        Game.lastTimeUpdated = System.currentTimeMillis();
         this.player = player;
     }
 
@@ -52,7 +54,8 @@ public class Game implements TransitionObserver, Visitable {
             activeWorld.remove(e);
             setActiveWorld(target);
             activeWorld.add(p, e);
-            transitionObserver.notifyTransition(e, target, p);
+            if(transitionObserver != null)
+                transitionObserver.notifyTransition(e, target, p);
         }
     }
 
@@ -69,7 +72,10 @@ public class Game implements TransitionObserver, Visitable {
     }
 
     public static void updateGameTime() {
-        curTime = System.currentTimeMillis();
+        long currTimeMills = System.currentTimeMillis();
+        curTime += (currTimeMills-lastTimeUpdated);
+        System.out.println("Current Time: " + getCurrentTime() + " += " + (currTimeMills - lastTimeUpdated));
+        lastTimeUpdated = currTimeMills;
     }
 
     public void update()

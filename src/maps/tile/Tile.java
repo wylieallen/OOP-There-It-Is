@@ -5,6 +5,7 @@ import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
+import maps.world.Game;
 import savingloading.Visitable;
 import utilities.Coordinate;
 import utilities.Vector;
@@ -35,10 +36,11 @@ public abstract class Tile implements GameObjectContainer, Visitable {
     }
     public Tile getNeighbor(Direction direction) { return neighbors.getOrDefault(direction, null);}
 
-    private void tryToMove(Tile tileFrom, Entity entity, int moveSpeed){
+    private void tryToMove(Tile tileFrom, Entity entity, double moveSpeed){
         if(isMoveLegal(entity) && entity.tryToMove(moveSpeed)){
             tileFrom.moveFrom();
             setEntity(entity);
+            entity.notifyMovement();
         }
         entity.resetMovementVector();
     }
