@@ -55,7 +55,7 @@ public class SaveVisitor implements Visitor {
     private JSONObject currentCommandJson;
     private JSONObject currentSkillCommandJson;
     private JSONObject currentTileJson;
-    private String currentAiString;
+    private JSONObject currentAiJson;
     private Queue<JSONObject> itemJsonsQueue = new ArrayDeque<>();
     private Queue<JSONObject> interactionsQueue = new ArrayDeque<>();
     private Map<TransitionCommand, JSONObject> transitionCommandJsons = new HashMap<>();
@@ -123,9 +123,9 @@ public class SaveVisitor implements Visitor {
         addNonPlayerEntity();
         currentEntityJson.put("Type", "NPC");
         n.getAggroAi().accept(this);
-        currentEntityJson.put("AggroAi", currentAiString);
+        currentEntityJson.put("AggroAi", currentAiJson);
         n.getNonAggroAi().accept(this);
-        currentEntityJson.put("NonAggroAi", currentAiString);
+        currentEntityJson.put("NonAggroAi", currentAiJson);
         addInVehicle(n.isInVehicle());
         addCoordinates(n.getEntityLocation());
         n.getEquipment().accept(this);
@@ -134,22 +134,62 @@ public class SaveVisitor implements Visitor {
 
     @Override
     public void visitFriendlyAI(FriendlyAI f) {
-        currentAiString = "Friendly";
+        currentAiJson = new JSONObject();
+        currentAiJson.put("Type", "Friendly");
+        JSONArray interactionsJson = new JSONArray();
+        List<EntityInteraction> interactions = f.getInteractions();
+        for (EntityInteraction ei : interactions){
+            ei.accept(this);
+        }
+        while(!interactionsQueue.isEmpty()){
+            interactionsJson.put(interactionsQueue.remove());
+        }
+        currentAiJson.put("Interactions", interactionsJson);
     }
 
     @Override
     public void visitHostileAI(HostileAI h) {
-        currentAiString = "Hostile";
+        currentAiJson = new JSONObject();
+        currentAiJson.put("Type", "Hostile");
+        JSONArray interactionsJson = new JSONArray();
+        List<EntityInteraction> interactions = h.getInteractions();
+        for (EntityInteraction ei : interactions){
+            ei.accept(this);
+        }
+        while(!interactionsQueue.isEmpty()){
+            interactionsJson.put(interactionsQueue.remove());
+        }
+        currentAiJson.put("Interactions", interactionsJson);
     }
 
     @Override
     public void visitPatrolAI(PatrolAI p) {
-        currentAiString = "Patrol";
+        currentAiJson = new JSONObject();
+        currentAiJson.put("Type", "Patrol");
+        JSONArray interactionsJson = new JSONArray();
+        List<EntityInteraction> interactions = p.getInteractions();
+        for (EntityInteraction ei : interactions){
+            ei.accept(this);
+        }
+        while(!interactionsQueue.isEmpty()){
+            interactionsJson.put(interactionsQueue.remove());
+        }
+        currentAiJson.put("Interactions", interactionsJson);
     }
 
     @Override
     public void visitPetAI(PetAI p) {
-        currentAiString = "Pet";
+        currentAiJson = new JSONObject();
+        currentAiJson.put("Type", "Pet");
+        JSONArray interactionsJson = new JSONArray();
+        List<EntityInteraction> interactions = p.getInteractions();
+        for (EntityInteraction ei : interactions){
+            ei.accept(this);
+        }
+        while(!interactionsQueue.isEmpty()){
+            interactionsJson.put(interactionsQueue.remove());
+        }
+        currentAiJson.put("Interactions", interactionsJson);
     }
 
     @Override

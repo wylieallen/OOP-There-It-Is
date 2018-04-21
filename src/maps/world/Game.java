@@ -22,6 +22,8 @@ public class Game implements TransitionObserver, Visitable {
     private static long curTime;
     private Entity player;
 
+    private TransitionObserver transitionObserver;
+
     public Game(World activeWorld,
                 OverWorld overWorld,
                 List<LocalWorld> localWorlds,
@@ -35,6 +37,11 @@ public class Game implements TransitionObserver, Visitable {
         this.player = player;
     }
 
+    public void setTransitionObserver(TransitionObserver transitionObserver)
+    {
+        this.transitionObserver = transitionObserver;
+    }
+
     public static long getCurrentTime () {
         return curTime;
     }
@@ -45,6 +52,7 @@ public class Game implements TransitionObserver, Visitable {
             activeWorld.remove(e);
             setActiveWorld(target);
             activeWorld.add(p, e);
+            transitionObserver.notifyTransition(e, target, p);
         }
     }
 

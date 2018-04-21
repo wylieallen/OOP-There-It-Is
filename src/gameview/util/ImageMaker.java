@@ -18,6 +18,7 @@ public class ImageMaker
 {
     // Standard z-values are defined here:
     private static int TERRAIN_HEIGHT = 0;
+    private static int ITEM_HEIGHT = 500;
     private static int ENTITY_HEIGHT = 999;
 
     private static Shape hexShape = makeHexShape();
@@ -37,6 +38,13 @@ public class ImageMaker
         map.put(Terrain.WATER, makeWaterDisplayable());
         map.put(Terrain.SPACE, makeSpaceDisplayable());
         return map;
+    }
+
+    private static final Displayable NULL_DISPLAYABLE = new ImageDisplayable(new Point(16, 16), makeBorderedCircle(Color.WHITE), 1);
+
+    public static Displayable getNullDisplayable()
+    {
+        return NULL_DISPLAYABLE;
     }
 
     private static Displayable makeGrassDisplayable()
@@ -62,6 +70,16 @@ public class ImageMaker
     public static Displayable makeEntityDisplayable(Entity e)
     {
         return new ImageDisplayable(new Point(22, 5), loadImage("assets/entities/entity1.png"), ENTITY_HEIGHT);
+    }
+
+    public static Displayable makeEntityDisplayable2(Entity e)
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/entities/entity2.png"), ENTITY_HEIGHT);
+    }
+
+    public static Displayable makeTeleporterDisplayable()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/interactives/transitionitem.png"), ITEM_HEIGHT);
     }
 
 

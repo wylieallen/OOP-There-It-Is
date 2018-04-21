@@ -39,6 +39,7 @@ public abstract class Tile implements GameObjectContainer, Visitable {
         if(isMoveLegal(entity) && entity.tryToMove(moveSpeed)){
             tileFrom.moveFrom();
             setEntity(entity);
+            entity.notifyMovement();
         }
         entity.resetMovementVector();
     }
@@ -71,11 +72,13 @@ public abstract class Tile implements GameObjectContainer, Visitable {
             total.add(entityVector);
 
             Tile toMoveTo = neighbors.get(total.getDirection());
-            updated.add(entity);
-            if(!total.isZeroVector()){
-                toMoveTo.tryToMove(this, entity, (int)total.getMagnitude());
-            } else {
-                entity.resetMovementVector();
+            if(toMoveTo != null) {
+                updated.add(entity);
+                if(!total.isZeroVector()){
+                    toMoveTo.tryToMove(this, entity, (int)total.getMagnitude());
+                } else {
+                    entity.resetMovementVector();
+                }
             }
         }
     }

@@ -41,6 +41,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     private boolean onMap;
     private String name;
 
+    private MovementObserver movementObserver = () -> {};
+
     public Entity()
     {
         this(new Vector(), new EntityStats(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
@@ -95,6 +97,10 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         this.onMap = onMap;
         this.facing = movementVector.getDirection();
     }
+
+    public void setMovementObserver(MovementObserver o) { this.movementObserver = o; }
+
+    public void notifyMovement() { movementObserver.notifyMovement(); }
 
     public void setControllerActions(List<ControllerAction> actions){
         this.actions = actions;
@@ -323,6 +329,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     public Direction getMovementDirection() {
         return movementVector.getDirection();
     }
+
+    public Direction getFacing() { return facing; }
 
     public boolean isSearching() { return stats.getIsSearching(); }
 
