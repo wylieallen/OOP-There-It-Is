@@ -1,6 +1,9 @@
 package gameview;
 
+import entity.entitycontrol.AI.FriendlyAI;
+import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.HumanEntityController;
+import entity.entitycontrol.NpcEntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import entity.entitymodel.Inventory;
@@ -115,11 +118,17 @@ public class GameViewMaker
         */
 
         Entity player = new Entity();
+
+        Coordinate npcLoc = new Coordinate(1, 1);
+        Entity npc = createNPC (npcLoc, player);
+
         spriteMap.put(player, ImageMaker.makeEntityDisplayable(player));
+        spriteMap.put(npc, ImageMaker.makeEntityDisplayable(npc));
 
         //tile.setEntity(player);
 
         overworldMap.get(new Coordinate(2, 1)).setEntity(player);
+        overworldMap.get(npcLoc).setEntity(npc);
 
         System.out.println("Tiles in overworld: " + overworldMap.keySet().size());
 
@@ -152,5 +161,18 @@ public class GameViewMaker
                 }
             }
         }
+    }
+
+    private Entity createNPC (Coordinate loc, Entity aggroTarget) {
+
+        Entity entity = new Entity();
+        Inventory i = new Inventory(new ArrayList<>());
+        Equipment e = new Equipment(5, i, entity);
+        HostileAI hostil = new HostileAI(entity.getActeeInteractions(), aggroTarget, new HashMap<>());
+        FriendlyAI friendly = new FriendlyAI(entity.getActeeInteractions(), new HashMap<>(), false);
+        NpcEntityController controller = new NpcEntityController(entity, e, loc, new ArrayList<>(), hostil, friendly, false);
+        entity.setController(controller);
+
+        return entity;
     }
 }
