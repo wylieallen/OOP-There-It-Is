@@ -16,13 +16,14 @@ public class HumanEntityController extends EntityController{
     private GamePanel view;
 
     public HumanEntityController(Entity entity, Equipment equipment, Coordinate entityLocation, GamePanel view) {
-        super(entity, equipment, entityLocation);
+        super(entity, equipment, entityLocation, entity.getControllerActions());
         this.view = view;
 
         if(view != null) {
             view.setFocusable(true);
             view.requestFocus();
         }
+        setControllerActions(entity.getControllerActions());
     }
 
     public void setControllerActions(Collection<ControllerAction> actions){
