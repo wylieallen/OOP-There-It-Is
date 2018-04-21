@@ -63,7 +63,7 @@ public class GameDisplayState extends DisplayState
         widgets.add(playerStatus);
     }
 
-    public static Displayable getSprite(GameObject o) { return spriteMap.get(o); }
+    public static Displayable getSprite(GameObject o) { return spriteMap.getOrDefault(o, ImageMaker.getNullDisplayable()); }
 
     public static void registerSprite(GameObject o, Displayable d) { spriteMap.put(o, d); }
 

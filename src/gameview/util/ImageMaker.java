@@ -39,6 +39,13 @@ public class ImageMaker
         return map;
     }
 
+    private static final Displayable NULL_DISPLAYABLE = new ImageDisplayable(new Point(16, 16), makeBorderedCircle(Color.WHITE), 1);
+
+    public static Displayable getNullDisplayable()
+    {
+        return NULL_DISPLAYABLE;
+    }
+
     private static Displayable makeGrassDisplayable()
     {
         return new ImageDisplayable(new Point(0, 0), makeBorderedHex("assets/terrains/aliengrass.png"), TERRAIN_HEIGHT);

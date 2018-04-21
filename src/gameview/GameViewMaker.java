@@ -165,6 +165,7 @@ public class GameViewMaker
         worldDisplayableMap.put(localWorld, localworldDisplayable);
 
         Game game = new Game(overworld, overworld, localWorldsList, 0, player);
+        game.setTransitionObserver(panel);
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), player.getControllerActions(), panel));
 
         //setup world transitions
@@ -173,7 +174,7 @@ public class GameViewMaker
         InteractiveItem localWorld1Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
         localWorldsList.get(0).getTile(new Coordinate(-5, -5)).addEI(localWorld1Exit);
 
-        return new GameDisplayState(panel.getSize(), new Game(overworld, overworld, localWorldsList, 0, player), spriteMap, worldDisplayableMap, overworld);
+        return new GameDisplayState(panel.getSize(), game, spriteMap, worldDisplayableMap, overworld);
     }
 
     // todo: expandOverworld is very inefficient right now
