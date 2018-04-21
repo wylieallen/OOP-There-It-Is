@@ -100,4 +100,12 @@ public class LocalWorldTile extends Tile {
     }
 
     public boolean hasImpactor () { return entityImpactors.size() > 0; }
+
+    public Set<EntityImpactor> getEntityImpactors() {
+        return entityImpactors;
+    }
+
+    public Set<TrajectoryModifier> getTrajectoryModifiers() {
+        return trajectoryModifiers;
+    }
 }

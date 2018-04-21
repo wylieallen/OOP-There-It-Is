@@ -39,7 +39,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     private EntityController controller;
     private Inventory inventory;
     private boolean onMap;
-    private String name;
+    private String name = "default";
 
     private MovementObserver movementObserver = () -> {};
 
@@ -67,6 +67,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         this.stats = stats;
         this.effects = effects;
         this.actorInteractions = actorInteractions;
+        this.actions = new ArrayList<>();
         //prevents errors until the AI sets the interactions
         this.acteeInteractions = new ArrayList<>();
         this.inventory = inventory;

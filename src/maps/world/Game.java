@@ -72,7 +72,7 @@ public class Game implements TransitionObserver, Visitable {
     public static void updateGameTime() {
         long currTimeMills = System.currentTimeMillis();
         curTime += (currTimeMills-lastTimeUpdated);
-        System.out.println("Current Time: " + getCurrentTime() + " += " + (currTimeMills - lastTimeUpdated));
+        //System.out.println("Current Time: " + getCurrentTime() + " += " + (currTimeMills - lastTimeUpdated));
         lastTimeUpdated = currTimeMills;
     }
 

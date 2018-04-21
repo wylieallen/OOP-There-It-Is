@@ -124,7 +124,12 @@ public class Equipment implements Visitable {
 
     // just converted it so external stuff doesn't depend on the internal representation
     public List<WeaponItem> getWeapons() {
-        return new ArrayList<WeaponItem>(Arrays.asList(weapons));
+        List<WeaponItem> weaponsList = new ArrayList<>();
+        for (int i=0; i<weapons.length; i++){
+            if (weapons[i] != null)
+                weaponsList.add(weapons[i]);
+        }
+        return weaponsList;
     }
 
     public Map<EquipSlot, WearableItem> getWearables(){

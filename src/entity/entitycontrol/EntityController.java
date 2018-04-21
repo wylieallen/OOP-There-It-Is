@@ -32,8 +32,6 @@ public abstract class EntityController implements Visitable{
         this.equipment = equipment;
         this.entityLocation = entityLocation;
         this.actions = actions;
-        if (this.actions == null)
-            this.actions = new ArrayList<>();
         this.inVehicle = !controlledEntity.isOnMap();
         dismounting = false;
     }
@@ -56,7 +54,10 @@ public abstract class EntityController implements Visitable{
     public abstract void pacify();
 
     protected Entity getControlledEntity() { return controlledEntity; }
-
+    
+    public void setControllerActions(Collection<ControllerAction> actions){
+        this.actions = actions;
+    }
 
     //this is the functionality all entity controllers need
 

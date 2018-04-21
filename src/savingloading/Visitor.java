@@ -30,6 +30,7 @@ import maps.movelegalitychecker.Obstacle;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.LocalWorldTile;
 import maps.tile.OverWorldTile;
+import maps.trajectorymodifier.River;
 import maps.world.LocalWorld;
 import maps.world.OverWorld;
 import maps.world.Game;
@@ -86,6 +87,7 @@ public interface Visitor {
     void visitLocalWorldTile(LocalWorldTile localWorldTile);
     void visitObstacle(Obstacle obstacle);
     void visitTerrain(Terrain terrain);
+    void visitRiver(River river);
 
     void visitInfiniteAreaEffect(InfiniteAreaEffect infiniteAreaEffect);
     void visitOneShotAreaEffect(OneShotAreaEffect oneShotAreaEffect);
