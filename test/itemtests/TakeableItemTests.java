@@ -2,6 +2,7 @@ package itemtests;
 
 import commands.reversiblecommands.TimedStaminaRegenCommand;
 import commands.ModifyHealthCommand;
+import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.*;
@@ -159,7 +160,12 @@ public class TakeableItemTests {
 
         WeaponItem item = new WeaponItem("Sword", true, 10,0,
                 SkillType.ONEHANDEDWEAPON, 1, 0, 0,
-                InfluenceType.LINEARINFLUENCE, new ModifyHealthCommand(10));
+                InfluenceType.LINEARINFLUENCE,
+                new SkillCommand(SkillType.ONEHANDEDWEAPON,
+                                entity.getSkillLevel(SkillType.ONEHANDEDWEAPON),
+                                -10,
+                                new ModifyHealthCommand(0),
+                                null));
         item.registerObserver(world);
 
         tiles.get(new Coordinate(2, 1)).addEI(item);

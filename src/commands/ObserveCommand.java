@@ -115,4 +115,12 @@ public class ObserveCommand implements Command {
     public void accept(Visitor v) {
         v.visitObserveCommand(this);
     }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
 }

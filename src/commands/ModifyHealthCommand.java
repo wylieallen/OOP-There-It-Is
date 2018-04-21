@@ -34,4 +34,8 @@ public class ModifyHealthCommand implements Command {
     public void accept(Visitor v) {
         v.visitModifyHealthCommand(this);
     }
+
+    public int getModifyAmount() {
+        return modifyAmount;
+    }
 }

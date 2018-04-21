@@ -346,28 +346,31 @@ public class SaveVisitor implements Visitor {
     public void visitConfuseCommand(ConfuseCommand confuseCommand) {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "Confuse");
-        addSkillCommand(confuseCommand);
+        //addSkillCommand(confuseCommand);
+        currentCommandJson.put("Duration", confuseCommand.getDuration());
     }
 
     @Override
     public void visitEnrageCommand(EnrageCommand enrageCommand) {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "Enrage");
-        addSkillCommand(enrageCommand);
+        //addSkillCommand(enrageCommand);
+        //TODO: how to save target?
     }
 
     @Override
     public void visitMakeFriendlyCommand(MakeFriendlyCommand makeFriendlyCommand) {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "MakeFriendly");
-        addSkillCommand(makeFriendlyCommand);
+        //addSkillCommand(makeFriendlyCommand);
     }
 
     @Override
     public void visitModifyHealthCommand(ModifyHealthCommand modifyHealthCommand) {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "ModifyHealth");
-        addSkillCommand(modifyHealthCommand);
+        //addSkillCommand(modifyHealthCommand);
+        currentCommandJson.put("Amount", modifyHealthCommand.getModifyAmount());
     }
 
     @Override
@@ -375,28 +378,31 @@ public class SaveVisitor implements Visitor {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "ModifyStaminaRegen");
         currentCommandJson.put("Factor", modifyStaminaRegenCommand.getFactor());
-        addSkillCommand(modifyStaminaRegenCommand);
+        //addSkillCommand(modifyStaminaRegenCommand);
+        currentCommandJson.put("Duration", modifyStaminaRegenCommand.getDuration());
     }
 
     @Override
     public void visitObserveCommand(ObserveCommand observeCommand) {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "Observe");
-        addSkillCommand(observeCommand);
+        //addSkillCommand(observeCommand);
+        currentCommandJson.put("Level", observeCommand.getLevel());
+        currentCommandJson.put("Distance", observeCommand.getDistance());
     }
 
     @Override
     public void visitParalyzeCommand(ParalyzeCommand paralyzeCommand) {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "Paralyze");
-        addSkillCommand(paralyzeCommand);
+        //addSkillCommand(paralyzeCommand);
     }
 
     @Override
     public void visitPickPocketCommand(PickPocketCommand pickPocketCommand) {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "PickPocket");
-        addSkillCommand(pickPocketCommand);
+        //addSkillCommand(pickPocketCommand);
     }
 
     @Override
@@ -410,6 +416,7 @@ public class SaveVisitor implements Visitor {
     public void visitMakeParalyzedCommand(MakeParalyzedCommand makeParalyzedCommand) {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "MakeParalyzed");
+        currentCommandJson.put("EntityBaseMoveSpeed", makeParalyzedCommand.getEntityBaseMoveSpeed());
         addReversibleCommand(makeParalyzedCommand);
     }
 
@@ -451,6 +458,10 @@ public class SaveVisitor implements Visitor {
         currentCommandJson.put("SkillType", skillCommand.getSkillType());
         currentCommandJson.put("Effectiveness", skillCommand.getEffectiveness());
 
+    }
+
+    public void visitSkillCommand(SkillCommand skillCommand) {
+        //TODO: MAC HELP
     }
 
     private void addReversibleCommand(ReversibleCommand reversibleCommand){

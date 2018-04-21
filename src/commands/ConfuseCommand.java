@@ -25,12 +25,16 @@ public class ConfuseCommand implements Command {
 
     @Override
     public void trigger(Entity e, int duration) {
-        TimedEffect effect = new TimedEffect(new MakeConfusedCommand(false), duration);
+        TimedEffect effect = new TimedEffect(new MakeConfusedCommand(false), duration, 0);
         e.addTimedEffect(effect);
     }
 
     @Override
     public void accept(Visitor v) {
         v.visitConfuseCommand(this);
+    }
+
+    public int getDuration() {
+        return duration;
     }
 }

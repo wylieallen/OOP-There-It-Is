@@ -27,7 +27,7 @@ public class ParalyzeCommand implements Command {
     @Override
     public void trigger(Entity e, int duration) {
         TimedEffect effect = new TimedEffect(
-                new MakeParalyzedCommand(false), duration);
+                new MakeParalyzedCommand(false), duration, 0);
         e.addTimedEffect(effect);
     }
 

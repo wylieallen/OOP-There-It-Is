@@ -6,6 +6,7 @@ import commands.reversiblecommands.MakeParalyzedCommand;
 import commands.reversiblecommands.ReversibleCommand;
 import commands.reversiblecommands.TimedStaminaRegenCommand;
 import commands.PickPocketCommand;
+import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.AI;
 import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
@@ -537,13 +538,7 @@ public class LoadingParser {
     private Command loadCommand(JSONObject commandJson) {
         if (commandJson.getString("Name").equals("Transition"))
             return loadTransitionCommand(commandJson);
-        else {
-            return loadSkillCommand(commandJson);
-        }
-    }
-
-    private SkillCommand loadSkillCommand(JSONObject commandJson) {
-        if (commandJson.getString("Name").equals("Confuse"))
+        else if (commandJson.getString("Name").equals("Confuse"))
             return loadConfuseCommand(commandJson);
         else if (commandJson.getString("Name").equals("MakeFriendly"))
             return loadMakeFriendlyCommand(commandJson);
@@ -563,6 +558,10 @@ public class LoadingParser {
         }
     }
 
+    private SkillCommand loadSkillCommand(JSONObject commandJson) {
+        return null;
+    }
+
     private PickPocketCommand loadPickPocketCommand(JSONObject commandJson) {
         // TODO: need to save? Entity caster is issue
         return null;
@@ -578,13 +577,11 @@ public class LoadingParser {
     }
 
     private ModifyStaminaRegenCommand loadModifyStaminaRegenCommand(JSONObject commandJson) {
-        return new ModifyStaminaRegenCommand(loadSkillType(commandJson.getString("SkillType")), commandJson.getInt("Level"),
-                commandJson.getInt("Effectiveness"), commandJson.getDouble("Factor"));
+        return new ModifyStaminaRegenCommand(commandJson.getDouble("Factor"), commandJson.getInt("Duration"));
     }
 
     private ModifyHealthCommand loadModifyHealthCommand(JSONObject commandJson) {
-        return new ModifyHealthCommand(loadSkillType(commandJson.getString("SkillType")), commandJson.getInt("Level"),
-                commandJson.getInt("Effectiveness"));
+        return new ModifyHealthCommand(commandJson.getInt("Amount"));
     }
 
     private MakeFriendlyCommand loadMakeFriendlyCommand(JSONObject commandJson) {
