@@ -3,6 +3,7 @@ package commands.skillcommands;
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeConfusedCommand;
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 import skills.SkillType;
 
 public class ConfuseCommand extends SkillCommand {
@@ -17,7 +18,7 @@ public class ConfuseCommand extends SkillCommand {
     @Override
     protected void success(Entity e, int distance) {
         int adjustedEffectiveness = getSkillType().calculateModification(getEffectiveness(), distance, getLevel());
-        TimedEffect effect = new TimedEffect(new MakeConfusedCommand(false), adjustedEffectiveness);
+        TimedEffect effect = new TimedEffect(new MakeConfusedCommand(false), adjustedEffectiveness * 1000, 0);
         e.addTimedEffect(effect);
     }
 
@@ -26,4 +27,8 @@ public class ConfuseCommand extends SkillCommand {
         e.enrage(caster);
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitConfuseCommand(this);
+    }
 }

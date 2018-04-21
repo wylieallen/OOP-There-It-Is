@@ -3,17 +3,20 @@ package entity.entitycontrol;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
+import gameobject.GameObjectContainer;
+import savingloading.Visitor;
 import utilities.Coordinate;
 import gameview.GamePanel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HumanEntityController extends EntityController{
 
     private GamePanel view;
 
     public HumanEntityController(Entity entity, Equipment equipment, Coordinate entityLocation,
-                                 ArrayList<ControllerAction> actions, GamePanel view) {
+                                 List<ControllerAction> actions, GamePanel view) {
         super(entity, equipment, entityLocation, actions);
         this.view = view;
     }
@@ -64,4 +67,9 @@ public class HumanEntityController extends EntityController{
 
     @Override
     public void pacify() {}
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitHumanEntityController(this);
+    }
 }

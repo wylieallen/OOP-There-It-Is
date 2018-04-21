@@ -3,6 +3,7 @@ package commands.skillcommands;
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeParalyzedCommand;
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 import skills.SkillType;
 
 public class ParalyzeCommand extends SkillCommand {
@@ -19,7 +20,7 @@ public class ParalyzeCommand extends SkillCommand {
     protected void success(Entity e, int distance) {
         int adjustedEffectiveness = getSkillType().calculateModification(getEffectiveness(), distance, getLevel());
         TimedEffect effect = new TimedEffect(
-                new MakeParalyzedCommand(false), adjustedEffectiveness);
+                new MakeParalyzedCommand(false), adjustedEffectiveness * 1000, 0);
         e.addTimedEffect(effect);
     }
 
@@ -28,4 +29,8 @@ public class ParalyzeCommand extends SkillCommand {
         e.enrage(caster);
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitParalyzeCommand(this);
+    }
 }

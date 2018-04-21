@@ -3,6 +3,7 @@ package maps.entityimpaction;
 import entity.entitymodel.Entity;
 import commands.Command;
 import maps.entityimpaction.EntityImpactor;
+import maps.world.Game;
 
 public abstract class AreaEffect implements EntityImpactor {
 
@@ -21,5 +22,9 @@ public abstract class AreaEffect implements EntityImpactor {
     @Override
     public boolean shouldBeRemoved() {
         return false;
+    }
+
+    public Command getCommand() {
+        return command;
     }
 }

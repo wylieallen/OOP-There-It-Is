@@ -3,6 +3,7 @@ package commands.skillcommands;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Inventory;
 import items.takeableitems.TakeableItem;
+import savingloading.Visitor;
 import skills.SkillType;
 
 // not sure how this will work
@@ -103,4 +104,8 @@ public class ObserveCommand extends SkillCommand {
             return "This entity has an item named " + itemName + ".";
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visitObserveCommand(this);
+    }
 }

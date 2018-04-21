@@ -3,6 +3,7 @@ package commands;
 import entity.entitymodel.Entity;
 import maps.world.TransitionObserver;
 import maps.world.World;
+import savingloading.Visitor;
 import utilities.Coordinate;
 
 public class TransitionCommand implements Command {
@@ -17,7 +18,34 @@ public class TransitionCommand implements Command {
         this.transitionObserver = transitionObserver;
     }
 
+    public TransitionCommand(){}
+
+    public void setTargetWorld(World targetWorld) {
+        this.targetWorld = targetWorld;
+    }
+
+    public void setStartingCoordinate(Coordinate startingCoordinate) {
+        this.startingCoordinate = startingCoordinate;
+    }
+
+    public void setTransitionObserver(TransitionObserver transitionObserver) {
+        this.transitionObserver = transitionObserver;
+    }
+
     public void trigger(Entity e) {
         transitionObserver.notifyTransition(e, targetWorld, startingCoordinate);
+    }
+
+    public World getTargetWorld() {
+        return targetWorld;
+    }
+
+    public Coordinate getStartingCoordinate() {
+        return startingCoordinate;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitTransitionCommand(this);
     }
 }

@@ -1,18 +1,21 @@
 package entity.entitymodel;
 
+import gameobject.GameObject;
 import items.takeableitems.ConsumableItem;
 import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
+import savingloading.Visitable;
+import savingloading.Visitor;
+import spawning.SpawnObserver;
 import utilities.Coordinate;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by dontf on 4/13/2018.
  */
-public class Equipment {
+public class Equipment implements Visitable {
 
     private final int defaultWeaponsSize = 5;
 
@@ -21,6 +24,7 @@ public class Equipment {
     private int maxSize;
     private Inventory inventory;
     private Entity entity;
+    private List<SpawnObserver> spawnObservers;
 
     public Equipment(int maxSize, Inventory inventory, Entity entity) {
         this.maxSize = maxSize;
@@ -28,6 +32,7 @@ public class Equipment {
         this.entity = entity;
         this.wearables = new HashMap<>();
         this.weapons = new WeaponItem[defaultWeaponsSize];
+        this.spawnObservers = new ArrayList<>();
     }
 
     public Equipment(Map<EquipSlot,
@@ -42,6 +47,7 @@ public class Equipment {
         this.maxSize = maxSize;
         this.inventory = inventory;
         this.entity = entity;
+        this.spawnObservers = new ArrayList<>();
     }
 
     public void add (WearableItem wearable) {
@@ -73,6 +79,7 @@ public class Equipment {
 
         this.remove(weapons [weapons.length - 1]);
         weapons [weapons.length - 1] = weapon;
+        weapon.setSpawnObservers(spawnObservers);
 
     }
 
@@ -111,6 +118,56 @@ public class Equipment {
             assert false;
         }
 
+    }
+
+    // just converted it so external stuff doesn't depend on the internal representation
+    public List<WeaponItem> getWeapons() {
+        return new ArrayList<WeaponItem>(Arrays.asList(weapons));
+    }
+
+    public Map<EquipSlot, WearableItem> getWearables(){
+        return wearables;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitEquipment(this);
+    }
+    public boolean has(GameObject o) {
+        if(wearables.values().contains(o)) {
+            return true;
+        } else if (inventory.has(o)) {
+            return true;
+        }
+
+        for(WeaponItem weapon : weapons) {
+            if(weapon == o) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void updateSpawnObservers(SpawnObserver oldObserver, SpawnObserver newObserver) {
+        spawnObservers.remove(oldObserver);
+
+        for(WeaponItem weapon: weapons) {
+            if(weapon != null) {
+                weapon.deregisterObserver(oldObserver);
+            }
+        }
+
+        addSpawnObserver(newObserver);
+    }
+
+    public void addSpawnObserver(SpawnObserver newObserver) {
+        spawnObservers.add(newObserver);
+        for(WeaponItem weapon : weapons) {
+            if(weapon != null) {
+                weapon.registerObserver(newObserver);
+            }
+        }
     }
 
 }

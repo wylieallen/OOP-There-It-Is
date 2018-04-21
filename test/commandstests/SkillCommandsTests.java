@@ -4,7 +4,6 @@ import commands.TimedEffect;
 import commands.skillcommands.*;
 import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
-import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitymodel.Entity;
@@ -45,7 +44,7 @@ public class SkillCommandsTests {
         EntityStats casterStats = new EntityStats(casterSkills, 2, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
-        caster = new Entity(new Vector(), casterStats, null, new ArrayList<>(), null,
+        caster = new Entity(new Vector(), casterStats, new ArrayList<>(), null,
                 casterInventory, true);
 
         casterController = new HumanEntityController(caster, null,
@@ -57,30 +56,22 @@ public class SkillCommandsTests {
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
         targetEffects = new ArrayList<>();
-        target = new Entity(new Vector(), targetStats, null, targetEffects, null,
+        target = new Entity(new Vector(), targetStats, targetEffects, null,
                 targetInventory, true);
 
         targetController = new NpcEntityController(target, null,
-                null, null, new HostileAI(new ArrayList<>(), caster),
-                new FriendlyAI(new ArrayList<>()), false);
+                null, null, new HostileAI(new ArrayList<>(), caster, null),
+                new FriendlyAI(new ArrayList<>(), null, false), false);
 
         target.setController(targetController);
     }
 
     @Test
     public void testConfuseCommand() {
-        ConfuseCommand command = new ConfuseCommand(caster.getSkillLevel(SkillType.ENCHANTMENT), 3, caster);
+        ConfuseCommand command = new ConfuseCommand(caster.getSkillLevel(SkillType.ENCHANTMENT), 0, caster);
 
         command.trigger(target);
 
-        Assert.assertEquals(1, targetEffects.size());
-        Assert.assertTrue(target.isConfused());
-
-        target.update();
-        Assert.assertEquals(1, targetEffects.size());
-        Assert.assertTrue(target.isConfused());
-
-        target.update();
         Assert.assertEquals(1, targetEffects.size());
         Assert.assertTrue(target.isConfused());
 
@@ -115,8 +106,8 @@ public class SkillCommandsTests {
 
     @Test
     public void testModifyStaminaRegenCommand() {
-        ModifyStaminaRegenCommand command = new ModifyStaminaRegenCommand(SkillType.ONEHANDEDWEAPON,
-                caster.getSkillLevel(SkillType.ONEHANDEDWEAPON), 0, 0.5);
+        ModifyStaminaRegenCommand command = new ModifyStaminaRegenCommand(SkillType.NULL,
+                caster.getSkillLevel(SkillType.NULL), 0, 0.5);
 
         target.setCurMana(50);
         Assert.assertEquals(50, target.getCurMana());
@@ -133,25 +124,16 @@ public class SkillCommandsTests {
         Assert.assertEquals(62, target.getCurMana());
 
         target.update();
-        Assert.assertEquals(64, target.getCurMana());
+        Assert.assertEquals(67, target.getCurMana());
 
         target.update();
-        Assert.assertEquals(66, target.getCurMana());
+        Assert.assertEquals(72, target.getCurMana());
 
         target.update();
-        Assert.assertEquals(68, target.getCurMana());
+        Assert.assertEquals(77, target.getCurMana());
 
-        target.update();
-        Assert.assertEquals(70, target.getCurMana());
-
-        target.update();
-        Assert.assertEquals(75, target.getCurMana());
-
-        target.update();
-        Assert.assertEquals(80, target.getCurMana());
-
-        command = new ModifyStaminaRegenCommand(SkillType.ONEHANDEDWEAPON,
-                caster.getSkillLevel(SkillType.ONEHANDEDWEAPON), 0, 2);
+        command = new ModifyStaminaRegenCommand(SkillType.NULL,
+                caster.getSkillLevel(SkillType.NULL), 0, 2);
 
         target.setCurMana(10);
         Assert.assertEquals(10, target.getCurMana());
@@ -168,39 +150,18 @@ public class SkillCommandsTests {
         Assert.assertEquals(30, target.getCurMana());
 
         target.update();
-        Assert.assertEquals(40, target.getCurMana());
-
-        target.update();
-        Assert.assertEquals(50, target.getCurMana());
-
-        target.update();
-        Assert.assertEquals(60, target.getCurMana());
-
-        target.update();
-        Assert.assertEquals(70, target.getCurMana());
-
-        target.update();
-        Assert.assertEquals(75, target.getCurMana());
-
-        target.update();
-        Assert.assertEquals(80, target.getCurMana());
+        Assert.assertEquals(35, target.getCurMana());
     }
 
     @Test
     public void testParalyzeCommand() {
         ParalyzeCommand command = new ParalyzeCommand(SkillType.ENCHANTMENT,
-                caster.getSkillLevel(SkillType.ENCHANTMENT), 3, caster);
+                caster.getSkillLevel(SkillType.ENCHANTMENT), 0, caster);
 
         Assert.assertEquals(2, target.getBaseMoveSpeed());
 
         command.trigger(target);
 
-        Assert.assertEquals(0, target.getBaseMoveSpeed());
-
-        target.update();
-        Assert.assertEquals(0, target.getBaseMoveSpeed());
-
-        target.update();
         Assert.assertEquals(0, target.getBaseMoveSpeed());
 
         target.update();

@@ -3,6 +3,7 @@ package commands.skillcommands;
 import commands.TimedEffect;
 import commands.reversiblecommands.TimedStaminaRegenCommand;
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 import skills.SkillType;
 
 public class ModifyStaminaRegenCommand extends SkillCommand {
@@ -18,7 +19,7 @@ public class ModifyStaminaRegenCommand extends SkillCommand {
     protected void success(Entity e, int distance) {
         int adjustedEffectiveness = getSkillType().calculateModification(getEffectiveness(), distance, getLevel());
         TimedEffect effect = new TimedEffect(
-                new TimedStaminaRegenCommand(false, 0, factor), adjustedEffectiveness);
+                new TimedStaminaRegenCommand(false, 0, factor), adjustedEffectiveness * 1000, 0);
         e.addTimedEffect(effect);
     }
 
@@ -27,4 +28,12 @@ public class ModifyStaminaRegenCommand extends SkillCommand {
 
     }
 
+    public double getFactor(){
+        return factor;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitModifyStaminaRegenCommand(this);
+    }
 }

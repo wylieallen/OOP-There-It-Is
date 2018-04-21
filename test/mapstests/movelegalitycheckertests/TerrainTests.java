@@ -4,10 +4,10 @@ import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
+import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
-import maps.tile.Tile;
 import maps.world.LocalWorld;
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,18 +23,18 @@ public class TerrainTests {
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), null, new HashSet<>(), new HashSet<>());
+                LocalWorldTile tile;
                 if(i == 2 && j == 0){
-                    tile.addMLC(Terrain.WATER);
+                    tile = new LocalWorldTile(new HashSet<>(), Terrain.WATER, null, new HashSet<>(), new HashSet<>());
                 } else if (i == 1 && j == 1) {
-                    tile.addMLC(Terrain.MOUNTAIN);
+                    tile = new LocalWorldTile(new HashSet<>(), Terrain.MOUNTAIN, null, new HashSet<>(), new HashSet<>());
                 } else {
-                    tile.addMLC(Terrain.GRASS);
+                    tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
                 }
                 tiles.put(new Coordinate(i, j), tile);
             }
         }
-        LocalWorld world = new LocalWorld(tiles, new HashSet<>(), new ArrayList<>());
+        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
         Set<Terrain> terrains = new HashSet<>();
         terrains.add(Terrain.GRASS);

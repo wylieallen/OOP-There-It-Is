@@ -1,6 +1,7 @@
 package commands.reversiblecommands;
 
 import entity.entitymodel.Entity;
+import savingloading.Visitor;
 
 public class MakeParalyzedCommand extends ReversibleCommand {
 
@@ -19,5 +20,10 @@ public class MakeParalyzedCommand extends ReversibleCommand {
     @Override
     protected void unapply(Entity e) {
         e.increaseBaseMoveSpeed(entityBaseMoveSpeed);
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitMakeParalyzedCommand(this);
     }
 }

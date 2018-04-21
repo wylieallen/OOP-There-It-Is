@@ -6,6 +6,7 @@ import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import maps.entityimpaction.Trap;
+import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
 import maps.tile.Tile;
@@ -28,15 +29,16 @@ public class TrapTests {
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                tiles.put(new Coordinate(i, j), new LocalWorldTile(new HashSet<>(), null, new HashSet<>(), new HashSet<>()));
+                tiles.put(new Coordinate(i, j), new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>()));
             }
         }
-        LocalWorld world = new LocalWorld(tiles, new HashSet<>(), new ArrayList<>());
+        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
         EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
-        Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+        entityStats.addCompatibleTerrain(Terrain.GRASS);
+        Entity entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
                 null, true);
 
         EntityController entityController = new HumanEntityController(entity, null,
@@ -48,8 +50,8 @@ public class TrapTests {
 
         Trap trap = new Trap(new ModifyHealthCommand(SkillType.NULL, 0, -10), false, 5, false);
 
-        tiles.get(new Coordinate(2, 1)).addMLC(trap);
-        tiles.get(new Coordinate(2, 1)).addEI(trap);
+        tiles.get(new Coordinate(2, 1)).getMoveLegalityCheckers ().add(trap);
+        tiles.get(new Coordinate(2, 1)).addEI (trap);
 
         Assert.assertFalse(trap.hasFired());
         Assert.assertFalse(trap.isVisible());
@@ -83,17 +85,18 @@ public class TrapTests {
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
-                tiles.put(new Coordinate(i, j), new LocalWorldTile(new HashSet<>(), null, new HashSet<>(), new HashSet<>()));
+                tiles.put(new Coordinate(i, j), new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>()));
             }
         }
-        LocalWorld world = new LocalWorld(tiles, new HashSet<>(), new ArrayList<>());
+        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
         Map<SkillType, Integer> skills = new HashMap<>();
         skills.put(SkillType.DETECTANDREMOVETRAP, 1);
         EntityStats entityStats = new EntityStats(skills, 2, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
-        Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+        entityStats.addCompatibleTerrain(Terrain.GRASS);
+        Entity entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
                 null, true);
 
 
@@ -106,7 +109,7 @@ public class TrapTests {
 
         Trap trap = new Trap(new ModifyHealthCommand(SkillType.NULL, 0, -10), false, 200, false);
 
-        tiles.get(new Coordinate(2, 1)).addMLC(trap);
+        tiles.get(new Coordinate(2, 1)).getMoveLegalityCheckers ().add (trap);
         tiles.get(new Coordinate(2, 1)).addEI(trap);
 
         Assert.assertFalse(trap.hasFired());

@@ -24,4 +24,8 @@ public abstract class TakeableItem extends Item {
     public boolean shouldBeRemoved() {
         return !onMap;
     }
+
+    public boolean isOnMap(){
+        return onMap;
+    }
 }
