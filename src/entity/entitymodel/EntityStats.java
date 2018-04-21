@@ -1,5 +1,6 @@
 package entity.entitymodel;
 
+import commands.skillcommands.SkillCommand;
 import maps.movelegalitychecker.Terrain;
 import maps.world.Game;
 import savingloading.Visitable;
@@ -100,6 +101,16 @@ public class EntityStats implements Visitable {
         this.compatibleTerrains = compatibleTerrains;
         this.lastAttackTime = 0;
         this.lastMoveTime = 0;
+
+        if(!containsSkill(SkillType.BINDWOUNDS)) {
+            skills.put(SkillType.BINDWOUNDS, 1);
+        }
+        if(!containsSkill(SkillType.OBSERVATION)) {
+            skills.put(SkillType.OBSERVATION, 1);
+        }
+        if(!containsSkill(SkillType.BARGAIN)) {
+            skills.put(SkillType.BARGAIN, 1);
+        }
     }
 
     public double getBaseMoveSpeed() {
