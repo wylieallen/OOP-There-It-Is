@@ -26,12 +26,11 @@ public abstract class EntityController implements Visitable{
     private Vehicle mount;
 
     public EntityController(Entity entity, Equipment equipment,
-                            Coordinate entityLocation) {
+                            Coordinate entityLocation, Collection<ControllerAction> actions) {
         this.controlledEntity = entity;
         this.equipment = equipment;
         this.entityLocation = entityLocation;
-        if (this.actions == null)
-            this.actions = new ArrayList<>();
+        this.actions = actions;
     }
 
 

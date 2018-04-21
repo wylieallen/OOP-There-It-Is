@@ -139,17 +139,19 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor, 
 
         timer.addActionListener(e -> {
             timer.stop();
-            long startTime = System.currentTimeMillis();
+            //long startTime = System.currentTimeMillis();
             gameDisplayState.update();
             repaint();
-            long endTime = System.currentTimeMillis();
-            System.out.println("Time taken: " + (endTime - startTime));
+            //long endTime = System.currentTimeMillis();
+            //System.out.println("Time taken: " + (endTime - startTime));
             timer.restart();
         });
 
         timer.start();
 
         resetCamera();
+
+        this.requestFocus();
     }
 
     @Override
@@ -225,10 +227,12 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor, 
 
     public void visitDirectionalMoveAction(DirectionalMoveAction a)
     {
+        System.out.println("Visited dirmove action: " + a.getDirection());
         addKeyListener(new KeyAdapter()
         {
             public void keyPressed(KeyEvent e)
             {
+                //System.out.println("Got key press " + e.getKeyChar());
                 Direction d = a.getDirection();
                 int movecode = directionalMoveKeyCodes.get(d);
                 if(e.getKeyCode() == movecode || e.getKeyCode() == altDirectionalMoveKeyCodes.get(d))
