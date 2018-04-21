@@ -1,4 +1,4 @@
-package gameview.util;
+package items;
 
 import commands.ModifyHealthCommand;
 import commands.skillcommands.SkillCommand;
