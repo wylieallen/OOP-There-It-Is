@@ -32,22 +32,8 @@ public class Vehicle extends Entity {
         this.driver = driver;
     }
 
-    public Vehicle(Vector movementVector,
-                   EntityStats stats,
-                   List<ControllerAction> actions,
-                   List<TimedEffect> effects,
-                   List<EntityInteraction> actorInteractions,
-                   Inventory inventory,
-                   boolean isOnMap,
-                   Entity driver)
-    {
-        super(movementVector, stats, actions, effects, actorInteractions, inventory, isOnMap);
-        this.driver = driver;
-    }
-
     public Vehicle(Vector vector,
                    EntityStats stats,
-                   List<ControllerAction> actions,
                    List<TimedEffect> effects,
                    List<EntityInteraction> actorInteractions,
                    Inventory inventory,

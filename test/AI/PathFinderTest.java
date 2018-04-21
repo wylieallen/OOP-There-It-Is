@@ -57,21 +57,21 @@ public class PathFinderTest {
         grass_mountain_water.add(Terrain.WATER);
 
 
-        LocalWorldTile grass0 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass1 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass2 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass3 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass4 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass5 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass6 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass7 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass8 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass9 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile grass10 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile water0 = new LocalWorldTile(new HashSet<> (), Terrain.WATER, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile water1 = new LocalWorldTile(new HashSet<> (), Terrain.WATER, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile mountain0 = new LocalWorldTile(new HashSet<> (), Terrain.MOUNTAIN, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
-        LocalWorldTile mountain1 = new LocalWorldTile(new HashSet<> (), Terrain.MOUNTAIN, new Entity(new Vector(Direction.N, 5), null, null, null, null, null, false), null, null);
+        LocalWorldTile grass0 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
+        LocalWorldTile grass1 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
+        LocalWorldTile grass2 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
+        LocalWorldTile grass3 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
+        LocalWorldTile grass4 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
+        LocalWorldTile grass5 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
+        LocalWorldTile grass6 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
+        LocalWorldTile grass7 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
+        LocalWorldTile grass8 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
+        LocalWorldTile grass9 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
+        LocalWorldTile grass10 = new LocalWorldTile(new HashSet<> (), Terrain.GRASS, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
+        LocalWorldTile water0 = new LocalWorldTile(new HashSet<> (), Terrain.WATER, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
+        LocalWorldTile water1 = new LocalWorldTile(new HashSet<> (), Terrain.WATER, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
+        LocalWorldTile mountain0 = new LocalWorldTile(new HashSet<> (), Terrain.MOUNTAIN, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
+        LocalWorldTile mountain1 = new LocalWorldTile(new HashSet<> (), Terrain.MOUNTAIN, new Entity(new Vector(Direction.N, 5), null, null, null, null, false), null, null);
 
 
         map.put(new Coordinate(-2, 0), grass0);

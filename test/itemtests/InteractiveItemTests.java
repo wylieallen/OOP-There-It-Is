@@ -37,7 +37,7 @@ public class InteractiveItemTests {
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false);
         entityStats.addCompatibleTerrain(Terrain.GRASS);
-        Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+        Entity entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
                 null, true);
 
         EntityController entityController = new HumanEntityController(entity, null,
@@ -76,6 +76,9 @@ public class InteractiveItemTests {
         entity.setFacing(Direction.N);
         entity.setMoving();
 
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {}
         game.update();
 
         for(int i = 0; i < 5; ++i) {
