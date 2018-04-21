@@ -5,32 +5,30 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import gameview.GamePanel;
 import maps.tile.Tile;
-import maps.world.TransitionObserver;
-import maps.world.World;
 import savingloading.Visitor;
 import utilities.Coordinate;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 public class HumanEntityController extends EntityController{
 
     private GamePanel view;
 
-    public HumanEntityController(Entity entity, Equipment equipment, Coordinate entityLocation,
-                                 Collection<ControllerAction> actions, GamePanel view) {
-        super(entity, equipment, entityLocation, actions);
+    public HumanEntityController(Entity entity, Equipment equipment, Coordinate entityLocation, GamePanel view) {
+        super(entity, equipment, entityLocation);
         this.view = view;
-
-        for(ControllerAction action : actions)
-        {
-            action.accept(view);
-        }
 
         if(view != null) {
             view.setFocusable(true);
             view.requestFocus();
+        }
+    }
+
+    public void setControllerActions(Collection<ControllerAction> actions){
+        for(ControllerAction action : actions)
+        {
+            action.accept(view);
         }
     }
 

@@ -39,6 +39,8 @@ public class GameViewMaker
     private Map<GameObject, Displayable> spriteMap;
     private Map<World, WorldDisplayable> worldDisplayableMap;
 
+    private Game game;
+
     public GameViewMaker()
     {
         spriteMap = new HashMap<>();
@@ -164,9 +166,9 @@ public class GameViewMaker
         WorldDisplayable localworldDisplayable = new WorldDisplayable(new Point(0, 0), 0, localWorld);
         worldDisplayableMap.put(localWorld, localworldDisplayable);
 
-        Game game = new Game(overworld, overworld, localWorldsList, 0, player);
+        game = new Game(overworld, overworld, localWorldsList, 0, player);
         game.setTransitionObserver(panel);
-        game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), player.getControllerActions(), panel));
+        game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), panel));
 
         //setup world transitions
         InteractiveItem localWorld1Entrance = new InteractiveItem("Teleporter", new TransitionCommand(localWorldsList.get(0), new Coordinate(0, 0), game));
@@ -215,7 +217,7 @@ public class GameViewMaker
 
         HostileAI hostile = new HostileAI(entity.getActeeInteractions(), aggroTarget, new HashMap<>());
         FriendlyAI friendly = new FriendlyAI(entity.getActeeInteractions(), new HashMap<>(), false);
-        NpcEntityController controller = new NpcEntityController(entity, e, loc, new ArrayList<>(), hostile, friendly, isHostile);
+        NpcEntityController controller = new NpcEntityController(entity, e, loc, hostile, friendly, isHostile);
         entity.setController(controller);
 
         return entity;
@@ -238,5 +240,9 @@ public class GameViewMaker
         LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
         return world;
+    }
+
+    public Game getGame(){
+        return game;
     }
 }

@@ -18,6 +18,7 @@ import entity.vehicle.Vehicle;
 import items.InteractiveItem;
 import items.OneshotItem;
 import items.takeableitems.*;
+import maps.entityimpaction.EntityImpactor;
 import maps.entityimpaction.InfiniteAreaEffect;
 import maps.entityimpaction.OneShotAreaEffect;
 import maps.entityimpaction.Trap;
@@ -27,6 +28,8 @@ import maps.movelegalitychecker.Terrain;
 import maps.tile.LocalWorldTile;
 import maps.tile.OverWorldTile;
 import maps.tile.Tile;
+import maps.trajectorymodifier.River;
+import maps.trajectorymodifier.TrajectoryModifier;
 import maps.world.Game;
 import maps.world.LocalWorld;
 import maps.world.OverWorld;
@@ -256,8 +259,10 @@ public class SaveVisitor implements Visitor {
         equipmentJson.put("Weapons", weaponItemsJson);
         JSONObject wearableItemsJson = new JSONObject();
         equipmentJson.put("Wearables", wearableItemsJson);
-        for(WeaponItem i : equipment.getWeapons())
-            i.accept(this);
+        for(WeaponItem item : equipment.getWeapons()) {
+            System.out.println(item);
+            item.accept(this);
+        }
         while(!itemJsonsQueue.isEmpty())
             weaponItemsJson.put(itemJsonsQueue.remove());
         for (Map.Entry<EquipSlot, WearableItem> entry : equipment.getWearables().entrySet()) {
@@ -394,7 +399,6 @@ public class SaveVisitor implements Visitor {
     public void visitEnrageCommand(EnrageCommand enrageCommand) {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "Enrage");
-        //TODO: how to save target?
     }
 
     @Override
@@ -552,6 +556,14 @@ public class SaveVisitor implements Visitor {
     @Override
     public void visitLocalWorldTile(LocalWorldTile localWorldTile) {
         addTile(localWorldTile);
+        Set<TrajectoryModifier> tms = localWorldTile.getTrajectoryModifiers();
+        for (TrajectoryModifier tm : tms){
+            tm.accept(this);
+        }
+        Set<EntityImpactor> eis = localWorldTile.getEntityImpactors();
+        for (EntityImpactor ei : eis){
+            ei.accept(this);
+        }
         addItemsToTile();
     }
 
@@ -581,6 +593,14 @@ public class SaveVisitor implements Visitor {
     @Override
     public void visitTerrain(Terrain terrain) {
         currentTileJson.put("Terrain", terrain.name());
+    }
+
+    @Override
+    public void visitRiver(River river) {
+        JSONObject riverJson = new JSONObject();
+        riverJson.put("dx", river.getVector().dx());
+        riverJson.put("dy", river.getVector().dy());
+        currentTileJson.put("River", riverJson);
     }
 
     @Override

@@ -18,10 +18,9 @@ public class NpcEntityController extends EntityController {
     private AI aggroAi;
     private AI nonAggroAi;
 
-    public NpcEntityController(Entity entity, Equipment equipment, Coordinate entityLocation,
-                               List<ControllerAction> actions, AI AggroAi, AI nonAggroAi,
+    public NpcEntityController(Entity entity, Equipment equipment, Coordinate entityLocation, AI AggroAi, AI nonAggroAi,
                                boolean isAggro) {
-        super(entity, equipment, entityLocation, actions);
+        super(entity, equipment, entityLocation);
         this.aggroAi = AggroAi;
         this.nonAggroAi = nonAggroAi;
         if(isAggro) {

@@ -1,5 +1,6 @@
 package maps.trajectorymodifier;
 
+import savingloading.Visitor;
 import utilities.Vector;
 
 public class River implements TrajectoryModifier {
@@ -13,5 +14,10 @@ public class River implements TrajectoryModifier {
     @Override
     public Vector getVector() {
         return force;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitRiver(this);
     }
 }

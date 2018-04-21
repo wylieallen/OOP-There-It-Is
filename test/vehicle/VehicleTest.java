@@ -180,14 +180,14 @@ public class VehicleTest {
 
 
         EntityController actorController = new HumanEntityController(actor,null,
-                null, new ArrayList<>(), null);
+                null, null);
 
         EntityController yourMomPreMountedController = new NpcEntityController(yourMomPreMounted, null,
-                null, new ArrayList<>(), new HostileAI(new ArrayList<>(), actor, null),
+                null, new HostileAI(new ArrayList<>(), actor, null),
                 new FriendlyAI(acteeActeeInteractions, null, false), false);
 
         EntityController yourMomNotMountedYetController = new NpcEntityController(yourMomNotMountedYet, null,
-                null, new ArrayList<>(), new HostileAI(new ArrayList<>(), actor, null),
+                null, new HostileAI(new ArrayList<>(), actor, null),
                 new FriendlyAI(acteeActeeInteractions, null, false), false);
 
         actor.setController(actorController);

@@ -47,17 +47,17 @@ public class ImageMaker
         return NULL_DISPLAYABLE;
     }
 
-    private static Displayable makeGrassDisplayable()
+    public static Displayable makeGrassDisplayable()
     {
         return new ImageDisplayable(new Point(0, 0), makeBorderedHex("assets/terrains/aliengrass.png"), TERRAIN_HEIGHT);
     }
 
-    private static Displayable makeMountainDisplayable()
+    public static Displayable makeMountainDisplayable()
     {
         return new ImageDisplayable(new Point(0, 0), makeBorderedHex("assets/terrains/alienmountain.png"), TERRAIN_HEIGHT);
     }
 
-    private static Displayable makeWaterDisplayable()
+    public static Displayable makeWaterDisplayable()
     {
         return new ImageDisplayable(new Point(0, 0), makeBorderedHex("assets/terrains/alienwater.jpg"), TERRAIN_HEIGHT);
     }
@@ -77,10 +77,37 @@ public class ImageMaker
         return new ImageDisplayable(new Point(22, 5), loadImage("assets/entities/entity2.png"), ENTITY_HEIGHT);
     }
 
+    public static Displayable makeSmasherEntityDisplayable()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/entities/entity1.png"), ENTITY_HEIGHT);
+    }
+
+    public static Displayable makeSummonerEntityDisplayable()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/entities/entity2.png"), ENTITY_HEIGHT);
+    }
+
+    public static Displayable makeSneakEntityDisplayable()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/entities/entity3.png"), ENTITY_HEIGHT);
+    }
+
+    public static Displayable makeVehicleDisplayable()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/entities/entity3.png"), ENTITY_HEIGHT);
+    }
+
+    public static Displayable makeShopKeepDisplayable()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/entities/shopkeeper.png"), ENTITY_HEIGHT);
+    }
+
     public static Displayable makeTeleporterDisplayable()
     {
         return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/interactives/transitionitem.png"), ITEM_HEIGHT);
     }
+
+
 
 
     // Todo: split BufferedImage creation off into a separate class
