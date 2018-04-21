@@ -2,15 +2,18 @@ package commands;
 
 import entity.entitymodel.Entity;
 import commands.reversiblecommands.ReversibleCommand;
+import maps.world.Game;
 
 public class TimedEffect {
 
     private ReversibleCommand command;
     private long timeRemaining;
+    private long lastUpdateTime;
 
-    public TimedEffect(ReversibleCommand command, long timeRemaining) {
+    public TimedEffect(ReversibleCommand command, long timeRemaining, long lastUpdateTime) {
         this.command = command;
         this.timeRemaining = timeRemaining;
+        this.lastUpdateTime = lastUpdateTime;
     }
 
     public void trigger(Entity affectedEntity){
@@ -18,9 +21,11 @@ public class TimedEffect {
     }
 
     public void decrementTimeRemaining() {
-        if(!isExpired()){
-            --timeRemaining;
+        timeRemaining -= Game.getCurrentTime() - lastUpdateTime;
+        if(timeRemaining < 0) {
+            timeRemaining = 0;
         }
+        lastUpdateTime = Game.getCurrentTime();
     }
 
     public boolean isExpired() {

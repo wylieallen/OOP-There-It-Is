@@ -19,7 +19,7 @@ public class Game implements TransitionObserver, Visitable {
     private World activeWorld;
     private OverWorld overWorld;
     private List<LocalWorld> localWorlds;
-    private static int curTime;
+    private static long curTime;
     private Entity player;
 
     public Game(World activeWorld,
@@ -35,12 +35,13 @@ public class Game implements TransitionObserver, Visitable {
         this.player = player;
     }
 
-    public static int getCurrentTime () {
+    public static long getCurrentTime () {
         return curTime;
     }
 
     public void notifyTransition (Entity e, World target, Coordinate p) {
         if(isPlayer(e)) {
+            updateWeaponItems(e, target);
             activeWorld.remove(e);
             setActiveWorld(target);
             activeWorld.add(p, e);
@@ -55,8 +56,17 @@ public class Game implements TransitionObserver, Visitable {
         activeWorld = target;
     }
 
+    private void updateWeaponItems(Entity e, World target) {
+        e.updateSpawnObservers(activeWorld, target);
+    }
+
+    public static void updateGameTime() {
+        curTime = System.currentTimeMillis();
+    }
+
     public void update()
     {
+        updateGameTime();
         activeWorld.update();
     }
 

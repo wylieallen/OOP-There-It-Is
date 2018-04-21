@@ -29,7 +29,7 @@ public class ModifyStaminaRegenCommand implements Command {
     @Override
     public void trigger(Entity e, int duration) {
         TimedEffect effect = new TimedEffect(
-                new TimedStaminaRegenCommand(false, 0, factor), duration);
+                new TimedStaminaRegenCommand(false, 0, factor), adjustedEffectiveness * 1000, 0);
         e.addTimedEffect(effect);
     }
 

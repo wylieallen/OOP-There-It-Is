@@ -49,6 +49,10 @@ public class SkillCommand implements Visitable {
         return effectiveness;
     }
 
+    public void setLevel(int newLevel) {
+        level = newLevel;
+    }
+
     public SkillType getSkillType() {
         return this.skillType;
     }

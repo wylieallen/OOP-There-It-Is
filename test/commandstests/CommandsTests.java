@@ -60,8 +60,8 @@ public class CommandsTests {
                 targetInventory, true);
 
         targetController = new NpcEntityController(target, null,
-                null, null, new HostileAI(new ArrayList<>(), caster),
-                new FriendlyAI(new ArrayList<>()), false);
+                null, null, new HostileAI(new ArrayList<>(), caster, null),
+                new FriendlyAI(new ArrayList<>(), null, false), false);
 
         target.setController(targetController);
     }
@@ -72,14 +72,6 @@ public class CommandsTests {
 
         command.trigger(target);
 
-        Assert.assertEquals(1, targetEffects.size());
-        Assert.assertTrue(target.isConfused());
-
-        target.update();
-        Assert.assertEquals(1, targetEffects.size());
-        Assert.assertTrue(target.isConfused());
-
-        target.update();
         Assert.assertEquals(1, targetEffects.size());
         Assert.assertTrue(target.isConfused());
 
@@ -156,9 +148,6 @@ public class CommandsTests {
 
         target.update();
         Assert.assertEquals(35, target.getCurMana());
-
-        target.update();
-        Assert.assertEquals(40, target.getCurMana());
     }
 
     @Test
@@ -169,12 +158,6 @@ public class CommandsTests {
 
         command.trigger(target);
 
-        Assert.assertEquals(0, target.getBaseMoveSpeed());
-
-        target.update();
-        Assert.assertEquals(0, target.getBaseMoveSpeed());
-
-        target.update();
         Assert.assertEquals(0, target.getBaseMoveSpeed());
 
         target.update();

@@ -1,5 +1,6 @@
 package entity.entitymodel;
 
+import gameobject.GameObject;
 import items.takeableitems.TakeableItem;
 import savingloading.Visitable;
 import savingloading.Visitor;
@@ -84,6 +85,10 @@ public class Inventory implements Visitable{
                 return true;
         }
         return false;
+    }
+
+    public boolean has(GameObject o) {
+        return items.contains(o);
     }
 
     public List<TakeableItem> getItems() {

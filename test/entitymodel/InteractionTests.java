@@ -3,7 +3,6 @@ package entitymodel;
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
-import entity.entitycontrol.EntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
@@ -59,9 +58,9 @@ public class InteractionTests {
         ArrayList<TimedEffect> actorEffects = new ArrayList<>();
         ArrayList<TimedEffect> acteeEffects = new ArrayList<>();
 
-        actorEffects.add(new TimedEffect(new MakeConfusedCommand(false), 10));
+        actorEffects.add(new TimedEffect(new MakeConfusedCommand(false), 10, 0));
 
-        acteeEffects.add(new TimedEffect(new MakeParalyzedCommand(false), 15));
+        acteeEffects.add(new TimedEffect(new MakeParalyzedCommand(false), 15, 0));
 
         ArrayList<EntityInteraction> actorActorInteractions = new ArrayList<>();
         ArrayList<EntityInteraction> actorActeeInteractions = new ArrayList<>();
