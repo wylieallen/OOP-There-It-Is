@@ -372,7 +372,11 @@ public class SaveVisitor implements Visitor {
         weaponItemJson.put("Command", currentCommandJson);
         weaponItemJson.put("Damage", w.getDamage());
         weaponItemJson.put("AttackSpeed", w.getAttackSpeed());
+        weaponItemJson.put("MaxRadius", w.getMaxRadius());
+        weaponItemJson.put("ExpansionInterval", w.getExpansionInterval());
+        weaponItemJson.put("UpdateInterval", w.getUpdateInterval());
         weaponItemJson.put("RequiredSkill", w.getRequiredSkill().name());
+        weaponItemJson.put("InfluenceType", w.getInfluenceType().name());
         itemJsonsQueue.add(weaponItemJson);
     }
 

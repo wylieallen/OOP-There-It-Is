@@ -1,5 +1,7 @@
 package gameview;
 
+import commands.Command;
+import commands.EnrageCommand;
 import commands.ModifyHealthCommand;
 import commands.TransitionCommand;
 import commands.skillcommands.SkillCommand;
@@ -16,6 +18,8 @@ import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
 import items.InteractiveItem;
+import items.Item;
+import items.OneshotItem;
 import items.takeableitems.QuestItem;
 import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
@@ -227,9 +231,22 @@ public class GameViewMaker
 
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
 
+        // add a few items to tiles
+        List<Item> items = new ArrayList<>();
+        items.add(new OneshotItem("Consumable1", new ModifyHealthCommand(20), false));
+        items.add(new QuestItem("Quest", true, 1));
+        items.add(new WeaponItem("TwoHandedWeapon", true, 20, 20,
+        SkillType.TWOHANDEDWEAPON, 5, 1,
+        1, InfluenceType.LINEARINFLUENCE, new SkillCommand(SkillType.TWOHANDEDWEAPON, 1, 70,
+                new ModifyHealthCommand(-20), new EnrageCommand())));
+
         for(int x = -10; x <= 10; ++x) {
             for(int z = -10; z <= 10; ++z) {
-                tiles.put(new Coordinate(x, z), new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>()));
+                LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
+                if (x>=0 && x<items.size()){
+                    tile.addEI(items.get(x));
+                }
+                tiles.put(new Coordinate(x, z), tile);
             }
         }
 

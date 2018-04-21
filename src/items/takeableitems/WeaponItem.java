@@ -103,6 +103,22 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
         return requiredSkill;
     }
 
+    public int getMaxRadius(){
+        return maxRadius;
+    }
+
+    public long getExpansionInterval(){
+        return expansionInterval;
+    }
+
+    public long getUpdateInterval(){
+        return updateInterval;
+    }
+
+    public InfluenceType getInfluenceType() {
+        return influenceType;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitWeaponItem(this);

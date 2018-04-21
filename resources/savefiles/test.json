@@ -43,87 +43,276 @@
   "Tiles": [
    {
     "X": 0,
-    "Y": 1
+    "Y": 1,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": 0
+    "Y": 0,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": 2
+    "Y": 2,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": -1
+    "Y": -1,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": 3
+    "Y": 3,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": -2
+    "Y": -2,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": 4
+    "Y": 4,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": -3
+    "Y": -3,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": 5
+    "Y": 5,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": -4
+    "Y": -4,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": 6
+    "Y": 6,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": -5
+    "Y": -5,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": 7
+    "Y": 7,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": -6
+    "Y": -6,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": 8
+    "Y": 8,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": -7
+    "Y": -7,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": 9
+    "Y": 9,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": -8
+    "Y": -8,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": 10
+    "Y": 10,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": -9
+    "Y": -9,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": 0,
-    "Y": -10
+    "Y": -10,
+    "Items": [{
+     "Type": "OneShot",
+     "Command": {
+      "Amount": 20,
+      "Name": "ModifyHealth"
+     },
+     "IsActive": true,
+     "Name": "Consumable1"
+    }]
    },
    {
     "X": -1,
@@ -135,7 +324,13 @@
    },
    {
     "X": 1,
-    "Y": 9
+    "Y": 9,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -143,7 +338,13 @@
    },
    {
     "X": 1,
-    "Y": 8
+    "Y": 8,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -151,7 +352,13 @@
    },
    {
     "X": 1,
-    "Y": 7
+    "Y": 7,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -159,7 +366,13 @@
    },
    {
     "X": 1,
-    "Y": 6
+    "Y": 6,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -167,7 +380,13 @@
    },
    {
     "X": 1,
-    "Y": 5
+    "Y": 5,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -175,7 +394,13 @@
    },
    {
     "X": 1,
-    "Y": 4
+    "Y": 4,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -183,7 +408,13 @@
    },
    {
     "X": 1,
-    "Y": 3
+    "Y": 3,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -191,7 +422,13 @@
    },
    {
     "X": 1,
-    "Y": 2
+    "Y": 2,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -199,7 +436,13 @@
    },
    {
     "X": 1,
-    "Y": 1
+    "Y": 1,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -207,7 +450,13 @@
    },
    {
     "X": 1,
-    "Y": 0
+    "Y": 0,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -225,7 +474,13 @@
    },
    {
     "X": 1,
-    "Y": -1
+    "Y": -1,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -233,7 +488,13 @@
    },
    {
     "X": 1,
-    "Y": -2
+    "Y": -2,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -241,7 +502,13 @@
    },
    {
     "X": 1,
-    "Y": -3
+    "Y": -3,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -249,7 +516,13 @@
    },
    {
     "X": 1,
-    "Y": -4
+    "Y": -4,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -257,7 +530,13 @@
    },
    {
     "X": 1,
-    "Y": -5
+    "Y": -5,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -265,7 +544,13 @@
    },
    {
     "X": 1,
-    "Y": -6
+    "Y": -6,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -273,7 +558,13 @@
    },
    {
     "X": 1,
-    "Y": -7
+    "Y": -7,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -281,7 +572,13 @@
    },
    {
     "X": 1,
-    "Y": -8
+    "Y": -8,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -289,7 +586,13 @@
    },
    {
     "X": 1,
-    "Y": -9
+    "Y": -9,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -1,
@@ -297,11 +600,23 @@
    },
    {
     "X": 1,
-    "Y": -10
+    "Y": -10,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": 1,
-    "Y": -11
+    "Y": -11,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Quest",
+     "QuestId": 1,
+     "Name": "Quest"
+    }]
    },
    {
     "X": -2,
@@ -313,7 +628,20 @@
    },
    {
     "X": 2,
-    "Y": 8
+    "Y": 8,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -321,7 +649,20 @@
    },
    {
     "X": 2,
-    "Y": 7
+    "Y": 7,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -329,7 +670,20 @@
    },
    {
     "X": 2,
-    "Y": 6
+    "Y": 6,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -337,7 +691,20 @@
    },
    {
     "X": 2,
-    "Y": 5
+    "Y": 5,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -345,7 +712,20 @@
    },
    {
     "X": 2,
-    "Y": 4
+    "Y": 4,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -353,7 +733,20 @@
    },
    {
     "X": 2,
-    "Y": 3
+    "Y": 3,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -361,7 +754,20 @@
    },
    {
     "X": 2,
-    "Y": 2
+    "Y": 2,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -369,7 +775,20 @@
    },
    {
     "X": 2,
-    "Y": 1
+    "Y": 1,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -377,7 +796,20 @@
    },
    {
     "X": 2,
-    "Y": 0
+    "Y": 0,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -385,7 +817,20 @@
    },
    {
     "X": 2,
-    "Y": -1
+    "Y": -1,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -393,7 +838,20 @@
    },
    {
     "X": 2,
-    "Y": -2
+    "Y": -2,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -401,7 +859,20 @@
    },
    {
     "X": 2,
-    "Y": -3
+    "Y": -3,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -409,7 +880,20 @@
    },
    {
     "X": 2,
-    "Y": -4
+    "Y": -4,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -417,7 +901,20 @@
    },
    {
     "X": 2,
-    "Y": -5
+    "Y": -5,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -425,7 +922,20 @@
    },
    {
     "X": 2,
-    "Y": -6
+    "Y": -6,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -433,7 +943,20 @@
    },
    {
     "X": 2,
-    "Y": -7
+    "Y": -7,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -441,7 +964,20 @@
    },
    {
     "X": 2,
-    "Y": -8
+    "Y": -8,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -449,7 +985,20 @@
    },
    {
     "X": 2,
-    "Y": -9
+    "Y": -9,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -457,7 +1006,20 @@
    },
    {
     "X": 2,
-    "Y": -10
+    "Y": -10,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -2,
@@ -465,11 +1027,37 @@
    },
    {
     "X": 2,
-    "Y": -11
+    "Y": -11,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": 2,
-    "Y": -12
+    "Y": -12,
+    "Items": [{
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "Command": {"Name": "Enrage"},
+     "RequiredSkill": "TWOHANDEDWEAPON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 20,
+     "AttackSpeed": 20,
+     "Name": "TwoHandedWeapon"
+    }]
    },
    {
     "X": -3,
