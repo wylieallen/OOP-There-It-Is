@@ -3,7 +3,6 @@ package entitymodel;
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
-import entity.entitycontrol.EntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;

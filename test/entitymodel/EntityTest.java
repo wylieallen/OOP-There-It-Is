@@ -178,8 +178,8 @@ public class EntityTest {
                 null, null, null);
 
         EntityController acteeController = new NpcEntityController(actee, null,
-                null, null, new HostileAI(new ArrayList<>(), actor),
-                new FriendlyAI(acteeActeeInteractions), false);
+                null, null, new HostileAI(new ArrayList<>(), actor, null),
+                new FriendlyAI(acteeActeeInteractions, null, false), false);
 
         actor.setController(actorController);
         actee.setController(acteeController);

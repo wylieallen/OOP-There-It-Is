@@ -60,8 +60,8 @@ public class SkillCommandsTests {
                 targetInventory, true, "Default");
 
         targetController = new NpcEntityController(target, null,
-                null, null, new HostileAI(new ArrayList<>(), caster),
-                new FriendlyAI(new ArrayList<>()), false);
+                null, null, new HostileAI(new ArrayList<>(), caster, null),
+                new FriendlyAI(new ArrayList<>(), null, false), false);
 
         target.setController(targetController);
     }

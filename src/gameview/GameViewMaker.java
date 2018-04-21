@@ -2,32 +2,24 @@ package gameview;
 
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
-import entity.entitymodel.EntityStats;
 import entity.entitymodel.Equipment;
 import entity.entitymodel.Inventory;
 import gameobject.GameObject;
-import gameobject.GameObjectContainer;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
-import guiframework.displayable.CompositeDisplayable;
 import guiframework.displayable.Displayable;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
-import maps.tile.Tile;
 import maps.world.Game;
 import maps.world.LocalWorld;
 import maps.world.OverWorld;
 import maps.world.World;
 import utilities.Coordinate;
-import utilities.Vector;
 
-import java.util.List;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
 
 public class GameViewMaker
 {
@@ -58,6 +50,7 @@ public class GameViewMaker
         overworldMap.put(Direction.NE.getOffsetCoordinate(), tile2);
 
         OverWorldTile tile3 = new OverWorldTile(new HashSet<>(), Terrain.MOUNTAIN, null);
+
         overworldMap.put(Direction.S.getOffsetCoordinate(), tile3);
 
 

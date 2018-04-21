@@ -11,7 +11,9 @@ import savingloading.Visitor;
 import utilities.Coordinate;
 import utilities.Vector;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LocalWorldTile extends Tile {
 
@@ -37,10 +39,6 @@ public class LocalWorldTile extends Tile {
 
     public void addTM(TrajectoryModifier tm){
         trajectoryModifiers.add(tm);
-    }
-
-    public void addMLC(MoveLegalityChecker mlc){
-        super.addMLC(mlc);
     }
 
     public void addEI(EntityImpactor ei){
@@ -101,4 +99,6 @@ public class LocalWorldTile extends Tile {
     public void accept(Visitor v) {
         v.visitLocalWorldTile(this);
     }
+
+    public boolean hasImpactor () { return entityImpactors.size() > 0; }
 }

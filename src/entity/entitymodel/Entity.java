@@ -8,12 +8,11 @@ import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
-import savingloading.Visitable;
-import savingloading.Visitor;
-import utilities.Coordinate;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
+import savingloading.Visitable;
+import savingloading.Visitor;
 import skills.SkillType;
 import spawning.SpawnObserver;
 import utilities.Coordinate;
@@ -22,6 +21,7 @@ import utilities.Vector;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by dontf on 4/13/2018.
@@ -353,7 +353,12 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         inventory.add(item);
     }
 
+    public Set<Terrain> getCompatibleTerrains () {
+        return stats.getCompatibleTerrains ();
+    }
+
     public boolean isTerrainCompatible(Terrain t) { return stats.isTerrainCompatible(t); }
+
     public EntityController getController() {
         return controller;
     }
