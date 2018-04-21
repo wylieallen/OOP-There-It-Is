@@ -1,6 +1,7 @@
 package entity.entitycontrol.controllerActions;
 
-import commands.skillcommands.ModifyHealthCommand;
+import commands.ModifyHealthCommand;
+import commands.skillcommands.SkillCommand;
 import entity.entitymodel.Entity;
 import skills.SkillType;
 
@@ -21,7 +22,10 @@ public class bindWoundsAction extends ControllerAction {
 
     @Override
     protected void execute() {
-        ModifyHealthCommand bindWounds = new ModifyHealthCommand(SkillType.BINDWOUNDS, controlledEntity.getSkillLevel(SkillType.BINDWOUNDS), 10);
-        bindWounds.trigger(controlledEntity);
+        ModifyHealthCommand bindWounds = new ModifyHealthCommand();
+        SkillCommand skillCommand = new SkillCommand(SkillType.BINDWOUNDS,
+                controlledEntity.getSkillLevel(SkillType.BINDWOUNDS), 10,
+                bindWounds, null);
+        skillCommand.trigger(controlledEntity);
     }
 }

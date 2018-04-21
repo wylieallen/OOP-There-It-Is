@@ -1,13 +1,12 @@
 package savingloading;
 
-import commands.Command;
-import commands.TimedEffect;
-import commands.TransitionCommand;
+import commands.*;
 import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
 import commands.reversiblecommands.ReversibleCommand;
 import commands.reversiblecommands.TimedStaminaRegenCommand;
-import commands.skillcommands.*;
+import commands.PickPocketCommand;
+import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.AI;
 import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
@@ -70,15 +69,15 @@ public class LoadingParser {
     private GameDisplayState gameDisplay;
 
     private OverWorld overWorld;
-    private List<LocalWorld> localWorlds = new ArrayList<LocalWorld>();
+    private List<LocalWorld> localWorlds = new ArrayList<>();
 
     private Map<GameObject, Displayable> spriteMap = new HashMap<GameObject, Displayable>();
     private Map<World, WorldDisplayable> worldDisplayableMap = new HashMap<World, WorldDisplayable>();
 
     private JSONObject gameJson;
 
-    private Map<String,World> idMappings = new HashMap<String,World>();
-    private List<TransitionCommandHolder> transitionCommands = new ArrayList<TransitionCommandHolder>();
+    private Map<String,World> idMappings = new HashMap<>();
+    private List<TransitionCommandHolder> transitionCommands = new ArrayList<>();
 
     public void loadGame (String saveFileName, Dimension panelSize) throws FileNotFoundException {
         loadFileToJson(saveFileName);
@@ -108,7 +107,7 @@ public class LoadingParser {
         EntityStats entityStats = loadEntityStats(entityStatsJson);
         List<ControllerAction> controllerActions = loadPlayerControllerActions(); // TODO: create ControllerActions
         List<EntityInteraction> actorInteractions = loadActorInteractions(playerJson.getJSONArray("ActorInteractions"));
-        List<TimedEffect> effects = new ArrayList<TimedEffect>();
+        List<TimedEffect> effects = new ArrayList<>();
         Inventory inventory = loadInventory(playerJson.getJSONArray("Inventory"));
         Boolean onMap = true;
         player = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, "Default");
@@ -157,7 +156,7 @@ public class LoadingParser {
         EntityStats entityStats = loadEntityStats(entityStatsJson);
         List<ControllerAction> controllerActions = null; // TODO: create ControllerActions
         List<EntityInteraction> actorInteractions = loadActorInteractions(entityJson.getJSONArray("ActorInteractions"));
-        List<TimedEffect> effects = new ArrayList<TimedEffect>();
+        List<TimedEffect> effects = new ArrayList<>();
         Inventory inventory = loadInventory(entityJson.getJSONArray("Inventory"));
         Boolean onMap = true;
         Entity entity;
@@ -176,13 +175,13 @@ public class LoadingParser {
     }
 
     private Map<Coordinate, LocalWorldTile> loadLocalWorldTiles(JSONArray tilesJson) {
-        Map<Coordinate, LocalWorldTile> tiles = new HashMap<Coordinate, LocalWorldTile>();
+        Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
         for (Object tileJsonObj : tilesJson){
             JSONObject tileJson = (JSONObject) tileJsonObj;
             Coordinate coordinate = new Coordinate(tileJson.getInt("X"), tileJson.getInt("Y"));
-            Set<MoveLegalityChecker> moveLegalityCheckers = new HashSet<MoveLegalityChecker>();
-            Set<TrajectoryModifier> trajectoryModifiers = new HashSet<TrajectoryModifier>();
-            Set<EntityImpactor> entityImpactors = new HashSet<EntityImpactor>();
+            Set<MoveLegalityChecker> moveLegalityCheckers = new HashSet<>();
+            Set<TrajectoryModifier> trajectoryModifiers = new HashSet<>();
+            Set<EntityImpactor> entityImpactors = new HashSet<>();
             Terrain terrain = null;
             if (tileJson.has("Terrain")){
                 terrain = loadTerrain(tileJson.getString("Terrain"));
@@ -267,11 +266,11 @@ public class LoadingParser {
     }
 
     private Map<Coordinate, OverWorldTile> loadOverWorldTiles(JSONArray tilesJson) {
-        Map <Coordinate, OverWorldTile> tiles = new HashMap<Coordinate, OverWorldTile>();
+        Map <Coordinate, OverWorldTile> tiles = new HashMap<>();
         for (Object tileJsonObj : tilesJson){
             JSONObject tileJson = (JSONObject) tileJsonObj;
             Coordinate coordinate = new Coordinate(tileJson.getInt("X"), tileJson.getInt("Y"));
-            Set<MoveLegalityChecker> moveLegalityCheckers = new HashSet<MoveLegalityChecker>();
+            Set<MoveLegalityChecker> moveLegalityCheckers = new HashSet<>();
             Terrain terrain = null;
             if (tileJson.has("Terrain")){
                 terrain = loadTerrain(tileJson.getString("Terrain"));
@@ -325,7 +324,7 @@ public class LoadingParser {
     }
 
     private EntityStats loadEntityStats(JSONObject entityStatsJson){
-        Map<SkillType, Integer> skills = new HashMap<SkillType, Integer>();
+        Map<SkillType, Integer> skills = new HashMap<>();
         Iterator<String> skillStrings = entityStatsJson.getJSONObject("Skills").keys();
         while(skillStrings.hasNext()) {
             String skillString = skillStrings.next();
@@ -376,7 +375,7 @@ public class LoadingParser {
     }
 
     private List<EntityInteraction> loadActorInteractions(JSONArray actorInteractionsJson){
-        List<EntityInteraction> actorInteractions = new ArrayList<EntityInteraction>();
+        List<EntityInteraction> actorInteractions = new ArrayList<>();
         for (Object interactionJson : actorInteractionsJson){
             if (((JSONObject) interactionJson).get("Name").equals("MountInteraction"))
                 actorInteractions.add(new MountInteraction());
@@ -386,7 +385,7 @@ public class LoadingParser {
                 actorInteractions.add(new PickPocketInteraction());
             else if (((JSONObject) interactionJson).get("Name").equals("TalkInteraction")) {
                 JSONArray messagesJson = ((JSONObject) interactionJson).getJSONArray("Messages");
-                Set<String> messages = new HashSet<String>();
+                Set<String> messages = new HashSet<>();
                 for (Object message : messagesJson){
                     messages.add((String) message);
                 }
@@ -405,7 +404,7 @@ public class LoadingParser {
     }
 
     private Inventory loadInventory(JSONArray inventoryJson){
-        List<TakeableItem> takeableItems = new ArrayList<TakeableItem>();
+        List<TakeableItem> takeableItems = new ArrayList<>();
         for (Object itemJson : inventoryJson){
             TakeableItem item = loadTakeableItem((JSONObject)itemJson);
             takeableItems.add(item);
@@ -539,13 +538,7 @@ public class LoadingParser {
     private Command loadCommand(JSONObject commandJson) {
         if (commandJson.getString("Name").equals("Transition"))
             return loadTransitionCommand(commandJson);
-        else {
-            return loadSkillCommand(commandJson);
-        }
-    }
-
-    private SkillCommand loadSkillCommand(JSONObject commandJson) {
-        if (commandJson.getString("Name").equals("Confuse"))
+        else if (commandJson.getString("Name").equals("Confuse"))
             return loadConfuseCommand(commandJson);
         else if (commandJson.getString("Name").equals("MakeFriendly"))
             return loadMakeFriendlyCommand(commandJson);
@@ -565,6 +558,10 @@ public class LoadingParser {
         }
     }
 
+    private SkillCommand loadSkillCommand(JSONObject commandJson) {
+        return null;
+    }
+
     private PickPocketCommand loadPickPocketCommand(JSONObject commandJson) {
         // TODO: need to save? Entity caster is issue
         return null;
@@ -580,13 +577,11 @@ public class LoadingParser {
     }
 
     private ModifyStaminaRegenCommand loadModifyStaminaRegenCommand(JSONObject commandJson) {
-        return new ModifyStaminaRegenCommand(loadSkillType(commandJson.getString("SkillType")), commandJson.getInt("Level"),
-                commandJson.getInt("Effectiveness"), commandJson.getDouble("Factor"));
+        return new ModifyStaminaRegenCommand(commandJson.getDouble("Factor"), commandJson.getInt("Duration"));
     }
 
     private ModifyHealthCommand loadModifyHealthCommand(JSONObject commandJson) {
-        return new ModifyHealthCommand(loadSkillType(commandJson.getString("SkillType")), commandJson.getInt("Level"),
-                commandJson.getInt("Effectiveness"));
+        return new ModifyHealthCommand(commandJson.getInt("Amount"));
     }
 
     private MakeFriendlyCommand loadMakeFriendlyCommand(JSONObject commandJson) {
@@ -680,7 +675,7 @@ public class LoadingParser {
 
     private List<ControllerAction> loadPlayerControllerActions() {
         // TODO
-        return new ArrayList<ControllerAction>();
+        return new ArrayList<>();
     }
 
     private void setTransitionCommands() {

@@ -1,7 +1,7 @@
 package commandstests;
 
-import commands.TimedEffect;
-import commands.skillcommands.*;
+import commands.*;
+import commands.PickPocketCommand;
 import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.HumanEntityController;
@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-public class SkillCommandsTests {
+public class CommandsTests {
 
     private static Entity caster;
     private static Entity target;
@@ -68,7 +68,7 @@ public class SkillCommandsTests {
 
     @Test
     public void testConfuseCommand() {
-        ConfuseCommand command = new ConfuseCommand(caster.getSkillLevel(SkillType.ENCHANTMENT), 0, caster);
+        ConfuseCommand command = new ConfuseCommand(3);
 
         command.trigger(target);
 
@@ -82,7 +82,7 @@ public class SkillCommandsTests {
 
     @Test
     public void testMakeFriendlyCommand() {
-        MakeFriendlyCommand command = new MakeFriendlyCommand(caster.getSkillLevel(SkillType.ENCHANTMENT), 3, caster);
+        MakeFriendlyCommand command = new MakeFriendlyCommand();
 
         command.trigger(target);
 
@@ -94,20 +94,18 @@ public class SkillCommandsTests {
 
     @Test
     public void testModifyHealthCommand() {
-        ModifyHealthCommand command = new ModifyHealthCommand(SkillType.ONEHANDEDWEAPON,
-                caster.getSkillLevel(SkillType.ONEHANDEDWEAPON), -10);
+        ModifyHealthCommand command = new ModifyHealthCommand(-10);
 
         Assert.assertEquals(100, target.getCurrHealth());
 
         command.trigger(target);
 
-        Assert.assertEquals(85, target.getCurrHealth());
+        Assert.assertEquals(90, target.getCurrHealth());
     }
 
     @Test
     public void testModifyStaminaRegenCommand() {
-        ModifyStaminaRegenCommand command = new ModifyStaminaRegenCommand(SkillType.NULL,
-                caster.getSkillLevel(SkillType.NULL), 0, 0.5);
+        ModifyStaminaRegenCommand command = new ModifyStaminaRegenCommand(0.5, 0);
 
         target.setCurMana(50);
         Assert.assertEquals(50, target.getCurMana());
@@ -132,8 +130,7 @@ public class SkillCommandsTests {
         target.update();
         Assert.assertEquals(77, target.getCurMana());
 
-        command = new ModifyStaminaRegenCommand(SkillType.NULL,
-                caster.getSkillLevel(SkillType.NULL), 0, 2);
+        command = new ModifyStaminaRegenCommand(2, 0);
 
         target.setCurMana(10);
         Assert.assertEquals(10, target.getCurMana());
@@ -155,8 +152,7 @@ public class SkillCommandsTests {
 
     @Test
     public void testParalyzeCommand() {
-        ParalyzeCommand command = new ParalyzeCommand(SkillType.ENCHANTMENT,
-                caster.getSkillLevel(SkillType.ENCHANTMENT), 0, caster);
+        ParalyzeCommand command = new ParalyzeCommand(3);
 
         Assert.assertEquals(2, target.getBaseMoveSpeed());
 
@@ -170,11 +166,10 @@ public class SkillCommandsTests {
 
     @Test
     public void testPickpocketCommand() {
-        TakeableItem item = new ConsumableItem("Health Potion", true, new ModifyHealthCommand(SkillType.NULL, 0, 10));
+        TakeableItem item = new ConsumableItem("Health Potion", true, new ModifyHealthCommand(10));
         target.addToInventory(item);
 
-        PickPocketCommand command = new PickPocketCommand(caster.getSkillLevel(SkillType.PICKPOCKET),
-                3, caster);
+        PickPocketCommand command = new PickPocketCommand(caster);
 
         Assert.assertTrue(targetInventory.contains(item));
         Assert.assertFalse(casterInventory.contains(item));
@@ -187,7 +182,7 @@ public class SkillCommandsTests {
 
     @Test
     public void testObservationCommand() {
-        ObserveCommand command = new ObserveCommand(caster.getSkillLevel(SkillType.OBSERVATION), 1);
+        ObserveCommand command = new ObserveCommand(0);
 
         command.trigger(target);
 
