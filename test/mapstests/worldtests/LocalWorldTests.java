@@ -9,6 +9,7 @@ import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
 import maps.tile.Tile;
 import maps.trajectorymodifier.River;
+import maps.world.Game;
 import maps.world.LocalWorld;
 import org.junit.Assert;
 import org.junit.Test;
@@ -124,6 +125,10 @@ public class LocalWorldTests {
             }
         }
 
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
         world.update();
@@ -139,6 +144,10 @@ public class LocalWorldTests {
             }
         }
 
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.NE);
         entity.setMoving();
         world.update();
@@ -195,6 +204,10 @@ public class LocalWorldTests {
             }
         }
 
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.S);
         entity.setMoving();
         world.update();
@@ -225,6 +238,11 @@ public class LocalWorldTests {
 
         river = new River(new Vector(Direction.S, 5));
         tiles.get(new Coordinate(2, 1)).addTM(river);
+
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
         world.update();
@@ -240,6 +258,10 @@ public class LocalWorldTests {
             }
         }
 
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.SE);
         entity.setMoving();
         world.update();
