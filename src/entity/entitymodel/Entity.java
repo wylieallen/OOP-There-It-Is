@@ -67,6 +67,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         this.stats = stats;
         this.effects = effects;
         this.actorInteractions = actorInteractions;
+        this.actions = new ArrayList<>();
         //prevents errors until the AI sets the interactions
         this.acteeInteractions = new ArrayList<>();
         this.inventory = inventory;
