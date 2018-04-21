@@ -33,9 +33,7 @@ public class OverWorldTile extends Tile {
 
     public Collection<GameObject> getGameObjects()
     {
-        Set<GameObject> set = new HashSet<>(super.getMoveLegalityCheckers());
-        set.add(super.getTerrain());
-        return set;
+        return super.getGameObjects();
     }
 
     @Override

@@ -30,9 +30,8 @@ public class LocalWorldTile extends Tile {
     @Override
     public Collection<GameObject> getGameObjects() {
         Set<GameObject> list = new HashSet<>();
+        list.addAll(super.getGameObjects());
         list.addAll(trajectoryModifiers);
-        list.addAll(super.getMoveLegalityCheckers());
-        list.add(super.getTerrain());
         list.addAll(entityImpactors);
         return list;
     }
