@@ -17,6 +17,7 @@ import entity.entitymodel.*;
 import entity.entitymodel.interactions.*;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
+import gameview.GamePanel;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
@@ -78,9 +79,9 @@ public class LoadingParser {
     private List<TransitionCommandHolder> transitionCommands = new ArrayList<>();
     private Queue<SpawnObservable> spawnObservables = new ArrayDeque<>();
 
-    public void loadGame (String saveFileName, Dimension panelSize) throws FileNotFoundException {
+    public void loadGame (String saveFileName, GamePanel gamePanel) throws FileNotFoundException {
         loadFileToJson(saveFileName);
-        loadPlayer(gameJson.getJSONObject("Player"));
+        loadPlayer(gameJson.getJSONObject("Player"), gamePanel);
         loadOverWorld(gameJson.getJSONObject("OverWorld"));
         loadLocalWorlds(gameJson.getJSONObject("LocalWorlds"));
 
@@ -89,7 +90,7 @@ public class LoadingParser {
         // must do this after game is made
         setTransitionCommands();
 
-        gameDisplay = new GameDisplayState(panelSize, game, spriteMap, worldDisplayableMap, overWorld);
+        gameDisplay = new GameDisplayState(gamePanel.getSize(), game, spriteMap, worldDisplayableMap, overWorld);
     }
 
     private void loadFileToJson(String saveFileName) throws FileNotFoundException {
@@ -100,7 +101,7 @@ public class LoadingParser {
         gameJson = new JSONObject(jsonText);
     }
 
-    private void loadPlayer(JSONObject playerJson){
+    private void loadPlayer(JSONObject playerJson, GamePanel gamePanel){
         Vector movementVector = new Vector();
         JSONObject entityStatsJson = playerJson.getJSONObject("Stats");
         EntityStats entityStats = loadEntityStats(entityStatsJson);
@@ -111,7 +112,7 @@ public class LoadingParser {
         player = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, "Default");
         Equipment equipment = loadEquipment(playerJson.getJSONObject("Equipment"), inventory, player);
         Coordinate coordinate = new Coordinate(playerJson.getInt("X"), playerJson.getInt("Y"));
-        HumanEntityController controller = new HumanEntityController(player, equipment, coordinate, null);
+        HumanEntityController controller = new HumanEntityController(player, equipment, coordinate, gamePanel);
         player.setController(controller);
         List<ControllerAction> controllerActions = loadControllerActions(playerJson.getString("Name"), player, controller, equipment);
         controller.setControllerActions(controllerActions);
