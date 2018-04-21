@@ -34,12 +34,11 @@ public abstract class Tile implements GameObjectContainer, Visitable {
     }
     public Tile getNeighbor(Direction direction) { return neighbors.getOrDefault(direction, null);}
 
-    private void tryToMove(Tile tileFrom, Entity entity){
-        if(isMoveLegal(entity)){
+    private void tryToMove(Tile tileFrom, Entity entity, int moveSpeed){
+        if(isMoveLegal(entity) && entity.tryToMove(moveSpeed)){
             tileFrom.moveFrom();
             setEntity(entity);
         }
-        entity.resetMovementVector();
     }
 
     private void moveFrom(){
@@ -67,10 +66,9 @@ public abstract class Tile implements GameObjectContainer, Visitable {
             Tile toMoveTo = neighbors.get(total.getDirection());
             updated.add(entity);
             if(!total.isZeroVector()){
-                toMoveTo.tryToMove(this, entity);
-            } else {
-                entity.resetMovementVector();
+                toMoveTo.tryToMove(this, entity, (int)total.getMagnitude());
             }
+            entity.resetMovementVector();
         }
     }
 
