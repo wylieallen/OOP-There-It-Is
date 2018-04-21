@@ -9,12 +9,18 @@ import commands.reversiblecommands.ReversibleCommand;
 import commands.reversiblecommands.TimedStaminaRegenCommand;
 import commands.skillcommands.*;
 import entity.entitycontrol.AI.AI;
+import entity.entitycontrol.AI.FriendlyAI;
+import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.*;
 import entity.vehicle.Vehicle;
+import gameobject.GameObject;
+import gameview.displayable.sprite.WorldDisplayable;
+import guiframework.displayable.Displayable;
+import guiframework.displayable.ImageDisplayable;
 import items.InteractiveItem;
 import items.InteractiveItem;
 import items.Item;
@@ -42,9 +48,12 @@ import skills.SkillType;
 import utilities.Coordinate;
 import utilities.Vector;
 
+import java.awt.*;
+import java.awt.geom.Area;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.List;
 
 import static maps.movelegalitychecker.Terrain.GRASS;
 import static maps.movelegalitychecker.Terrain.MOUNTAIN;
@@ -63,12 +72,15 @@ public class LoadingParser {
     private OverWorld overWorld;
     private List<LocalWorld> localWorlds = new ArrayList<LocalWorld>();
 
+    private Map<GameObject, Displayable> spriteMap = new HashMap<GameObject, Displayable>();
+    private Map<World, WorldDisplayable> worldDisplayableMap = new HashMap<World, WorldDisplayable>();
+
     private JSONObject gameJson;
 
     private Map<String,World> idMappings = new HashMap<String,World>();
     private List<TransitionCommandHolder> transitionCommands = new ArrayList<TransitionCommandHolder>();
 
-    public void loadGame (String saveFileName) throws FileNotFoundException {
+    public void loadGame (String saveFileName, Dimension panelSize) throws FileNotFoundException {
         loadFileToJson(saveFileName);
         loadPlayer(gameJson.getJSONObject("Player"));
         loadOverWorld(gameJson.getJSONObject("OverWorld"));
@@ -78,6 +90,8 @@ public class LoadingParser {
 
         // must do this after game is made
         setTransitionCommands();
+
+        gameDisplay = new GameDisplayState(panelSize, game, spriteMap, worldDisplayableMap, overWorld);
     }
 
     private void loadFileToJson(String saveFileName) throws FileNotFoundException {
@@ -97,20 +111,21 @@ public class LoadingParser {
         List<TimedEffect> effects = new ArrayList<TimedEffect>();
         Inventory inventory = loadInventory(playerJson.getJSONArray("Inventory"));
         Boolean onMap = true;
-        player = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap);
+        player = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, "Default");
         Equipment equipment = loadEquipment(playerJson.getJSONObject("Equipment"), inventory, player);
         Coordinate coordinate = new Coordinate(playerJson.getInt("X"), playerJson.getInt("Y"));
         HumanEntityController controller = new HumanEntityController(player, equipment, coordinate, controllerActions, null);
         player.setController(controller);
         player.setControllerActions(controllerActions);
-        // TODO: set up player in gameDisplay
+        ImageDisplayable displayable = loadDisplayable(playerJson.getString("Name"));
+        spriteMap.put(player, displayable);
     }
 
     private void loadOverWorld(JSONObject overWorldJson) {
         Map <Coordinate, OverWorldTile> tiles = loadOverWorldTiles(overWorldJson.getJSONArray("Tiles"));
         overWorld = new OverWorld(tiles);
         idMappings.put("OverWorld", overWorld);
-        // TODO: set up overworld in gameDisplay
+        worldDisplayableMap.put(overWorld, new WorldDisplayable(new Point(0, 0), 0, overWorld));
     }
 
     private void loadLocalWorlds(JSONObject localWorldsJson){
@@ -132,6 +147,7 @@ public class LoadingParser {
             LocalWorld localWorld = new LocalWorld(localWorldTiles, new HashSet<InfluenceArea>());
             localWorlds.add(localWorld);
             idMappings.put(localWorldId, localWorld);
+            worldDisplayableMap.put(localWorld, new WorldDisplayable(new Point(0, 0), 0, localWorld));
         }
     }
 
@@ -148,14 +164,14 @@ public class LoadingParser {
         if (entityJson.getString("Type").equals("Vehicle"))
             entity = new Vehicle(movementVector, entityStats, effects, actorInteractions, inventory, onMap, null);
         else
-            entity = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap);
+            entity = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, "Default");
         Equipment equipment = loadEquipment(entityJson.getJSONObject("Equipment"), inventory, player);
         Coordinate coordinate = new Coordinate(entityJson.getInt("X"), entityJson.getInt("Y"));
         NpcEntityController controller = loadNpcEntityController(entityJson, entity, equipment, coordinate, controllerActions);
         entity.setController(controller);
         entity.setControllerActions(controllerActions);
-
-        // TODO: set up entity in gameDisplay
+        ImageDisplayable displayable = loadDisplayable(entityJson.getString("Name"));
+        spriteMap.put(entity, displayable);
         return entity;
     }
 
@@ -202,19 +218,27 @@ public class LoadingParser {
         Boolean hasFired = trapJson.getBoolean("HasFired");
         int strength = trapJson.getInt("Strength");
         Boolean isVisible = trapJson.getBoolean("IsVisible");
-        return new Trap(command, hasFired, strength, isVisible);
+        Trap trap = new Trap(command, hasFired, strength, isVisible);
+        ImageDisplayable displayable = loadDisplayable("Trap");
+        spriteMap.put(trap, displayable);
+        return trap;
     }
 
     private River loadRiver(JSONObject riverJson) {
         double dx = riverJson.getDouble("dx");
         double dz = riverJson.getDouble("dz");
         Vector v = new Vector(dx, dz);
-        return new River(v);
+        River river = new River(v);
+        ImageDisplayable displayable = loadDisplayable("River");
+        spriteMap.put(river, displayable);
+        return river;
     }
 
     private AreaEffect loadAreaEffect(JSONObject areaEffectJson) {
-        if (areaEffectJson.getString("Type").equals("Infinite"))
-            return loadInfiniteAreaEffect(areaEffectJson);
+        if (areaEffectJson.getString("Type").equals("Infinite")) {
+            AreaEffect areaEffect = loadInfiniteAreaEffect(areaEffectJson);
+            return areaEffect;
+        }
         else if (areaEffectJson.getString("Type").equals("OneShot"))
             return loadOneShotAreaEffect(areaEffectJson);
         else{
@@ -226,14 +250,20 @@ public class LoadingParser {
     private OneShotAreaEffect loadOneShotAreaEffect(JSONObject areaEffectJson) {
         Command command = loadCommand(areaEffectJson.getJSONObject("Command"));
         Boolean hasFired = areaEffectJson.getBoolean("HasFired");
-        return new OneShotAreaEffect(command, hasFired);
+        OneShotAreaEffect areaEffect = new OneShotAreaEffect(command, hasFired, areaEffectJson.getString("Name"));
+        ImageDisplayable displayable = loadDisplayable(areaEffectJson.getString("Name"));
+        spriteMap.put(areaEffect, displayable);
+        return areaEffect;
     }
 
     private InfiniteAreaEffect loadInfiniteAreaEffect(JSONObject areaEffectJson) {
         Command command = loadCommand(areaEffectJson.getJSONObject("Command"));
         long triggerInterval = areaEffectJson.getLong("TriggerInterval");
         long lastTriggerTime = areaEffectJson.getLong("LastTriggerTime");
-        return new InfiniteAreaEffect(command, triggerInterval, lastTriggerTime);
+        InfiniteAreaEffect areaEffect = new InfiniteAreaEffect(command, triggerInterval, lastTriggerTime, areaEffectJson.getString("Name"));
+        ImageDisplayable displayable = loadDisplayable(areaEffectJson.getString("Name"));
+        spriteMap.put(areaEffect, displayable);
+        return areaEffect;
     }
 
     private Map<Coordinate, OverWorldTile> loadOverWorldTiles(JSONArray tilesJson) {
@@ -255,12 +285,21 @@ public class LoadingParser {
     }
 
     private Terrain loadTerrain(String terrain) {
-        if (terrain.equals("GRASS"))
+        if (terrain.equals("GRASS")) {
+            Displayable displayable = loadDisplayable("Grass");
+            spriteMap.put(GRASS, displayable);
             return GRASS;
-        else if (terrain.equals("WATER"))
+        }
+        else if (terrain.equals("WATER")){
+            Displayable displayable = loadDisplayable("Water");
+            spriteMap.put(WATER, displayable);
             return WATER;
-        else if (terrain.equals("MOUNTAIN"))
+        }
+        else if (terrain.equals("MOUNTAIN")){
+            Displayable displayable = loadDisplayable("Mountain");
+            spriteMap.put(MOUNTAIN, displayable);
             return MOUNTAIN;
+        }
         else{
             System.out.println("ERROR: Terrain not loaded properly -- String given: " + terrain);
             return null;
@@ -399,24 +438,28 @@ public class LoadingParser {
     }
 
     private Item loadItem(JSONObject itemJson) {
+        Item item;
         if (itemJson.getString("Type").equals("OneShot"))
-            return loadOneShotItem(itemJson);
+            item = loadOneShotItem(itemJson);
         else if (itemJson.getString("Type").equals("Interactive"))
-            return loadInteractiveItem(itemJson);
+            item = loadInteractiveItem(itemJson);
         else if (itemJson.getString("Type").equals("Quest"))
-            return loadQuestItem(itemJson);
+            item = loadQuestItem(itemJson);
         else if (itemJson.getString("Type").equals("Consumable"))
-            return loadConsumableItem(itemJson);
+            item = loadConsumableItem(itemJson);
         else if (itemJson.getString("Type").equals("Weapon"))
-            return loadWeaponItem(itemJson);
+            item = loadWeaponItem(itemJson);
         else if (itemJson.getString("Type").equals("Wearable"))
-            return loadWearableItem(itemJson);
+            item = loadWearableItem(itemJson);
         else if (itemJson.getString("Type").equals("Wearable"))
-            return loadWearableItem(itemJson);
+            item = loadWearableItem(itemJson);
         else{
             System.out.println("ERROR: Item not loaded properly -- Type string given: " + itemJson.getString("Type"));
             return null;
         }
+        Displayable displayable = loadDisplayable(itemJson.getString("Name"));
+        spriteMap.put(item, displayable);
+        return item;
     }
 
     private OneshotItem loadOneShotItem(JSONObject itemJson) {
@@ -613,8 +656,26 @@ public class LoadingParser {
 
     }
 
-    private AI loadAI(String aggroAiString) {
-        return null;
+    private AI loadAI(String aiString) {
+        // TODO
+        if(aiString.equals("Friendly")){
+//            return new FriendlyAI();
+        }
+        else if(aiString.equals("Hostile")){
+//            return new HostileAI();
+        }
+        else if(aiString.equals("Patrol")){
+//            return new PatrolAI();
+        }
+        else if(aiString.equals("Pet")){
+//            return new PetAI();
+        }
+        else{
+            System.out.println("ERROR: AI not loaded properly -- Command name given: " + aiString);
+            return null;
+        }
+        //
+        return new FriendlyAI(null, null, false);
     }
 
     private List<ControllerAction> loadPlayerControllerActions() {
@@ -634,6 +695,11 @@ public class LoadingParser {
             Tile tile = world.getTileForCoordinate(coordinate);
             // TODO: add transitionCommand to tile
         }
+    }
+
+    private ImageDisplayable loadDisplayable(String name) {
+        // TODO
+        return null;
     }
 
     public GameDisplayState getGameDisplayState () {

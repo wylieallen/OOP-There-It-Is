@@ -39,7 +39,7 @@ public class TrapTests {
                 3, 3, 0, false, false, new HashSet<>());
         entityStats.addCompatibleTerrain(Terrain.GRASS);
         Entity entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
-                null, true);
+                null, true, "Default");
 
         EntityController entityController = new HumanEntityController(entity, null,
                 new Coordinate(2, 2), null, null);
@@ -97,7 +97,7 @@ public class TrapTests {
                 3, 3, 0, false, false, new HashSet<>());
         entityStats.addCompatibleTerrain(Terrain.GRASS);
         Entity entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
-                null, true);
+                null, true, "Default");
 
 
         EntityController entityController = new HumanEntityController(entity, null,

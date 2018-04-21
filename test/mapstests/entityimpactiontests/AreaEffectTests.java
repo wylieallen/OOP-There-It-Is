@@ -47,7 +47,7 @@ public class AreaEffectTests {
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
         entity.hurtEntity(50);
-        AreaEffect ae = new InfiniteAreaEffect(new ModifyHealthCommand(SkillType.NULL, 0, 20), 0, 0);
+        AreaEffect ae = new InfiniteAreaEffect(new ModifyHealthCommand(SkillType.NULL, 0, 20), 0, 0, "default");
 
         tiles.get(new Coordinate(2, 1)).addEI(ae);
 
@@ -102,7 +102,7 @@ public class AreaEffectTests {
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
         entity.hurtEntity(50);
-        AreaEffect ae = new OneShotAreaEffect(new ModifyHealthCommand(SkillType.NULL, 0, 20), false);
+        AreaEffect ae = new OneShotAreaEffect(new ModifyHealthCommand(SkillType.NULL, 0, 20), false, "default");
 
         tiles.get(new Coordinate(2, 1)).addEI(ae);
 

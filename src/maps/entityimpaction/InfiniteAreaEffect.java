@@ -11,8 +11,8 @@ public class InfiniteAreaEffect extends AreaEffect {
     private long triggerInterval;
     private long lastTriggerTime;
 
-    public InfiniteAreaEffect(Command command, long triggerInterval, long lastTriggerTime) {
-        super(command);
+    public InfiniteAreaEffect(Command command, long triggerInterval, long lastTriggerTime, String name) {
+        super(command, name);
         this.triggerInterval = triggerInterval;
         this.lastTriggerTime = lastTriggerTime;
     }
@@ -22,7 +22,14 @@ public class InfiniteAreaEffect extends AreaEffect {
             trigger(entity);
             lastTriggerTime = Game.getCurrentTime();
         }
+    }
 
+    public long getTriggerInterval(){
+        return triggerInterval;
+    }
+
+    public long getLastTriggerTime(){
+        return lastTriggerTime;
     }
 
     @Override

@@ -2,6 +2,6 @@ package gameview.displayable.sprite;
 
 import guiframework.displayable.AbstractDisplayable;
 
-public class EntityDisplayable{
+public class EntityDisplayable {
     // todo
 }

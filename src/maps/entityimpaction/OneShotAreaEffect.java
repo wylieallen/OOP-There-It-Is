@@ -8,8 +8,8 @@ public class OneShotAreaEffect extends AreaEffect {
 
     private boolean hasFired;
 
-    public OneShotAreaEffect(Command command, boolean hasFired) {
-        super(command);
+    public OneShotAreaEffect(Command command, boolean hasFired, String name) {
+        super(command, name);
         this.hasFired = hasFired;
     }
 

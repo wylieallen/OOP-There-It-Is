@@ -41,6 +41,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     private EntityController controller;
     private Inventory inventory;
     private boolean onMap;
+    private String name;
 
     public Entity()
     {
@@ -55,7 +56,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
                   //This will be set by the AI instead
                   //List<EntityInteraction> acteeInteractions,
                   Inventory inventory,
-                  boolean onMap)
+                  boolean onMap, String name)
     {
         this.movementVector = movementVector;
         this.stats = stats;
@@ -66,6 +67,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         this.inventory = inventory;
         this.onMap = onMap;
         this.facing = movementVector.getDirection();
+        this.name = name;
     }
 
     // I kept this constructor for testing, but actions will be set later now
@@ -378,6 +380,10 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         return inventory;
     }
 
+    public String getName(){
+        return name;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitEntity(this);
@@ -385,6 +391,10 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
 
     public boolean tryToAttack(long attackSpeed) {
         return stats.tryToAttack(attackSpeed);
+    }
+
+    public boolean tryToMove(int moveSpeed) {
+        return stats.tryToMove(moveSpeed);
     }
 
     public boolean has(GameObject o) {
@@ -398,4 +408,5 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     public void updateSpawnObservers(SpawnObserver oldObserver, SpawnObserver newObserver) {
         controller.updateSpawnObservers(oldObserver, newObserver);
     }
+
 }
