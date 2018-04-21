@@ -65,4 +65,7 @@ public class SkillCommand implements Visitable {
     public void accept(Visitor v) {
         v.visitSkillCommand(this);
     }
+
+    public Command getSuccessCommand() { return successCommand; }
+    public Command getFailureCommand() { return failureCommand; }
 }

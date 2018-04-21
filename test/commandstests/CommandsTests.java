@@ -48,7 +48,7 @@ public class CommandsTests {
                 casterInventory, true, "Default");
 
         casterController = new HumanEntityController(caster, null,
-                new Coordinate(2, 2), null, null);
+                new Coordinate(2, 2), new ArrayList<>(), null);
 
         caster.setController(casterController);
 
@@ -60,7 +60,7 @@ public class CommandsTests {
                 targetInventory, true, "Default");
 
         targetController = new NpcEntityController(target, null,
-                null, null, new HostileAI(new ArrayList<>(), caster, null),
+                null, new ArrayList<>(), new HostileAI(new ArrayList<>(), caster, null),
                 new FriendlyAI(new ArrayList<>(), null, false), false);
 
         target.setController(targetController);

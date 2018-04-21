@@ -46,7 +46,7 @@ public class TerrainTests {
                 null, true);
 
         EntityController entityController = new HumanEntityController(entity, null,
-                new Coordinate(2, 2), null, null);
+                new Coordinate(2, 2), new ArrayList<>(), null);
 
         entity.setController(entityController);
 
