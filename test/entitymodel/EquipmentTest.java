@@ -40,7 +40,7 @@ public class EquipmentTest {
         inventory = new Inventory(items);
 
         HashMap<SkillType, Integer> skillsActor = new HashMap<>();
-        EntityStats actorStats = new EntityStats(skillsActor, 5, 100, 85, 100, 55, 5, 25, 5, 5, 50, 65, false, false, new HashSet<>());
+        EntityStats actorStats = new EntityStats(skillsActor, 1001, 100, 85, 100, 55, 5, 25, 5, 5, 50, 65, false, false, new HashSet<>());
         ArrayList<ControllerAction> actorActions = new ArrayList<>();
         ArrayList <TimedEffect> actorEffects = new ArrayList<>();
         ArrayList <EntityInteraction> actorActorInteractions = new ArrayList<>();

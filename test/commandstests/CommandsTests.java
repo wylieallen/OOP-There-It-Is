@@ -41,7 +41,7 @@ public class CommandsTests {
         HashMap<SkillType, Integer> casterSkills = new HashMap<>();
         casterSkills.put(SkillType.ENCHANTMENT, 1);
         casterSkills.put(SkillType.ONEHANDEDWEAPON, 1);
-        EntityStats casterStats = new EntityStats(casterSkills, 2, 100,
+        EntityStats casterStats = new EntityStats(casterSkills, 1001, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
         caster = new Entity(new Vector(), casterStats, new ArrayList<>(), null,
@@ -52,7 +52,7 @@ public class CommandsTests {
 
         caster.setController(casterController);
 
-        EntityStats targetStats = new EntityStats(new HashMap<>(), 2, 100,
+        EntityStats targetStats = new EntityStats(new HashMap<>(), 1001, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
         targetEffects = new ArrayList<>();
@@ -154,14 +154,14 @@ public class CommandsTests {
     public void testParalyzeCommand() {
         ParalyzeCommand command = new ParalyzeCommand(0);
 
-        Assert.assertEquals(2, target.getBaseMoveSpeed(), 0.01);
+        Assert.assertEquals(1001, target.getBaseMoveSpeed(), 0.01);
 
         command.trigger(target);
 
         Assert.assertEquals(0, target.getBaseMoveSpeed(), 0.01);
 
         target.update();
-        Assert.assertEquals(2, target.getBaseMoveSpeed(), 0.01);
+        Assert.assertEquals(1001, target.getBaseMoveSpeed(), 0.01);
     }
 
     @Test
