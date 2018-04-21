@@ -2,6 +2,7 @@ package gameview;
 
 import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
+import entity.entitymodel.EquipSlot;
 import entity.entitymodel.Equipment;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
@@ -83,10 +84,13 @@ public class GameDisplayState extends DisplayState
         }
         playerInventory.add(new StringDisplayable(new Point(4, 48 + (numInventorySlots * 16)), "Player Equipment:", Color.BLACK, 1));
         Equipment equipment = player.getController().getEquipment();
-        int numEquipmentSlots = 4;
-        for(int i = 0; i < numEquipmentSlots; i++)
+        int modifier = 0;
+        for(EquipSlot equipSlot : equipment.getWearables().keySet())
         {
-            playerInventory.add(new StringDisplayable(new Point(4, 64 + (numInventorySlots * 16) + (i * 16)), "Slot " + i + ": ", Color.BLACK, 1));
+            playerInventory.add(new StringDisplayable(new Point(4, 64 + (numInventorySlots * 16) + (modifier * 16)),
+                    () -> "" + equipSlot + ": " + equipment.getWearables().get(equipSlot).getName(),
+                    Color.BLACK, 1));
+            ++modifier;
         }
         widgets.add(playerInventory);
     }

@@ -40,4 +40,21 @@ public class WearableItem extends TakeableItem {
     public void accept(Visitor v) {
         v.visitWearableItem(this);
     }
+
+    public final static WearableItem NONE = new WearableItem("NONE", false, new ReversibleCommand(false) {
+        @Override
+        protected void apply(Entity e) {
+
+        }
+
+        @Override
+        protected void unapply(Entity e) {
+
+        }
+
+        @Override
+        public void accept(Visitor v) {
+
+        }
+    }, EquipSlot.NONE);
 }

@@ -5,5 +5,6 @@ package entity.entitymodel;
  */
 public enum EquipSlot {
     ARMOUR,
-    RING
+    RING,
+    NONE
 }

@@ -11,7 +11,7 @@
   "X": 2,
   "DirectionFacing": "NULL",
   "Stats": {
-   "CurrentHealth": 10,
+   "CurrentHealth": 5,
    "Gold": 100,
    "Concealment": 1,
    "VisibilityRadius": 1,
@@ -22,7 +22,7 @@
    "IsConfused": false,
    "IsSearching": false,
    "Skills": {
-    "BINDWOUNDS": 1,
+    "BINDWOUNDS": 2,
     "OBSERVATION": 1,
     "BARGAIN": 1
    },

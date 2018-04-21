@@ -40,7 +40,7 @@ public class ImageMaker
         return map;
     }
 
-    private static final Displayable NULL_DISPLAYABLE = new ImageDisplayable(new Point(16, 16), makeBorderedCircle(Color.WHITE), 1);
+    private static final Displayable NULL_DISPLAYABLE = new ImageDisplayable(new Point(16, 16), makeBorderedCircle(Color.WHITE), 99999);
 
     public static Displayable getNullDisplayable()
     {

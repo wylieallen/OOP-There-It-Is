@@ -19,7 +19,7 @@ public class Equipment implements Visitable {
 
     private static final int defaultWeaponsSize = 5;
 
-    private Map <EquipSlot, WearableItem> wearables;
+    private Map<EquipSlot, WearableItem> wearables;
     private WeaponItem[] weapons;
     private int maxSize;
     private Inventory inventory;
@@ -33,6 +33,8 @@ public class Equipment implements Visitable {
         this.wearables = new HashMap<>();
         this.weapons = new WeaponItem[defaultWeaponsSize];
         this.spawnObservers = new ArrayList<>();
+        wearables.put(EquipSlot.ARMOUR, WearableItem.NONE);
+        wearables.put(EquipSlot.RING, WearableItem.NONE);
     }
 
     public Equipment(Map<EquipSlot,
