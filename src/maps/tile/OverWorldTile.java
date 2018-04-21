@@ -61,4 +61,8 @@ public class OverWorldTile extends Tile {
     public void accept(Visitor v) {
         v.visitOverWorldTile(this);
     }
+
+    public void setEncounter(EntityImpactor ei) {
+        encounter = ei;
+    }
 }

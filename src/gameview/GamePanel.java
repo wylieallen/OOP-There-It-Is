@@ -50,12 +50,12 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor
         }
         */
         directionalMoveKeyCodes = new HashMap<>();
-        directionalMoveKeyCodes.put(Direction.N, KeyEvent.VK_NUMPAD8);
-        directionalMoveKeyCodes.put(Direction.NE, KeyEvent.VK_NUMPAD9);
-        directionalMoveKeyCodes.put(Direction.NW, KeyEvent.VK_NUMPAD7);
-        directionalMoveKeyCodes.put(Direction.S, KeyEvent.VK_NUMPAD2);
-        directionalMoveKeyCodes.put(Direction.SE, KeyEvent.VK_NUMPAD3);
-        directionalMoveKeyCodes.put(Direction.SW, KeyEvent.VK_NUMPAD1);
+        directionalMoveKeyCodes.put(Direction.N, KeyEvent.VK_W);
+        directionalMoveKeyCodes.put(Direction.NE, KeyEvent.VK_E);
+        directionalMoveKeyCodes.put(Direction.NW, KeyEvent.VK_Q);
+        directionalMoveKeyCodes.put(Direction.S, KeyEvent.VK_S);
+        directionalMoveKeyCodes.put(Direction.SE, KeyEvent.VK_D);
+        directionalMoveKeyCodes.put(Direction.SW, KeyEvent.VK_A);
         directionalMoveKeyCodes.put(Direction.NULL, KeyEvent.VK_NUMPAD5);
 
         super.addMouseWheelListener(e -> {
