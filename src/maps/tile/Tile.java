@@ -39,6 +39,7 @@ public abstract class Tile implements GameObjectContainer, Visitable {
         if(isMoveLegal(entity) && entity.tryToMove(moveSpeed)){
             tileFrom.moveFrom();
             setEntity(entity);
+            entity.notifyMovement();
         }
         entity.resetMovementVector();
     }
