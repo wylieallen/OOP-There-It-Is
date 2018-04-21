@@ -5,8 +5,6 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import gameview.GamePanel;
 import maps.tile.Tile;
-import maps.world.TransitionObserver;
-import maps.world.World;
 import savingloading.Visitor;
 import utilities.Coordinate;
 
