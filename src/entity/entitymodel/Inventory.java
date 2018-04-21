@@ -48,7 +48,6 @@ public class Inventory implements Visitable{
         }
 
         System.out.println("Cant use Item index of " + index);
-        assert false;
 
         return null;
     }

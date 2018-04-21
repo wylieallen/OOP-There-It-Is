@@ -32,7 +32,6 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     private Direction facing;
     private Vector movementVector;
     private EntityStats stats;
-    private List<ControllerAction> actions;//whenever an action gets added to this we need to notify the EntityController to add the same action
     private List<TimedEffect> effects;
     private List <EntityInteraction> actorInteractions;
     private List <EntityInteraction> acteeInteractions;
@@ -45,13 +44,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
 
     public Entity()
     {
-        this(new Vector(), new EntityStats(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
+        this(new Vector(), new EntityStats(), new ArrayList<>(), new ArrayList<>(),
                 new Inventory(), true);
-        for(Direction d : Direction.values())
-        {
-            if(d != Direction.NULL)
-                actions.add(new DirectionalMoveAction(this, d));
-        }
     }
 
     public Entity(Vector movementVector,
@@ -79,7 +73,6 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     // I kept this constructor for testing, but actions will be set later now
     public Entity(Vector movementVector,
                   EntityStats stats,
-                  List<ControllerAction> actions,
                   List<TimedEffect> effects,
                   List<EntityInteraction> actorInteractions,
                   //This will be set by the AI instead
@@ -90,7 +83,6 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         this.movementVector = movementVector;
         this.stats = stats;
         this.effects = effects;
-        this.actions = actions;
         this.actorInteractions = actorInteractions;
         //prevents errors until the AI sets the interactions
         this.acteeInteractions = new ArrayList<>();
@@ -103,15 +95,15 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
 
     public void notifyMovement() { movementObserver.notifyMovement(); }
 
-    public void setControllerActions(List<ControllerAction> actions){
-        this.actions = actions;
-    }
-
     public void setController(EntityController newController) {
         this.controller = newController;
-    }
 
-    public Collection<ControllerAction> getControllerActions() { return actions; }
+        /*for(Direction d : Direction.values())
+        {
+            if(d != Direction.NULL)
+                controller.addAction(new DirectionalMoveAction(this, d));
+        }*/
+    }
 
     public void update () {
         updateStats();

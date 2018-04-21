@@ -9,6 +9,7 @@ import items.OneshotItem;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
+import maps.world.Game;
 import maps.world.LocalWorld;
 import org.junit.Assert;
 import org.junit.Test;
@@ -37,7 +38,7 @@ public class OneshotItemTests {
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false);
         entityStats.addCompatibleTerrain(Terrain.GRASS);
-        Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+        Entity entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
                 null, true);
 
         EntityController entityController = new HumanEntityController(entity, null,
@@ -55,6 +56,10 @@ public class OneshotItemTests {
         entity.setMoving();
         entity.hurtEntity(20);
 
+        try {
+            Thread.sleep(500);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         world.update();
 
         for(int i = 0; i < 5; ++i) {
