@@ -13,8 +13,6 @@ public class DismountAction extends ControllerAction {
 
     @Override
     protected void execute() {
-        // but need to add to map....
-        mounter.removeControllerAction(this);
         mounterController.notifyDismount();
     }
 
@@ -25,7 +23,7 @@ public class DismountAction extends ControllerAction {
 
     @Override
     public void accept(ControllerActionVisitor v) {
-
+        v.visitDismountAction(this);
     }
 
 }

@@ -19,7 +19,7 @@ public class HumanEntityController extends EntityController{
                                  Collection<ControllerAction> actions, GamePanel view) {
         super(entity, equipment, entityLocation, actions);
         this.view = view;
-        
+
         if(view != null) {
             view.setFocusable(true);
             view.requestFocus();

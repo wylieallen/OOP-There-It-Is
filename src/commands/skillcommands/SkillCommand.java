@@ -1,12 +1,10 @@
 package commands.skillcommands;
 
+import commands.Command;
 import entity.entitymodel.Entity;
 import savingloading.Visitable;
 import savingloading.Visitor;
 import skills.SkillType;
-import commands.Command;
-
-import java.util.Random;
 
 // SkillCommand initially implemented Command,
 //  but trigger(Entity e) in Command is not

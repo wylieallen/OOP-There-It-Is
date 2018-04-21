@@ -85,8 +85,12 @@ public abstract class EntityController implements Visitable{
 
         // checking if entity is trying to dismount
         if(dismounting) {
-            // need to transition;
-            
+            if (dismountTo(mapOfContainers.get(entityLocation))) {
+                inVehicle = false;
+                mount.removeDriver();
+                mount = null;
+                dismounting = false;
+            }
         }
 
     }
@@ -131,5 +135,8 @@ public abstract class EntityController implements Visitable{
             equipment.updateSpawnObservers(oldObserver, newObserver);
     }
 
+    private final boolean dismountTo (Tile toTile) {
+        return toTile.placeEntityOnNeighbor(controlledEntity);
+    }
 
 }

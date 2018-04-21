@@ -83,6 +83,10 @@ public class Vehicle extends Entity {
         this.driver = driver;
     }
 
+    public void removeDriver () {
+        driver = null;
+    }
+
     public boolean hasDriver () { return driver != null; }
 
     @Override
