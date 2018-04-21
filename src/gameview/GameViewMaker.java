@@ -183,6 +183,8 @@ public class GameViewMaker
         spriteMap.put(localWorld1Exit, ImageMaker.makeTeleporterDisplayable());
         localWorldsList.get(0).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exit);
 
+        localWorld.getTile(new Coordinate(4, 4)).addEI(new QuestItem("Thingy", true, 0));
+
         return new GameDisplayState(panel.getSize(), game, spriteMap, worldDisplayableMap, overworld);
     }
 

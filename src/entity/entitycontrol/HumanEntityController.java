@@ -11,6 +11,8 @@ import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -26,6 +28,16 @@ public class HumanEntityController extends EntityController{
         if(view != null) {
             view.setFocusable(true);
             view.requestFocus();
+            view.addKeyListener(new KeyAdapter()
+            {
+                public void keyPressed(KeyEvent e)
+                {
+                    if(e.getKeyCode() == KeyEvent.VK_I)
+                    {
+                        HumanEntityController.this.notifyInventoryManagment(entity);
+                    }
+                }
+            });
         }
 
         for(Direction d : Direction.values())
@@ -35,6 +47,8 @@ public class HumanEntityController extends EntityController{
         }
 
         addAction(new BindWoundsAction(entity));
+
+
     }
 
     public void setControllerActions(Collection<ControllerAction> actions){
@@ -77,6 +91,9 @@ public class HumanEntityController extends EntityController{
     @Override
     public void notifyInventoryManagment(Entity e) {
         //TODO
+        // Tell GamePanel to reinitialize KeyListeners
+        // Tell GameDisplayState to remove temporary substate Displayables
+        // Tell GameDisplayState to add Inventory Cursor to temporary substate Displayables
     }
 
     @Override
