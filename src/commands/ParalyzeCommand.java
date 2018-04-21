@@ -31,10 +31,6 @@ public class ParalyzeCommand implements Command {
         e.addTimedEffect(effect);
     }
 
-    public int getDuration() {
-        return duration;
-    }
-
     @Override
     public void accept(Visitor v) {
         v.visitParalyzeCommand(this);
