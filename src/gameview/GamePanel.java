@@ -1,5 +1,6 @@
 package gameview;
 
+import entity.entitycontrol.controllerActions.*;
 import gameview.util.ImageMaker;
 import guiframework.DisplayPanel;
 import guiframework.displayable.ColoredRectDisplayable;
@@ -17,9 +18,19 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class GamePanel extends DisplayPanel
+public class GamePanel extends DisplayPanel implements ControllerActionVisitor
 {
     private GameDisplayState gameDisplayState;
+
+    private int attackKeyCode = KeyEvent.VK_SPACE;
+    private int bindWoundsKeyCode = KeyEvent.VK_B;
+    private int creepKeyCode = KeyEvent.VK_CONTROL;
+
+    private Map<Direction, Integer> directionalMoveKeyCodes;
+
+    private int moveKeyCode = KeyEvent.VK_SHIFT;
+    // todo: finish adding more keycodes
+
 
     public GamePanel(Dimension size)
     {
@@ -38,6 +49,14 @@ public class GamePanel extends DisplayPanel
             gameDisplayState.add(newTile, new Point(128 + direction.getPixelX(), 128 + direction.getPixelY()));
         }
         */
+        directionalMoveKeyCodes = new HashMap<>();
+        directionalMoveKeyCodes.put(Direction.N, KeyEvent.VK_NUMPAD8);
+        directionalMoveKeyCodes.put(Direction.NE, KeyEvent.VK_NUMPAD9);
+        directionalMoveKeyCodes.put(Direction.NW, KeyEvent.VK_NUMPAD7);
+        directionalMoveKeyCodes.put(Direction.S, KeyEvent.VK_NUMPAD2);
+        directionalMoveKeyCodes.put(Direction.SE, KeyEvent.VK_NUMPAD3);
+        directionalMoveKeyCodes.put(Direction.SW, KeyEvent.VK_NUMPAD1);
+        directionalMoveKeyCodes.put(Direction.NULL, KeyEvent.VK_NUMPAD5);
 
         super.addMouseWheelListener(e -> {
             double clicks = e.getPreciseWheelRotation();
@@ -87,6 +106,15 @@ public class GamePanel extends DisplayPanel
            }
         });
 
+        super.addComponentListener(new ComponentAdapter()
+        {
+            @Override
+            public void componentResized(ComponentEvent e)
+            {
+                gameDisplayState.setSize(getSize());
+            }
+        });
+
         Timer timer = new Timer(17, e -> {});
 
         // Remove the dummy ActionListener from the constructor:
@@ -111,5 +139,88 @@ public class GamePanel extends DisplayPanel
     {
         gameDisplayState.centerOnPlayer();
         gameDisplayState.setZoom(1);
+    }
+
+    // Controller Action Visitor methods:
+
+    public void clearKeyListeners()
+    {
+        for(KeyListener k : getKeyListeners())
+        {
+            removeKeyListener(k);
+        }
+    }
+
+    public void visitAttackAction(AttackAction a)
+    {
+        addKeyListener(new KeyAdapter()
+        {
+           public void keyPressed(KeyEvent e)
+           {
+                if(e.getKeyCode() == attackKeyCode)
+                {
+                    a.activate();
+                }
+           }
+        });
+    }
+
+    public void visitBindWoundsAction(BindWoundsAction a)
+    {
+        addKeyListener(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == bindWoundsKeyCode)
+                {
+                    a.activate();
+                }
+            }
+        });
+    }
+
+    public void visitCreepAction(CreepAction a)
+    {
+        addKeyListener(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == creepKeyCode)
+                {
+                    a.activate();
+                }
+            }
+        });
+    }
+
+    public void visitDirectionalMoveAction(DirectionalMoveAction a)
+    {
+        addKeyListener(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                Direction d = a.getDirection();
+                int movecode = directionalMoveKeyCodes.get(d);
+                if(e.getKeyCode() == movecode)
+                {
+                    a.activate();
+                }
+            }
+        });
+    }
+
+    public void visitMoveAction(MoveAction a)
+    {
+
+    }
+
+    public void visitObserveAction(ObserveAction a)
+    {
+
+    }
+
+    public void visitSetDirectionAction(SetDirectionAction a)
+    {
+
     }
 }

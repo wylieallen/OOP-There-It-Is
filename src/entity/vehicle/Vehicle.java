@@ -2,12 +2,11 @@ package entity.vehicle;
 
 import commands.TimedEffect;
 import entity.entitycontrol.controllerActions.ControllerAction;
-import entity.entitycontrol.controllerActions.DismountAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
-import gameobject.GameObjectContainer;
+import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
 import utilities.Vector;
@@ -67,7 +66,6 @@ public class Vehicle extends Entity {
         if (!hasDriver()) {
             setDriver(actor);
             actor.setMount (this);
-            actor.addControllerAction(new DismountAction(actor, actor.getController()));
             // after mounting you interact with mount, maybe use item?
             return super.interact(actor);
         }
@@ -76,8 +74,9 @@ public class Vehicle extends Entity {
     }
 
     @Override
-    public void update(Map<Coordinate, GameObjectContainer> mapOfContainers) {
-        
+    public void update(Map<Coordinate, Tile> map) {
+        super.update(map);
+
     }
 
     private void setDriver (Entity driver) {

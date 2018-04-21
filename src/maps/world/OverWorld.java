@@ -8,7 +8,6 @@ import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
 import maps.tile.Tile;
-import spawning.SpawnObserver;
 import savingloading.Visitor;
 import utilities.Coordinate;
 
@@ -52,7 +51,7 @@ public class OverWorld implements World {
 
     private void updatePhase() {
         for(OverWorldTile tile: tiles.values()) {
-            tile.do_update();
+            tile.do_update(getTileMap());
         }
     }
 
@@ -117,7 +116,6 @@ public class OverWorld implements World {
     //throw away spawn events
     @Override
     public void notifySpawn(InfluenceArea IA, GameObject spawner) {
-
     }
 
     @Override
@@ -127,6 +125,15 @@ public class OverWorld implements World {
 
     public Map<Coordinate, OverWorldTile> getTiles(){
         return tiles;
+    }
+
+    @Override
+    public Map <Coordinate, Tile> getTileMap () {
+        HashMap<Coordinate, Tile> temp = new HashMap<>();
+        for (Coordinate c : tiles.keySet()) {
+            temp.put (c, tiles.get(c));
+        }
+        return temp;
     }
 
     @Override

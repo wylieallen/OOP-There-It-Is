@@ -6,13 +6,13 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
-import gameobject.GameObjectContainer;
+import maps.tile.Tile;
 import savingloading.Visitable;
 import spawning.SpawnObserver;
 import utilities.Coordinate;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 public abstract class EntityController implements Visitable{
@@ -20,17 +20,20 @@ public abstract class EntityController implements Visitable{
     private Entity controlledEntity;
     private Equipment equipment;
     private Coordinate entityLocation;
-    private List<ControllerAction> actions;
+    private Collection<ControllerAction> actions;
     //make sure if we load in and we are on a vehicle that this is set correctly
     private boolean inVehicle = false;
+    private boolean dismounting = false;
     private Vehicle mount;
 
     public EntityController(Entity entity, Equipment equipment,
-                            Coordinate entityLocation, List<ControllerAction> actions) {
+                            Coordinate entityLocation, Collection<ControllerAction> actions) {
         this.controlledEntity = entity;
         this.equipment = equipment;
         this.entityLocation = entityLocation;
         this.actions = actions;
+        if (this.actions == null)
+            this.actions = new ArrayList<>();
     }
 
 
@@ -44,22 +47,24 @@ public abstract class EntityController implements Visitable{
     public abstract void notifyLevelUp(Entity e);
     public abstract void notifyMainMenu(Entity e);
 
+    // used to update ai;
+    public abstract void updateMap (Map <Coordinate, Tile> map);
+
     public abstract void enrage(Entity e);
     public abstract void pacify();
 
     protected Entity getControlledEntity() { return controlledEntity; }
 
 
-
     //this is the functionality all entity controllers need
 
-    public final void update(Map<Coordinate, GameObjectContainer> mapOfContainers){
+    public final void update(Map<Coordinate, Tile> mapOfContainers){
         boolean found = false;
 
         //find the entity in the map and set his location
         Collection<GameObject> gameObjectList;
         //iterate through all the entries in the map of GameObjectContainers
-        for(Map.Entry<Coordinate, GameObjectContainer> container : mapOfContainers.entrySet()){
+        for(Map.Entry<Coordinate, Tile> container : mapOfContainers.entrySet()){
             gameObjectList = container.getValue().getGameObjects();
             //iterate through all the gameObjects in each gameObjectContainer
             for(GameObject gameObject : gameObjectList){
@@ -78,7 +83,11 @@ public abstract class EntityController implements Visitable{
             action.update();
         }
 
-
+        // checking if entity is trying to dismount
+        if(dismounting) {
+            // need to transition;
+            
+        }
 
     }
 
@@ -94,8 +103,7 @@ public abstract class EntityController implements Visitable{
 
     public final void notifyDismount(){
         if(inVehicle){
-            inVehicle = false;
-            mount = null;
+            dismounting = true;
         }
         else{
             throw new java.lang.RuntimeException("EntityController::notifyDismount() : The controlled entity cannot dismount because it is not currently in a vehicle");

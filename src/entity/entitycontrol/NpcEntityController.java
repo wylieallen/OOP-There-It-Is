@@ -4,12 +4,11 @@ import entity.entitycontrol.AI.AI;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
-import gameobject.GameObjectContainer;
-import gameview.GamePanel;
+import maps.tile.LocalWorldTile;
+import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -75,6 +74,12 @@ public class NpcEntityController extends EntityController {
     }
 
     @Override
+    public void updateMap (Map <Coordinate, Tile> map) {
+        update(map);
+        activeAi.nextAction(map, getControlledEntity(), getEntityLocation());
+    }
+
+    @Override
     public void enrage(Entity e) {
         activeAi = aggroAi;
         updateActeeInteractions();
@@ -91,7 +96,7 @@ public class NpcEntityController extends EntityController {
     }
 
     // TODO: make sure if there is a mount it gives a mount, not its entity
-    public void processAI(Map<Coordinate, GameObjectContainer> map, Entity e){
+    public void processAI(Map<Coordinate, LocalWorldTile> map, Entity e){
         //TODO
     }
 

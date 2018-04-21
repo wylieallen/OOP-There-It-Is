@@ -3,14 +3,15 @@ package entity.entitymodel;
 import commands.TimedEffect;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
+import entity.entitycontrol.controllerActions.DirectionalMoveAction;
 import entity.entitymodel.interactions.EntityInteraction;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
-import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
+import maps.tile.Tile;
 import savingloading.Visitable;
 import savingloading.Visitor;
 import skills.SkillType;
@@ -18,10 +19,7 @@ import spawning.SpawnObserver;
 import utilities.Coordinate;
 import utilities.Vector;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dontf on 4/13/2018.
@@ -47,6 +45,10 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     {
         this(new Vector(), new EntityStats(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
                 new Inventory(), true);
+        for(Direction d : Direction.values())
+        {
+            actions.add(new DirectionalMoveAction(this, d));
+        }
     }
 
     public Entity(Vector movementVector,
@@ -107,6 +109,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         this.controller = newController;
     }
 
+    public Collection<ControllerAction> getControllerActions() { return actions; }
+
     public void update () {
         updateStats();
         for(TimedEffect effect: effects) {
@@ -116,10 +120,11 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         effects.removeIf(TimedEffect::isExpired);
     }
 
-    public void update(Map<Coordinate, GameObjectContainer> mapOfContainers) {
-        //TODO: add additional logic;
-        controller.update(mapOfContainers);
+    public void update(Map<Coordinate, Tile> map) {
+        update();
+        controller.updateMap (map);
     }
+
 
     private void updateStats() {
         stats.regenMana();
@@ -155,6 +160,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
 
     //true results in killing the entity, can be used to give skill points to attacking entity;
     public boolean hurtEntity (int amount) {
+        System.out.println("I got Hit");
         stats.setCurHealth(Math.max(0, getCurrHealth() - amount));
         return getCurrHealth() <= 0;
     }
@@ -296,7 +302,6 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
 
     public void setMount (Vehicle mount) {
         setOnMap(false);
-        // TODO: add dismount action.
         controller.notifyMount(mount);
     }
 

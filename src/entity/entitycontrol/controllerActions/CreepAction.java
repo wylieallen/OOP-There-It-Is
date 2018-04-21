@@ -3,7 +3,7 @@ package entity.entitycontrol.controllerActions;
 import entity.entitymodel.Entity;
 import skills.SkillType;
 
-public class creepAction extends ControllerAction {
+public class CreepAction extends ControllerAction {
 
     //This will toggle the entity between creeping and not creeping
 
@@ -15,9 +15,9 @@ public class creepAction extends ControllerAction {
                                   //to the speed when the entity stops creeping
 
 
-    public creepAction(Entity controlledEntity, boolean isCreeping, int cachedConcealmentDifference, int cachedSpeedDifference) {
+    public CreepAction(Entity controlledEntity, boolean isCreeping, int cachedConcealmentDifference, int cachedSpeedDifference) {
         if(controlledEntity.getSkillLevel(SkillType.CREEP) == -1) {
-            throw new java.lang.RuntimeException("creepAction::Constructor : An attempt was made to create a creepAction for an entity that does not have SkillType.CREEP");
+            throw new java.lang.RuntimeException("CreepAction::Constructor : An attempt was made to create a CreepAction for an entity that does not have SkillType.CREEP");
         }
         else{
             this.controlledEntity = controlledEntity;
@@ -41,5 +41,11 @@ public class creepAction extends ControllerAction {
             cachedSpeedDifference = (int)(controlledEntity.getBaseMoveSpeed() * 0.25);
             controlledEntity.decreaseBaseMoveSpeed(cachedSpeedDifference);
         }
+    }
+
+    @Override
+    public void accept(ControllerActionVisitor v)
+    {
+        v.visitCreepAction(this);
     }
 }

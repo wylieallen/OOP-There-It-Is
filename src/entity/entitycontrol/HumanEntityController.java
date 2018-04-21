@@ -3,22 +3,33 @@ package entity.entitycontrol;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
-import gameobject.GameObjectContainer;
+import gameview.GamePanel;
+import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
-import gameview.GamePanel;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.Map;
 
 public class HumanEntityController extends EntityController{
 
     private GamePanel view;
 
     public HumanEntityController(Entity entity, Equipment equipment, Coordinate entityLocation,
-                                 List<ControllerAction> actions, GamePanel view) {
+                                 Collection<ControllerAction> actions, GamePanel view) {
         super(entity, equipment, entityLocation, actions);
         this.view = view;
+
+        if (view != null || actions != null) {
+            for (ControllerAction action : actions) {
+                action.accept(view);
+            }
+
+            view.setFocusable(true);
+            view.requestFocus();
+        } else {
+            System.out.println("ERROR -- the humans view and actions is NULL");
+        }
     }
 
 
@@ -60,6 +71,11 @@ public class HumanEntityController extends EntityController{
     @Override
     public void notifyMainMenu(Entity e) {
         //TODO
+    }
+
+    @Override
+    public void updateMap (Map<Coordinate, Tile> map) {
+        update(map);
     }
 
     @Override

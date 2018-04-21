@@ -3,7 +3,7 @@ package entity.entitycontrol.AI;
 import entity.entitymodel.Entity;
 import entity.entitymodel.interactions.EntityInteraction;
 import maps.tile.Direction;
-import maps.tile.LocalWorldTile;
+import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
 
@@ -25,24 +25,27 @@ public class HostileAI extends AI {
     }
 
     @Override
-    public void nextAction(Map<Coordinate, LocalWorldTile> map, Entity e, Coordinate location) {
+    public void nextAction(Map <Coordinate, Tile> map, Entity e, Coordinate location) {
         //TODO: make it chase and attack the target
 
         Coordinate targetPosition;
 
         if (target != null) {
             targetPosition = findTarget(map);
-
-            if (isVisible(targetPosition, location) && (targetsLastPosition == null || !targetsLastPosition.equals(targetPosition))) {
+            if (isVisible(targetPosition, location) || (targetsLastPosition == null)) {
                 setPath(location, targetPosition, e.getCompatibleTerrains(), map);
                 targetsLastPosition = targetPosition;
-            } else if (targetsLastPosition == null || myLastPosition.equals(location)) {
-                Coordinate end = getNextCoordinate(map.keySet(), e);
-                setPath(location, end, e.getCompatibleTerrains(), map);
             }
         } else {
            targetPosition = findNewTarget (map);
            setPath(location, targetPosition, e.getCompatibleTerrains(), map);
+        }
+
+        if (targetIsNeghbor (location)) {
+            e.setFacing(location.direction(targetsLastPosition));
+            e.setMoving();
+            // TODO: this is terrible, replace when controller supports attack!!!
+            e.getController().getEquipment().useWeaponItem(0, location);
         }
 
         myLastPosition = location;
@@ -55,7 +58,7 @@ public class HostileAI extends AI {
         return (target.getConcealment() <= myLoc.distance(targetLoc));
     }
 
-    private Coordinate findTarget (Map <Coordinate, LocalWorldTile> map) {
+    private Coordinate findTarget (Map <Coordinate, Tile> map) {
         for (Coordinate c : map.keySet()) {
             if (map.get(c).has(target)) {
                 return c;
@@ -65,7 +68,7 @@ public class HostileAI extends AI {
         return targetsLastPosition;
     }
 
-    private Coordinate findNewTarget (Map <Coordinate, LocalWorldTile> map) {
+    private Coordinate findNewTarget (Map <Coordinate, Tile> map) {
 
         List <Coordinate> points = new ArrayList<>();
 
@@ -82,6 +85,12 @@ public class HostileAI extends AI {
         }
 
         return points.get(0);
+    }
+
+    private boolean targetIsNeghbor (Coordinate myLoc) {
+        int distance = myLoc.distance(targetsLastPosition);
+
+        return (distance <= 2 && distance > 0);
     }
 
     @Override

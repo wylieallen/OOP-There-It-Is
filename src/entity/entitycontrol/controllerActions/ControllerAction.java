@@ -5,7 +5,7 @@ package entity.entitycontrol.controllerActions;
 
 public abstract class ControllerAction {
 
-    boolean waitingToExecute=false;
+    private boolean waitingToExecute = false;
 
     //This should be called when something wants the action to happen next time this action is updated
     public final void activate(){
@@ -22,4 +22,5 @@ public abstract class ControllerAction {
 
     protected abstract void execute();
 
+    public abstract void accept(ControllerActionVisitor v);
 }

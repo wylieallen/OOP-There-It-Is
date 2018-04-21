@@ -23,4 +23,9 @@ public class DismountAction extends ControllerAction {
         mounterController = controller;
     }
 
+    @Override
+    public void accept(ControllerActionVisitor v) {
+
+    }
+
 }

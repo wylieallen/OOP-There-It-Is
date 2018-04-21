@@ -20,6 +20,7 @@ public interface World extends SpawnObserver, Visitable {
     void add (Coordinate p, Entity e);
     void remove(Entity e);
     Map <Coordinate, GameObjectContainer> getMap ();
+    Map <Coordinate, Tile> getTileMap ();
     Tile getTileForEntity (Entity e);
     Coordinate getEntityCoordinate(Entity e);
     void notifySpawn(InfluenceArea IA, GameObject spawner);
