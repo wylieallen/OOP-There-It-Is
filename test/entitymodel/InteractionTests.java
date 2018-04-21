@@ -52,9 +52,6 @@ public class InteractionTests {
         EntityStats acteeStats = new EntityStats(skillsActee, 3, 120, 45, 120, 43, 5, 23, 8, 6, 69, 100, false, false, new HashSet<>());
 
         //TODO: once concrete ControllerActions are made test this;
-        ArrayList<ControllerAction> actorActions = new ArrayList<>();
-        ArrayList<ControllerAction> acteeActions = new ArrayList<>();
-
         ArrayList<TimedEffect> actorEffects = new ArrayList<>();
         ArrayList<TimedEffect> acteeEffects = new ArrayList<>();
 
@@ -159,8 +156,8 @@ public class InteractionTests {
         Inventory actorInventory = new Inventory(actorItems);
         Inventory acteeInventory = new Inventory(acteeItems);
 
-        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorActions, actorEffects, actorActorInteractions, actorInventory, true);
-        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeActions, acteeEffects, acteeActorInteractions, acteeInventory, true);
+        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorEffects, actorActorInteractions, actorInventory, true);
+        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeEffects, acteeActorInteractions, acteeInventory, true);
 
     }
 

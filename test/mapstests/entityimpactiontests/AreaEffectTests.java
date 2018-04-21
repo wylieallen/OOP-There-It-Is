@@ -36,7 +36,7 @@ public class AreaEffectTests {
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
         entityStats.addCompatibleTerrain(Terrain.GRASS);
-        Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+        Entity entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
                 null, true);
 
         EntityController entityController = new HumanEntityController(entity, null,
@@ -91,7 +91,7 @@ public class AreaEffectTests {
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
         entityStats.addCompatibleTerrain(Terrain.GRASS);
-        Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+        Entity entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
                 null, true);
 
         EntityController entityController = new HumanEntityController(entity, null,

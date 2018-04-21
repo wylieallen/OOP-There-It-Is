@@ -51,7 +51,7 @@ public class TakeableItemTests {
                 3, 3, 0, false, false);
         entityStats.addCompatibleTerrain(Terrain.GRASS);
         inventory = new Inventory();
-        entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+        entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
                 inventory, true);
 
         equipment = new Equipment(new HashMap<>(), new WeaponItem[5], 5, inventory, entity);
@@ -221,6 +221,7 @@ public class TakeableItemTests {
         try {
             Thread.sleep(600);
         } catch (Exception e) {}
+
         Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
