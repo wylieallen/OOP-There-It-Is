@@ -47,7 +47,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
                 new Inventory(), true);
         for(Direction d : Direction.values())
         {
-            actions.add(new DirectionalMoveAction(this, d));
+            if(d != Direction.NULL)
+                actions.add(new DirectionalMoveAction(this, d));
         }
     }
 

@@ -7,8 +7,8 @@ public class SetDirectionAction extends ControllerAction {
 
     //This will set the entity to face a certain direction
 
-    Entity controlledEntity;
-    Direction direction;
+    private Entity controlledEntity;
+    private Direction direction;
 
     public SetDirectionAction(Entity controlledEntity, Direction direction) {
         this.controlledEntity = controlledEntity;
