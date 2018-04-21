@@ -271,6 +271,7 @@ public class LoadingParser {
             JSONObject tileJson = (JSONObject) tileJsonObj;
             Coordinate coordinate = new Coordinate(tileJson.getInt("X"), tileJson.getInt("Y"));
             Set<MoveLegalityChecker> moveLegalityCheckers = new HashSet<>();
+            EntityImpactor entityImpactor = null;
             Terrain terrain = null;
             if (tileJson.has("Terrain")){
                 terrain = loadTerrain(tileJson.getString("Terrain"));
@@ -278,7 +279,16 @@ public class LoadingParser {
             if (tileJson.has("Obstacle")){
                 moveLegalityCheckers.add(new Obstacle());
             }
-            tiles.put(coordinate, new OverWorldTile(moveLegalityCheckers, terrain, null));
+            OverWorldTile tile;
+            if (tileJson.has("Encounter")){
+                JSONObject encounterJson = tileJson.getJSONObject("Encounter");
+                entityImpactor = new InteractiveItem(encounterJson.getString("Name"), loadCommand(encounterJson.getJSONObject("Command")));
+                tile = new OverWorldTile(moveLegalityCheckers, terrain, null, entityImpactor);
+            }
+            else{
+                tile = new OverWorldTile(moveLegalityCheckers, terrain, null);
+            }
+            tiles.put(coordinate, tile);
         }
         return tiles;
     }
@@ -538,8 +548,10 @@ public class LoadingParser {
     private Command loadCommand(JSONObject commandJson) {
         if (commandJson.getString("Name").equals("Transition"))
             return loadTransitionCommand(commandJson);
-        else if (commandJson.getString("Name").equals("Confuse"))
+        if (commandJson.getString("Name").equals("Confuse"))
             return loadConfuseCommand(commandJson);
+        else if (commandJson.getString("Name").equals("Enrage"))
+            return loadEnrageCommand(commandJson);
         else if (commandJson.getString("Name").equals("MakeFriendly"))
             return loadMakeFriendlyCommand(commandJson);
         else if (commandJson.getString("Name").equals("ModifyHealth"))
@@ -563,17 +575,15 @@ public class LoadingParser {
     }
 
     private PickPocketCommand loadPickPocketCommand(JSONObject commandJson) {
-        // TODO: need to save? Entity caster is issue
-        return null;
+        return new PickPocketCommand();
     }
 
     private ParalyzeCommand loadParalyzeCommand(JSONObject commandJson) {
-        // TODO: need to save? Entity caster is issue
-        return null;
+        return new ParalyzeCommand(commandJson.getInt("Duration"));
     }
 
     private ObserveCommand loadObserveCommand(JSONObject commandJson) {
-        return new ObserveCommand(commandJson.getInt("Level"), commandJson.getInt("Effectiveness"));
+        return new ObserveCommand(commandJson.getInt("Level"), commandJson.getInt("Distance"));
     }
 
     private ModifyStaminaRegenCommand loadModifyStaminaRegenCommand(JSONObject commandJson) {
@@ -584,14 +594,17 @@ public class LoadingParser {
         return new ModifyHealthCommand(commandJson.getInt("Amount"));
     }
 
-    private MakeFriendlyCommand loadMakeFriendlyCommand(JSONObject commandJson) {
+    private EnrageCommand loadEnrageCommand(JSONObject commandJson) {
         // TODO: need to save? Entity caster is issue
         return null;
     }
 
+    private MakeFriendlyCommand loadMakeFriendlyCommand(JSONObject commandJson) {
+        return new MakeFriendlyCommand();
+    }
+
     private ConfuseCommand loadConfuseCommand(JSONObject commandJson) {
-        // TODO: need to save? Entity caster is issue
-        return null;
+        return new ConfuseCommand(commandJson.getInt("Duration"));
     }
 
     private TransitionCommand loadTransitionCommand(JSONObject commandJson) {
@@ -687,8 +700,7 @@ public class LoadingParser {
             transitionCommand.setTargetWorld(world);
             transitionCommand.setStartingCoordinate(coordinate);
             transitionCommand.setTransitionObserver(game);
-            Tile tile = world.getTileForCoordinate(coordinate);
-            // TODO: add transitionCommand to tile
+            // since transitionCommands are in items,
         }
     }
 

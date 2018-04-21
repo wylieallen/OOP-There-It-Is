@@ -35,4 +35,6 @@ public class ParalyzeCommand implements Command {
     public void accept(Visitor v) {
         v.visitParalyzeCommand(this);
     }
+
+    public int getDuration() { return duration; }
 }

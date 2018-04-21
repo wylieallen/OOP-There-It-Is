@@ -27,6 +27,7 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor
     private int creepKeyCode = KeyEvent.VK_CONTROL;
 
     private Map<Direction, Integer> directionalMoveKeyCodes;
+    private Map<Direction, Integer> altDirectionalMoveKeyCodes;
 
     private int moveKeyCode = KeyEvent.VK_SHIFT;
     // todo: finish adding more keycodes
@@ -39,7 +40,7 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor
         /*
         Tile tile = new OverWorldTile();
         tile.addMLC(Terrain.GRASS);
-        
+
         gameDisplayState.add(tile, new Point(128, 128));
 
         for(Direction direction : Direction.values())
@@ -50,13 +51,21 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor
         }
         */
         directionalMoveKeyCodes = new HashMap<>();
-        directionalMoveKeyCodes.put(Direction.N, KeyEvent.VK_NUMPAD8);
-        directionalMoveKeyCodes.put(Direction.NE, KeyEvent.VK_NUMPAD9);
-        directionalMoveKeyCodes.put(Direction.NW, KeyEvent.VK_NUMPAD7);
-        directionalMoveKeyCodes.put(Direction.S, KeyEvent.VK_NUMPAD2);
-        directionalMoveKeyCodes.put(Direction.SE, KeyEvent.VK_NUMPAD3);
-        directionalMoveKeyCodes.put(Direction.SW, KeyEvent.VK_NUMPAD1);
-        directionalMoveKeyCodes.put(Direction.NULL, KeyEvent.VK_NUMPAD5);
+        directionalMoveKeyCodes.put(Direction.N, KeyEvent.VK_W);
+        directionalMoveKeyCodes.put(Direction.NE, KeyEvent.VK_E);
+        directionalMoveKeyCodes.put(Direction.NW, KeyEvent.VK_Q);
+        directionalMoveKeyCodes.put(Direction.S, KeyEvent.VK_S);
+        directionalMoveKeyCodes.put(Direction.SE, KeyEvent.VK_D);
+        directionalMoveKeyCodes.put(Direction.SW, KeyEvent.VK_A);
+
+        altDirectionalMoveKeyCodes = new HashMap<>();
+        altDirectionalMoveKeyCodes.put(Direction.N, KeyEvent.VK_UP);
+        altDirectionalMoveKeyCodes.put(Direction.NE, KeyEvent.VK_PAGE_DOWN);
+        altDirectionalMoveKeyCodes.put(Direction.NW, KeyEvent.VK_PAGE_UP);
+        altDirectionalMoveKeyCodes.put(Direction.S, KeyEvent.VK_DOWN);
+        altDirectionalMoveKeyCodes.put(Direction.SE, KeyEvent.VK_RIGHT);
+        altDirectionalMoveKeyCodes.put(Direction.SW, KeyEvent.VK_LEFT);
+
 
         super.addMouseWheelListener(e -> {
             double clicks = e.getPreciseWheelRotation();
@@ -201,7 +210,7 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor
             {
                 Direction d = a.getDirection();
                 int movecode = directionalMoveKeyCodes.get(d);
-                if(e.getKeyCode() == movecode)
+                if(e.getKeyCode() == movecode || e.getKeyCode() == altDirectionalMoveKeyCodes.get(d))
                 {
                     a.activate();
                 }

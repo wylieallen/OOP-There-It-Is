@@ -9,7 +9,7 @@ public class MoveAction extends ControllerAction {
     private Entity controlledEntity;
 
 
-    MoveAction(Entity entity){
+    public MoveAction(Entity entity){
         controlledEntity = entity;
     }
 

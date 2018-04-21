@@ -7,9 +7,9 @@ public class AttackAction extends ControllerAction {
 
     //this will make the controlledEntity attack with the currently equipped hand item
 
-    EntityController controlledEntityController;
-    Equipment equipment;
-    int weaponSlot;
+    private EntityController controlledEntityController;
+    private Equipment equipment;
+    private int weaponSlot;
 
     public AttackAction(EntityController controlledEntityController, Equipment equipment, int weaponSlot) {
         this.controlledEntityController = controlledEntityController;

@@ -56,8 +56,16 @@ public class OverWorldTile extends Tile {
         return encounter != null;
     }
 
+    public EntityImpactor getEncounter() {
+        return encounter;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitOverWorldTile(this);
+    }
+
+    public void setEncounter(EntityImpactor ei) {
+        encounter = ei;
     }
 }

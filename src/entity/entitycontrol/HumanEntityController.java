@@ -19,16 +19,10 @@ public class HumanEntityController extends EntityController{
                                  Collection<ControllerAction> actions, GamePanel view) {
         super(entity, equipment, entityLocation, actions);
         this.view = view;
-
-        if (view != null || actions != null) {
-            for (ControllerAction action : actions) {
-                action.accept(view);
-            }
-
+        
+        if(view != null) {
             view.setFocusable(true);
             view.requestFocus();
-        } else {
-            System.out.println("ERROR -- the humans view and actions is NULL");
         }
     }
 
