@@ -5,6 +5,7 @@ import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
+import gameview.GamePanel;
 import items.InteractiveItem;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
@@ -19,7 +20,9 @@ import org.junit.Test;
 import utilities.Coordinate;
 import utilities.Vector;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class InteractiveItemTests {
 
@@ -66,6 +69,7 @@ public class InteractiveItemTests {
         worlds.add(world2);
 
         Game game = new Game(world, overworld, worlds, 0, entity);
+        game.setTransitionObserver(new GamePanel(new Dimension(10, 10)));
 
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 

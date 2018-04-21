@@ -1,6 +1,5 @@
 package gameview;
 
-import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
@@ -12,7 +11,6 @@ import guiframework.displayable.ImageDisplayable;
 import guiframework.displayable.StringDisplayable;
 import maps.world.Game;
 import maps.world.World;
-import utilities.Coordinate;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;

@@ -15,13 +15,11 @@ public class HostileAI extends AI {
 
     private Entity target;
     private Coordinate targetsLastPosition;
-    private Coordinate myLastPosition;
 
     public HostileAI(List<EntityInteraction> interactions, Entity entity, Map<Coordinate, Direction> path){
         super(interactions, path);
         target = entity;
         targetsLastPosition = new Coordinate(0, 0);
-        myLastPosition = null;
     }
 
     @Override
@@ -32,12 +30,12 @@ public class HostileAI extends AI {
 
         if (target != null) {
             targetPosition = findTarget(map);
-            if (isVisible(targetPosition, location) || (targetsLastPosition == null)) {
+            if ((isVisible(targetPosition, location) && targetsLastPosition != targetPosition)|| (targetsLastPosition == null)) {
                 setPath(location, targetPosition, e.getCompatibleTerrains(), map);
                 targetsLastPosition = targetPosition;
             }
         } else {
-           targetPosition = findNewTarget (map);
+           targetPosition = findNewTarget (map, location);
            setPath(location, targetPosition, e.getCompatibleTerrains(), map);
         }
 
@@ -48,7 +46,6 @@ public class HostileAI extends AI {
             e.getController().getEquipment().useWeaponItem(0, location);
         }
 
-        myLastPosition = location;
         e.setFacing(getNextDirection(location));
         e.setMoving();
 
@@ -68,12 +65,12 @@ public class HostileAI extends AI {
         return targetsLastPosition;
     }
 
-    private Coordinate findNewTarget (Map <Coordinate, Tile> map) {
+    private Coordinate findNewTarget (Map <Coordinate, Tile> map, Coordinate location) {
 
         List <Coordinate> points = new ArrayList<>();
 
         for (Direction d : Direction.values()) {
-            points.add(myLastPosition.getNeighbor(d));
+            points.add(location.getNeighbor(d));
         }
 
         for (Coordinate c : points) {

@@ -86,6 +86,7 @@ public abstract class EntityController implements Visitable{
         // checking if entity is trying to dismount
         if(dismounting) {
             if (dismountTo(mapOfContainers.get(entityLocation))) {
+                controlledEntity.setOnMap(true);
                 inVehicle = false;
                 mount.removeDriver();
                 mount = null;

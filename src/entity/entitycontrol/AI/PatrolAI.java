@@ -14,14 +14,12 @@ import java.util.Map;
 public class PatrolAI extends AI {
 
     private boolean onPath;
-    private Coordinate lastPosition;
     private List<Coordinate> patrolOrder;
 
     public PatrolAI(List<EntityInteraction> interactions, List<Coordinate> patrolOrder, Map<Coordinate, Direction> path) {
         super(interactions, path);
         this.patrolOrder = patrolOrder;
         onPath = false;
-        lastPosition = new Coordinate(0, 0);
     }
 
     @Override
@@ -30,7 +28,7 @@ public class PatrolAI extends AI {
 
         Direction face;
 
-        if (patrolOrder.contains(location) && !lastPosition.equals(location)) {
+        if (patrolOrder.contains(location)) {
             int curPos = patrolOrder.indexOf(location);
             Vector v = new Vector(location, patrolOrder.get(++curPos));
             face = v.getDirection();
@@ -44,7 +42,6 @@ public class PatrolAI extends AI {
             face = getNextDirection(location);
         }
 
-        lastPosition = location;
         e.setFacing(face);
         e.setMoving();
 
