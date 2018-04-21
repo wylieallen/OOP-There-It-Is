@@ -3,7 +3,7 @@ package entity.entitycontrol.AI;
 import entity.entitymodel.Entity;
 import entity.entitymodel.interactions.EntityInteraction;
 import maps.tile.Direction;
-import maps.tile.LocalWorldTile;
+import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
 
@@ -25,7 +25,7 @@ public class HostileAI extends AI {
     }
 
     @Override
-    public void nextAction(Map<Coordinate, LocalWorldTile> map, Entity e, Coordinate location) {
+    public void nextAction(Map <Coordinate, Tile> map, Entity e, Coordinate location) {
         //TODO: make it chase and attack the target
 
         Coordinate targetPosition;
@@ -55,7 +55,7 @@ public class HostileAI extends AI {
         return (target.getConcealment() <= myLoc.distance(targetLoc));
     }
 
-    private Coordinate findTarget (Map <Coordinate, LocalWorldTile> map) {
+    private Coordinate findTarget (Map <Coordinate, Tile> map) {
         for (Coordinate c : map.keySet()) {
             if (map.get(c).has(target)) {
                 return c;
@@ -65,7 +65,7 @@ public class HostileAI extends AI {
         return targetsLastPosition;
     }
 
-    private Coordinate findNewTarget (Map <Coordinate, LocalWorldTile> map) {
+    private Coordinate findNewTarget (Map <Coordinate, Tile> map) {
 
         List <Coordinate> points = new ArrayList<>();
 

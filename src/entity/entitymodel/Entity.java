@@ -6,11 +6,11 @@ import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.interactions.EntityInteraction;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
-import gameobject.GameObjectContainer;
 import items.takeableitems.TakeableItem;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
+import maps.tile.Tile;
 import savingloading.Visitable;
 import savingloading.Visitor;
 import skills.SkillType;
@@ -108,10 +108,11 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         effects.removeIf(TimedEffect::isExpired);
     }
 
-    public void update(Map<Coordinate, GameObjectContainer> mapOfContainers) {
-        //TODO: add additional logic;
-        controller.update(mapOfContainers);
+    public void update(Map<Coordinate, Tile> map) {
+        update();
+        controller.updateMap (map);
     }
+
 
     private void updateStats() {
         stats.regenMana();

@@ -3,13 +3,13 @@ package entity.entitycontrol;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
-import gameobject.GameObjectContainer;
+import gameview.GamePanel;
+import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
-import gameview.GamePanel;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class HumanEntityController extends EntityController{
 
@@ -60,6 +60,11 @@ public class HumanEntityController extends EntityController{
     @Override
     public void notifyMainMenu(Entity e) {
         //TODO
+    }
+
+    @Override
+    public void updateMap (Map<Coordinate, Tile> map) {
+
     }
 
     @Override

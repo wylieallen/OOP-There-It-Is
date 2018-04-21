@@ -72,6 +72,11 @@ public class FoggyWorld implements World {
     }
 
     @Override
+    public Map <Coordinate, Tile> getTileMap () {
+        return world.getTileMap();
+    }
+
+    @Override
     public void accept(Visitor v) { }
 
     @Override

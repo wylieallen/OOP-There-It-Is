@@ -6,9 +6,13 @@ import gameobject.GameObjectContainer;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import savingloading.Visitable;
+import utilities.Coordinate;
 import utilities.Vector;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public abstract class Tile implements GameObjectContainer, Visitable {
 
@@ -49,8 +53,13 @@ public abstract class Tile implements GameObjectContainer, Visitable {
     // for testing purposes
     public Collection<MoveLegalityChecker> getMoveLegalityCheckers() { return moveLegalityCheckers; }
 
-    public void do_update() {
+    public void do_update(Map <Coordinate, Tile> map) {
         moveLegalityCheckers.forEach(MoveLegalityChecker::update);
+
+        if (entity != null) {
+            entity.update(map);
+        }
+        
         //TODO: add logic to check if each MLC expired
     }
 

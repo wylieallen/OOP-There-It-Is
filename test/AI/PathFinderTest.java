@@ -5,6 +5,7 @@ import entity.entitymodel.Entity;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
+import maps.tile.Tile;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,7 +22,7 @@ import java.util.Set;
  */
 public class PathFinderTest {
 
-    private static Map<Coordinate, LocalWorldTile> map = new HashMap <>();
+    private static Map<Coordinate, Tile> map = new HashMap <>();
     private static Coordinate start;
     private static Coordinate end;
 
@@ -124,7 +125,7 @@ public class PathFinderTest {
         start = new Coordinate(-1, -1);
         end = new Coordinate(0, 0);
 
-        HashMap <Coordinate, Direction> path = PathFinder.createLocalPath(start, end, grass, new HashMap<Coordinate, LocalWorldTile>());
+        HashMap <Coordinate, Direction> path = PathFinder.createLocalPath(start, end, grass, new HashMap<Coordinate, Tile>());
         Assert.assertTrue(path.isEmpty());
     }
 

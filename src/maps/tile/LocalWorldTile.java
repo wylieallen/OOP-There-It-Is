@@ -2,7 +2,6 @@ package maps.tile;
 
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
-import maps.Influence.InfluenceArea;
 import maps.entityimpaction.EntityImpactor;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
@@ -13,6 +12,7 @@ import utilities.Vector;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class LocalWorldTile extends Tile {
@@ -46,8 +46,8 @@ public class LocalWorldTile extends Tile {
     }
 
     @Override
-    public void do_update() {
-        super.do_update();
+    public void do_update(Map<Coordinate, Tile> map) {
+        super.do_update(map);
         trajectoryModifiers.forEach(GameObject::update);
         entityImpactors.forEach(GameObject::update);
         //TODO: add logic to check if each TM and EI expired
