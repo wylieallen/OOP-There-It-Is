@@ -16,6 +16,8 @@ import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
 import items.InteractiveItem;
+import items.takeableitems.QuestItem;
+import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
 import maps.Influence.InfluenceType;
 import maps.movelegalitychecker.Terrain;
@@ -131,6 +133,7 @@ public class GameViewMaker
         player.increaseBaseMoveSpeed(3);
         player.addCompatibleTerrain(Terrain.SPACE);
         player.setMovementObserver(panel);
+        player.addToInventory(new QuestItem("Radio", false, 0));
 
         Coordinate npcLoc = new Coordinate(-2, 0);
         Entity npc = createNPC (npcLoc, player, true);
@@ -167,7 +170,7 @@ public class GameViewMaker
 
         //setup world transitions
         InteractiveItem localWorld1Entrance = new InteractiveItem("Encounter 1", new TransitionCommand(localWorldsList.get(0), new Coordinate(0, 0), game));
-        spriteMap.put(localWorld1Entrance, ImageMaker.makeEncounterDisplayable1());
+        //spriteMap.put(localWorld1Entrance, ImageMaker.makeEncounterDisplayable1());
         overworld.getTile(new Coordinate(1, -2)).setEncounter(localWorld1Entrance);
 
         InteractiveItem localWorld1Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));

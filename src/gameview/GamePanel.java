@@ -139,8 +139,11 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor, 
 
         timer.addActionListener(e -> {
             timer.stop();
+            long startTime = System.currentTimeMillis();
             gameDisplayState.update();
             repaint();
+            long endTime = System.currentTimeMillis();
+            System.out.println("Time taken: " + (endTime - startTime));
             timer.restart();
         });
 

@@ -139,16 +139,25 @@ public class ImageMaker
         return image;
     }
 
+    private static BufferedImage nullImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+
     private static BufferedImage loadImage(String path)
     {
         try
         {
-            return ImageIO.read(new File(path));
+            BufferedImage image = ImageIO.read(new File(path));
+            if(image == null)
+            {
+                System.out.println("ERROR! File at " + path + " resulted in null image");
+                image = nullImage;
+            }
+            return image;
         }
-        catch(IOException e)
+        catch(Exception e)
         {
+            System.out.println("ERROR! Failed to read file at " + path);
             e.printStackTrace();
-            return null;
+            return nullImage;
         }
     }
 }
