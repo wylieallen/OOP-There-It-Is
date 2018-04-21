@@ -138,4 +138,15 @@ public abstract class Tile implements GameObjectContainer, Visitable {
         return terrain.equals(t);
     }
 
+    @Override
+    public Collection<GameObject> getGameObjects() {
+        List<GameObject> list = new ArrayList<>();
+        list.addAll(moveLegalityCheckers);
+        list.add(terrain);
+        if(hasEntity())
+            list.add(entity);
+
+        return list;
+    }
+
 }
