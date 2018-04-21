@@ -1,11 +1,9 @@
 package mapstests.worldtests;
 
-import commands.TimedEffect;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
-import entity.entitymodel.Inventory;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
