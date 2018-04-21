@@ -59,7 +59,7 @@ public abstract class Tile implements GameObjectContainer, Visitable {
         if (entity != null) {
             entity.update(map);
         }
-        
+
         //TODO: add logic to check if each MLC expired
     }
 
