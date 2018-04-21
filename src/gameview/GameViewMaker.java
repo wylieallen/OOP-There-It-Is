@@ -1,6 +1,7 @@
 package gameview;
 
 import commands.ModifyHealthCommand;
+import commands.TransitionCommand;
 import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
@@ -14,10 +15,12 @@ import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
+import items.InteractiveItem;
 import items.takeableitems.WeaponItem;
 import maps.Influence.InfluenceType;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
+import maps.tile.LocalWorldTile;
 import maps.tile.OverWorldTile;
 import maps.world.Game;
 import maps.world.LocalWorld;
@@ -105,8 +108,8 @@ public class GameViewMaker
         {
             expandOverworld(overworldMap, Terrain.WATER);
         }
-        */
 
+        */
 
         // Parallelogram approach:
         /*
@@ -153,8 +156,22 @@ public class GameViewMaker
         // LocalWorlds:
         List<LocalWorld> localWorldsList = new ArrayList<>();
 
+        //add first local world to local world list
+        LocalWorld localWorld = createLocalWorld1(overworld);
+        localWorldsList.add(localWorld);
+
+        //create local world displayable
+        WorldDisplayable localworldDisplayable = new WorldDisplayable(new Point(0, 0), 0, localWorld);
+        worldDisplayableMap.put(localWorld, localworldDisplayable);
+
         Game game = new Game(overworld, overworld, localWorldsList, 0, player);
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), player.getControllerActions(), panel));
+
+        //setup world transitions
+        InteractiveItem localWorld1Entrance = new InteractiveItem("Teleporter", new TransitionCommand(localWorldsList.get(0), new Coordinate(0, 0), game));
+        overworld.getTile(new Coordinate(1, -2)).setEncounter(localWorld1Entrance);
+        InteractiveItem localWorld1Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
+        localWorldsList.get(0).getTile(new Coordinate(-5, -5)).addEI(localWorld1Exit);
 
         return new GameDisplayState(panel.getSize(), new Game(overworld, overworld, localWorldsList, 0, player), spriteMap, worldDisplayableMap, overworld);
     }
@@ -198,5 +215,23 @@ public class GameViewMaker
         entity.setController(controller);
 
         return entity;
+    }
+
+    private LocalWorld createLocalWorld1(OverWorld overworld) {
+
+        Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
+        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
+
+        for(int i = -5; i <= 5; ++i) {
+            for(int j = -5; j <= 5; ++j) {
+                tiles.put(new Coordinate(i, j),
+                        new LocalWorldTile(
+                                new HashSet<>(), Terrain.GRASS,null, new HashSet<>(), new HashSet<>()
+                        )
+                );
+            }
+        }
+
+        return world;
     }
 }
