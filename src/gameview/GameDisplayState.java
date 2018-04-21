@@ -1,5 +1,6 @@
 package gameview;
 
+import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;

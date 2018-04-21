@@ -10,9 +10,13 @@ import java.util.ArrayList;
 
 public class ObserveAction extends ControllerAction implements SpawnObservable, GameObject{
 
-    ArrayList<SpawnObserver> observers;
-    Entity controlledEntity;
+    private ArrayList<SpawnObserver> observers;
+    private Entity controlledEntity;
 
+    public ObserveAction(Entity controlledEntity)
+    {
+        this.controlledEntity = controlledEntity;
+    }
 
     @Override
     protected void execute() {
