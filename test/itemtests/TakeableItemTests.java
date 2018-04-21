@@ -13,6 +13,7 @@ import maps.Influence.InfluenceType;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
+import maps.world.Game;
 import maps.world.LocalWorld;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -78,6 +79,10 @@ public class TakeableItemTests {
 
         entity.hurtEntity(20);
 
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
 
@@ -118,6 +123,10 @@ public class TakeableItemTests {
 
         tiles.get(new Coordinate(2, 1)).addEI(item);
 
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
 
@@ -155,6 +164,10 @@ public class TakeableItemTests {
 
         tiles.get(new Coordinate(2, 1)).addEI(item);
 
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
 
@@ -199,6 +212,10 @@ public class TakeableItemTests {
 
         tiles.get(new Coordinate(2, 1)).addEI(item);
 
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
 

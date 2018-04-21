@@ -86,6 +86,7 @@ public class SaveVisitor implements Visitor {
             currentEntityJson.getJSONArray("ActeeInteractions").put(interactionsQueue.remove());
         }
         e.getInventory().accept(this);
+        currentEntityJson.put("Name", e.getName());
     }
 
     @Override
@@ -466,7 +467,6 @@ public class SaveVisitor implements Visitor {
             currentTileJson.put("Y", c.y());
             tilesJson.put(currentTileJson);
         }
-        // TODO: height and width?
     }
 
     public void visitLocalWorld(LocalWorld w){
@@ -482,7 +482,6 @@ public class SaveVisitor implements Visitor {
             currentTileJson.put("Y", c.y());
             tilesJson.put(currentTileJson);
         }
-        // TODO: height and width?
     }
 
     private String getLocalWorldID(int localWorldNumber){
@@ -540,6 +539,9 @@ public class SaveVisitor implements Visitor {
     public void visitInfiniteAreaEffect(InfiniteAreaEffect infiniteAreaEffect) {
         JSONObject areaEffectJson = new JSONObject();
         areaEffectJson.put("Type", "Infinite");
+        areaEffectJson.put("Name", infiniteAreaEffect.name());
+        areaEffectJson.put("TriggerInterval", infiniteAreaEffect.getTriggerInterval());
+        areaEffectJson.put("LastTriggerTime", infiniteAreaEffect.getLastTriggerTime());
         infiniteAreaEffect.getCommand().accept(this);
         areaEffectJson.put("Command", currentCommandJson);
         currentTileJson.put("AreaEffect", areaEffectJson);
@@ -549,6 +551,7 @@ public class SaveVisitor implements Visitor {
     public void visitOneShotAreaEffect(OneShotAreaEffect oneShotAreaEffect) {
         JSONObject areaEffectJson = new JSONObject();
         areaEffectJson.put("Type", "OneShot");
+        areaEffectJson.put("Name", oneShotAreaEffect.name());
         oneShotAreaEffect.getCommand().accept(this);
         areaEffectJson.put("Command", currentCommandJson);
         areaEffectJson.put("HasFired", oneShotAreaEffect.shouldBeRemoved());

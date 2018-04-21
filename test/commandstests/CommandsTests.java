@@ -45,7 +45,7 @@ public class CommandsTests {
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
         caster = new Entity(new Vector(), casterStats, new ArrayList<>(), null,
-                casterInventory, true);
+                casterInventory, true, "Default");
 
         casterController = new HumanEntityController(caster, null,
                 new Coordinate(2, 2), null, null);
@@ -57,7 +57,7 @@ public class CommandsTests {
                 3, 3, 0, false, false, new HashSet<>());
         targetEffects = new ArrayList<>();
         target = new Entity(new Vector(), targetStats, targetEffects, null,
-                targetInventory, true);
+                targetInventory, true, "Default");
 
         targetController = new NpcEntityController(target, null,
                 null, null, new HostileAI(new ArrayList<>(), caster, null),

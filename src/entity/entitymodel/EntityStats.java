@@ -255,6 +255,9 @@ public class EntityStats implements Visitable {
     }
 
     public boolean tryToMove(long moveSpeed) {
+        if(moveSpeed == 0)
+            return false;
+
         if(Game.getCurrentTime() - lastMoveTime > 1000 / moveSpeed) {
             lastMoveTime = Game.getCurrentTime();
             return true;

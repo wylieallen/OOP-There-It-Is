@@ -39,6 +39,7 @@ public abstract class Tile implements GameObjectContainer, Visitable {
             tileFrom.moveFrom();
             setEntity(entity);
         }
+        entity.resetMovementVector();
     }
 
     private void moveFrom(){
@@ -67,8 +68,9 @@ public abstract class Tile implements GameObjectContainer, Visitable {
             updated.add(entity);
             if(!total.isZeroVector()){
                 toMoveTo.tryToMove(this, entity, (int)total.getMagnitude());
+            } else {
+                entity.resetMovementVector();
             }
-            entity.resetMovementVector();
         }
     }
 
@@ -134,6 +136,17 @@ public abstract class Tile implements GameObjectContainer, Visitable {
 
     public boolean checkTerrainCompatibliity (Terrain t) {
         return terrain.equals(t);
+    }
+
+    @Override
+    public Collection<GameObject> getGameObjects() {
+        List<GameObject> list = new ArrayList<>();
+        list.addAll(moveLegalityCheckers);
+        list.add(terrain);
+        if(hasEntity())
+            list.add(entity);
+
+        return list;
     }
 
 }

@@ -8,6 +8,7 @@ import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
+import maps.world.Game;
 import maps.world.LocalWorld;
 import org.junit.Assert;
 import org.junit.Test;
@@ -51,6 +52,10 @@ public class TerrainTests {
 
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
 
@@ -66,6 +71,10 @@ public class TerrainTests {
             }
         }
 
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
 
@@ -81,6 +90,10 @@ public class TerrainTests {
             }
         }
 
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.NW);
         entity.setMoving();
 
@@ -96,6 +109,10 @@ public class TerrainTests {
             }
         }
 
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.NE);
         entity.setMoving();
 
