@@ -92,7 +92,7 @@ public class ObserveCommand implements Command {
     }
 
     private String moveSpeedObservation(Entity e, int distance) {
-        int moveSpeed = e.getBaseMoveSpeed();
+        double moveSpeed = e.getBaseMoveSpeed();
         moveSpeed += moveSpeed * getAccuracy(distance);
         return "This entity's move speed is " + moveSpeed + ".";
     }

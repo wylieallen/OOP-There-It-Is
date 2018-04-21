@@ -25,7 +25,7 @@ public class EntityStats implements Visitable {
     private final int maxSkillLevel = 100;
 
     private Map <SkillType, Integer> skills;
-    private int baseMoveSpeed;
+    private double baseMoveSpeed;
     private int maxHealth;
     private int curHealth;
     private int maxMana;
@@ -49,7 +49,7 @@ public class EntityStats implements Visitable {
     }
 
     public EntityStats(Map<SkillType, Integer> skills,
-                       int baseMoveSpeed,
+                       double baseMoveSpeed,
                        int maxHealth,
                        int curHealth,
                        int maxMana,
@@ -68,7 +68,7 @@ public class EntityStats implements Visitable {
     }
 
     public EntityStats(Map<SkillType, Integer> skills,
-                       int baseMoveSpeed,
+                       double baseMoveSpeed,
                        int maxHealth,
                        int curHealth,
                        int maxMana,
@@ -102,11 +102,11 @@ public class EntityStats implements Visitable {
         this.lastMoveTime = 0;
     }
 
-    public int getBaseMoveSpeed() {
+    public double getBaseMoveSpeed() {
         return baseMoveSpeed;
     }
 
-    public void setBaseMoveSpeed(int baseMoveSpeed) {
+    public void setBaseMoveSpeed(double baseMoveSpeed) {
         this.baseMoveSpeed = baseMoveSpeed;
     }
 
@@ -254,11 +254,11 @@ public class EntityStats implements Visitable {
         return false;
     }
 
-    public boolean tryToMove(long moveSpeed) {
+    public boolean tryToMove(double moveSpeed) {
         if(moveSpeed == 0)
             return false;
 
-        if(Game.getCurrentTime() - lastMoveTime > 1000 / moveSpeed) {
+        if(Game.getCurrentTime() - lastMoveTime > (1000.0 / moveSpeed)) {
             lastMoveTime = Game.getCurrentTime();
             return true;
         }

@@ -86,6 +86,7 @@ public class InteractiveItemTests {
         for(int i = 0; i < 5; ++i) {
             for(int j = 0; j < 5; ++j) {
                 Tile tile = tiles.get(new Coordinate(i, j));
+                if(i != 0 || j != 0)
                     Assert.assertFalse(tile.has(entity));
             }
         }
