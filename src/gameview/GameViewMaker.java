@@ -213,9 +213,9 @@ public class GameViewMaker
 
         Equipment e = new Equipment(5, i, entity);
 
-        HostileAI hostil = new HostileAI(entity.getActeeInteractions(), aggroTarget, new HashMap<>());
+        HostileAI hostile = new HostileAI(entity.getActeeInteractions(), aggroTarget, new HashMap<>());
         FriendlyAI friendly = new FriendlyAI(entity.getActeeInteractions(), new HashMap<>(), false);
-        NpcEntityController controller = new NpcEntityController(entity, e, loc, new ArrayList<>(), hostil, friendly, isHostile);
+        NpcEntityController controller = new NpcEntityController(entity, e, loc, new ArrayList<>(), hostile, friendly, isHostile);
         entity.setController(controller);
 
         return entity;

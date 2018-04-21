@@ -321,6 +321,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         return movementVector.getDirection();
     }
 
+    public Direction getFacing() { return facing; }
+
     public boolean isSearching() { return stats.getIsSearching(); }
 
     public void startSearching() { stats.startSearching(); }

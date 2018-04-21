@@ -52,8 +52,8 @@ public class Game implements TransitionObserver, Visitable {
             activeWorld.remove(e);
             setActiveWorld(target);
             activeWorld.add(p, e);
+            transitionObserver.notifyTransition(e, target, p);
         }
-        transitionObserver.notifyTransition(e, target, p);
     }
 
     private boolean isPlayer(Entity other) {

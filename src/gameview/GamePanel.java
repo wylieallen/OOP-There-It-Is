@@ -152,6 +152,7 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor, 
     public void notifyTransition(Entity entity, World world, Coordinate p)
     {
         gameDisplayState.transitionWorld(world);
+        resetCamera();
     }
 
     public void resetCamera()
