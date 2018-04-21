@@ -136,7 +136,7 @@ public class GameViewMaker
         npc.getController().getEquipment().add(w);
 
         spriteMap.put(player, ImageMaker.makeEntityDisplayable(player));
-        spriteMap.put(npc, ImageMaker.makeEntityDisplayable(npc));
+        spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
 
         //tile.setEntity(player);
 
@@ -170,8 +170,11 @@ public class GameViewMaker
 
         //setup world transitions
         InteractiveItem localWorld1Entrance = new InteractiveItem("Teleporter", new TransitionCommand(localWorldsList.get(0), new Coordinate(0, 0), game));
+        spriteMap.put(localWorld1Entrance, ImageMaker.makeTeleporterDisplayable());
         overworld.getTile(new Coordinate(1, -2)).setEncounter(localWorld1Entrance);
+
         InteractiveItem localWorld1Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
+        spriteMap.put(localWorld1Exit, ImageMaker.makeTeleporterDisplayable());
         localWorldsList.get(0).getTile(new Coordinate(-5, -5)).addEI(localWorld1Exit);
 
         return new GameDisplayState(panel.getSize(), game, spriteMap, worldDisplayableMap, overworld);
@@ -221,7 +224,6 @@ public class GameViewMaker
     private LocalWorld createLocalWorld1(OverWorld overworld) {
 
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
-        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
         for(int i = -5; i <= 5; ++i) {
             for(int j = -5; j <= 5; ++j) {
@@ -232,6 +234,8 @@ public class GameViewMaker
                 );
             }
         }
+
+        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
         return world;
     }

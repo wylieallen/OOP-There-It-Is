@@ -99,6 +99,11 @@ public class LocalWorld implements World {
 
     @Override
     public Tile getTileForEntity(Entity e) {
+        for(LocalWorldTile tile: tiles.values()) {
+            if(tile.has(e)) {
+                return tile;
+            }
+        }
         return null;
     }
 
