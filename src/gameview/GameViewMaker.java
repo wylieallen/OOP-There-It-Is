@@ -1,6 +1,7 @@
 package gameview;
 
-import commands.skillcommands.ModifyHealthCommand;
+import commands.ModifyHealthCommand;
+import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.HumanEntityController;
@@ -127,7 +128,8 @@ public class GameViewMaker
 
         Coordinate npcLoc = new Coordinate(-2, 0);
         Entity npc = createNPC (npcLoc, player, true);
-        WeaponItem w = new WeaponItem ("Bob", false, 3, 1, SkillType.TWOHANDEDWEAPON, 5, 1, 1, InfluenceType.CIRCULARINFLUENCE, new ModifyHealthCommand(SkillType.TWOHANDEDWEAPON, 100, -10));
+        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, 5, 10, new ModifyHealthCommand(-2), new ModifyHealthCommand(2));
+        WeaponItem w = new WeaponItem ("Bob", false, 3, 1, SkillType.TWOHANDEDWEAPON, 5, 1, 1, InfluenceType.CIRCULARINFLUENCE, skill);
         npc.getController().getEquipment().add(w);
 
         spriteMap.put(player, ImageMaker.makeEntityDisplayable(player));
