@@ -1,7 +1,5 @@
 package guiframework;
 
-import guiframework.displayable.ColoredRectDisplayable;
-
 import javax.swing.*;
 import java.awt.*;
 

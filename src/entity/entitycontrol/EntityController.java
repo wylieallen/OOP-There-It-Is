@@ -21,13 +21,13 @@ public abstract class EntityController implements Visitable{
     private Entity controlledEntity;
     private Equipment equipment;
     private Coordinate entityLocation;
-    private List<ControllerAction> actions;
+    private Collection<ControllerAction> actions;
     //make sure if we load in and we are on a vehicle that this is set correctly
     private boolean inVehicle = false;
     private Vehicle mount;
 
     public EntityController(Entity entity, Equipment equipment,
-                            Coordinate entityLocation, List<ControllerAction> actions) {
+                            Coordinate entityLocation, Collection<ControllerAction> actions) {
         this.controlledEntity = entity;
         this.equipment = equipment;
         this.entityLocation = entityLocation;

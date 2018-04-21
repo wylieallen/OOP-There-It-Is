@@ -114,4 +114,6 @@ public class GameDisplayState extends DisplayState
     public void snapCamera(int x, int y) { camera.setLocation(x, y); }
     public void scaleZoom(double dz) { zoom *= dz; }
     public void setZoom(double zoom) { this.zoom = zoom; }
+
+    public void setSize(Dimension size){ this.size.setSize(size);}
 }

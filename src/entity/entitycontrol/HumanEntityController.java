@@ -8,6 +8,7 @@ import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +17,17 @@ public class HumanEntityController extends EntityController{
     private GamePanel view;
 
     public HumanEntityController(Entity entity, Equipment equipment, Coordinate entityLocation,
-                                 List<ControllerAction> actions, GamePanel view) {
+                                 Collection<ControllerAction> actions, GamePanel view) {
         super(entity, equipment, entityLocation, actions);
         this.view = view;
+
+        for(ControllerAction action : actions)
+        {
+            action.accept(view);
+        }
+
+        view.setFocusable(true);
+        view.requestFocus();
     }
 
 

@@ -3,6 +3,7 @@ package entity.entitymodel;
 import commands.TimedEffect;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
+import entity.entitycontrol.controllerActions.DirectionalMoveAction;
 import entity.entitymodel.interactions.EntityInteraction;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
@@ -18,10 +19,7 @@ import spawning.SpawnObserver;
 import utilities.Coordinate;
 import utilities.Vector;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dontf on 4/13/2018.
@@ -47,6 +45,10 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     {
         this(new Vector(), new EntityStats(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
                 new Inventory(), true);
+        for(Direction d : Direction.values())
+        {
+            actions.add(new DirectionalMoveAction(this, d));
+        }
     }
 
     public Entity(Vector movementVector,
@@ -100,6 +102,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     public void setController(EntityController newController) {
         this.controller = newController;
     }
+
+    public Collection<ControllerAction> getControllerActions() { return actions; }
 
     public void update () {
         updateStats();

@@ -8,7 +8,7 @@ import spawning.SpawnObserver;
 
 import java.util.ArrayList;
 
-public class observeAction extends ControllerAction implements SpawnObservable, GameObject{
+public class ObserveAction extends ControllerAction implements SpawnObservable, GameObject{
 
     ArrayList<SpawnObserver> observers;
     Entity controlledEntity;
@@ -24,6 +24,12 @@ public class observeAction extends ControllerAction implements SpawnObservable, 
         for(SpawnObserver so : observers){
             so.notifySpawn(IA,this);
         }
+    }
+
+    @Override
+    public void accept(ControllerActionVisitor v)
+    {
+        v.visitObserveAction(this);
     }
 
     @Override

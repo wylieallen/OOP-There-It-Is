@@ -154,7 +154,7 @@ public class GameViewMaker
         List<LocalWorld> localWorldsList = new ArrayList<>();
 
         Game game = new Game(overworld, overworld, localWorldsList, 0, player);
-        game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), new ArrayList<>(), panel));
+        game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), player.getControllerActions(), panel));
 
         return new GameDisplayState(panel.getSize(), new Game(overworld, overworld, localWorldsList, 0, player), spriteMap, worldDisplayableMap, overworld);
     }
