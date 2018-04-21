@@ -54,7 +54,7 @@ public class Coordinate implements Comparable<Coordinate> {
 
         if (this.equals(toThis)) return Direction.NULL;
 
-        Coordinate diff = new Coordinate(toThis.x () - this.x (), toThis.z () - this.y ());
+        Coordinate diff = new Coordinate(toThis.x () - this.x (), toThis.z () - this.z ());
         int magnitude = this.distance(toThis);
         Coordinate unitdiff = new Coordinate(diff.x()/magnitude, diff.z()/magnitude);
         return Vector.getDirection(unitdiff);

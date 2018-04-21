@@ -86,6 +86,7 @@ public class GameDisplayState extends DisplayState
             playerInventory.add(new StringDisplayable(new Point(4, 64 + (numInventorySlots * 16) + (i * 16)), "Slot " + i + ": ", Color.BLACK, 1));
         }
         widgets.add(playerInventory);
+
     }
 
     public static Displayable getSprite(GameObject o) { return spriteMap.getOrDefault(o, ImageMaker.getNullDisplayable()); }

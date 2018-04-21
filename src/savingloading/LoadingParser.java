@@ -5,7 +5,6 @@ import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
 import commands.reversiblecommands.ReversibleCommand;
 import commands.reversiblecommands.TimedStaminaRegenCommand;
-import commands.PickPocketCommand;
 import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.*;
 import entity.entitycontrol.EntityController;
@@ -17,11 +16,11 @@ import entity.entitymodel.*;
 import entity.entitymodel.interactions.*;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
+import gameview.GameDisplayState;
 import gameview.GamePanel;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
-import guiframework.displayable.ImageDisplayable;
 import items.InteractiveItem;
 import items.Item;
 import items.OneshotItem;
@@ -37,25 +36,25 @@ import maps.tile.LocalWorldTile;
 import maps.tile.OverWorldTile;
 import maps.trajectorymodifier.River;
 import maps.trajectorymodifier.TrajectoryModifier;
-import maps.world.*;
-import gameview.GameDisplayState;
-import org.json.*;
+import maps.world.Game;
+import maps.world.LocalWorld;
+import maps.world.OverWorld;
+import maps.world.World;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import skills.SkillType;
 import spawning.SpawnObservable;
-import spawning.SpawnObserver;
 import utilities.Coordinate;
 import utilities.Vector;
 
 import java.awt.*;
-import java.awt.geom.Dimension2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.List;
+import java.util.Queue;
 
-import static maps.movelegalitychecker.Terrain.GRASS;
-import static maps.movelegalitychecker.Terrain.MOUNTAIN;
-import static maps.movelegalitychecker.Terrain.WATER;
+import static maps.movelegalitychecker.Terrain.*;
 import static skills.SkillType.*;
 
 /**
@@ -418,7 +417,7 @@ public class LoadingParser {
                 actorInteractions.add(new PickPocketInteraction());
             else if (((JSONObject) interactionJson).get("Name").equals("TalkInteraction")) {
                 JSONArray messagesJson = ((JSONObject) interactionJson).getJSONArray("Messages");
-                Set<String> messages = new HashSet<>();
+                List<String> messages = new ArrayList<>();
                 for (Object message : messagesJson){
                     messages.add((String) message);
                 }

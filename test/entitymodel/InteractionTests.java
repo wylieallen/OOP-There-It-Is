@@ -86,8 +86,11 @@ public class InteractionTests {
 
         Equipment actorEquipment = new Equipment(5, actorInventory, actor);
 
-        EntityController actorController = new HumanEntityController(actor, actorEquipment, new Coordinate(0, 0), actorActions, null);
-        EntityController vehicleController = new HumanEntityController(vehicle, new Equipment(5, acteeInventory, vehicle), new Coordinate(0, 0), acteeActions, null);
+        EntityController actorController = new HumanEntityController(actor, actorEquipment, new Coordinate(0, 0), null);
+        actorController.setControllerActions(actorActions);
+
+        EntityController vehicleController = new HumanEntityController(vehicle, new Equipment(5, acteeInventory, vehicle), new Coordinate(0, 0),  null);
+        vehicleController.setControllerActions(acteeActions);
 
         actorActions.add(new DismountAction(actorController));
 

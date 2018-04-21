@@ -298,7 +298,7 @@ public class SaveVisitor implements Visitor {
         JSONObject interactionJson = new JSONObject();
         interactionJson.put("Name", "TalkInteraction");
         JSONArray messagesJson = new JSONArray();
-        Set<String> messages = t.getMessages();
+        List<String> messages = t.getMessages();
         for (String message : messages){
             messagesJson.put(message);
         }

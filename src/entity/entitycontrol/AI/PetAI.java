@@ -23,7 +23,7 @@ public class PetAI extends AI {
     public PetAI(List<EntityInteraction> interactions, Entity master, Map<Coordinate, Direction> path, boolean hasPath) {
         super(interactions, path);
         this.master = master;
-        lastHealth = 0;
+        lastHealth = 10;
         mastersLastPosition = new Coordinate(0, 0);
         this.hasPath = hasPath;
     }
@@ -37,6 +37,12 @@ public class PetAI extends AI {
 
             if (distance <= 2) {
                 hasPath = false;
+            }
+
+            if (lastHealth > e.getCurrHealth()) {
+                setPath(location, mastersPosition, e.getCompatibleTerrains(), map);
+                hasPath = true;
+                lastHealth = e.getCurrHealth();
             }
 
             if (distance > maxDistanceFromMaster) {
@@ -72,7 +78,8 @@ public class PetAI extends AI {
         List <Coordinate> points = new ArrayList<>();
 
         for (Direction d : Direction.values()) {
-            points.add(location.getNeighbor(d));
+            if (d != Direction.NULL)
+                points.add(location.getNeighbor(d));
         }
 
         for (Coordinate c : points) {

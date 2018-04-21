@@ -10,6 +10,7 @@ import utilities.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class HostileAI extends AI {
 
@@ -25,12 +26,11 @@ public class HostileAI extends AI {
     @Override
     public void nextAction(Map <Coordinate, Tile> map, Entity e, Coordinate location) {
         //TODO: make it chase and attack the target
-
         Coordinate targetPosition;
 
         if (target != null) {
             targetPosition = findTarget(map);
-            if ((isVisible(targetPosition, location) && targetsLastPosition != targetPosition)|| (targetsLastPosition == null)) {
+            if ((isVisible(targetPosition, location, e) && targetsLastPosition != targetPosition)|| (targetsLastPosition == null)) {
                 setPath(location, targetPosition, e.getCompatibleTerrains(), map);
                 targetsLastPosition = targetPosition;
             }
@@ -42,8 +42,8 @@ public class HostileAI extends AI {
         if (targetIsNeghbor (location)) {
             e.setFacing(location.direction(targetsLastPosition));
             e.setMoving();
-            // TODO: this is terrible, replace when controller supports attack!!!
-            e.getController().getEquipment().useWeaponItem(0, location);
+
+            e.getController().useWeapon(0);
         }
 
         e.setFacing(getNextDirection(location));
@@ -51,8 +51,8 @@ public class HostileAI extends AI {
 
     }
 
-    private boolean isVisible (Coordinate targetLoc, Coordinate myLoc) {
-        return (target.getConcealment() <= myLoc.distance(targetLoc));
+    private boolean isVisible (Coordinate targetLoc, Coordinate myLoc, Entity self) {
+        return (self.getVisibilityRadius() >= Math.abs(myLoc.distance(targetLoc)));
     }
 
     private Coordinate findTarget (Map <Coordinate, Tile> map) {
@@ -70,7 +70,8 @@ public class HostileAI extends AI {
         List <Coordinate> points = new ArrayList<>();
 
         for (Direction d : Direction.values()) {
-            points.add(location.getNeighbor(d));
+            if (d != Direction.NULL)
+                points.add(location.getNeighbor(d));
         }
 
         for (Coordinate c : points) {
@@ -81,7 +82,7 @@ public class HostileAI extends AI {
             }
         }
 
-        return points.get(0);
+        return points.get(new Random().nextInt(6));
     }
 
     private boolean targetIsNeghbor (Coordinate myLoc) {

@@ -11,7 +11,6 @@ import savingloading.Visitable;
 import spawning.SpawnObserver;
 import utilities.Coordinate;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -54,7 +53,7 @@ public abstract class EntityController implements Visitable{
     public abstract void pacify();
 
     protected Entity getControlledEntity() { return controlledEntity; }
-    
+
     public void setControllerActions(Collection<ControllerAction> actions){
         this.actions = actions;
     }
@@ -124,6 +123,10 @@ public abstract class EntityController implements Visitable{
 
     public Equipment getEquipment() {
         return equipment;
+    }
+
+    public void useWeapon (int index) {
+        equipment.useWeaponItem(0, entityLocation);
     }
 
     public Coordinate getEntityLocation(){

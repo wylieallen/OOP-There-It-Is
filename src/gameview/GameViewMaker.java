@@ -3,8 +3,8 @@ package gameview;
 import commands.ModifyHealthCommand;
 import commands.TransitionCommand;
 import commands.skillcommands.SkillCommand;
-import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
+import entity.entitycontrol.AI.PetAI;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitymodel.Entity;
@@ -137,7 +137,7 @@ public class GameViewMaker
         player.addToInventory(new QuestItem("Radio", false, 0));
 
         Coordinate npcLoc = new Coordinate(-2, 0);
-        Entity npc = createNPC (npcLoc, player, true);
+        Entity npc = createNPC (npcLoc, player, false);
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, 5, 10, new ModifyHealthCommand(-2), new ModifyHealthCommand(2));
         WeaponItem w = new WeaponItem ("Bob", false, 3, 1, SkillType.TWOHANDEDWEAPON, 5, 1, 1, InfluenceType.CIRCULARINFLUENCE, skill);
         npc.getController().getEquipment().add(w);
@@ -206,7 +206,7 @@ public class GameViewMaker
         Set <Terrain> compatible = new HashSet<>();
         compatible.add(Terrain.GRASS);
 
-        EntityStats stats = new EntityStats(skills, 1, 10, 10, 10, 10, 1, 98, 5, 5, 10, 10, false, false, compatible);
+        EntityStats stats = new EntityStats(skills, 1, 10, 10, 10, 10, 1, 98, 5, 6, 10, 10, false, false, compatible);
 
         Inventory i = new Inventory(new ArrayList<>());
 
@@ -215,7 +215,7 @@ public class GameViewMaker
         Equipment e = new Equipment(5, i, entity);
 
         HostileAI hostile = new HostileAI(entity.getActeeInteractions(), aggroTarget, new HashMap<>());
-        FriendlyAI friendly = new FriendlyAI(entity.getActeeInteractions(), new HashMap<>(), false);
+        PetAI friendly = new PetAI(entity.getActeeInteractions(), player, new HashMap<>(), false);
         NpcEntityController controller = new NpcEntityController(entity, e, loc, hostile, friendly, isHostile);
         entity.setController(controller);
 
