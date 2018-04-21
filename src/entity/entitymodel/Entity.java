@@ -381,6 +381,10 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         return stats.tryToAttack(attackSpeed);
     }
 
+    public boolean tryToMove(int moveSpeed) {
+        return stats.tryToMove(moveSpeed);
+    }
+
     public boolean has(GameObject o) {
         if(controller.has(o)) {
             return true;
@@ -392,4 +396,5 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     public void updateSpawnObservers(SpawnObserver oldObserver, SpawnObserver newObserver) {
         controller.updateSpawnObservers(oldObserver, newObserver);
     }
+
 }
