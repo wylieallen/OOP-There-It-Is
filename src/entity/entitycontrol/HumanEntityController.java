@@ -1,5 +1,6 @@
 package entity.entitycontrol;
 
+import entity.entitycontrol.controllerActions.BindWoundsAction;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitycontrol.controllerActions.DirectionalMoveAction;
 import entity.entitymodel.Entity;
@@ -32,6 +33,8 @@ public class HumanEntityController extends EntityController{
             if(d != Direction.NULL)
                 addAction(new DirectionalMoveAction(entity, d));
         }
+
+        addAction(new BindWoundsAction(entity));
     }
 
     public void setControllerActions(Collection<ControllerAction> actions){

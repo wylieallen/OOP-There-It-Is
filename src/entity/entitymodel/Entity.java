@@ -46,6 +46,9 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     {
         this(new Vector(), new EntityStats(), new ArrayList<>(), new ArrayList<>(),
                 new Inventory(), true);
+        hurtEntity(5);
+        this.increaseSkillLevel(SkillType.BINDWOUNDS, 1);
+        System.out.println("Entity bindwounds skill level " + getSkillLevel(SkillType.BINDWOUNDS));
     }
 
     public Entity(Vector movementVector,
@@ -59,6 +62,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     {
         this.movementVector = movementVector;
         this.stats = stats;
+        hurtEntity(5);
         this.effects = effects;
         this.actorInteractions = actorInteractions;
         //prevents errors until the AI sets the interactions

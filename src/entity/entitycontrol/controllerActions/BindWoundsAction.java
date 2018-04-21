@@ -22,7 +22,7 @@ public class BindWoundsAction extends ControllerAction {
 
     @Override
     protected void execute() {
-        ModifyHealthCommand bindWounds = new ModifyHealthCommand();
+        ModifyHealthCommand bindWounds = new ModifyHealthCommand(2);
         SkillCommand skillCommand = new SkillCommand(SkillType.BINDWOUNDS,
                 controlledEntity.getSkillLevel(SkillType.BINDWOUNDS), 10,
                 bindWounds, null);
