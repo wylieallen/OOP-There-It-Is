@@ -19,6 +19,7 @@ import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
 import items.InteractiveItem;
 import items.Item;
+import items.ItemFactory;
 import items.OneshotItem;
 import items.takeableitems.QuestItem;
 import items.takeableitems.TakeableItem;
@@ -259,11 +260,8 @@ public class GameViewMaker
         Entity npc = createNPC (npcLoc, player, true);
         npc.addCompatibleTerrain(Terrain.SPACE);
 
-        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), -10, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Bob", false, 0, 5000, SkillType.TWOHANDEDWEAPON, 2, 1, 1, InfluenceType.LINEARINFLUENCE, skill);
-        npc.getController().getEquipment().add(w);
-        //must add overworld as observer
-        w.registerObserver(world);
+        WeaponItem axe = ItemFactory.makeAxe(world, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON));
+        npc.getController().getEquipment().add(axe);
 
         world.getTile(npcLoc).setEntity(npc);
         spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));

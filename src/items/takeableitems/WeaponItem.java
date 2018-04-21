@@ -60,7 +60,8 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
         boolean canAttack = attacker.tryToAttack(attackSpeed);
         if(canAttack) {
             ArrayList<GameObject> whitelist = new ArrayList<>();
-            whitelist.add(attacker);
+            if(influenceType != InfluenceType.SELFINFLUENCE)
+                whitelist.add(attacker);
             InfluenceArea ia = new expandingInfluenceArea(influenceType, attacker.getMovementDirection(),
                     maxRadius, location, whitelist, updateInterval, expansionInterval, command);
             notifyAllOfSpawn(ia);

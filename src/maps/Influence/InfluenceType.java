@@ -12,7 +12,8 @@ public enum InfluenceType {
 
     LINEARINFLUENCE(new linearOffsetPointsMaker()),
     ANGULARINFLUENCE(new angularOffsetPointsMaker()),
-    CIRCULARINFLUENCE(new circularOffsetPointsMaker());
+    CIRCULARINFLUENCE(new circularOffsetPointsMaker()),
+    SELFINFLUENCE(new selfOffsetPointsMaker());
 
     private final shapedOffsetPointsMaker offsetMaker;
 
