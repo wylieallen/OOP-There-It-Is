@@ -1,7 +1,8 @@
 package itemtests;
 
 import commands.reversiblecommands.TimedStaminaRegenCommand;
-import commands.skillcommands.ModifyHealthCommand;
+import commands.ModifyHealthCommand;
+import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.*;
@@ -16,7 +17,6 @@ import maps.tile.LocalWorldTile;
 import maps.world.Game;
 import maps.world.LocalWorld;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import skills.SkillType;
@@ -74,7 +74,7 @@ public class TakeableItemTests {
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
         ConsumableItem item = new ConsumableItem("Health Potion", true,
-                new ModifyHealthCommand(SkillType.NULL, 0, 10));
+                new ModifyHealthCommand(10));
 
         tiles.get(new Coordinate(2, 1)).addEI(item);
 
@@ -160,7 +160,12 @@ public class TakeableItemTests {
 
         WeaponItem item = new WeaponItem("Sword", true, 10,0,
                 SkillType.ONEHANDEDWEAPON, 1, 0, 0,
-                InfluenceType.LINEARINFLUENCE, new ModifyHealthCommand(SkillType.ONEHANDEDWEAPON, 1, 10));
+                InfluenceType.LINEARINFLUENCE,
+                new SkillCommand(SkillType.ONEHANDEDWEAPON,
+                                entity.getSkillLevel(SkillType.ONEHANDEDWEAPON),
+                                -10,
+                                new ModifyHealthCommand(0),
+                                null));
         item.registerObserver(world);
 
         tiles.get(new Coordinate(2, 1)).addEI(item);

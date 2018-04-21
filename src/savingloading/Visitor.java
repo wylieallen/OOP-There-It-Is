@@ -1,6 +1,6 @@
 package savingloading;
 
-import commands.TransitionCommand;
+import commands.*;
 import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
 import commands.reversiblecommands.TimedStaminaRegenCommand;
@@ -9,7 +9,6 @@ import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.AI.PatrolAI;
 import entity.entitycontrol.AI.PetAI;
-import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitymodel.Entity;
@@ -31,12 +30,9 @@ import maps.movelegalitychecker.Obstacle;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.LocalWorldTile;
 import maps.tile.OverWorldTile;
-import maps.tile.Tile;
 import maps.world.LocalWorld;
 import maps.world.OverWorld;
-import maps.world.World;
 import maps.world.Game;
-import items.Item;
 
 /**
  * Created by dontf on 4/13/2018.
@@ -70,6 +66,7 @@ public interface Visitor {
     void visitWearableItem(WearableItem w);
 
     void visitConfuseCommand(ConfuseCommand confuseCommand);
+    void visitEnrageCommand(EnrageCommand enrageCommand);
     void visitMakeFriendlyCommand(MakeFriendlyCommand makeFriendlyCommand);
     void visitModifyHealthCommand(ModifyHealthCommand modifyHealthCommand);
     void visitModifyStaminaRegenCommand(ModifyStaminaRegenCommand modifyStaminaRegenCommand);
@@ -80,6 +77,7 @@ public interface Visitor {
     void visitMakeParalyzedCommand(MakeParalyzedCommand makeParalyzedCommand);
     void visitTimedStaminaRegenCommand(TimedStaminaRegenCommand timedStaminaRegenCommand);
     void visitTransitionCommand(TransitionCommand transitionCommand);
+    void visitSkillCommand(SkillCommand skillCommand);
 
     void visitOverWorld(OverWorld w);
     void visitLocalWorld(LocalWorld w);

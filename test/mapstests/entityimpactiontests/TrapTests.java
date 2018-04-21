@@ -1,6 +1,6 @@
 package mapstests.entityimpactiontests;
 
-import commands.skillcommands.ModifyHealthCommand;
+import commands.ModifyHealthCommand;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitymodel.Entity;
@@ -48,7 +48,7 @@ public class TrapTests {
 
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
-        Trap trap = new Trap(new ModifyHealthCommand(SkillType.NULL, 0, -10), false, 5, false);
+        Trap trap = new Trap(new ModifyHealthCommand(-10), false, 5, false);
 
         tiles.get(new Coordinate(2, 1)).getMoveLegalityCheckers ().add(trap);
         tiles.get(new Coordinate(2, 1)).addEI (trap);
@@ -107,7 +107,7 @@ public class TrapTests {
 
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
-        Trap trap = new Trap(new ModifyHealthCommand(SkillType.NULL, 0, -10), false, 200, false);
+        Trap trap = new Trap(new ModifyHealthCommand(-10), false, 200, false);
 
         tiles.get(new Coordinate(2, 1)).getMoveLegalityCheckers ().add (trap);
         tiles.get(new Coordinate(2, 1)).addEI(trap);

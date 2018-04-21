@@ -28,6 +28,7 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
     private long updateInterval;
     private InfluenceType influenceType;
     private SkillCommand command;
+    //TODO: remove damage attribute. Not needed because skill command contains damage amount
 
 
     public WeaponItem(String name, boolean onMap, int damage, int attackSpeed,
@@ -86,7 +87,7 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
         spawnObservers.addAll(newObservers);
     }
 
-    public Command getCommand() {
+    public SkillCommand getCommand() {
         return command;
     }
 

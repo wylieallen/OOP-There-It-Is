@@ -26,4 +26,8 @@ public class MakeParalyzedCommand extends ReversibleCommand {
     public void accept(Visitor v) {
         v.visitMakeParalyzedCommand(this);
     }
+
+    public int getEntityBaseMoveSpeed() {
+        return entityBaseMoveSpeed;
+    }
 }
