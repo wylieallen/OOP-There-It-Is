@@ -34,7 +34,7 @@ public abstract class AI implements Visitable {
     }
 
     protected Direction getNextDirection (Coordinate c) {
-        return path.getOrDefault(c, Direction.N);
+        return path.getOrDefault(c, Direction.NULL);
     }
 
     protected final void setPath (Coordinate start, Coordinate end, Set <Terrain> compatible, Map <Coordinate, Tile> map) {
@@ -45,6 +45,11 @@ public abstract class AI implements Visitable {
         }
 
         path = PathFinder.createLocalPath (start, end, compatible, map);
+
+        for (Coordinate c : path.keySet()) {
+            System.out.println("x: " + c.x() + " z: " + c.z());
+        }
+        System.out.println();
     }
 
     protected Coordinate getNextCoordinate (Set<Coordinate> points, Entity e) {

@@ -9,10 +9,7 @@ import savingloading.Visitable;
 import utilities.Coordinate;
 import utilities.Vector;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public abstract class Tile implements GameObjectContainer, Visitable {
 

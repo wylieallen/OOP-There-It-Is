@@ -32,17 +32,21 @@ public class HostileAI extends AI {
 
         if (target != null) {
             targetPosition = findTarget(map);
-
-            if (isVisible(targetPosition, location) && (targetsLastPosition == null || !targetsLastPosition.equals(targetPosition))) {
+            if (isVisible(targetPosition, location) || (targetsLastPosition == null)) {
                 setPath(location, targetPosition, e.getCompatibleTerrains(), map);
                 targetsLastPosition = targetPosition;
-            } else if (targetsLastPosition == null || myLastPosition.equals(location)) {
-                Coordinate end = getNextCoordinate(map.keySet(), e);
-                setPath(location, end, e.getCompatibleTerrains(), map);
             }
         } else {
            targetPosition = findNewTarget (map);
            setPath(location, targetPosition, e.getCompatibleTerrains(), map);
+        }
+
+        if (targetIsNeghbor (location)) {
+            e.setFacing(location.direction(targetsLastPosition));
+            e.setMoving();
+            // TODO: this is terrible, replace when controller supports attack!!!
+            System.out.println("I is attacking!!!");
+            e.getController().getEquipment().useWeaponItem(0, location);
         }
 
         myLastPosition = location;
@@ -82,6 +86,12 @@ public class HostileAI extends AI {
         }
 
         return points.get(0);
+    }
+
+    private boolean targetIsNeghbor (Coordinate myLoc) {
+        int distance = myLoc.distance(targetsLastPosition);
+
+        return (distance <= 2 && distance > 0);
     }
 
     @Override

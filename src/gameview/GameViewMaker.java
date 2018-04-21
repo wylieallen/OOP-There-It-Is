@@ -1,16 +1,20 @@
 package gameview;
 
+import commands.skillcommands.ModifyHealthCommand;
 import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitymodel.Entity;
+import entity.entitymodel.EntityStats;
 import entity.entitymodel.Equipment;
 import entity.entitymodel.Inventory;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
+import items.takeableitems.WeaponItem;
+import maps.Influence.InfluenceType;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
@@ -18,7 +22,9 @@ import maps.world.Game;
 import maps.world.LocalWorld;
 import maps.world.OverWorld;
 import maps.world.World;
-import utilities.Coordinate;
+import skills.SkillType;
+import utilities.*;
+import utilities.Vector;
 
 import java.awt.*;
 import java.util.*;
@@ -119,8 +125,8 @@ public class GameViewMaker
 
         Entity player = new Entity();
 
-        Coordinate npcLoc = new Coordinate(1, 1);
-        Entity npc = createNPC (npcLoc, player);
+        Coordinate npcLoc = new Coordinate(-2, 0);
+        Entity npc = createNPC (npcLoc, player, true);
 
         spriteMap.put(player, ImageMaker.makeEntityDisplayable(player));
         spriteMap.put(npc, ImageMaker.makeEntityDisplayable(npc));
@@ -163,14 +169,21 @@ public class GameViewMaker
         }
     }
 
-    private Entity createNPC (Coordinate loc, Entity aggroTarget) {
+    private Entity createNPC (Coordinate loc, Entity aggroTarget, boolean isHostile) {
 
-        Entity entity = new Entity();
+        Map <SkillType, Integer> skills = new HashMap<>();
+        skills.put(SkillType.TWOHANDEDWEAPON, 80);
+        Set <Terrain> compatible = new HashSet<>();
+        compatible.add(Terrain.GRASS);
+        EntityStats stats = new EntityStats(skills, 1, 10, 10, 10, 10, 1, 98, 5, 5, 10, 10, false, false, compatible);
         Inventory i = new Inventory(new ArrayList<>());
+        Entity entity = new Entity(new Vector(Direction.NULL, 0), stats, new ArrayList<>(), new ArrayList<>(), i, true, "Tim");
         Equipment e = new Equipment(5, i, entity);
+        WeaponItem w = new WeaponItem ("Bob", false, 1, 3, SkillType.TWOHANDEDWEAPON, 2, 5, 2, InfluenceType.LINEARINFLUENCE, new ModifyHealthCommand(SkillType.TWOHANDEDWEAPON, 5, 50));
+        e.add(w);
         HostileAI hostil = new HostileAI(entity.getActeeInteractions(), aggroTarget, new HashMap<>());
         FriendlyAI friendly = new FriendlyAI(entity.getActeeInteractions(), new HashMap<>(), false);
-        NpcEntityController controller = new NpcEntityController(entity, e, loc, new ArrayList<>(), hostil, friendly, false);
+        NpcEntityController controller = new NpcEntityController(entity, e, loc, new ArrayList<>(), hostil, friendly, isHostile);
         entity.setController(controller);
 
         return entity;

@@ -64,7 +64,7 @@ public class HumanEntityController extends EntityController{
 
     @Override
     public void updateMap (Map<Coordinate, Tile> map) {
-
+        update(map);
     }
 
     @Override

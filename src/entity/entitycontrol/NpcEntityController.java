@@ -75,6 +75,7 @@ public class NpcEntityController extends EntityController {
 
     @Override
     public void updateMap (Map <Coordinate, Tile> map) {
+        update(map);
         activeAi.nextAction(map, getControlledEntity(), getEntityLocation());
     }
 
