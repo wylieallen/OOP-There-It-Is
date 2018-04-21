@@ -126,11 +126,7 @@ public class GameDisplayState extends DisplayState
         super.update();
 
         // todo: this could potentially be enough of a performance drain that we should just skip it and let memory leak
-        for(GameObject o : spriteMap.keySet())
-        {
-            if(o.expired())
-                spriteMap.remove(o);
-        }
+        spriteMap.keySet().removeIf(GameObject::expired);
     }
 
     public void centerOnPlayer()

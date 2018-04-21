@@ -46,6 +46,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     {
         this(new Vector(), new EntityStats(), new ArrayList<>(), new ArrayList<>(),
                 new Inventory(), true);
+        this.increaseSkillLevel(SkillType.BINDWOUNDS, 1);
+        System.out.println("Entity bindwounds skill level " + getSkillLevel(SkillType.BINDWOUNDS));
     }
 
     public Entity(Vector movementVector,
@@ -59,6 +61,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     {
         this.movementVector = movementVector;
         this.stats = stats;
+        hurtEntity(5);
         this.effects = effects;
         this.actorInteractions = actorInteractions;
         //prevents errors until the AI sets the interactions
@@ -153,7 +156,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
 
     //true results in killing the entity, can be used to give skill points to attacking entity;
     public boolean hurtEntity (int amount) {
-        System.out.println("I got Hit");
+        System.out.println("I got Hit for " + amount);
         stats.setCurHealth(Math.max(0, getCurrHealth() - amount));
         return getCurrHealth() <= 0;
     }
