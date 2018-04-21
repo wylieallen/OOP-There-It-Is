@@ -7,9 +7,7 @@ import commands.reversiblecommands.ReversibleCommand;
 import commands.reversiblecommands.TimedStaminaRegenCommand;
 import commands.PickPocketCommand;
 import commands.skillcommands.SkillCommand;
-import entity.entitycontrol.AI.AI;
-import entity.entitycontrol.AI.FriendlyAI;
-import entity.entitycontrol.AI.HostileAI;
+import entity.entitycontrol.AI.*;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
@@ -20,7 +18,6 @@ import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
-import items.InteractiveItem;
 import items.InteractiveItem;
 import items.Item;
 import items.OneshotItem;
@@ -34,21 +31,18 @@ import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
 import maps.tile.OverWorldTile;
-import maps.tile.Tile;
 import maps.trajectorymodifier.River;
 import maps.trajectorymodifier.TrajectoryModifier;
-import maps.world.Game;
+import maps.world.*;
 import gameview.GameDisplayState;
-import maps.world.LocalWorld;
-import maps.world.OverWorld;
-import maps.world.World;
 import org.json.*;
 import skills.SkillType;
+import spawning.SpawnObservable;
+import spawning.SpawnObserver;
 import utilities.Coordinate;
 import utilities.Vector;
 
 import java.awt.*;
-import java.awt.geom.Area;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -76,8 +70,9 @@ public class LoadingParser {
 
     private JSONObject gameJson;
 
-    private Map<String,World> idMappings = new HashMap<>();
+    private Map<String,World> worldIdMappings = new HashMap<>();
     private List<TransitionCommandHolder> transitionCommands = new ArrayList<>();
+    private Queue<SpawnObservable> spawnObservables = new ArrayDeque<>();
 
     public void loadGame (String saveFileName, Dimension panelSize) throws FileNotFoundException {
         loadFileToJson(saveFileName);
@@ -123,8 +118,11 @@ public class LoadingParser {
     private void loadOverWorld(JSONObject overWorldJson) {
         Map <Coordinate, OverWorldTile> tiles = loadOverWorldTiles(overWorldJson.getJSONArray("Tiles"));
         overWorld = new OverWorld(tiles);
-        idMappings.put("OverWorld", overWorld);
+        worldIdMappings.put("OverWorld", overWorld);
         worldDisplayableMap.put(overWorld, new WorldDisplayable(new Point(0, 0), 0, overWorld));
+        while(!spawnObservables.isEmpty()){
+            spawnObservables.remove().registerObserver(overWorld);
+        }
     }
 
     private void loadLocalWorlds(JSONObject localWorldsJson){
@@ -145,8 +143,11 @@ public class LoadingParser {
             }
             LocalWorld localWorld = new LocalWorld(localWorldTiles, new HashSet<InfluenceArea>());
             localWorlds.add(localWorld);
-            idMappings.put(localWorldId, localWorld);
+            worldIdMappings.put(localWorldId, localWorld);
             worldDisplayableMap.put(localWorld, new WorldDisplayable(new Point(0, 0), 0, localWorld));
+            while(!spawnObservables.isEmpty()){
+                spawnObservables.remove().registerObserver(localWorld);
+            }
         }
     }
 
@@ -431,6 +432,7 @@ public class LoadingParser {
             JSONObject itemJson = (JSONObject) weaponItemJsonObj;
             WeaponItem item = loadWeaponItem(itemJson);
             weaponItems.add(item);
+            spawnObservables.add(item);
         }
         Iterator<String> equipSlotStrings = wearableItemsJson.keys();
         while(equipSlotStrings.hasNext()) {
@@ -442,7 +444,6 @@ public class LoadingParser {
         }
         int maxSize = 10; // ?
         WeaponItem[] weaponItemsArray = weaponItems.toArray(new WeaponItem[0]);
-        //TODO: reintialize list of spawn observers
         return new Equipment(wearableItems, weaponItemsArray, maxSize, inventory, entity);
     }
 
@@ -514,7 +515,6 @@ public class LoadingParser {
     }
 
     private WeaponItem loadWeaponItem(JSONObject itemJson) {
-        //TODO reinitialize spawn observers
         return new WeaponItem(itemJson.getString("Name"),
                             itemJson.getBoolean("OnMap"),
                             itemJson.getInt("Damage"),
@@ -657,33 +657,30 @@ public class LoadingParser {
                                                         Equipment equipment, Coordinate entityLocation,
                                                         List<ControllerAction> actions){
         String entityTypeString = entityJson.getString("Type");
-        String aggroAiString = entityJson.getString("AggroAi");
-        String nonAggroAiString = entityJson.getString("NonAggroAi");
+        JSONObject aggroAiJson = entityJson.getJSONObject("AggroAi");
+        JSONObject nonAggroAiJson = entityJson.getJSONObject("NonAggroAi");
         Boolean isAggro = entityJson.getBoolean("IsAggro");
-        return new NpcEntityController(entity, equipment, entityLocation, actions, loadAI(aggroAiString), loadAI(nonAggroAiString), isAggro);
+        return new NpcEntityController(entity, equipment, entityLocation, actions, loadAI(aggroAiJson), loadAI(nonAggroAiJson), isAggro);
 
     }
 
-    private AI loadAI(String aiString) {
-        // TODO
-        if(aiString.equals("Friendly")){
-//            return new FriendlyAI();
+    private AI loadAI(JSONObject aiJson) {
+        if(aiJson.get("Type").equals("Friendly")){
+            return new FriendlyAI(loadActorInteractions(aiJson.getJSONArray("Interactions")), new HashMap<Coordinate, Direction>(), false);
         }
-        else if(aiString.equals("Hostile")){
-//            return new HostileAI();
+        else if(aiJson.get("Type").equals("Hostile")){
+            return new HostileAI(loadActorInteractions(aiJson.getJSONArray("Interactions")), player, new HashMap<Coordinate, Direction>());
         }
-        else if(aiString.equals("Patrol")){
-//            return new PatrolAI();
+        else if(aiJson.get("Type").equals("Patrol")){
+            return new PatrolAI(loadActorInteractions(aiJson.getJSONArray("Interactions")), new ArrayList<Coordinate>(), new HashMap<Coordinate, Direction>());
         }
-        else if(aiString.equals("Pet")){
-//            return new PetAI();
+        else if(aiJson.get("Type").equals("Pet")){
+            return new PetAI(loadActorInteractions(aiJson.getJSONArray("Interactions")), player, new HashMap<Coordinate, Direction>(), false);
         }
         else{
-            System.out.println("ERROR: AI not loaded properly -- Command name given: " + aiString);
+            System.out.println("ERROR: AI not loaded properly -- Command name given: " + aiJson.get("Type"));
             return null;
         }
-        //
-        return new FriendlyAI(null, null, false);
     }
 
     private List<ControllerAction> loadPlayerControllerActions() {
@@ -694,7 +691,7 @@ public class LoadingParser {
     private void setTransitionCommands() {
         for (TransitionCommandHolder holder : transitionCommands){
             String mapId = holder.getMapId();
-            World world = idMappings.get(mapId);
+            World world = worldIdMappings.get(mapId);
             Coordinate coordinate = holder.getCoordinate();
             TransitionCommand transitionCommand = holder.getTransitionCommand();
             transitionCommand.setTargetWorld(world);
