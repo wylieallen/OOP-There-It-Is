@@ -11,6 +11,7 @@ import entity.entitycontrol.AI.*;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
+import entity.entitycontrol.controllerActions.ControllerActionFactory;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.*;
 import entity.vehicle.Vehicle;
@@ -100,7 +101,7 @@ public class LoadingParser {
         Vector movementVector = new Vector();
         JSONObject entityStatsJson = playerJson.getJSONObject("Stats");
         EntityStats entityStats = loadEntityStats(entityStatsJson);
-        List<ControllerAction> controllerActions = loadPlayerControllerActions(); // TODO: create ControllerActions
+        List<ControllerAction> controllerActions = loadControllerActions(playerJson.getString("Name")); // TODO: create ControllerActions
         List<EntityInteraction> actorInteractions = loadActorInteractions(playerJson.getJSONArray("ActorInteractions"));
         List<TimedEffect> effects = new ArrayList<>();
         Inventory inventory = loadInventory(playerJson.getJSONArray("Inventory"));
@@ -113,6 +114,10 @@ public class LoadingParser {
         player.setControllerActions(controllerActions);
         ImageDisplayable displayable = loadDisplayable(playerJson.getString("Name"));
         spriteMap.put(player, displayable);
+    }
+
+    private List<ControllerAction> loadControllerActions(String name) {
+        return null;
     }
 
     private void loadOverWorld(JSONObject overWorldJson) {
@@ -155,7 +160,7 @@ public class LoadingParser {
         Vector movementVector = new Vector();
         JSONObject entityStatsJson = entityJson.getJSONObject("Stats");
         EntityStats entityStats = loadEntityStats(entityStatsJson);
-        List<ControllerAction> controllerActions = null; // TODO: create ControllerActions
+        List<ControllerAction> controllerActions = loadControllerActions("default"); // TODO: create ControllerActions
         List<EntityInteraction> actorInteractions = loadActorInteractions(entityJson.getJSONArray("ActorInteractions"));
         List<TimedEffect> effects = new ArrayList<>();
         Inventory inventory = loadInventory(entityJson.getJSONArray("Inventory"));
@@ -681,11 +686,6 @@ public class LoadingParser {
             System.out.println("ERROR: AI not loaded properly -- Command name given: " + aiJson.get("Type"));
             return null;
         }
-    }
-
-    private List<ControllerAction> loadPlayerControllerActions() {
-        // TODO
-        return new ArrayList<>();
     }
 
     private void setTransitionCommands() {

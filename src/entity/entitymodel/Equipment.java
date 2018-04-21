@@ -17,7 +17,7 @@ import java.util.*;
  */
 public class Equipment implements Visitable {
 
-    private final int defaultWeaponsSize = 5;
+    private static final int defaultWeaponsSize = 5;
 
     private Map <EquipSlot, WearableItem> wearables;
     private WeaponItem[] weapons;
@@ -172,4 +172,7 @@ public class Equipment implements Visitable {
         }
     }
 
+    public static int getDefaultWeaponsSize(){
+        return defaultWeaponsSize;
+    }
 }
