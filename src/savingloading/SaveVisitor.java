@@ -509,6 +509,10 @@ public class SaveVisitor implements Visitor {
     @Override
     public void visitOverWorldTile(OverWorldTile overWorldTile) {
         addTile(overWorldTile);
+        if(overWorldTile.getEncounter() != null) {
+            overWorldTile.getEncounter().accept(this);
+            currentTileJson.put("Encounter", itemJsonsQueue.remove());
+        }
     }
 
     @Override
@@ -520,7 +524,6 @@ public class SaveVisitor implements Visitor {
     private void addTile(Tile tile){
         currentTileJson = new JSONObject();
         Collection<MoveLegalityChecker> mlcs = tile.getMoveLegalityCheckers();
-        // TODO: will the enitity on the Tile be in the entity variable and MLC Collection?
         for (MoveLegalityChecker mlc : mlcs){
             mlc.accept(this);
         }

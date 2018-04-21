@@ -271,6 +271,7 @@ public class LoadingParser {
             JSONObject tileJson = (JSONObject) tileJsonObj;
             Coordinate coordinate = new Coordinate(tileJson.getInt("X"), tileJson.getInt("Y"));
             Set<MoveLegalityChecker> moveLegalityCheckers = new HashSet<>();
+            EntityImpactor entityImpactor = null;
             Terrain terrain = null;
             if (tileJson.has("Terrain")){
                 terrain = loadTerrain(tileJson.getString("Terrain"));
@@ -278,7 +279,16 @@ public class LoadingParser {
             if (tileJson.has("Obstacle")){
                 moveLegalityCheckers.add(new Obstacle());
             }
-            tiles.put(coordinate, new OverWorldTile(moveLegalityCheckers, terrain, null));
+            OverWorldTile tile;
+            if (tileJson.has("Encounter")){
+                JSONObject encounterJson = tileJson.getJSONObject("Encounter");
+                entityImpactor = new InteractiveItem(encounterJson.getString("Name"), loadCommand(encounterJson.getJSONObject("Command")));
+                tile = new OverWorldTile(moveLegalityCheckers, terrain, null, entityImpactor);
+            }
+            else{
+                tile = new OverWorldTile(moveLegalityCheckers, terrain, null);
+            }
+            tiles.put(coordinate, tile);
         }
         return tiles;
     }
@@ -568,7 +578,7 @@ public class LoadingParser {
     }
 
     private ParalyzeCommand loadParalyzeCommand(JSONObject commandJson) {
-        // TODO: need to save? Entity caster is issue
+        
         return null;
     }
 
@@ -687,8 +697,7 @@ public class LoadingParser {
             transitionCommand.setTargetWorld(world);
             transitionCommand.setStartingCoordinate(coordinate);
             transitionCommand.setTransitionObserver(game);
-            Tile tile = world.getTileForCoordinate(coordinate);
-            // TODO: add transitionCommand to tile
+            // since transitionCommands are in items,
         }
     }
 
