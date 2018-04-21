@@ -2,6 +2,7 @@ package gameview;
 
 import entity.entitycontrol.controllerActions.*;
 import entity.entitymodel.Entity;
+import entity.entitymodel.MovementObserver;
 import gameview.util.ImageMaker;
 import guiframework.DisplayPanel;
 import guiframework.displayable.ColoredRectDisplayable;
@@ -22,7 +23,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class GamePanel extends DisplayPanel implements ControllerActionVisitor, TransitionObserver
+public class GamePanel extends DisplayPanel implements ControllerActionVisitor, TransitionObserver, MovementObserver
 {
     private GameDisplayState gameDisplayState;
 
@@ -145,6 +146,12 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor, 
 
         timer.start();
 
+        resetCamera();
+    }
+
+    @Override
+    public void notifyMovement()
+    {
         resetCamera();
     }
 

@@ -82,6 +82,16 @@ public class ImageMaker
         return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/interactives/transitionitem.png"), ITEM_HEIGHT);
     }
 
+    public static Displayable makeEncounterDisplayable1()
+    {
+        return new ImageDisplayable(new Point(8, 8), loadImage("assets/items/interactives/encounter1.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeEncounterDisplayable2()
+    {
+        return new ImageDisplayable(new Point(8, 8), loadImage("assets/items/interactives/encounter2.png"), ITEM_HEIGHT);
+    }
+
 
     // Todo: split BufferedImage creation off into a separate class
     public static BufferedImage makeBorderedHex(Color color)
