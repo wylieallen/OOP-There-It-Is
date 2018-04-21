@@ -6,6 +6,7 @@ import maps.entityimpaction.EntityImpactor;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import maps.trajectorymodifier.TrajectoryModifier;
+import maps.world.Game;
 import savingloading.Visitor;
 import utilities.Coordinate;
 import utilities.Vector;
@@ -47,9 +48,13 @@ public class LocalWorldTile extends Tile {
     @Override
     public void do_update(Map<Coordinate, Tile> map) {
         super.do_update(map);
+
+        trajectoryModifiers.removeIf(GameObject::expired);
+        entityImpactors.removeIf(GameObject::expired);
+
         trajectoryModifiers.forEach(GameObject::update);
         entityImpactors.forEach(GameObject::update);
-        //TODO: add logic to check if each TM and EI expired
+
     }
 
     @Override

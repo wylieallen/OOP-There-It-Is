@@ -53,13 +53,16 @@ public abstract class Tile implements GameObjectContainer, Visitable {
     public Collection<MoveLegalityChecker> getMoveLegalityCheckers() { return moveLegalityCheckers; }
 
     public void do_update(Map <Coordinate, Tile> map) {
+        moveLegalityCheckers.removeIf(GameObject::expired);
+        if(entity != null && entity.expired()) {
+            entity = null;
+        }
+
         moveLegalityCheckers.forEach(MoveLegalityChecker::update);
 
         if (entity != null) {
             entity.update(map);
         }
-
-        //TODO: add logic to check if each MLC expired
     }
 
     protected abstract void do_moves(Collection<MoveLegalityChecker> updated);
