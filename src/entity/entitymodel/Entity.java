@@ -423,4 +423,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         controller.updateSpawnObservers(oldObserver, newObserver);
     }
 
+    public void addCompatibleTerrain(Terrain t) {
+        stats.addCompatibleTerrain(t);
+    }
+
 }

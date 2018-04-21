@@ -38,6 +38,7 @@ public class GameViewMaker
 {
     private Map<GameObject, Displayable> spriteMap;
     private Map<World, WorldDisplayable> worldDisplayableMap;
+    private Entity player;
 
     public GameViewMaker()
     {
@@ -56,23 +57,22 @@ public class GameViewMaker
 
         // Manual approach:
 
-        OverWorldTile tile = new OverWorldTile(new HashSet<>(), Terrain.GRASS, null);
+        OverWorldTile tile = new OverWorldTile(new HashSet<>(), Terrain.SPACE, null);
         overworldMap.put(new Coordinate(0, 0), tile);
 
-        OverWorldTile tile2 = new OverWorldTile(new HashSet<>(), Terrain.WATER, null);
+        /*OverWorldTile tile2 = new OverWorldTile(new HashSet<>(), Terrain.WATER, null);
         overworldMap.put(Direction.NE.getOffsetCoordinate(), tile2);
 
         OverWorldTile tile3 = new OverWorldTile(new HashSet<>(), Terrain.MOUNTAIN, null);
-
-        overworldMap.put(Direction.S.getOffsetCoordinate(), tile3);
+        overworldMap.put(Direction.S.getOffsetCoordinate(), tile3);*/
 
 
         // expandOverworld approach:
 
-        expandOverworld(overworldMap, Terrain.GRASS);
-        expandOverworld(overworldMap, Terrain.GRASS);
-        expandOverworld(overworldMap, Terrain.WATER);
-        expandOverworld(overworldMap, Terrain.WATER);
+        for(int i = 0; i < 8; ++i){
+            expandOverworld(overworldMap, Terrain.SPACE);
+        }
+
         /*
         expandOverworld(overworldMap, Terrain.GRASS);
         expandOverworld(overworldMap, Terrain.GRASS);
@@ -128,6 +128,7 @@ public class GameViewMaker
         */
 
         Entity player = new Entity();
+        player.addCompatibleTerrain(Terrain.SPACE);
         player.setMovementObserver(panel);
 
         Coordinate npcLoc = new Coordinate(-2, 0);
@@ -136,20 +137,14 @@ public class GameViewMaker
         WeaponItem w = new WeaponItem ("Bob", false, 3, 1, SkillType.TWOHANDEDWEAPON, 5, 1, 1, InfluenceType.CIRCULARINFLUENCE, skill);
         npc.getController().getEquipment().add(w);
 
-        spriteMap.put(player, ImageMaker.makeEntityDisplayable(player));
-        spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
-
         //tile.setEntity(player);
 
         overworldMap.get(new Coordinate(2, 1)).setEntity(player);
-        overworldMap.get(npcLoc).setEntity(npc);
+        spriteMap.put(player, ImageMaker.makeEntityDisplayable(player));
 
         System.out.println("Tiles in overworld: " + overworldMap.keySet().size());
 
         OverWorld overworld = new OverWorld(overworldMap);
-
-        //must add overworld as observer
-        w.registerObserver(overworld);
 
         WorldDisplayable overworldDisplayable = new WorldDisplayable(new Point(0, 0), 0, overworld);
         worldDisplayableMap.put(overworld, overworldDisplayable);
@@ -170,13 +165,13 @@ public class GameViewMaker
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), player.getControllerActions(), panel));
 
         //setup world transitions
-        InteractiveItem localWorld1Entrance = new InteractiveItem("Teleporter", new TransitionCommand(localWorldsList.get(0), new Coordinate(0, 0), game));
-        spriteMap.put(localWorld1Entrance, ImageMaker.makeTeleporterDisplayable());
+        InteractiveItem localWorld1Entrance = new InteractiveItem("Encounter 1", new TransitionCommand(localWorldsList.get(0), new Coordinate(0, 0), game));
+        spriteMap.put(localWorld1Entrance, ImageMaker.makeEncounterDisplayable1());
         overworld.getTile(new Coordinate(1, -2)).setEncounter(localWorld1Entrance);
 
         InteractiveItem localWorld1Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
         spriteMap.put(localWorld1Exit, ImageMaker.makeTeleporterDisplayable());
-        localWorldsList.get(0).getTile(new Coordinate(-5, -5)).addEI(localWorld1Exit);
+        localWorldsList.get(0).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exit);
 
         return new GameDisplayState(panel.getSize(), game, spriteMap, worldDisplayableMap, overworld);
     }
@@ -226,17 +221,28 @@ public class GameViewMaker
 
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
 
-        for(int i = -5; i <= 5; ++i) {
-            for(int j = -5; j <= 5; ++j) {
-                tiles.put(new Coordinate(i, j),
-                        new LocalWorldTile(
-                                new HashSet<>(), Terrain.GRASS,null, new HashSet<>(), new HashSet<>()
-                        )
-                );
+        for(int x = -10; x <= 10; ++x) {
+            for(int z = -10; z <= 10; ++z) {
+                tiles.put(new Coordinate(x, z), new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>()));
             }
         }
 
         LocalWorld world = new LocalWorld(tiles, new HashSet<>());
+
+        //Add npc
+        Coordinate npcLoc = new Coordinate(-2, 0);
+        Entity npc = createNPC (npcLoc, player, true);
+        npc.addCompatibleTerrain(Terrain.SPACE);
+
+        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, 5, 10, new ModifyHealthCommand(-2), new ModifyHealthCommand(2));
+        WeaponItem w = new WeaponItem ("Bob", false, 3, 1, SkillType.TWOHANDEDWEAPON, 5, 1, 1, InfluenceType.CIRCULARINFLUENCE, skill);
+        npc.getController().getEquipment().add(w);
+        //must add overworld as observer
+        w.registerObserver(world);
+
+        world.getTile(npcLoc).setEntity(npc);
+
+        spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
 
         return world;
     }
