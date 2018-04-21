@@ -3,11 +3,12 @@ package entity.entitycontrol.AI;
 import entity.entitymodel.Entity;
 import entity.entitymodel.interactions.EntityInteraction;
 import maps.tile.Direction;
-import maps.tile.LocalWorldTile;
+import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 public class FriendlyAI extends AI {
 
@@ -21,12 +22,13 @@ public class FriendlyAI extends AI {
     }
 
     @Override   // e is my entity
-    public void nextAction(Map<Coordinate, LocalWorldTile> map, Entity e, Coordinate location) {
+    public void nextAction(Map <Coordinate, Tile> map, Entity e, Coordinate location) {
 
         //TODO: make the entity allow for interactions with other entities
 
-        if (!hasPath() || location.equals(lastLocation)) {
+        if (!hasPath() || getNextDirection(location) == Direction.NULL) {
             Coordinate end = getNextCoordinate (map.keySet(), e);
+            System.out.println("end: x = " + end.x() + " y = " + end.y());
             setPath(location, end, e.getCompatibleTerrains(), map);
             hasPath = true;
         }

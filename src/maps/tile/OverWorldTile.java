@@ -1,13 +1,18 @@
 package maps.tile;
 
 import entity.entitymodel.Entity;
-import maps.entityimpaction.EntityImpactor;
-import maps.movelegalitychecker.MoveLegalityChecker;
 import gameobject.GameObject;
+import maps.movelegalitychecker.MoveLegalityChecker;
+import maps.entityimpaction.EntityImpactor;
 import maps.movelegalitychecker.Terrain;
 import savingloading.Visitor;
+import utilities.Coordinate;
 import utilities.Vector;
-import java.util.*;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 
 public class OverWorldTile extends Tile {
@@ -32,8 +37,8 @@ public class OverWorldTile extends Tile {
     }
 
     @Override
-    public void do_update() {
-        super.do_update();
+    public void do_update(Map<Coordinate, Tile> map) {
+        super.do_update(map);
     }
 
     @Override

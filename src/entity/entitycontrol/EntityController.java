@@ -6,14 +6,15 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
-import gameobject.GameObjectContainer;
-import maps.world.Game;
-import spawning.SpawnObserver;
+import maps.tile.Tile;
 import savingloading.Visitable;
-import savingloading.Visitor;
+import spawning.SpawnObserver;
 import utilities.Coordinate;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public abstract class EntityController implements Visitable{
 
@@ -31,6 +32,8 @@ public abstract class EntityController implements Visitable{
         this.equipment = equipment;
         this.entityLocation = entityLocation;
         this.actions = actions;
+        if (this.actions == null)
+            this.actions = new ArrayList<>();
     }
 
 
@@ -44,6 +47,9 @@ public abstract class EntityController implements Visitable{
     public abstract void notifyLevelUp(Entity e);
     public abstract void notifyMainMenu(Entity e);
 
+    // used to update ai;
+    public abstract void updateMap (Map <Coordinate, Tile> map);
+
     public abstract void enrage(Entity e);
     public abstract void pacify();
 
@@ -53,13 +59,13 @@ public abstract class EntityController implements Visitable{
 
     //this is the functionality all entity controllers need
 
-    public final void update(Map<Coordinate, GameObjectContainer> mapOfContainers){
+    public final void update(Map<Coordinate, Tile> mapOfContainers){
         boolean found = false;
 
         //find the entity in the map and set his location
         Collection<GameObject> gameObjectList;
         //iterate through all the entries in the map of GameObjectContainers
-        for(Map.Entry<Coordinate, GameObjectContainer> container : mapOfContainers.entrySet()){
+        for(Map.Entry<Coordinate, Tile> container : mapOfContainers.entrySet()){
             gameObjectList = container.getValue().getGameObjects();
             //iterate through all the gameObjects in each gameObjectContainer
             for(GameObject gameObject : gameObjectList){
@@ -77,8 +83,6 @@ public abstract class EntityController implements Visitable{
         for(ControllerAction action : actions){
             action.update();
         }
-
-
 
     }
 

@@ -1,19 +1,18 @@
 package maps.world;
 
 import entity.entitymodel.Entity;
-import gameobject.GameObjectContainer;
 import gameobject.GameObject;
+import gameobject.GameObjectContainer;
 import maps.Influence.InfluenceArea;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.tile.Direction;
-import savingloading.Visitor;
-import spawning.SpawnObserver;
 import maps.tile.LocalWorldTile;
 import maps.tile.Tile;
+import savingloading.Visitor;
 import utilities.Coordinate;
 
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -58,7 +57,7 @@ public class LocalWorld implements World {
             IA.update(tiles);
         }
         for(LocalWorldTile tile: tiles.values()) {
-            tile.do_update();
+            tile.do_update(getTileMap ());
         }
     }
 
@@ -128,6 +127,15 @@ public class LocalWorld implements World {
 
     public Map<Coordinate, LocalWorldTile> getTiles() {
         return tiles;
+    }
+
+    @Override
+    public Map <Coordinate, Tile> getTileMap () {
+        HashMap<Coordinate, Tile> temp = new HashMap<>();
+        for (Coordinate c : tiles.keySet()) {
+            temp.put (c, tiles.get(c));
+        }
+        return temp;
     }
 
     @Override

@@ -3,7 +3,7 @@ package entity.entitycontrol.AI;
 import entity.entitymodel.Entity;
 import entity.entitymodel.interactions.EntityInteraction;
 import maps.tile.Direction;
-import maps.tile.LocalWorldTile;
+import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
 
@@ -31,7 +31,7 @@ public class PetAI extends AI {
     }
 
     @Override
-    public void nextAction(Map<Coordinate, LocalWorldTile> map, Entity e, Coordinate location) {
+    public void nextAction(Map<Coordinate, Tile> map, Entity e, Coordinate location) {
 
         if (master != null) {
             Coordinate mastersPosition = findMaster(map);
@@ -45,12 +45,7 @@ public class PetAI extends AI {
                 setPath(location, mastersPosition, e.getCompatibleTerrains(), map);
                 hasPath = true;
             } else if (!hasPath || myLastPosition.equals(location)) {
-                Coordinate targetPosition = findItem(map, location);
-
-                if (targetPosition == null) {
-                    targetPosition = getNextCoordinate(map.keySet(), e);
-                }
-
+                Coordinate targetPosition = getNextCoordinate(map.keySet(), e);
                 setPath(location, targetPosition, e.getCompatibleTerrains(), map);
                 hasPath = true;
             }
@@ -65,24 +60,7 @@ public class PetAI extends AI {
 
     }
 
-    private Coordinate findItem(Map<Coordinate, LocalWorldTile> map, Coordinate myLocation) {
-
-        List <Coordinate> points = new ArrayList<>();
-
-        for (Direction d : Direction.values()) {
-            points.add(myLocation.getNeighbor(d));
-        }
-
-        for (Coordinate c : points) {
-            if (map.containsKey(c) && map.get (c).hasImpactor()) {
-                return c;
-            }
-        }
-
-        return null;
-    }
-
-    private Coordinate findMaster (Map <Coordinate, LocalWorldTile> map) {
+    private Coordinate findMaster (Map <Coordinate, Tile> map) {
         for (Coordinate c : map.keySet()) {
             if (map.get(c).has(master)) {
                 return c;
@@ -92,7 +70,7 @@ public class PetAI extends AI {
         return mastersLastPosition;
     }
 
-    private Coordinate findNewMaster (Map <Coordinate, LocalWorldTile> map) {
+    private Coordinate findNewMaster (Map <Coordinate, Tile> map) {
 
         List <Coordinate> points = new ArrayList<>();
 

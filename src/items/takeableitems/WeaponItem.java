@@ -58,7 +58,6 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
         int skillLevel = attacker.getSkillLevel(requiredSkill);
         command.setLevel(skillLevel);
         boolean canAttack = attacker.tryToAttack(attackSpeed);
-
         if(canAttack) {
             ArrayList<GameObject> whitelist = new ArrayList<>();
             whitelist.add(attacker);

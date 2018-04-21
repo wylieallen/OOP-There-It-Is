@@ -2,7 +2,7 @@ package entity.entitycontrol.AI.aiutilities;
 
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
-import maps.tile.LocalWorldTile;
+import maps.tile.Tile;
 import utilities.Coordinate;
 import utilities.Vector;
 
@@ -29,7 +29,7 @@ public class PathFinder {
         }
     }
 
-    public static HashMap <Coordinate, Direction> createLocalPath (Coordinate start, Coordinate end, Set <Terrain> compatibleTerrains, Map <Coordinate, LocalWorldTile> map) {
+    public static HashMap <Coordinate, Direction> createLocalPath (Coordinate start, Coordinate end, Set <Terrain> compatibleTerrains, Map <Coordinate, Tile> map) {
         HashMap <Coordinate, Coordinate> path = new HashMap<>();
         Queue <pathItem> Q = new LinkedList<>();
 
@@ -67,7 +67,7 @@ public class PathFinder {
         return getDirectionsFromPath (end, path, map);
     }
 
-    private static HashMap <Coordinate, Direction> getDirectionsFromPath (Coordinate end, Map <Coordinate, Coordinate> path, Map <Coordinate, LocalWorldTile> map) {
+    private static HashMap <Coordinate, Direction> getDirectionsFromPath (Coordinate end, Map <Coordinate, Coordinate> path, Map <Coordinate, Tile> map) {
 
         HashMap <Coordinate, Direction> finalPath = new HashMap<>();
 
@@ -85,7 +85,7 @@ public class PathFinder {
         return finalPath;
     }
 
-    private static boolean isCompatible (Set <Terrain> compatiblle, LocalWorldTile tile) {
+    private static boolean isCompatible (Set <Terrain> compatiblle, Tile tile) {
 
         if (tile != null) {
             for (Terrain t : compatiblle) {
@@ -96,13 +96,6 @@ public class PathFinder {
         }
 
         return false;
-    }
-
-    // TODO can use this to take into account for rivers!!!
-    private static Direction updateDirectionForTrajectoryEffects (Coordinate from, Coordinate to, Map <Coordinate, LocalWorldTile> map) {
-
-
-        return Direction.NULL;
     }
 
     // get direction from start to end

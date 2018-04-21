@@ -50,6 +50,16 @@ public class Coordinate implements Comparable<Coordinate> {
         return Math.max( dx, Math.max(dy, dz) );
     }
 
+    public Direction direction (Coordinate toThis) {
+
+        if (this.equals(toThis)) return Direction.NULL;
+
+        Coordinate diff = new Coordinate(toThis.x () - this.x (), toThis.z () - this.y ());
+        int magnitude = this.distance(toThis);
+        Coordinate unitdiff = new Coordinate(diff.x()/magnitude, diff.z()/magnitude);
+        return Vector.getDirection(unitdiff);
+    }
+
     @Override
     public int compareTo(Coordinate other) {
         if(x() == other.x() && z() == other.z()) {

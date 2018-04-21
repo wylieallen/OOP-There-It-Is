@@ -3,7 +3,7 @@ package entity.entitycontrol.AI;
 import entity.entitymodel.Entity;
 import entity.entitymodel.interactions.EntityInteraction;
 import maps.tile.Direction;
-import maps.tile.LocalWorldTile;
+import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
 import utilities.Vector;
@@ -25,7 +25,7 @@ public class PatrolAI extends AI {
     }
 
     @Override
-    public void nextAction(Map<Coordinate, LocalWorldTile> map, Entity e, Coordinate location) {
+    public void nextAction(Map <Coordinate, Tile> map, Entity e, Coordinate location) {
         //TODO make it follow and patrol a route
 
         Direction face;

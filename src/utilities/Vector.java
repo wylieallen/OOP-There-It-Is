@@ -98,6 +98,10 @@ public class Vector {
         return dx() == 0 && dy() == 0 && dz() == 0;
     }
 
+    public static Direction getDirection (Coordinate offset) {
+        return axialToDirection.getOrDefault(offset, Direction.NULL);
+    }
+
     @Override
     public boolean equals(Object other) {
         if(!(other instanceof Vector))

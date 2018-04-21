@@ -116,6 +116,8 @@ public class Equipment implements Visitable {
         } else if (index >= weapons.length) {
             System.out.println("Cannot use weapon index of " + index);
             assert false;
+        } else if (weapons [index] == null) {
+            System.out.println("No Weapon at index: " + index);
         }
 
     }
