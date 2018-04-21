@@ -52,9 +52,6 @@ public class InteractionTests {
         EntityStats acteeStats = new EntityStats(skillsActee, 3, 120, 45, 120, 43, 5, 23, 8, 6, 69, 100, false, false, new HashSet<>());
 
         //TODO: once concrete ControllerActions are made test this;
-        ArrayList<ControllerAction> actorActions = new ArrayList<>();
-        ArrayList<ControllerAction> acteeActions = new ArrayList<>();
-
         ArrayList<TimedEffect> actorEffects = new ArrayList<>();
         ArrayList<TimedEffect> acteeEffects = new ArrayList<>();
 

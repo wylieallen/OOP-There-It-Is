@@ -119,6 +119,9 @@ public class TrapTests {
         entity.setFacing(Direction.N);
         entity.setMoving();
 
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {}
         world.update();
 
         for(int i = 0; i < 5; ++i) {
@@ -138,6 +141,14 @@ public class TrapTests {
 
         entity.setFacing(Direction.N);
         entity.setMoving();
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {}
+        world.update();
+
+        try {
+            Thread.sleep(500);
+        } catch(Exception e) {}
         world.update();
 
         Assert.assertTrue(trap.hasFired());
