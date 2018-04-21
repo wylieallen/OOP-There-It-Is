@@ -102,9 +102,19 @@ public class ImageMaker
         return new ImageDisplayable(new Point(22, 5), loadImage("assets/entities/shopkeeper.png"), ENTITY_HEIGHT);
     }
 
-    public static Displayable makeTeleporterDisplayable()
+    public static Displayable makeConsumableDisplayable1()
     {
-        return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/interactives/transitionitem.png"), ITEM_HEIGHT);
+        return new ImageDisplayable(new Point(8, 8), loadImage("assets/items/consumables/consumable1.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeConsumableDisplayable2()
+    {
+        return new ImageDisplayable(new Point(8, 8), loadImage("assets/items/consumables/consumable2.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeConsumableDisplayable3()
+    {
+        return new ImageDisplayable(new Point(8, 8), loadImage("assets/items/consumables/consumable3.png"), ITEM_HEIGHT);
     }
 
     public static Displayable makeEncounterDisplayable1()
@@ -115,6 +125,56 @@ public class ImageMaker
     public static Displayable makeEncounterDisplayable2()
     {
         return new ImageDisplayable(new Point(8, 8), loadImage("assets/items/interactives/encounter2.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeTeleporterDisplayable()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/interactives/transitionitem.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeBrawlingWeaponDisplayable()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/takeables/brawlingweapon.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeGadgetDisplayable1()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/takeables/gadget1.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeGadgetDisplayable2()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/takeables/gadget2.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeGadgetDisplayable3()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/takeables/gadget3.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeGadgetDisplayable4()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/takeables/gadget4.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeGadgetDisplayable5()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/takeables/gadget5.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeLaserSwordDisplayable()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/takeables/lasersword.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeRangedWeaponDisplayable()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/takeables/rangedweapon.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeTwoHandedWeaponDisplayable()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/takeables/twohandedweapon.png"), ITEM_HEIGHT);
     }
 
 

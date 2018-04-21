@@ -72,7 +72,8 @@ public class GameDisplayState extends DisplayState
         playerInventory.add(new StringDisplayable(new Point(4, 16), "Player Inventory:", Color.BLACK, 1));
 
         // Todo: base this off the Inventory/Equipment's actual max size
-        int numInventorySlots = 8;
+//        int numInventorySlots = 8;
+        int numInventorySlots = 0; // made it zero for now to stop null item assert error
         for(int i = 0; i < numInventorySlots; i++)
         {
             int index = i;

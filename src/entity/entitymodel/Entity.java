@@ -32,7 +32,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     private Direction facing;
     private Vector movementVector;
     private EntityStats stats;
-    private List<ControllerAction> actions;//whenever an action gets added to this we need to notify the EntityController to add the same action
+    private List<ControllerAction> actions = new ArrayList<>();//whenever an action gets added to this we need to notify the EntityController to add the same action
     private List<TimedEffect> effects;
     private List <EntityInteraction> actorInteractions;
     private List <EntityInteraction> acteeInteractions;
