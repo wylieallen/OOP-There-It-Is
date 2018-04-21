@@ -8,6 +8,7 @@ import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.OverWorldTile;
 import maps.tile.Tile;
+import maps.world.Game;
 import maps.world.OverWorld;
 import org.junit.Assert;
 import org.junit.Test;
@@ -124,6 +125,10 @@ public class OverWorldTests {
             }
         }
 
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
         world.update();
@@ -139,6 +144,10 @@ public class OverWorldTests {
             }
         }
 
+        try {
+            Thread.sleep(600);
+        } catch (Exception e) {}
+        Game.updateGameTime();
         entity.setFacing(Direction.NE);
         entity.setMoving();
         world.update();
