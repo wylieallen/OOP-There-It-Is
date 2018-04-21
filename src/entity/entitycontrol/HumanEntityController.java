@@ -26,8 +26,10 @@ public class HumanEntityController extends EntityController{
             action.accept(view);
         }
 
-        view.setFocusable(true);
-        view.requestFocus();
+        if(view != null) {
+            view.setFocusable(true);
+            view.requestFocus();
+        }
     }
 
 
