@@ -46,10 +46,10 @@ public abstract class AI implements Visitable {
 
         path = PathFinder.createLocalPath (start, end, compatible, map);
 
-        for (Coordinate c : path.keySet()) {
+        /*for (Coordinate c : path.keySet()) {
             System.out.println("x: " + c.x() + " z: " + c.z());
         }
-        System.out.println();
+        System.out.println();*/
     }
 
     protected Coordinate getNextCoordinate (Set<Coordinate> points, Entity e) {
