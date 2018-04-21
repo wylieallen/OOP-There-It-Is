@@ -33,7 +33,7 @@ public class InteractiveItemTests {
         }
         LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
-        EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
+        EntityStats entityStats = new EntityStats(new HashMap<>(), 1001, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false);
         entityStats.addCompatibleTerrain(Terrain.GRASS);
@@ -76,9 +76,6 @@ public class InteractiveItemTests {
         entity.setFacing(Direction.N);
         entity.setMoving();
 
-        try {
-            Thread.sleep(500);
-        } catch(Exception e) {}
         game.update();
 
         for(int i = 0; i < 5; ++i) {

@@ -100,7 +100,7 @@ public class LocalWorldTests {
         }
         LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
-        EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
+        EntityStats entityStats = new EntityStats(new HashMap<>(), 1001, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
         entityStats.addCompatibleTerrain(Terrain.GRASS);
@@ -125,9 +125,6 @@ public class LocalWorldTests {
             }
         }
 
-        try {
-            Thread.sleep(600);
-        } catch (Exception e) {}
         Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
@@ -144,9 +141,6 @@ public class LocalWorldTests {
             }
         }
 
-        try {
-            Thread.sleep(600);
-        } catch (Exception e) {}
         Game.updateGameTime();
         entity.setFacing(Direction.NE);
         entity.setMoving();
@@ -176,7 +170,7 @@ public class LocalWorldTests {
         }
         LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
-        EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
+        EntityStats entityStats = new EntityStats(new HashMap<>(), 1001, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
         entityStats.addCompatibleTerrain(Terrain.GRASS);
@@ -190,7 +184,7 @@ public class LocalWorldTests {
 
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
-        River river = new River(new Vector(Direction.N, 2));
+        River river = new River(new Vector(Direction.N, 1001));
         tiles.get(new Coordinate(2, 2)).addTM(river);
 
         for(int i = 0; i < 5; ++i) {
@@ -204,9 +198,6 @@ public class LocalWorldTests {
             }
         }
 
-        try {
-            Thread.sleep(600);
-        } catch (Exception e) {}
         Game.updateGameTime();
         entity.setFacing(Direction.S);
         entity.setMoving();
@@ -236,12 +227,9 @@ public class LocalWorldTests {
             }
         }
 
-        river = new River(new Vector(Direction.S, 5));
+        river = new River(new Vector(Direction.S, 3001));
         tiles.get(new Coordinate(2, 1)).addTM(river);
 
-        try {
-            Thread.sleep(600);
-        } catch (Exception e) {}
         Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
@@ -258,9 +246,6 @@ public class LocalWorldTests {
             }
         }
 
-        try {
-            Thread.sleep(600);
-        } catch (Exception e) {}
         Game.updateGameTime();
         entity.setFacing(Direction.SE);
         entity.setMoving();

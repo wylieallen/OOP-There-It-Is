@@ -34,7 +34,7 @@ public class OneshotItemTests {
         }
         LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
-        EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
+        EntityStats entityStats = new EntityStats(new HashMap<>(), 1001, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false);
         entityStats.addCompatibleTerrain(Terrain.GRASS);
@@ -56,9 +56,6 @@ public class OneshotItemTests {
         entity.setMoving();
         entity.hurtEntity(20);
 
-        try {
-            Thread.sleep(500);
-        } catch (Exception e) {}
         Game.updateGameTime();
         world.update();
 
