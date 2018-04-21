@@ -49,7 +49,7 @@ import java.util.*;
 public class SaveVisitor implements Visitor {
 
     private String fileName;
-    private JSONObject saveFileJson = new JSONObject();
+    public JSONObject saveFileJson = new JSONObject();
     private JSONObject playerJson = new JSONObject();
     private JSONObject overWorldJson = new JSONObject();
     private List<JSONObject> localWorldJsons = new ArrayList<>();
@@ -369,7 +369,7 @@ public class SaveVisitor implements Visitor {
         weaponItemJson.put("Name", w.getName());
         weaponItemJson.put("OnMap", w.isOnMap());
         w.getCommand().accept(this);
-        weaponItemJson.put("Command", currentCommandJson);
+        weaponItemJson.put("SkillCommand", currentSkillCommandJson);
         weaponItemJson.put("Damage", w.getDamage());
         weaponItemJson.put("AttackSpeed", w.getAttackSpeed());
         weaponItemJson.put("MaxRadius", w.getMaxRadius());
@@ -497,7 +497,7 @@ public class SaveVisitor implements Visitor {
 
     public void visitSkillCommand(SkillCommand skillCommand) {
         currentSkillCommandJson = new JSONObject();
-        currentSkillCommandJson.put("SkillType", skillCommand.getSkillType());
+        currentSkillCommandJson.put("SkillType", skillCommand.getSkillType().name());
         currentSkillCommandJson.put("Level", skillCommand.getLevel());
         currentSkillCommandJson.put("Effectiveness", skillCommand.getEffectiveness());
         skillCommand.getSuccessCommand().accept(this);
@@ -643,6 +643,8 @@ public class SaveVisitor implements Visitor {
 
     @Override
     public void visitGame(Game g) {
+        saveFileJson = new JSONObject();
+
         visitEntity(g.getPlayer());
         visitOverWorld(g.getOverWorld());
         for (LocalWorld localWorld : g.getLocalWorlds())

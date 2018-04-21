@@ -544,7 +544,7 @@ public class LoadingParser {
                             itemJson.getLong("ExpansionInterval"),
                             itemJson.getLong("UpdateInterval"),
                             loadInfluenceType(itemJson.getString("InfluenceType")),
-                            loadSkillCommand(itemJson.getJSONObject("Command")));
+                            loadSkillCommand(itemJson.getJSONObject("SkillCommand")));
 
     }
 
@@ -561,7 +561,10 @@ public class LoadingParser {
     }
 
     private WearableItem loadWearableItem(JSONObject itemJson) {
-        return new WearableItem(itemJson.getString("Name"), itemJson.getBoolean("OnMap"),
+        if (itemJson.getString("Name").equals("NONE"))
+            return WearableItem.NONE;
+        else
+            return new WearableItem(itemJson.getString("Name"), itemJson.getBoolean("OnMap"),
                 loadReversibleCommand(itemJson.getJSONObject("ReversableCommand")), loadEquipType(itemJson.getString("EquipType")));
     }
 
@@ -591,7 +594,9 @@ public class LoadingParser {
     }
 
     private SkillCommand loadSkillCommand(JSONObject commandJson) {
-        return null;
+        return new SkillCommand(loadSkillType(commandJson.getString("SkillType")), commandJson.getInt("Level"),
+                commandJson.getInt("Effectiveness"), loadCommand(commandJson.getJSONObject("SuccessCommand")),
+                loadCommand(commandJson.getJSONObject("FailureCommand")));
     }
 
     private PickPocketCommand loadPickPocketCommand(JSONObject commandJson) {

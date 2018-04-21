@@ -3,6 +3,7 @@ package savingloading;
 import gameview.GamePanel;
 import gameview.GameViewMaker;
 import maps.world.Game;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.awt.*;
@@ -13,20 +14,24 @@ public class LoadingParserTest {
     @Test
     public void LoadingParserTest() throws FileNotFoundException {
 
-        // save a game
-        Visitor v = new SaveVisitor("test");
         GameViewMaker g = new GameViewMaker();
         g.makeGameDisplayState(new GamePanel(new Dimension()));
-        Game gameToSave = g.getGame();
-        gameToSave.accept(v);
+
+        // save a game
+        SaveVisitor v = new SaveVisitor("test");
+        Game game = g.getGame();
+        game.accept(v);
 
         // load the same game
         LoadingParser l = new LoadingParser();
         l.loadGame("test", new GamePanel(new Dimension()));
 
-        // check if the games match up
+        // save the game
         Game gameLoaded = l.getGame();
+        gameLoaded.accept(v);
 
-
+        // load the game again
+        LoadingParser l2 = new LoadingParser();
+        l2.loadGame("test", new GamePanel(new Dimension()));
     }
 }
