@@ -2,14 +2,18 @@ package entity.vehicle;
 
 import commands.TimedEffect;
 import entity.entitycontrol.controllerActions.ControllerAction;
+import entity.entitycontrol.controllerActions.DismountAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
+import gameobject.GameObjectContainer;
 import savingloading.Visitor;
+import utilities.Coordinate;
 import utilities.Vector;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dontf on 4/13/2018.
@@ -63,11 +67,17 @@ public class Vehicle extends Entity {
         if (!hasDriver()) {
             setDriver(actor);
             actor.setMount (this);
+            actor.addControllerAction(new DismountAction(actor, actor.getController()));
             // after mounting you interact with mount, maybe use item?
             return super.interact(actor);
         }
 
         return driver.interact(actor);
+    }
+
+    @Override
+    public void update(Map<Coordinate, GameObjectContainer> mapOfContainers) {
+        
     }
 
     private void setDriver (Entity driver) {

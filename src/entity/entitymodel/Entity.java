@@ -97,6 +97,12 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         this.actions = actions;
     }
 
+    // by refernece this will be added from controllers list as well
+    public void addControllerAction (ControllerAction action) { actions.add(action); }
+
+    // by refernece this will be removed from controllers list as well
+    public void removeControllerAction (ControllerAction action) { actions.remove(action); }
+
     public void setController(EntityController newController) {
         this.controller = newController;
     }
@@ -256,7 +262,6 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         inventory.remove(takeableItem);
     }
 
-    // TODO: remove and switch to pickpocket
     public TakeableItem getRandomItem () { return inventory.getRandomItem (); }
 
     public TakeableItem getItem (int index) { return inventory.select(index); }

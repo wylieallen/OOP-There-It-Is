@@ -68,7 +68,7 @@ public class CommandsTests {
 
     @Test
     public void testConfuseCommand() {
-        ConfuseCommand command = new ConfuseCommand(3);
+        ConfuseCommand command = new ConfuseCommand(0);
 
         command.trigger(target);
 
@@ -152,7 +152,7 @@ public class CommandsTests {
 
     @Test
     public void testParalyzeCommand() {
-        ParalyzeCommand command = new ParalyzeCommand(3);
+        ParalyzeCommand command = new ParalyzeCommand(0);
 
         Assert.assertEquals(2, target.getBaseMoveSpeed());
 

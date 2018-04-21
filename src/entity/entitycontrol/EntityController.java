@@ -7,13 +7,13 @@ import entity.entitymodel.Equipment;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
-import maps.world.Game;
-import spawning.SpawnObserver;
 import savingloading.Visitable;
-import savingloading.Visitor;
+import spawning.SpawnObserver;
 import utilities.Coordinate;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public abstract class EntityController implements Visitable{
 
