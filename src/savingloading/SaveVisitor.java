@@ -460,7 +460,6 @@ public class SaveVisitor implements Visitor {
             currentTileJson.put("Y", c.y());
             tilesJson.put(currentTileJson);
         }
-        // TODO: height and width?
     }
 
     public void visitLocalWorld(LocalWorld w){
@@ -476,7 +475,6 @@ public class SaveVisitor implements Visitor {
             currentTileJson.put("Y", c.y());
             tilesJson.put(currentTileJson);
         }
-        // TODO: height and width?
     }
 
     private String getLocalWorldID(int localWorldNumber){
@@ -535,6 +533,8 @@ public class SaveVisitor implements Visitor {
         JSONObject areaEffectJson = new JSONObject();
         areaEffectJson.put("Type", "Infinite");
         areaEffectJson.put("Name", infiniteAreaEffect.name());
+        areaEffectJson.put("TriggerInterval", infiniteAreaEffect.getTriggerInterval());
+        areaEffectJson.put("LastTriggerTime", infiniteAreaEffect.getLastTriggerTime());
         infiniteAreaEffect.getCommand().accept(this);
         areaEffectJson.put("Command", currentCommandJson);
         currentTileJson.put("AreaEffect", areaEffectJson);

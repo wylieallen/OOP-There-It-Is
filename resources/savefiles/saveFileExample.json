@@ -1,6 +1,7 @@
 {
   "Player": {
     "Type": "Player",
+    "Name": "Sneak",
     "InVehicle": false,
     "DirectionFacing": "N",
     "Stats": {
@@ -564,6 +565,7 @@
       "Entities":[
         {
           "Type": "Vehicle",
+          "Name": "Car",
           "InVehicle": false,
           "DirectionFacing": "N",
           "Stats": {
@@ -601,6 +603,7 @@
         },
         {
           "Type": "Friendly",
+          "Name": "ShopKeep",
           "InVehicle": false,
           "DirectionFacing": "N",
           "Stats": {

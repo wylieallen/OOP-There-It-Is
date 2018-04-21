@@ -24,6 +24,14 @@ public class InfiniteAreaEffect extends AreaEffect {
         }
     }
 
+    public long getTriggerInterval(){
+        return triggerInterval;
+    }
+
+    public long getLastTriggerTime(){
+        return lastTriggerTime;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitInfiniteAreaEffect(this);
