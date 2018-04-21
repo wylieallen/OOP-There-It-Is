@@ -128,6 +128,7 @@ public class GameViewMaker
         */
 
         Entity player = new Entity();
+        player.increaseBaseMoveSpeed(3);
         player.addCompatibleTerrain(Terrain.SPACE);
         player.setMovementObserver(panel);
 
