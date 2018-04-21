@@ -45,7 +45,6 @@ public class HostileAI extends AI {
             e.setFacing(location.direction(targetsLastPosition));
             e.setMoving();
             // TODO: this is terrible, replace when controller supports attack!!!
-            System.out.println("I is attacking!!!");
             e.getController().getEquipment().useWeaponItem(0, location);
         }
 

@@ -19,6 +19,7 @@ public class ModifyHealthCommand extends SkillCommand {
         } else {
             e.hurtEntity(-adjustedEffectiveness);
         }
+        System.out.println("hitting something for: " + adjustedEffectiveness);
     }
 
     @Override

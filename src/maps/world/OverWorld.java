@@ -116,7 +116,6 @@ public class OverWorld implements World {
     //throw away spawn events
     @Override
     public void notifySpawn(InfluenceArea IA, GameObject spawner) {
-
     }
 
     @Override
