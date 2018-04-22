@@ -6,6 +6,7 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import gameobject.GameObject;
 import maps.Influence.InfluenceArea;
+import maps.Influence.StaticInfluenceArea;
 import savingloading.Visitor;
 import maps.Influence.InfluenceType;
 import maps.Influence.expandingInfluenceArea;
@@ -20,7 +21,7 @@ import java.util.List;
 public class WeaponItem extends TakeableItem implements SpawnObservable {
 
     private int damage;
-    private int attackSpeed;
+    private long attackSpeed;
     private SkillType requiredSkill;
     private List<SpawnObserver> spawnObservers;
     private int maxRadius;
@@ -31,7 +32,7 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
     //TODO: remove damage attribute. Not needed because skill command contains damage amount
 
 
-    public WeaponItem(String name, boolean onMap, int damage, int attackSpeed,
+    public WeaponItem(String name, boolean onMap, int damage, long attackSpeed,
                       SkillType requiredSkill, int maxRadius, long expansionInterval,
                       long updateInterval, InfluenceType influenceType, SkillCommand command) {
         super(name, onMap);
@@ -56,6 +57,7 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
             return;
 
         int skillLevel = attacker.getSkillLevel(requiredSkill);
+        System.out.println("attack with skill level " + skillLevel);
         command.setLevel(skillLevel);
         boolean canAttack = attacker.tryToAttack(attackSpeed);
         if(canAttack) {
@@ -96,7 +98,7 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
         return damage;
     }
 
-    public int getAttackSpeed(){
+    public long getAttackSpeed(){
         return attackSpeed;
     }
 

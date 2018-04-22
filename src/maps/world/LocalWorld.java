@@ -9,12 +9,10 @@ import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
 import maps.tile.Tile;
 import savingloading.Visitor;
+import spawning.SpawnObservable;
 import utilities.Coordinate;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dontf on 4/14/2018.
@@ -41,7 +39,7 @@ public class LocalWorld implements World {
     }
 
     @Override
-    public void notifySpawn(InfluenceArea IA, GameObject spawner) {
+    public void notifySpawn(InfluenceArea IA, SpawnObservable spawner) {
         influenceAreas.add(IA);
     }
 
@@ -53,6 +51,7 @@ public class LocalWorld implements World {
     }
 
     private void updatePhase() {
+        influenceAreas.removeIf((InfluenceArea ia) -> ia.isExpired());
         for(InfluenceArea IA: influenceAreas) {
             IA.update(tiles);
         }
@@ -92,6 +91,19 @@ public class LocalWorld implements World {
         }
         return ret;
     }
+
+    @Override
+    public Map<Coordinate, GameObject> getInfluences() {
+        Map<Coordinate, GameObject> iaMap = new HashMap<Coordinate,GameObject>();
+        for(InfluenceArea ia : influenceAreas){
+            List<Coordinate> affectedCoords = ia.getAffectedCoordinates();
+            for(Coordinate coord : affectedCoords){
+                iaMap.put(coord,ia);
+            }
+        }
+        return iaMap;
+    }
+
 
     public LocalWorldTile getTile(Coordinate c) {
         return tiles.getOrDefault(c, null);

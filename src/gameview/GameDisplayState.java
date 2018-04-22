@@ -14,16 +14,20 @@ import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
 import guiframework.displayable.StringDisplayable;
 import items.takeableitems.TakeableItem;
+import maps.Influence.InfluenceArea;
 import maps.world.Game;
 import maps.world.World;
+import spawning.SpawnObservable;
+import spawning.SpawnObserver;
 import utilities.Coordinate;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public class GameDisplayState extends DisplayState
+public class GameDisplayState extends DisplayState implements SpawnObserver
 {
     private Dimension size;
     private PriorityQueue<Displayable> widgets;
@@ -31,6 +35,7 @@ public class GameDisplayState extends DisplayState
     private Point camera;
     private double zoom = 1.0;
     private static Map<GameObject, Displayable> spriteMap;
+    private static Map<SpawnObservable, Displayable> spriteSpawnerMap = new HashMap<SpawnObservable, Displayable>();
     private Map<World, WorldDisplayable> worlds;
     private WorldDisplayable activeWorldDisplayable;
 
@@ -73,7 +78,68 @@ public class GameDisplayState extends DisplayState
         widgets.add(playerInventory);
     }
 
+
+    public GameDisplayState(Dimension size, Game game, Map<GameObject, Displayable> spriteMap, Map<SpawnObservable, Displayable> spawnerMap, Map<World, WorldDisplayable> worlds, World initialWorld)
+    {
+        super();
+        this.size = size;
+        this.game = game;
+        GameDisplayState.spriteMap = spriteMap;
+        GameDisplayState.spriteSpawnerMap = spawnerMap;
+        for(SpawnObservable spawner : spriteSpawnerMap.keySet()){
+            spawner.registerObserver(this);
+        }
+        System.out.println("SpriteSpawnerMap" + spawnerMap.toString());
+        this.camera = new Point(0, 0);
+        this.worlds = worlds;
+        super.add(activeWorldDisplayable = worlds.get(initialWorld));
+
+        // Initialize GUI widgets:
+        this.widgets = new PriorityQueue<>();
+
+        CompositeDisplayable playerStatus = new CompositeDisplayable(new Point(16, 16), 1);
+        Entity player = game.getPlayer();
+        playerStatus.add(new ImageDisplayable(new Point(0, 0), ImageMaker.makeBorderedRect(128 + 32, 194, Color.WHITE), -1));
+        playerStatus.add(new StringDisplayable(new Point(4, 16), "Player Status:", Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 32), () -> "Health: " + player.getCurrHealth() + " / " + player.getMaxHealth(), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 48), () -> "Mana:   " + player.getCurMana() + " / " + player.getMaxMana(), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 64), () -> "Exp:    " + player.getCurXP(), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 80), () -> "Level:  " + player.getCurLevel(), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 96), () -> "Dir:    " + player.getFacing(), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 112),() -> "Vis:    " + player.getVisibilityRadius(), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 128),() -> "Cncl:   " + player.getConcealment(), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 144),() -> "Speed:  " + player.getBaseMoveSpeed(), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 160),() -> "Loc: " + game.getCoordinate(player), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 176),() -> "Vec: " + player.getMovementVector(), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 190),() -> "VecDir: " + player.getMovementDirection(), Color.BLACK, 1));
+        widgets.add(playerStatus);
+
+        CompositeDisplayable playerInventory = new CompositeDisplayable(new Point(16, 256), 1);
+        playerInventory.add(new ImageDisplayable(new Point(0, 0), ImageMaker.makeBorderedRect(128 + 32, 384, Color.WHITE), -1));
+        playerInventory.add(new StringDisplayable(new Point(4, 16), "Player Inventory:", Color.BLACK, 1));
+
+        // Todo: base this off the Inventory/Equipment's actual max size
+        int numInventorySlots = 8;
+        for(int i = 0; i < numInventorySlots; i++)
+        {
+            int index = i;
+            TakeableItem item = player.getItem(index);
+            String itemName = (item == null) ? "EMPTY" : item.getName();
+            playerInventory.add(new StringDisplayable(new Point(4, 32 + (i * 16)), () -> "Slot " + index + ": " + itemName, Color.BLACK, 1));
+        }
+        playerInventory.add(new StringDisplayable(new Point(4, 48 + (numInventorySlots * 16)), "Player Equipment:", Color.BLACK, 1));
+        Equipment equipment = player.getController().getEquipment();
+        int numEquipmentSlots = 4;
+        for(int i = 0; i < numEquipmentSlots; i++)
+        {
+            playerInventory.add(new StringDisplayable(new Point(4, 64 + (numInventorySlots * 16) + (i * 16)), "Slot " + i + ": ", Color.BLACK, 1));
+        }
+        widgets.add(playerInventory);
+    }
+
+
     public static Displayable getSprite(GameObject o) { return spriteMap.getOrDefault(o, ImageMaker.getNullDisplayable()); }
+
 
     public static void registerSprite(GameObject o, Displayable d) { spriteMap.put(o, d); }
 
@@ -124,4 +190,18 @@ public class GameDisplayState extends DisplayState
     public void setZoom(double zoom) { this.zoom = zoom; }
 
     public void setSize(Dimension size){ this.size.setSize(size);}
+
+    @Override
+    public void notifySpawn(InfluenceArea IA, SpawnObservable spawner) {
+        //find the iaSpawner in the spriteSpawnerMap and get the sprite that it is mapped to spawn
+        //make a new entry in the sprite map that maps the influenceArea to that sprite
+        spriteMap.put(IA,spriteSpawnerMap.get(spawner));
+
+    }
+
+    public void registerSpriteSpawner(SpawnObservable spawner, Displayable projectileSprite){
+        spriteSpawnerMap.put(spawner,projectileSprite);
+    }
+
+
 }

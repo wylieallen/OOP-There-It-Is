@@ -37,6 +37,14 @@ public class WorldDisplayable extends CompositeDisplayable
         {
             updateTileDisplayable(c, map.get(c));
         }
+
+        Map<Coordinate, GameObject> iaMap = world.getInfluences();
+        for(Coordinate c : iaMap.keySet()){
+            if(map.containsKey(c)){
+                tiles.get(map.get(c)).add(GameDisplayState.getSprite(iaMap.get(c)));
+            }
+        }
+
     }
 
     private void updateTileDisplayable(Coordinate c, GameObjectContainer t)

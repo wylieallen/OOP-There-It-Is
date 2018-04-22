@@ -17,6 +17,7 @@ import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
+import guiframework.displayable.ImageDisplayable;
 import items.InteractiveItem;
 import items.Item;
 import items.ItemFactory;
@@ -34,6 +35,8 @@ import maps.world.LocalWorld;
 import maps.world.OverWorld;
 import maps.world.World;
 import skills.SkillType;
+import spawning.SpawnObservable;
+import spawning.SpawnObserver;
 import utilities.Coordinate;
 import utilities.Vector;
 
@@ -44,6 +47,7 @@ import java.util.List;
 public class GameViewMaker
 {
     private Map<GameObject, Displayable> spriteMap;
+    private Map<SpawnObservable, Displayable> spawnerMap = new HashMap<SpawnObservable, Displayable>();
     private Map<World, WorldDisplayable> worldDisplayableMap;
     private Entity player;
 
@@ -143,10 +147,11 @@ public class GameViewMaker
         player.addToInventory(new QuestItem("Radio", false, 0));
 
         Coordinate npcLoc = new Coordinate(-2, 0);
-        Entity npc = createNPC (npcLoc, player, true, true);
-        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, 5, 10, new ModifyHealthCommand(-2), new ModifyHealthCommand(2));
-        WeaponItem w = new WeaponItem ("Bob", false, 3, 1, SkillType.TWOHANDEDWEAPON, 5, 1, 1, InfluenceType.CIRCULARINFLUENCE, skill);
-        npc.getController().getEquipment().add(w);
+        Entity npc = createNPC (npcLoc, player, true, false);
+
+//        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, 0, 10, new ModifyHealthCommand(-2), new ModifyHealthCommand(2));
+//        WeaponItem w = new WeaponItem ("Bob", false, 0, 500, SkillType.TWOHANDEDWEAPON, 8, 1000, 1, InfluenceType.CIRCULARINFLUENCE, skill);
+//        npc.getController().getEquipment().add(w);
 
         //tile.setEntity(player);
 
@@ -202,7 +207,7 @@ public class GameViewMaker
         spriteMap.put(localWorld1Exit, ImageMaker.makeTeleporterDisplayable());
         localWorldsList.get(1).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exit);
 
-        return new GameDisplayState(panel.getSize(), game, spriteMap, worldDisplayableMap, overworld);
+       return new GameDisplayState(panel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overworld);
     }
 
     // todo: expandOverworld is very inefficient right now
@@ -225,7 +230,7 @@ public class GameViewMaker
     private Entity createNPC (Coordinate loc, Entity aggroTarget, boolean isHostile, boolean canMove) {
 
         Map <SkillType, Integer> skills = new HashMap<>();
-        skills.put(SkillType.TWOHANDEDWEAPON, 1);
+        skills.put(SkillType.TWOHANDEDWEAPON, 10);
 
         Set <Terrain> compatible = new HashSet<>();
         if(canMove)
@@ -236,7 +241,6 @@ public class GameViewMaker
         Inventory i = new Inventory(new ArrayList<>());
 
         Entity entity = new Entity(new Vector(Direction.NULL, 0), stats, new ArrayList<>(), new ArrayList<>(), i, true, "Tim");
-
         Equipment e = new Equipment(5, i, entity);
 
         HostileAI hostile = new HostileAI(entity.getActeeInteractions(), aggroTarget, new HashMap<>());
@@ -269,9 +273,19 @@ public class GameViewMaker
         Coordinate npcLoc = new Coordinate(-2, 0);
         Entity npc = createNPC (npcLoc, player, true, true);
 
-        WeaponItem axe = ItemFactory.makeAxe(world, false);
-        npc.getController().getEquipment().add(axe);
 
+        WeaponItem axe = ItemFactory.makeAxe(world, false);
+//        npc.getController().getEquipment().add(axe);
+//
+        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), -1, new ModifyHealthCommand(), null);
+        WeaponItem w = new WeaponItem ("Bob", false, -10, 1000, SkillType.TWOHANDEDWEAPON, 10, 500, 1, InfluenceType.ANGULARINFLUENCE, skill);
+        npc.getController().getEquipment().add(w);
+        //must add overworld as observer
+        w.registerObserver(world);
+//        axe.registerObserver(world);
+
+        spawnerMap.put(w,new ImageDisplayable(new Point(16,16), ImageMaker.makeBorderedCircle(Color.yellow),1000));
+//        spawnerMap.put(axe,new ImageDisplayable(new Point(16,16),ImageMaker.makeBorderedCircle(Color.blue),1000));
         world.getTile(npcLoc).setEntity(npc);
         spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
 
@@ -380,8 +394,6 @@ public class GameViewMaker
             world.getTile(new Coordinate(-6, i)).setEntity(npc);
             spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
         }
-
-
 
         return world;
     }

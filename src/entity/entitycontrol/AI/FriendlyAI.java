@@ -28,7 +28,7 @@ public class FriendlyAI extends AI {
 
         if (!hasPath() || getNextDirection(location) == Direction.NULL) {
             Coordinate end = getNextCoordinate (map.keySet(), e);
-            System.out.println("end: x = " + end.x() + " y = " + end.y());
+//            System.out.println("end: x = " + end.x() + " y = " + end.y());
             setPath(location, end, e.getCompatibleTerrains(), map);
             hasPath = true;
         }

@@ -9,12 +9,10 @@ import maps.tile.Direction;
 import maps.tile.OverWorldTile;
 import maps.tile.Tile;
 import savingloading.Visitor;
+import spawning.SpawnObservable;
 import utilities.Coordinate;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dontf on 4/14/2018.
@@ -115,7 +113,7 @@ public class OverWorld implements World {
 
     //throw away spawn events
     @Override
-    public void notifySpawn(InfluenceArea IA, GameObject spawner) {
+    public void notifySpawn(InfluenceArea IA, SpawnObservable spawner) {
     }
 
     @Override
@@ -135,6 +133,13 @@ public class OverWorld implements World {
         }
         return temp;
     }
+
+    @Override
+    public Map<Coordinate, GameObject> getInfluences() {
+        Map<Coordinate, GameObject> iaMap = new HashMap<Coordinate,GameObject>();
+        return iaMap;
+    }
+
 
     @Override
     public void accept(Visitor v) {

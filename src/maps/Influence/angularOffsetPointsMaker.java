@@ -4,6 +4,7 @@ import maps.tile.Direction;
 import utilities.Coordinate;
 import utilities.Vector;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class angularOffsetPointsMaker implements shapedOffsetPointsMaker {
                 if(c.equals(clockWiseExpander)){
                     tempClockwise = new Coordinate(c.getNeighbor(direction));
                     if(expanding) {
+                        if(direction == direction.NULL)
+                            System.out.println(direction);
                         tempRadius.add(new Coordinate(c.getNeighbor(direction.getClockWiseAdjacent())));
                         tempClockwise = new Coordinate(c.getNeighbor(direction.getClockWiseAdjacent()));
                     }

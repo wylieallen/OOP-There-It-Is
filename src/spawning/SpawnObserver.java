@@ -9,6 +9,6 @@ import utilities.Coordinate;
  */
 public interface SpawnObserver {
 
-    void notifySpawn (InfluenceArea IA, GameObject spawner);
+    void notifySpawn (InfluenceArea IA, SpawnObservable spawner);
 
 }
