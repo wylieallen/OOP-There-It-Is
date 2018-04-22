@@ -59,6 +59,7 @@ public class SaveVisitor implements Visitor {
     private Queue<JSONObject> itemJsonsQueue = new ArrayDeque<>();
     private Queue<JSONObject> interactionsQueue = new ArrayDeque<>();
     private Map<TransitionCommand, JSONObject> transitionCommandJsons = new HashMap<>();
+    private boolean entityFound = false;
 
     public SaveVisitor(String saveFileName){
         this.fileName = "resources/savefiles/" + saveFileName + ".json";
@@ -95,6 +96,7 @@ public class SaveVisitor implements Visitor {
         e.getController().accept(this);
         currentEntityJson.remove("Type");
         currentEntityJson.put("Type", "Vehicle");
+        currentEntityJson.put("Name", "Vehicle");
         currentEntityJson.put("DirectionFacing", e.getMovementDirection().name());
         e.getStats().accept(this);
         currentEntityJson.put("ActorInteractions", new JSONArray());
@@ -122,10 +124,14 @@ public class SaveVisitor implements Visitor {
     public void visitNpcEntityController(NpcEntityController n) {
         addNonPlayerEntity();
         currentEntityJson.put("Type", "NPC");
-        n.getAggroAi().accept(this);
-        currentEntityJson.put("AggroAi", currentAiJson);
-        n.getNonAggroAi().accept(this);
-        currentEntityJson.put("NonAggroAi", currentAiJson);
+        if (n.getAggroAi() != null) {
+            n.getAggroAi().accept(this);
+            currentEntityJson.put("AggroAi", currentAiJson);
+        }
+        if (n.getNonAggroAi() != null) {
+            n.getNonAggroAi().accept(this);
+            currentEntityJson.put("NonAggroAi", currentAiJson);
+        }
         addInVehicle(n.isInVehicle());
         addCoordinates(n.getEntityLocation());
         n.getEquipment().accept(this);
@@ -544,15 +550,19 @@ public class SaveVisitor implements Visitor {
         JSONObject localWorldJson = new JSONObject();
         localWorldJsons.add(localWorldJson);
         JSONArray tilesJson = new JSONArray();
-        localWorldJson.put("Tiles", tilesJson);
-        localWorldJson.put("Entities", new JSONArray());
+        JSONArray entitiesJson = new JSONArray();
+        localWorldJson.put("Entities", entitiesJson);
         for (Map.Entry<Coordinate, LocalWorldTile> entry : w.getTiles().entrySet()) {
             Coordinate c = entry.getKey();
             entry.getValue().accept(this);
             currentTileJson.put("X", c.x());
             currentTileJson.put("Y", c.y());
             tilesJson.put(currentTileJson);
+            if (entityFound){
+                entitiesJson.put(currentEntityJson);
+            }
         }
+        localWorldJson.put("Tiles", tilesJson);
     }
 
     @Override
@@ -587,6 +597,10 @@ public class SaveVisitor implements Visitor {
         for (TrajectoryModifier tm : tms){
             tm.accept(this);
         }
+        if (localWorldTile.getEntity() != null){
+            localWorldTile.getEntity().accept(this);
+            entityFound = true;
+        }
         Set<EntityImpactor> eis = localWorldTile.getEntityImpactors();
         for (EntityImpactor ei : eis){
             ei.accept(this);
@@ -605,10 +619,11 @@ public class SaveVisitor implements Visitor {
     private void addItemsToTile(){
         if (!itemJsonsQueue.isEmpty()) {
             JSONArray itemsJson = new JSONArray();
-            currentTileJson.put("Items", itemsJson);
             while (!itemJsonsQueue.isEmpty()) {
-                itemsJson.put(itemJsonsQueue.remove());
+                JSONObject z = itemJsonsQueue.remove();
+                itemsJson.put(z);
             }
+            currentTileJson.put("Items", itemsJson);
         }
     }
 
@@ -678,9 +693,11 @@ public class SaveVisitor implements Visitor {
         saveFileJson.put("OverWorld", overWorldJson);
         JSONObject localWorldsJson = new JSONObject();
         int i = 1;
-        for (JSONObject localWorldJson : localWorldJsons)
-            localWorldsJson.put(getLocalWorldID(i), localWorldJson);
+        for (JSONObject localWorldJson : localWorldJsons) {
+            localWorldsJson.put(getLocalWorldID(i++), localWorldJson);
+        }
         saveFileJson.put("LocalWorlds", localWorldsJson);
+
 
         String jsonText = saveFileJson.toString(1);
         File saveFile = new File(fileName);
