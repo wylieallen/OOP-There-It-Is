@@ -70,6 +70,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         this.onMap = onMap;
         this.facing = movementVector.getDirection();
         this.name = name;
+        if (name == null)
+            name = "default";
     }
 
     // I kept this constructor for testing, but actions will be set later now

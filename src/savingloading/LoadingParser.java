@@ -177,6 +177,8 @@ public class LoadingParser {
         Coordinate coordinate = new Coordinate(entityJson.getInt("X"), entityJson.getInt("Y"));
         NpcEntityController controller = loadNpcEntityController(entityJson, entity, equipment, coordinate);
         entity.setController(controller);
+        if (!entityJson.has("Name"))
+            System.out.println(entityJson.toString(1));
         List<ControllerAction> controllerActions = loadControllerActions(entityJson.getString("Name"), entity, controller, equipment);
         controller.setControllerActions(controllerActions);
         Displayable displayable = loadDisplayable(entityJson.getString("Name"));
@@ -457,8 +459,6 @@ public class LoadingParser {
             WeaponItem item = loadWeaponItem(itemJson);
             weaponItems.add(item);
             spawnObservables.add(item);
-            Displayable spawningThingDisplayable = loadDisplayable(itemJson.getString("Name") +"-Spawn");
-            spawnerMap.put(item, spawningThingDisplayable);
         }
         Iterator<String> equipSlotStrings = wearableItemsJson.keys();
         while(equipSlotStrings.hasNext()) {
@@ -541,18 +541,23 @@ public class LoadingParser {
     }
 
     private WeaponItem loadWeaponItem(JSONObject itemJson) {
-        return new WeaponItem(itemJson.getString("Name"),
-                            itemJson.getBoolean("OnMap"),
-                            itemJson.getInt("AttackSpeed"),
-                            loadSkillType(itemJson.getString("RequiredSkill")),
-                            itemJson.getInt("StaminaCost"),
-                            itemJson.getInt("MaxRadius"),
-                            itemJson.getLong("ExpansionInterval"),
-                            itemJson.getLong("UpdateInterval"),
-                            itemJson.getLong("duration"),
-                            loadInfluenceType(itemJson.getString("InfluenceType")),
-                            loadSkillCommand(itemJson.getJSONObject("SkillCommand")),
-                            itemJson.getBoolean("makesExpandingArea"));
+        WeaponItem item = new WeaponItem(itemJson.getString("Name"),
+                itemJson.getBoolean("OnMap"),
+                itemJson.getInt("AttackSpeed"),
+                loadSkillType(itemJson.getString("RequiredSkill")),
+                itemJson.getInt("StaminaCost"),
+                itemJson.getInt("MaxRadius"),
+                itemJson.getInt("ExpansionInterval"),
+                itemJson.getLong("UpdateInterval"),
+                itemJson.getLong("duration"),
+                loadInfluenceType(itemJson.getString("InfluenceType")),
+                loadSkillCommand(itemJson.getJSONObject("SkillCommand")),
+                itemJson.getBoolean("makesExpandingArea"));
+        Displayable displayable = loadDisplayable(itemJson.getString("Name"));
+        spriteMap.put(item, displayable);
+        Displayable spawningThingDisplayable = loadDisplayable(itemJson.getString("Name")  + " - Spawn");
+        spawnerMap.put(item, spawningThingDisplayable);
+        return item;
 
     }
 
@@ -713,10 +718,18 @@ public class LoadingParser {
     private NpcEntityController loadNpcEntityController(JSONObject entityJson, Entity entity,
                                                         Equipment equipment, Coordinate entityLocation){
         String entityTypeString = entityJson.getString("Type");
-        JSONObject aggroAiJson = entityJson.getJSONObject("AggroAi");
-        JSONObject nonAggroAiJson = entityJson.getJSONObject("NonAggroAi");
+        AI aggroAi = null;
+        AI nonAggroAi = null;
+        if (entityJson.has("AggroAi")) {
+            JSONObject aggroAiJson = entityJson.getJSONObject("AggroAi");
+            aggroAi = loadAI(aggroAiJson);
+        }
+        if (entityJson.has("NonAggroAi")){
+            JSONObject nonAggroAiJson = entityJson.getJSONObject("NonAggroAi");
+            nonAggroAi = loadAI(nonAggroAiJson);
+        }
         Boolean isAggro = entityJson.getBoolean("IsAggro");
-        return new NpcEntityController(entity, equipment, entityLocation, loadAI(aggroAiJson), loadAI(nonAggroAiJson), isAggro);
+        return new NpcEntityController(entity, equipment, entityLocation, aggroAi, nonAggroAi, isAggro);
     }
 
     private AI loadAI(JSONObject aiJson) {
@@ -764,6 +777,8 @@ public class LoadingParser {
                 return ImageMaker.makeShopKeepDisplayable();
             case "Vehicle":
                 return ImageMaker.makeVehicleDisplayable();
+            case "Tim":
+                return ImageMaker.makeEntityDisplayable2(null);
                 // terrains
             case "Grass":
                 return ImageMaker.makeGrassDisplayable();
@@ -806,13 +821,113 @@ public class LoadingParser {
                 return ImageMaker.makeTwoHandedWeaponDisplayable();
             case "RangedWeapon-Spawn": // format for spawning Displayables: "GameObject's name" + "-Spawn"
                 return ImageMaker.makeRedProjectileDisplayable();
+            case "Good Staff":
+                return ImageMaker.makeLaserSwordDisplayable();
+            case "Good Staff - Spawn":
+                return ImageMaker.makeLaserSwordDisplayable();
+            case "Staff":
+                return ImageMaker.makeLaserSwordDisplayable();
+            case "Staff - Spawn":
+                return ImageMaker.makeLaserSwordDisplayable();
+            case "Bad Staff":
+                return ImageMaker.makeLaserSwordDisplayable();
+            case "Bad Staff - Spawn":
+                return ImageMaker.makeLaserSwordDisplayable();
+            case "Circular Damage Gadget":
+                return ImageMaker.makeGadgetDisplayable2();
+            case "Circular Damage Gadget - Spawn":
+                return ImageMaker.makeGadgetDisplayable2();
+            case "Angular Damage Gadget":
+                return ImageMaker.makeGadgetDisplayable5();
+            case "Angular Damage Gadget - Spawn":
+                return ImageMaker.makeGadgetDisplayable5();
+            case "Linear Damage Gadget":
+                return ImageMaker.makeGadgetDisplayable4();
+            case "Linear Damage Gadget - Spawn":
+                return ImageMaker.makeGadgetDisplayable4();
+            case "Strong Heal Gadget":
+                return ImageMaker.makeGadgetDisplayable1();
+            case "Strong Heal Gadget - Spawn":
+                return ImageMaker.makeGadgetDisplayable1();
+            case "Faster Stamina Regen Gadget":
+                return ImageMaker.makeGadgetDisplayable3();
+            case "Faster Stamina Regen Gadget - Spawn":
+                return ImageMaker.makeGadgetDisplayable3();
+            case "Heal Gadget":
+                return ImageMaker.makeGadgetDisplayable1();
+            case "Heal Gadget - Spawn":
+                return ImageMaker.makeGadgetDisplayable1();
+            case "Pacify Gadget":
+                return ImageMaker.makeBrawlingWeaponDisplayable();
+            case "Pacify Gadget - Spawn":
+                return ImageMaker.makeBrawlingWeaponDisplayable();
+            case "Paralyze Gadget":
+                return ImageMaker.makeRangedWeaponDisplayable();
+            case "Paralyze Gadget - Spawn":
+                return ImageMaker.makeRangedWeaponDisplayable();
+            case "Confuse Gadget":
+                return ImageMaker.makeTwoHandedWeaponDisplayable();
+            case "Confuse Gadget - Spawn":
+                return ImageMaker.makeTwoHandedWeaponDisplayable();
+            case "Good Gun":
+                return ImageMaker.makeRangedWeaponDisplayable();
+            case "Good Gun - Spawn":
+                return ImageMaker.makeBlueProjectileDisplayable();
+            case "Gun":
+                return ImageMaker.makeRangedWeaponDisplayable();
+            case "Gun - Spawn":
+                return ImageMaker.makeYellowProjectileDisplayable();
+            case "Bad Gun":
+                return ImageMaker.makeRangedWeaponDisplayable();
+            case "Bad Gun - Spawn":
+                return ImageMaker.makeRedProjectileDisplayable();
+            case "Good Glove":
+                return ImageMaker.makeBrawlingWeaponDisplayable();
+            case "Good Glove - Spawn":
+                return ImageMaker.makeBrawlingWeaponDisplayable();
+            case "Glove":
+                return ImageMaker.makeBrawlingWeaponDisplayable();
+            case "Glove - Spawn":
+                return ImageMaker.makeBrawlingWeaponDisplayable();
+            case "Bad Glove":
+                return ImageMaker.makeBrawlingWeaponDisplayable();
+            case "Bad Glove - Spawn":
+                return ImageMaker.makeBrawlingWeaponDisplayable();
+            case "Good Sword":
+                return ImageMaker.makeLaserSwordDisplayable();
+            case "Good Sword - Spawn":
+                return ImageMaker.makeLaserSwordDisplayable();
+            case "Sword":
+                return ImageMaker.makeLaserSwordDisplayable();
+            case "Sword - Spawn":
+                return ImageMaker.makeLaserSwordDisplayable();
+            case "Bad Sword":
+                return ImageMaker.makeLaserSwordDisplayable();
+            case "Bad Sword - Spawn":
+                return ImageMaker.makeLaserSwordDisplayable();
+            case "Good Axe":
+                return ImageMaker.makeTwoHandedWeaponDisplayable();
+            case "Good Axe - Spawn":
+                return ImageMaker.makeTwoHandedWeaponDisplayable();
+            case "Axe":
+                return ImageMaker.makeTwoHandedWeaponDisplayable();
+            case "Axe - Spawn":
+                return ImageMaker.makeTwoHandedWeaponDisplayable();
+            case "Bad Axe":
+                return ImageMaker.makeTwoHandedWeaponDisplayable();
+            case "Bad Axe - Spawn":
+                return ImageMaker.makeTwoHandedWeaponDisplayable();
+            case "Bob":
+                return ImageMaker.makeGadgetDisplayable1();
+            case "Bob - Spawn":
+                return ImageMaker.makeGadgetDisplayable1();
+            // area effects
             case "Kill Area Effect":
                 return ImageMaker.makeRedProjectileDisplayable();
             case "Heal Area Effect":
                 return ImageMaker.makeBlueProjectileDisplayable();
             case "Damage Area Effect":
                 return ImageMaker.makeYellowProjectileDisplayable();
-                ///... TODO: add more for each new game object
             default:
                 System.out.println("No Displayable for GameObject type -- " + name);
                 return ImageMaker.getNullDisplayable();
