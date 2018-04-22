@@ -230,7 +230,7 @@ public class GameViewMaker
     private Entity createNPC (Coordinate loc, Entity aggroTarget, boolean isHostile, boolean canMove) {
 
         Map <SkillType, Integer> skills = new HashMap<>();
-        skills.put(SkillType.TWOHANDEDWEAPON, 1);
+        skills.put(SkillType.TWOHANDEDWEAPON, 10);
 
         Set <Terrain> compatible = new HashSet<>();
         if(canMove)
@@ -241,7 +241,6 @@ public class GameViewMaker
         Inventory i = new Inventory(new ArrayList<>());
 
         Entity entity = new Entity(new Vector(Direction.NULL, 0), stats, new ArrayList<>(), new ArrayList<>(), i, true, "Tim");
-
         Equipment e = new Equipment(5, i, entity);
 
         HostileAI hostile = new HostileAI(entity.getActeeInteractions(), aggroTarget, new HashMap<>());
@@ -278,8 +277,8 @@ public class GameViewMaker
         WeaponItem axe = ItemFactory.makeAxe(world, false);
 //        npc.getController().getEquipment().add(axe);
 //
-        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), 0, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Bob", false, -1, 1000, SkillType.TWOHANDEDWEAPON, 10, 50, 10, InfluenceType.ANGULARINFLUENCE, skill);
+        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), -1, new ModifyHealthCommand(), null);
+        WeaponItem w = new WeaponItem ("Bob", false, -10, 1000, SkillType.TWOHANDEDWEAPON, 10, 500, 1, InfluenceType.ANGULARINFLUENCE, skill);
         npc.getController().getEquipment().add(w);
         //must add overworld as observer
         w.registerObserver(world);
