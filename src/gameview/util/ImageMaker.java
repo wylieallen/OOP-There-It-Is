@@ -200,8 +200,29 @@ public class ImageMaker
         return new ImageDisplayable(new Point(0, 0), makeFog(), FOG_HEIGHT);
     }
 
+    public static Displayable makeBlueProjectileDisplayable(){
+        return new ImageDisplayable(new Point(0, 0), loadImage("assets/maps/blueprojectile.png"), ITEM_HEIGHT);
+    }
 
+    public static Displayable makeCyanProjectileDisplayable(){
+        return new ImageDisplayable(new Point(0, 0), loadImage("assets/maps/cyanprojectile.png"), ITEM_HEIGHT);
+    }
 
+    public static Displayable makeGreenProjectileDisplayable(){
+        return new ImageDisplayable(new Point(0, 0), loadImage("assets/maps/greenprojectile.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makePurpleProjectileDisplayable(){
+        return new ImageDisplayable(new Point(0, 0), loadImage("assets/maps/purpleprojectile.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeRedProjectileDisplayable(){
+        return new ImageDisplayable(new Point(0, 0), loadImage("assets/maps/redprojectile.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeYellowProjectileDisplayable(){
+        return new ImageDisplayable(new Point(0, 0), loadImage("assets/maps/yellowprojectile.png"), ITEM_HEIGHT);
+    }
 
     // Todo: split BufferedImage creation off into a separate class
     public static BufferedImage makeBorderedHex(Color color)

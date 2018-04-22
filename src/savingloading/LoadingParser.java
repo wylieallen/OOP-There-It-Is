@@ -256,7 +256,7 @@ public class LoadingParser {
         double dz = riverJson.getDouble("dz");
         Vector v = new Vector(dx, dz);
         River river = new River(v);
-        Displayable displayable = loadDisplayable("River");
+        Displayable displayable = ImageMaker.makeRiverDisplayable(v.getDirection());
         spriteMap.put(river, displayable);
         return river;
     }
@@ -800,7 +800,13 @@ public class LoadingParser {
             case "TwoHandedWeapon":
                 return ImageMaker.makeTwoHandedWeaponDisplayable();
             case "RangedWeapon-Spawn": // format for spawning Displayables: "GameObject's name" + "-Spawn"
-//                return ImageMaker.makeTwoHandedWeaponSpawnDisplayable();
+                return ImageMaker.makeRedProjectileDisplayable();
+            case "Kill Area Effect":
+                return ImageMaker.makeRedProjectileDisplayable();
+            case "Heal Area Effect":
+                return ImageMaker.makeBlueProjectileDisplayable();
+            case "Damage Area Effect":
+                return ImageMaker.makeYellowProjectileDisplayable();
                 ///... TODO: add more for each new game object
             default:
                 System.out.println("No Displayable for GameObject type -- " + name);
