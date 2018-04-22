@@ -94,7 +94,7 @@ public class Equipment implements Visitable {
             inventory.add(wearable);
             wearables.remove(wearable.getEquipType());
             wearable.applyEffect(entity);
-            wearables.put(wearable.getEquipType(), WearableItem.NONE);
+            //wearables.put(wearable.getEquipType(), WearableItem.NONE);
         }
     }
 
@@ -144,6 +144,11 @@ public class Equipment implements Visitable {
     @Override
     public void accept(Visitor v) {
         v.visitEquipment(this);
+    }
+
+    public boolean has(WeaponItem i)
+    {
+        return getWeapons().contains(i);
     }
 
     public boolean has(WearableItem i)

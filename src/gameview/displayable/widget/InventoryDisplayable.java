@@ -29,7 +29,7 @@ public class InventoryDisplayable extends CompositeDisplayable
 
     public void adjustCursorIndex(int delta)
     {
-        int maxIndex = entity.getInventory().getItems().size() + entity.getController().getEquipment().getWearables().size() - 1;
+        int maxIndex = entity.getInventory().getItems().size() + entity.getController().getEquipment().getWearables().size() + entity.getController().getEquipment().getWeapons().size() - 1;
         cursorIndex += delta;
         if(cursorIndex < 0)
         {
@@ -71,6 +71,12 @@ public class InventoryDisplayable extends CompositeDisplayable
                     Color.BLACK, 1));
             ++modifier;
         }
+        for(int i = 0; i < equipment.getWeapons().size(); i++)
+        {
+            int num = i;
+            add(new StringDisplayable(new Point(4, 64 + 16 + (numInventorySlots * 16) + (modifier * 16) + (i * 16)),
+                    () -> "Slot " + num + ": " + equipment.getWeapons().get(num).getName(), Color.BLACK, 1));
+        }
         if(cursorIndex > -1)
         {
             add(new ImageDisplayable(calculateCursorPoint(), ImageMaker.makeRightPointingTriangle(), 1000));
@@ -84,10 +90,19 @@ public class InventoryDisplayable extends CompositeDisplayable
 
         Inventory inventory = entity.getInventory();
         int inventorySize = inventory.getItems().size();
+        int wearablesSize = entity.getController().getEquipment().getWearables().size();
+
 
         if(cursorIndex >= inventorySize)
         {
-            y = 32 + 16 + (cursorIndex - inventorySize) * 16 + ((inventorySize) * 16);
+            if(cursorIndex >= inventorySize + wearablesSize)
+            {
+                y = 32 + 16 + 16 + (cursorIndex - inventorySize - wearablesSize) * 16 + ((inventorySize) * 16) + ((wearablesSize) * 16);
+            }
+            else
+            {
+                y = 32 + 16 + (cursorIndex - inventorySize) * 16 + (inventorySize * 16);
+            }
         }
         else
         {
