@@ -1,6 +1,7 @@
 package entity.vehicle;
 
 import commands.TimedEffect;
+import entity.entitycontrol.EntityController;
 import entity.entitycontrol.controllerActions.DismountAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
@@ -86,6 +87,9 @@ public class Vehicle extends Entity {
 
     private void setDriver (Entity driver) {
         this.driver = driver;
+        // todo: LoD problem?
+        EntityController controller = driver.getController();
+        controller.notifyFreeMove(this);
     }
 
     public void removeDriver () {
