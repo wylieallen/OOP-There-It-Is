@@ -28,10 +28,9 @@ public class StaticInfluenceArea implements InfluenceArea {
     //variables derived or created upon construction
     private long startTime;//The time this are was created
     private long lastUpdateTime;//Last time the area was checked and visited
-    private int currentCheckingRadius;//the current distance an entity is at when it is being visited
     private boolean isExpired = false;//see name    private List <Coordinate> offsetPoints;//the list of points this area is responsible for checking
     private List <Coordinate> offsetPoints;//the list of points this area is responsible for checking
-
+    private boolean hasUpdatedForTheFirstTime = false;
 
     public StaticInfluenceArea(InfluenceType influenceType, Direction direction, int radius, Coordinate center, List<GameObject> whiteList, long updateInterval, long duration, SkillCommand skillCommand) {
         this.center = center;
@@ -47,7 +46,12 @@ public class StaticInfluenceArea implements InfluenceArea {
 
     @Override
     public void update(Map<Coordinate, LocalWorldTile> tilesMap) {
-        if(duration != -1 && Game.getCurrentTime()-startTime >= duration){
+        if(!hasUpdatedForTheFirstTime){
+            hasUpdatedForTheFirstTime = true;
+            startTime = Game.getCurrentTime();
+            lastUpdateTime = Game.getCurrentTime()-updateInterval;
+        }
+        if(!isExpired && duration != -1 && Game.getCurrentTime()-startTime >= duration){
             isExpired = true;
             return;
         }
@@ -83,7 +87,7 @@ public class StaticInfluenceArea implements InfluenceArea {
             coord = center.add(offset);
             if(tilesMap.containsKey(coord)){
                 vec = new Vector(new Coordinate(0,0),offset);
-                currentCheckingRadius = (int)vec.getDistance();
+                int currentCheckingRadius = (int)vec.getDistance();
                 tile = tilesMap.get(coord);
                 ent = tile.getEntity();
                 if(ent != null){

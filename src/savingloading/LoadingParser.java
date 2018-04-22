@@ -539,14 +539,15 @@ public class LoadingParser {
     private WeaponItem loadWeaponItem(JSONObject itemJson) {
         return new WeaponItem(itemJson.getString("Name"),
                             itemJson.getBoolean("OnMap"),
-                            itemJson.getInt("Damage"),
                             itemJson.getInt("AttackSpeed"),
                             loadSkillType(itemJson.getString("RequiredSkill")),
                             itemJson.getInt("MaxRadius"),
                             itemJson.getLong("ExpansionInterval"),
                             itemJson.getLong("UpdateInterval"),
+                            itemJson.getLong("Duration"),
                             loadInfluenceType(itemJson.getString("InfluenceType")),
-                            loadSkillCommand(itemJson.getJSONObject("SkillCommand")));
+                            loadSkillCommand(itemJson.getJSONObject("SkillCommand")),
+                            itemJson.getBoolean("makesExpandingArea"));
 
     }
 

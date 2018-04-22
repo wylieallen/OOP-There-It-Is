@@ -279,8 +279,8 @@ public class GameViewMaker
         WeaponItem axe = ItemFactory.makeAxe(world, false);
 //        npc.getController().getEquipment().add(axe);
 //
-        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), -1, new ModifyHealthCommand(), new ModifyHealthCommand());
-        WeaponItem w = new WeaponItem ("Bob", false, -10, 1000, SkillType.TWOHANDEDWEAPON, 10, 500, 1, InfluenceType.ANGULARINFLUENCE, skill);
+        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), -1, new ModifyHealthCommand(), null);
+        WeaponItem w = new WeaponItem ("Bob", false, 1000, SkillType.TWOHANDEDWEAPON, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
         npc.getController().getEquipment().add(w);
         //must add overworld as observer
         w.registerObserver(world);
