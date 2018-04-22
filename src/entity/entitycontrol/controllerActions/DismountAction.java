@@ -11,7 +11,6 @@ public class DismountAction extends ControllerAction {
 
     @Override
     protected void execute() {
-        System.out.println("Execute Dismount");
         mounterController.notifyDismount();
     }
 

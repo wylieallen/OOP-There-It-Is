@@ -90,6 +90,7 @@ public abstract class EntityController implements Visitable, DialogObservable{
 
         // checking if entity is trying to dismount
         if(dismounting) {
+            System.out.println("dismounting");
             if (dismountTo(mapOfContainers.get(entityLocation))) {
                 controlledEntity.setOnMap(true);
                 inVehicle = false;
@@ -97,6 +98,7 @@ public abstract class EntityController implements Visitable, DialogObservable{
                 mount = null;
             }
             dismounting = false;
+            System.out.println(mount == null);
         }
 
     }

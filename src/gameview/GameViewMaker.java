@@ -315,6 +315,12 @@ public class GameViewMaker
 
         LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
+
+        Vehicle thingy = createVehicle(new Coordinate(2, 2));
+        thingy.hurtEntity(990);
+        world.getTile(new Coordinate(4, 4)).setEntity(thingy);
+        spriteMap.put(thingy, ImageMaker.makeVehicleDisplayable());
+
         //Add npc
         Coordinate npcLoc = new Coordinate(-2, 0);
         Entity npc = createNPC (npcLoc, player, true, true);

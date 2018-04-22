@@ -58,7 +58,7 @@ public class HostileAI extends AI {
 
     private Coordinate findTarget (Map <Coordinate, Tile> map) {
         for (Coordinate c : map.keySet()) {
-            if (map.get(c).has(target)) {
+            if (map.get(c).has(target.getEntity())) {
                 return c;
             }
         }

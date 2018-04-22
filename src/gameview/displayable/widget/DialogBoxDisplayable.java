@@ -52,7 +52,6 @@ public class DialogBoxDisplayable extends CompositeDisplayable implements Dialog
     private void addAllMessagesToDisplay () {
         int displayOffset = 1;
         for (String message : currentMessages) {
-            System.out.println(message);
             StringDisplayable sd = new StringDisplayable(new Point(4, 16 * (displayOffset)), message, Color.black, 1);
             add(sd);
             ++displayOffset;
