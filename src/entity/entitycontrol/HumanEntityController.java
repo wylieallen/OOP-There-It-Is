@@ -5,7 +5,6 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import entity.entitymodel.Inventory;
 import gameview.GamePanel;
-import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
 import maps.tile.Direction;
 import maps.tile.Tile;
