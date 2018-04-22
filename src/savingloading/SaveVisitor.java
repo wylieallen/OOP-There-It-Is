@@ -375,6 +375,7 @@ public class SaveVisitor implements Visitor {
         weaponItemJson.put("UpdateInterval", w.getUpdateInterval());
         weaponItemJson.put("duration", w.getDuration());
         weaponItemJson.put("RequiredSkill", w.getRequiredSkill().name());
+        weaponItemJson.put("StaminaCost", w.getStaminaCost());
         weaponItemJson.put("InfluenceType", w.getInfluenceType().name());
         weaponItemJson.put("makesExpandingArea", w.makesExpandingArea());
         itemJsonsQueue.add(weaponItemJson);

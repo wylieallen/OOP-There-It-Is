@@ -55,7 +55,7 @@ public class EquipmentTest {
     @Test
     public void testWeaponAddAndRemove () {
         WeaponItem weapon = new WeaponItem("Sword", true, 10,
-                SkillType.BANE, 1, 0, 0, 300, InfluenceType.LINEARINFLUENCE,
+                SkillType.BANE, 0, 1, 0, 0, 300, InfluenceType.LINEARINFLUENCE,
                 new SkillCommand(SkillType.BANE, 1, 1, new ParalyzeCommand(10), null), false);
 
         items.add(weapon);

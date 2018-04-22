@@ -199,28 +199,29 @@ public class HumanEntityController extends EntityController implements Controlle
     @Override
     public void notifyFreeMove(Entity e) {
         //TODO
-        view.clearKeyListeners();
-        for(KeyListener k : freeMoveKeyListeners)
-        {
-            view.addKeyListener(k);
+        if(view != null) {
+            view.clearKeyListeners();
+            for (KeyListener k : freeMoveKeyListeners) {
+                view.addKeyListener(k);
+            }
         }
     }
 
     @Override
     public void notifyInventoryManagment(Entity e) {
         //TODO
-        for(KeyListener k : freeMoveKeyListeners)
-        {
-            view.removeKeyListener(k);
-        }
+        if(view != null) {
+            for (KeyListener k : freeMoveKeyListeners) {
+                view.removeKeyListener(k);
+            }
 
-        for(KeyListener k : inventoryManagementKeyListeners)
-        {
-            view.addKeyListener(k);
+            for (KeyListener k : inventoryManagementKeyListeners) {
+                view.addKeyListener(k);
+            }
+            // Tell GamePanel to reinitialize KeyListeners
+            // Tell GameDisplayState to remove temporary substate Displayables
+            // Tell GameDisplayState to add Inventory Cursor to temporary substate Displayables
         }
-        // Tell GamePanel to reinitialize KeyListeners
-        // Tell GameDisplayState to remove temporary substate Displayables
-        // Tell GameDisplayState to add Inventory Cursor to temporary substate Displayables
     }
 
     public void visitAttackAction(AttackAction a)

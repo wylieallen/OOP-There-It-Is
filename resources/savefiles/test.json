@@ -31,7 +31,7 @@
    "BaseMoveSpeed": 30,
    "UnspentSkillPoints": 0,
    "MaxHealth": 1000,
-   "MaxMana": 10,
+   "MaxMana": 100,
    "IsConfused": false,
    "IsSearching": false,
    "Skills": {
@@ -41,7 +41,7 @@
    },
    "ManaRegenRate": 1,
    "CurrentXP": 10,
-   "CurrentMana": 10
+   "CurrentMana": 100
   },
   "Y": -3,
   "Inventory": [{

@@ -275,7 +275,7 @@ public class GameViewMaker
         if(canMove)
             compatible.add(Terrain.GRASS);
 
-        EntityStats stats = new EntityStats(skills, 1, 10, 10, 10, 10, 1, 98, 5, 6, 10, 10, false, false, compatible);
+        EntityStats stats = new EntityStats(skills, 1, 10, 10, 100, 100, 1, 98, 5, 6, 10, 10, false, false, compatible);
 
         Inventory i = new Inventory(new ArrayList<>());
 
@@ -317,7 +317,7 @@ public class GameViewMaker
 //        npc.getController().getEquipment().add(axe);
 //
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), -1, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Bob", false, 1000, SkillType.TWOHANDEDWEAPON, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Bob", false, 1000, SkillType.TWOHANDEDWEAPON, 75, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
         npc.getController().getEquipment().add(w);
         //must add overworld as observer
         w.registerObserver(world);

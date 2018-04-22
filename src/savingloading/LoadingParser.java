@@ -541,6 +541,7 @@ public class LoadingParser {
                             itemJson.getBoolean("OnMap"),
                             itemJson.getInt("AttackSpeed"),
                             loadSkillType(itemJson.getString("RequiredSkill")),
+                            itemJson.getInt("StaminaCost"),
                             itemJson.getInt("MaxRadius"),
                             itemJson.getLong("ExpansionInterval"),
                             itemJson.getLong("UpdateInterval"),
