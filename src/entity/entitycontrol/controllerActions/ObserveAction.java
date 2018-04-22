@@ -20,7 +20,7 @@ public class ObserveAction extends ControllerAction implements SpawnObservable, 
 
     @Override
     protected void execute() {
-
+        //TODO: make sure to set the observe commands entitycontroller first;
     }
 
     @Override

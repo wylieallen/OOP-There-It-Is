@@ -1,7 +1,6 @@
 package entity.entitycontrol;
 
 import entity.entitycontrol.AI.AI;
-import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitycontrol.controllerActions.DirectionalMoveAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
@@ -10,9 +9,7 @@ import maps.tile.LocalWorldTile;
 import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class NpcEntityController extends EntityController {

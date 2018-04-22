@@ -6,10 +6,13 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
+import maps.tile.Tile;
 import savingloading.Visitor;
+import utilities.Coordinate;
 import utilities.Vector;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dontf on 4/13/2018.
@@ -56,8 +59,21 @@ public class Vehicle extends Entity {
         return driver.interact(actor);
     }
 
+    @Override
+    public void update(Map<Coordinate, Tile> map) {
+        if (driver.isOnMap()) {
+            driver = null;
+        }
+
+        super.update(map);
+    }
+
     private void setDriver (Entity driver) {
         this.driver = driver;
+    }
+
+    public void removeDriver () {
+        driver = null;
     }
 
     public boolean hasDriver () { return driver != null; }

@@ -1,11 +1,10 @@
 package gameview;
 
-import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
-import entity.entitymodel.EquipSlot;
 import entity.entitymodel.Equipment;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
+import gameview.displayable.widget.DialogBoxDisplayable;
 import gameview.displayable.widget.InventoryDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.DisplayState;
@@ -19,7 +18,6 @@ import maps.world.Game;
 import maps.world.World;
 import spawning.SpawnObservable;
 import spawning.SpawnObserver;
-import utilities.Coordinate;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -76,6 +74,8 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
 
         CompositeDisplayable playerInventory = new InventoryDisplayable(new Point(16, 256), player);
         widgets.add(playerInventory);
+
+        DialogBoxDisplayable dialogueToPlayer = new DialogBoxDisplayable(new Point(1024, 16), player.getController());
     }
 
 

@@ -2,8 +2,6 @@ package maps.world;
 
 import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
-import gameobject.GameObject;
-import gameobject.GameObjectContainer;
 import savingloading.Visitable;
 import savingloading.Visitor;
 import utilities.Coordinate;

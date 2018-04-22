@@ -10,52 +10,49 @@ import utilities.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class HostileAI extends AI {
 
     private Entity target;
     private Coordinate targetsLastPosition;
-    private Coordinate myLastPosition;
 
     public HostileAI(List<EntityInteraction> interactions, Entity entity, Map<Coordinate, Direction> path){
         super(interactions, path);
         target = entity;
         targetsLastPosition = new Coordinate(0, 0);
-        myLastPosition = new Coordinate(0, 0);
     }
 
     @Override
     public void nextAction(Map <Coordinate, Tile> map, Entity e, Coordinate location) {
         //TODO: make it chase and attack the target
-
         Coordinate targetPosition;
 
         if (target != null) {
             targetPosition = findTarget(map);
-            if (isVisible(targetPosition, location) || (targetsLastPosition == null)) {
+            if ((isVisible(targetPosition, location, e) && targetsLastPosition != targetPosition)|| (targetsLastPosition == null)) {
                 setPath(location, targetPosition, e.getCompatibleTerrains(), map);
                 targetsLastPosition = targetPosition;
             }
         } else {
-           targetPosition = findNewTarget (map);
+           targetPosition = findNewTarget (map, location);
            setPath(location, targetPosition, e.getCompatibleTerrains(), map);
         }
 
         if (targetIsNeghbor (location)) {
             e.setFacing(location.direction(targetPosition));
             e.setMoving();
-            // TODO: this is terrible, replace when controller supports attack!!!
-            e.getController().getEquipment().useWeaponItem(0, location);
+
+            e.getController().useWeapon(0);
         }
 
-        myLastPosition = location;
         e.setFacing(getNextDirection(location));
         e.setMoving();
 
     }
 
-    private boolean isVisible (Coordinate targetLoc, Coordinate myLoc) {
-        return (target.getConcealment() <= myLoc.distance(targetLoc));
+    private boolean isVisible (Coordinate targetLoc, Coordinate myLoc, Entity self) {
+        return (self.getVisibilityRadius() >= Math.abs(myLoc.distance(targetLoc)));
     }
 
     private Coordinate findTarget (Map <Coordinate, Tile> map) {
@@ -68,12 +65,13 @@ public class HostileAI extends AI {
         return targetsLastPosition;
     }
 
-    private Coordinate findNewTarget (Map <Coordinate, Tile> map) {
+    private Coordinate findNewTarget (Map <Coordinate, Tile> map, Coordinate location) {
 
         List <Coordinate> points = new ArrayList<>();
 
         for (Direction d : Direction.values()) {
-            points.add(myLastPosition.getNeighbor(d));
+            if (d != Direction.NULL)
+                points.add(location.getNeighbor(d));
         }
 
         for (Coordinate c : points) {
@@ -84,7 +82,7 @@ public class HostileAI extends AI {
             }
         }
 
-        return points.get(0);
+        return points.get(new Random().nextInt(6));
     }
 
     private boolean targetIsNeghbor (Coordinate myLoc) {
