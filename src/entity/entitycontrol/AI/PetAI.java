@@ -43,6 +43,8 @@ public class PetAI extends AI {
                 setPath(location, mastersPosition, e.getCompatibleTerrains(), map);
                 hasPath = true;
                 lastHealth = e.getCurrHealth();
+            } else {
+                lastHealth = e.getCurrHealth();
             }
 
             if (distance > maxDistanceFromMaster) {
@@ -65,7 +67,7 @@ public class PetAI extends AI {
 
     private Coordinate findMaster (Map <Coordinate, Tile> map) {
         for (Coordinate c : map.keySet()) {
-            if (map.get(c).has(master)) {
+            if (map.get(c).has(master.getEntity())) {
                 return c;
             }
         }

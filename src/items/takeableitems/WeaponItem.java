@@ -1,15 +1,14 @@
 package items.takeableitems;
 
-import commands.Command;
 import commands.skillcommands.SkillCommand;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import gameobject.GameObject;
 import maps.Influence.InfluenceArea;
-import maps.Influence.StaticInfluenceArea;
-import savingloading.Visitor;
 import maps.Influence.InfluenceType;
+import maps.Influence.StaticInfluenceArea;
 import maps.Influence.expandingInfluenceArea;
+import savingloading.Visitor;
 import skills.SkillType;
 import spawning.SpawnObservable;
 import spawning.SpawnObserver;
@@ -74,7 +73,7 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
         if(canAttack) {
             ArrayList<GameObject> whitelist = new ArrayList<>();
             if(influenceType != InfluenceType.SELFINFLUENCE)
-                whitelist.add(attacker);
+                whitelist.add(attacker.getEntity());
             InfluenceArea ia;
             if(makesExpandingArea) {
                 ia = new expandingInfluenceArea(influenceType, attacker.getMovementDirection(),

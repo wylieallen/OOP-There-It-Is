@@ -26,6 +26,7 @@ import java.util.Map;
 public class Vehicle extends Entity {
 
     private Entity driver;
+    private int driverTriedToDitch;
 
     public Vehicle(Vector movementVector,
                    EntityStats stats,
@@ -37,6 +38,7 @@ public class Vehicle extends Entity {
     {
         super(movementVector, stats, effects, actorInteractions, inventory, isOnMap, "Default");
         this.driver = driver;
+        driverTriedToDitch = 0;
     }
 
     public Vehicle(Vector vector,
@@ -48,6 +50,7 @@ public class Vehicle extends Entity {
     {
         super(vector, stats, effects, actorInteractions, inventory, isOnMap, "Default");
         this.driver = null;
+        driverTriedToDitch = 0;
     }
 
     @Override
@@ -123,6 +126,24 @@ public class Vehicle extends Entity {
     }
 
     @Override
+    public void levelUp () {
+        if (hasDriver()) {
+            driver.levelUp();
+        }
+        super.levelUp();
+    }
+
+    @Override
+    public boolean hurtEntity (int amount) {
+        if (super.hurtEntity(amount) && hasDriver()) {
+            driver.getController().notifyDismount();
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
     public boolean canMoveHere (Entity mover) {
         MountInteraction mountingTime = new MountInteraction();
         mountingTime.interact(mover, this);
@@ -134,6 +155,24 @@ public class Vehicle extends Entity {
         if (hasDriver())
             driver.notifyMovement();
         super.notifyMovement();
+    }
+
+    @Override
+    public boolean expired () {
+        if (hasDriver() && driver.expired()) {
+            driver = null;
+        }
+
+        if ((!hasDriver() || driverTriedToDitch > 25) && super.expired()) {
+            return true;
+        }
+
+        if (hasDriver() && super.expired()) {
+            driver.getController().notifyDismount();
+            ++driverTriedToDitch;
+        }
+
+        return false;
     }
 
     @Override

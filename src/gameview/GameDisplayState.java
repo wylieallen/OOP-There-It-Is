@@ -1,10 +1,10 @@
 package gameview;
 
 import entity.entitymodel.Entity;
-import entity.entitymodel.Equipment;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.displayable.widget.DialogBoxDisplayable;
+import gameview.displayable.widget.InteractionDisplayable;
 import gameview.displayable.widget.InventoryDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.DisplayState;
@@ -12,7 +12,6 @@ import guiframework.displayable.CompositeDisplayable;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
 import guiframework.displayable.StringDisplayable;
-import items.takeableitems.TakeableItem;
 import maps.Influence.InfluenceArea;
 import maps.world.Game;
 import maps.world.World;
@@ -37,6 +36,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     private Map<World, WorldDisplayable> worlds;
     private WorldDisplayable activeWorldDisplayable;
     private InventoryDisplayable inventoryDisplayable;
+    private InteractionDisplayable interactionDisplayable;
 
     private static final int RENDERING_FRAMES_PER_GAME_TICK = 10;
     private int gameTickCountdown = RENDERING_FRAMES_PER_GAME_TICK;
@@ -82,7 +82,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
         inventoryDisplayable = new InventoryDisplayable(new Point(16, 256), player);
         widgets.add(inventoryDisplayable);
 
-        DialogBoxDisplayable dialogueToPlayer = new DialogBoxDisplayable(new Point(1024, 16), player.getController());
+        DialogBoxDisplayable dialogueToPlayer = new DialogBoxDisplayable(new Point(950, 16), player.getController());
         widgets.add(dialogueToPlayer);
     }
 
@@ -173,4 +173,15 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     {
         return inventoryDisplayable.getCursorIndex();
     }
+/*
+    public void decrementInteractionDisplayableIndex () {
+        interactionDisplayable.adjustCursorIndex (-1);
+    }
+
+    public void incrementInteractionDisplayableIndex () {
+        interactionDisplayable.adjustCursorIndex (1);
+    }
+
+    public void getInteractionDisplayableIndex() {return interactionDisplayable.getCursorIndex (); }
+    */
 }

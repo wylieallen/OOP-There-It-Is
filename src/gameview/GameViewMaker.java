@@ -1,10 +1,10 @@
 package gameview;
 
+import commands.KillCommand;
+import commands.LevelUpCommand;
 import commands.ModifyHealthCommand;
 import commands.TransitionCommand;
-import commands.*;
 import commands.reversiblecommands.BuffHealthCommand;
-import commands.reversiblecommands.ReversibleCommand;
 import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.AI.PetAI;
@@ -12,12 +12,16 @@ import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.DismountAction;
+import entity.entitycontrol.controllerActions.ObserveAction;
+import entity.entitymodel.Entity;
+import entity.entitymodel.EntityStats;
+import entity.entitymodel.Equipment;
+import entity.entitymodel.Inventory;
 import entity.entitymodel.*;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
-import guiframework.displayable.ConditionalDisplayable;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
 import items.InteractiveItem;
@@ -43,6 +47,7 @@ import skills.SkillType;
 import spawning.SpawnObservable;
 import utilities.Coordinate;
 import utilities.Vector;
+
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -223,6 +228,10 @@ public class GameViewMaker
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, player.getInventory(), player), game.getCoordinate(player), panel));
 
         player.getController().addAction(new DismountAction(player.getController()));
+        ObserveAction observe = new ObserveAction(player);
+        observe.setController(player.getController());
+        observe.registerObserver(foggyWorldsList.get(1));
+        player.getController().addAction(observe);
 
         //setup world transitions
         //local world 1
@@ -330,6 +339,12 @@ public class GameViewMaker
         }
 
         LocalWorld world = new LocalWorld(tiles, new HashSet<>());
+
+
+        Vehicle thingy = createVehicle(new Coordinate(2, 2));
+        thingy.hurtEntity(990);
+        world.getTile(new Coordinate(4, 4)).setEntity(thingy);
+        spriteMap.put(thingy, ImageMaker.makeVehicleDisplayable());
 
         //Add npc
         Coordinate npcLoc = new Coordinate(-2, 0);

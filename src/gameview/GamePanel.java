@@ -14,7 +14,7 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
 {
     private boolean initialized = false;
     private GameDisplayState gameDisplayState;
-    
+
     public GamePanel(Dimension size)
     {
         super(size);
@@ -159,7 +159,6 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
         gameDisplayState.decrementInventoryDisplayableIndex();
     }
 
-
     public void incrementInventoryDisplayableIndex()
     {
         gameDisplayState.incrementInventoryDisplayableIndex();
@@ -169,4 +168,25 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
     {
         gameDisplayState.disableInventoryCursor();
     }
+
+/*
+    public int getInteractionCursorIndex()
+    {
+        return gameDisplayState.getInteractionDisplayableIndex();
+    }
+
+    public void decrementInteractionDisplayableIndex()
+    {
+        gameDisplayState.decrementInteractionDisplayableIndex();
+    }
+
+    public void incrementInteractionDisplayableIndex()
+    {
+        gameDisplayState.incrementInteractionDisplayableIndex();
+    }
+
+    public void disableInteractionCursor()
+    {
+        gameDisplayState.disableInteractionCursor();
+    } */
 }
