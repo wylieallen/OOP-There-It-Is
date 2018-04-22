@@ -128,6 +128,7 @@ public class GameViewMaker
         */
 
         Entity player = new Entity();
+        player.increaseBaseMoveSpeed(3);
 
         Coordinate npcLoc = new Coordinate(-2, 0);
         Entity npc = createNPC (npcLoc, player, true);

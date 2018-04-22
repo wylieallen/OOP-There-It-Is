@@ -30,7 +30,7 @@ public class GameDisplayState extends DisplayState
     private Map<World, WorldDisplayable> worlds;
     private WorldDisplayable activeWorldDisplayable;
 
-    private static final int RENDERING_FRAMES_PER_GAME_TICK = 10;
+    private static final int RENDERING_FRAMES_PER_GAME_TICK = 1;
     private int gameTickCountdown = RENDERING_FRAMES_PER_GAME_TICK;
 
     // todo: the Map<World, WorldDisplayable> doesn't need to be a constructor parameter

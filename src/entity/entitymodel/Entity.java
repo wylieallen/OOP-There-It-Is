@@ -182,15 +182,15 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         return stats.getCurMana();
     }
 
-    public int getBaseMoveSpeed () {
+    public double getBaseMoveSpeed () {
         return stats.getBaseMoveSpeed();
     }
 
-    public void increaseBaseMoveSpeed (int amount) {
+    public void increaseBaseMoveSpeed (double amount) {
         stats.setBaseMoveSpeed(getBaseMoveSpeed() + amount);
     }
 
-    public void decreaseBaseMoveSpeed (int amount) {
+    public void decreaseBaseMoveSpeed (double amount) {
         stats.setBaseMoveSpeed(Math.max (0, getBaseMoveSpeed() - amount));
     }
 
@@ -401,7 +401,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         return stats.tryToAttack(attackSpeed);
     }
 
-    public boolean tryToMove(int moveSpeed) {
+    public boolean tryToMove(double moveSpeed) {
         return stats.tryToMove(moveSpeed);
     }
 

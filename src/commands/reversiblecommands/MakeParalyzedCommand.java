@@ -5,7 +5,7 @@ import savingloading.Visitor;
 
 public class MakeParalyzedCommand extends ReversibleCommand {
 
-    private int entityBaseMoveSpeed = 0;
+    private double entityBaseMoveSpeed = 0;
 
     public MakeParalyzedCommand(boolean isApplied) {
         super(isApplied);
@@ -27,7 +27,7 @@ public class MakeParalyzedCommand extends ReversibleCommand {
         v.visitMakeParalyzedCommand(this);
     }
 
-    public int getEntityBaseMoveSpeed() {
+    public double getEntityBaseMoveSpeed() {
         return entityBaseMoveSpeed;
     }
 }
