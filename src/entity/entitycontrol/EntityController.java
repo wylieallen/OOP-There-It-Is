@@ -107,7 +107,6 @@ public abstract class EntityController implements Visitable, DialogObservable{
         actions.add(action);
     }
 
-
     public final void notifyMount(Vehicle mount){
         if(!inVehicle){
             inVehicle = true;

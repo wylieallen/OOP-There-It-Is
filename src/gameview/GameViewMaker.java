@@ -319,6 +319,7 @@ public class GameViewMaker
 
                 LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
                 tiles.put(coordinate, tile);
+
             }
         }
 
@@ -530,9 +531,18 @@ public class GameViewMaker
                 if(coordinate.y() > 10 || coordinate.y() < -10) {
                     continue;
                 }
-
-                LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
-                tiles.put(coordinate, tile);
+                if((x == 8 && coordinate.y() == 0 && z == -8) || (x == 9 && coordinate.y() == 0 && z == -9) || (x == 7 && coordinate.y() == 0 && z == -7)){
+                    LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.WATER, null, new HashSet<>(), new HashSet<>());
+                    tiles.put(coordinate, tile);
+                }
+                else if((x == 5 && coordinate.y() == 3 && z == -8) || (x == 6 && coordinate.y() == 3 && z == -9) || (x == 7 && coordinate.y() == 3 && z == -10)){
+                    LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.MOUNTAIN, null, new HashSet<>(), new HashSet<>());
+                    tiles.put(coordinate, tile);
+                }
+                else {
+                    LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
+                    tiles.put(coordinate, tile);
+                }
             }
         }
 
@@ -601,6 +611,7 @@ public class GameViewMaker
         Equipment e = new Equipment(5, i , thingy);
         EntityController vehicleController = new NpcEntityController(thingy, e, loc, null, null, false);
         thingy.setController(vehicleController);
+        thingy.addCompatibleTerrain(Terrain.WATER);
         return thingy;
     }
 }
