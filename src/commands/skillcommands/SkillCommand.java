@@ -41,7 +41,6 @@ public class SkillCommand implements Visitable {
             //System.out.println("Success!");
             if(successCommand != null)
             {
-                System.out.println("triggered");
                 successCommand.trigger(e, adjustedEffectiveness);
             }
         } else {

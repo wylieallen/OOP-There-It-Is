@@ -53,10 +53,9 @@ public class ObserveCommand implements Command {
                 message = itemObservation(e.getInventory(), distance);
                 break;
             default:
-                message = "Default message fired?!";
+                message = "*wisper from the dark*  you are not alone";
         }
 
-        System.out.println(message);
         if(controller != null)
             controller.notifyAllObservers(message);
     }

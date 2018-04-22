@@ -41,9 +41,9 @@ public class ObserveAction extends ControllerAction implements SpawnObservable, 
         ObserveCommand observe = new ObserveCommand(level);
         observe.setEntityController(controller);
 
-        SkillCommand skillCommand = new SkillCommand(SkillType.OBSERVATION, level, 1, observe, null);
+        SkillCommand skillCommand = new SkillCommand(SkillType.OBSERVATION, level, 100, observe, null);
 
-        InfluenceArea ia = new expandingInfluenceArea(InfluenceType.CIRCULARINFLUENCE, Direction.N, controlledEntity.getSkillLevel(SkillType.OBSERVATION), controller.getEntityLocation(), whiteList, 1, 1, skillCommand);
+        InfluenceArea ia = new expandingInfluenceArea(InfluenceType.CIRCULARINFLUENCE, Direction.N, 2, controller.getEntityLocation(), whiteList, 1, 1, skillCommand);
         notifyAllOfSpawn(ia);
     }
 
@@ -66,11 +66,11 @@ public class ObserveAction extends ControllerAction implements SpawnObservable, 
 
     @Override
     public void registerObserver(SpawnObserver SO) {
-
+        observers.add(SO);
     }
 
     @Override
     public void deregisterObserver(SpawnObserver SO) {
-
+        observers.remove(SO);
     }
 }

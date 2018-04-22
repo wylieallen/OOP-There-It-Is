@@ -17,11 +17,13 @@ public class TalkInteraction implements EntityInteraction {
     public TalkInteraction(List<String> messages) {
         random = new Random();
         this.messages = messages;
+        messages.add("What in Object Orientation?");
     }
 
     @Override
     public boolean interact(Entity actor, Entity actee) {
-        actor.getController().notifyAllObservers(messages.get(random.nextInt(messages.size())));
+        String m = "actee: " + messages.get(random.nextInt(messages.size()));
+        actor.getController().notifyAllObservers(m);
         return true;
     }
 
