@@ -57,7 +57,8 @@ public class Vehicle extends Entity {
             return new ArrayList<>();
         }
 
-        return driver.interact(actor);
+        actor.getController().notifyInteraction(actor, driver);
+        return new ArrayList<>();
     }
 
     @Override
