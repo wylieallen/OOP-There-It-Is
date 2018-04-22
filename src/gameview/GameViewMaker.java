@@ -333,7 +333,7 @@ public class GameViewMaker
         spawnerMap.put(w, ImageMaker.makeBlueProjectileDisplayable());
 //        spawnerMap.put(axe,new ImageDisplayable(new Point(16,16),ImageMaker.makeBorderedCircle(Color.blue),1000));
         world.getTile(npcLoc).setEntity(npc);
-        spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
+        spriteMap.put(npc, ImageMaker.makeEnemyDisplayable1());
 
         axe = ItemFactory.makeBadAxe(world, true);
         world.getTile(new Coordinate(-6, -2)).addEI(axe);
@@ -374,7 +374,7 @@ public class GameViewMaker
         for(int i = 2; i <= 10; ++i) {
             npc = createNPC (new Coordinate(-6, i), player, false, false);
             world.getTile(new Coordinate(-6, i)).setEntity(npc);
-            spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
+            spriteMap.put(npc, ImageMaker.makeEnemyDisplayable1());
         }
 
 
@@ -450,7 +450,7 @@ public class GameViewMaker
         for(int i = 2; i <= 10; ++i) {
             Entity npc = createNPC (new Coordinate(-6, i), player, false, false);
             world.getTile(new Coordinate(-6, i)).setEntity(npc);
-            spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
+            spriteMap.put(npc, ImageMaker.makeEnemyDisplayable2());
         }
 
         Vehicle thingy = createVehicle (new Coordinate(-4, -4));
@@ -493,7 +493,7 @@ public class GameViewMaker
         for(int i = 2; i <= 10; ++i) {
             Entity npc = createNPC (new Coordinate(-6, i), player, false, false);
             world.getTile(new Coordinate(-6, i)).setEntity(npc);
-            spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
+            spriteMap.put(npc, ImageMaker.makeEnemyDisplayable3());
         }
 
         for(int i = -2; i <= 4; ++i) {

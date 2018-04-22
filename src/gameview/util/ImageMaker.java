@@ -107,6 +107,26 @@ public class ImageMaker
         return new ImageDisplayable(new Point(22, 5), loadImage("assets/entities/shopkeeper.png"), ENTITY_HEIGHT);
     }
 
+    public static Displayable makeEnemyDisplayable1()
+    {
+        return new ImageDisplayable(new Point(16, 10), loadImage("assets/entities/enemy1.png"), ENTITY_HEIGHT);
+    }
+
+    public static Displayable makeEnemyDisplayable2()
+    {
+        return new ImageDisplayable(new Point(16, 10), loadImage("assets/entities/enemy2.png"), ENTITY_HEIGHT);
+    }
+
+    public static Displayable makeEnemyDisplayable3()
+    {
+        return new ImageDisplayable(new Point(16, 10), loadImage("assets/entities/enemy3.png"), ENTITY_HEIGHT);
+    }
+
+    public static Displayable makeEnemyDisplayable4()
+    {
+        return new ImageDisplayable(new Point(16, 10), loadImage("assets/entities/enemy4.png"), ENTITY_HEIGHT);
+    }
+
     public static Displayable makeConsumableDisplayable1()
     {
         return new ImageDisplayable(new Point(24, 24), loadImage("assets/items/consumables/consumable1.png"), ITEM_HEIGHT);
