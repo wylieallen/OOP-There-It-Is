@@ -276,7 +276,7 @@ public class GameViewMaker
 
 
         WeaponItem axe = ItemFactory.makeAxe(world, false);
-        npc.getController().getEquipment().add(axe);
+//        npc.getController().getEquipment().add(axe);
 //
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), 0, new ModifyHealthCommand(), null);
         WeaponItem w = new WeaponItem ("Bob", false, -1, 1000, SkillType.TWOHANDEDWEAPON, 10, 50, 10, InfluenceType.ANGULARINFLUENCE, skill);
