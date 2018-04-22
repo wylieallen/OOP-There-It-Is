@@ -48,6 +48,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         this(new Vector(), new EntityStats(), new ArrayList<>(), new ArrayList<>(),
                 new Inventory(), true);
         this.increaseSkillLevel(SkillType.BINDWOUNDS, 1);
+        stats.addSkill(SkillType.STAFF, 1);
         System.out.println("Entity bindwounds skill level " + getSkillLevel(SkillType.BINDWOUNDS));
     }
 

@@ -256,6 +256,13 @@ public class EntityStats implements Visitable {
         return skills;
     }
 
+    public void addSkill(SkillType skill, int level) {
+        if(!skills.containsKey(skill))
+        {
+            skills.put(skill, level);
+        }
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitEntityStats(this);

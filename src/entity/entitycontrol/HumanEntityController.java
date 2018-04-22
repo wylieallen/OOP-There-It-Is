@@ -18,8 +18,6 @@ import java.util.*;
 
 public class HumanEntityController extends EntityController implements ControllerActionVisitor
 {
-    private Map<ControllerAction, KeyListener> actionToListenerMap = new HashMap<>();
-
     private GamePanel view;
     private Set <KeyListener> activeListeners;
 
@@ -42,6 +40,8 @@ public class HumanEntityController extends EntityController implements Controlle
 
     private Map<Direction, Integer> directionalMoveKeyCodes;
     private Map<Direction, Integer> altDirectionalMoveKeyCodes;
+
+    private Map<Integer, Integer> weaponSlotKeyCodes;
 
     private int moveKeyCode = KeyEvent.VK_SHIFT;
     // todo: finish adding more keycodes
@@ -68,6 +68,13 @@ public class HumanEntityController extends EntityController implements Controlle
         altDirectionalMoveKeyCodes.put(Direction.S, KeyEvent.VK_DOWN);
         altDirectionalMoveKeyCodes.put(Direction.SE, KeyEvent.VK_RIGHT);
         altDirectionalMoveKeyCodes.put(Direction.SW, KeyEvent.VK_LEFT);
+
+        weaponSlotKeyCodes = new HashMap<>();
+        weaponSlotKeyCodes.put(0, KeyEvent.VK_1);
+        weaponSlotKeyCodes.put(1, KeyEvent.VK_2);
+        weaponSlotKeyCodes.put(2, KeyEvent.VK_3);
+        weaponSlotKeyCodes.put(3, KeyEvent.VK_4);
+        weaponSlotKeyCodes.put(4, KeyEvent.VK_5);
 
         if(view != null) {
             view.setFocusable(true);
@@ -168,6 +175,11 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             if(d != Direction.NULL)
                 addAction(new DirectionalMoveAction(entity, d));
+        }
+
+        for(int i = 0; i < 5; i++)
+        {
+            addAction(new AttackAction(this, getEquipment(), i));
         }
 
         addAction(new BindWoundsAction(entity));
@@ -317,7 +329,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == attackKeyCode)
+                if(e.getKeyCode() == weaponSlotKeyCodes.get(a.getWeaponSlot()))
                 {
                     a.activate();
                 }
