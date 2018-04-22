@@ -3,8 +3,10 @@ package gameview.util;
 import entity.entitycontrol.controllerActions.DirectionalMoveAction;
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
+import guiframework.displayable.ConditionalDisplayable;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
+import maps.entityimpaction.Trap;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 
@@ -220,6 +222,15 @@ public class ImageMaker
         return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/yellowprojectile.png"), PROJECTILE_HEIGHT);
     }
 
+    public static Displayable makeTrapDisplayable(Trap trap) {
+        ConditionalDisplayable displayable = new ConditionalDisplayable(new Point(0, 0), ITEM_HEIGHT,
+                new ImageDisplayable(new Point(0, 0), loadImage("assets/blank.png"), ITEM_HEIGHT));
+
+        displayable.add(trap::hasFired, new ImageDisplayable(new Point(8, 8), loadImage("assets/maps/firedtrap.png"), ITEM_HEIGHT));
+        displayable.add(trap::isVisible, new ImageDisplayable(new Point(8, 8), loadImage("assets/maps/trap.png"), ITEM_HEIGHT));
+
+        return displayable;
+    }
 
 
 

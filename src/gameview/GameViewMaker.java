@@ -17,6 +17,7 @@ import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
+import guiframework.displayable.ConditionalDisplayable;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
 import items.InteractiveItem;
@@ -30,6 +31,7 @@ import maps.Influence.InfluenceType;
 import maps.entityimpaction.AreaEffect;
 import maps.entityimpaction.InfiniteAreaEffect;
 import maps.entityimpaction.OneShotAreaEffect;
+import maps.entityimpaction.Trap;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
@@ -495,6 +497,13 @@ public class GameViewMaker
             Entity npc = createNPC (new Coordinate(-6, i), player, false, false);
             world.getTile(new Coordinate(-6, i)).setEntity(npc);
             spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
+        }
+
+        for(int i = -2; i <= 4; ++i) {
+            Trap trap = new Trap(new ModifyHealthCommand(-20), false, 25, false);
+            spriteMap.put(trap, ImageMaker.makeTrapDisplayable(trap));
+            world.getTile(new Coordinate(6, i)).addMLC(trap);
+            world.getTile(new Coordinate(6, i)).addEI(trap);
         }
 
         return world;
