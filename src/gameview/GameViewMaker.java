@@ -147,7 +147,7 @@ public class GameViewMaker
         player.addToInventory(new QuestItem("Radio", false, 0));
 
         Coordinate npcLoc = new Coordinate(-2, 0);
-        Entity npc = createNPC (npcLoc, player, true);
+        Entity npc = createNPC (npcLoc, player, true, false);
 
 //        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, 0, 10, new ModifyHealthCommand(-2), new ModifyHealthCommand(2));
 //        WeaponItem w = new WeaponItem ("Bob", false, 0, 500, SkillType.TWOHANDEDWEAPON, 8, 1000, 1, InfluenceType.CIRCULARINFLUENCE, skill);
@@ -275,7 +275,7 @@ public class GameViewMaker
         Entity npc = createNPC (npcLoc, player, true, true);
 
 
-        WeaponItem axe = ItemFactory.makeAxe(world, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON));
+        WeaponItem axe = ItemFactory.makeAxe(world, false);
         npc.getController().getEquipment().add(axe);
 //
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), 0, new ModifyHealthCommand(), null);
