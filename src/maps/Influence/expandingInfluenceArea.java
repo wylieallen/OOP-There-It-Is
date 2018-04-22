@@ -67,6 +67,9 @@ public class expandingInfluenceArea implements InfluenceArea {
     }
 
     @Override
+    public boolean expired(){return isExpired;}
+
+    @Override
     public List<Coordinate> getAffectedCoordinates() {
         List<Coordinate> worldCoordinates = new ArrayList<>();
         Vector vec;

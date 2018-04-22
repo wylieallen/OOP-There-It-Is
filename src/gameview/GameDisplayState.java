@@ -12,16 +12,19 @@ import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
 import guiframework.displayable.StringDisplayable;
 import items.takeableitems.TakeableItem;
+import maps.Influence.InfluenceArea;
 import maps.world.Game;
 import maps.world.World;
+import spawning.SpawnObserver;
 import utilities.Coordinate;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public class GameDisplayState extends DisplayState
+public class GameDisplayState extends DisplayState implements SpawnObserver
 {
     private Dimension size;
     private PriorityQueue<Displayable> widgets;
@@ -29,6 +32,7 @@ public class GameDisplayState extends DisplayState
     private Point camera;
     private double zoom = 1.0;
     private static Map<GameObject, Displayable> spriteMap;
+    private static Map<GameObject, Displayable> spriteSpawnerMap = new HashMap<GameObject, Displayable>();
     private Map<World, WorldDisplayable> worlds;
     private WorldDisplayable activeWorldDisplayable;
 
@@ -144,4 +148,21 @@ public class GameDisplayState extends DisplayState
     public void setZoom(double zoom) { this.zoom = zoom; }
 
     public void setSize(Dimension size){ this.size.setSize(size);}
+
+    @Override
+    public void notifySpawn(InfluenceArea IA, GameObject spawner) {
+        //find the iaSpawner in the spriteSpawnerMap and get the sprite that it is mapped to spawn
+        //make a new entry in the sprite map that maps the influenceArea to that sprite
+        for(Map.Entry<GameObject,Displayable> cachedSpawner : spriteSpawnerMap.entrySet()){
+            if(spawner == cachedSpawner){
+                spriteMap.put(IA,cachedSpawner.getValue());
+            }
+        }
+    }
+
+    public void registerSpriteSpawner(GameObject spawner, Displayable projectileSprite){
+        spriteSpawnerMap.put(spawner,projectileSprite);
+    }
+
+
 }

@@ -79,6 +79,13 @@ public class FoggyWorld implements World {
     @Override
     public void accept(Visitor v) { }
 
+
+    @Override
+    public Map<Coordinate, GameObject> getInfluences() {
+        return world.getInfluences();
+    }
+
+
     @Override
     public void notifySpawn(InfluenceArea IA, GameObject spawner) {
         world.notifySpawn(IA, spawner);

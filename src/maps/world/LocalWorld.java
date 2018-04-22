@@ -11,10 +11,7 @@ import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dontf on 4/14/2018.
@@ -92,6 +89,19 @@ public class LocalWorld implements World {
         }
         return ret;
     }
+
+    @Override
+    public Map<Coordinate, GameObject> getInfluences() {
+        Map<Coordinate, GameObject> iaMap = new HashMap<Coordinate,GameObject>();
+        for(InfluenceArea ia : influenceAreas){
+            List<Coordinate> affectedCoords = ia.getAffectedCoordinates();
+            for(Coordinate coord : affectedCoords){
+                iaMap.put(coord,ia);
+            }
+        }
+        return iaMap;
+    }
+
 
     public LocalWorldTile getTile(Coordinate c) {
         return tiles.getOrDefault(c, null);

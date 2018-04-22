@@ -15,6 +15,7 @@ import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
+import guiframework.displayable.ImageDisplayable;
 import items.InteractiveItem;
 import items.takeableitems.QuestItem;
 import items.takeableitems.TakeableItem;
@@ -140,7 +141,7 @@ public class GameViewMaker
         Coordinate npcLoc = new Coordinate(-2, 0);
         Entity npc = createNPC (npcLoc, player, true);
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, 5, 10, new ModifyHealthCommand(-2), new ModifyHealthCommand(2));
-        WeaponItem w = new WeaponItem ("Bob", false, 3, 1, SkillType.TWOHANDEDWEAPON, 5, 1, 1, InfluenceType.CIRCULARINFLUENCE, skill);
+        WeaponItem w = new WeaponItem ("Bob", false, 0, 5000, SkillType.TWOHANDEDWEAPON, 5, 1000, 1, InfluenceType.LINEARINFLUENCE, skill);
         npc.getController().getEquipment().add(w);
 
         //tile.setEntity(player);
@@ -179,6 +180,8 @@ public class GameViewMaker
         spriteMap.put(localWorld1Exit, ImageMaker.makeTeleporterDisplayable());
         localWorldsList.get(0).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exit);
 
+        GameDisplayState display = new GameDisplayState(panel.getSize(), game, spriteMap, worldDisplayableMap, overworld);
+        display.registerSpriteSpawner(w,new ImageDisplayable(new Point(16,16), ImageMaker.makeBorderedCircle(Color.yellow),1000));
         return new GameDisplayState(panel.getSize(), game, spriteMap, worldDisplayableMap, overworld);
     }
 
