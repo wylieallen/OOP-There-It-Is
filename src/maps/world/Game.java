@@ -16,7 +16,7 @@ public class Game implements TransitionObserver, Visitable {
 
     private World activeWorld;
     private OverWorld overWorld;
-    private List<World> localWorlds;
+    private List<FoggyWorld> localWorlds;
     private static long curTime;
     private static long lastTimeUpdated;
     private Entity player;
@@ -25,7 +25,7 @@ public class Game implements TransitionObserver, Visitable {
 
     public Game(World activeWorld,
                 OverWorld overWorld,
-                List<World> localWorlds,
+                List<FoggyWorld> localWorlds,
                 int curTime,
                 Entity player)
     {
@@ -98,7 +98,7 @@ public class Game implements TransitionObserver, Visitable {
         return overWorld;
     }
 
-    public List<World> getLocalWorlds(){
+    public List<FoggyWorld> getLocalWorlds(){
         return localWorlds;
     }
 

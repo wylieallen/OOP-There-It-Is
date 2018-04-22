@@ -166,13 +166,10 @@ public class GameViewMaker
         worldDisplayableMap.put(overworld, overworldDisplayable);
 
         // LocalWorlds:
-        List<LocalWorld> localWorldsList = new ArrayList<>();
-        List<World> foggyWorldsList = new ArrayList<>();
+        List<FoggyWorld> foggyWorldsList = new ArrayList<>();
 
         //add first local world to local world list
-        LocalWorld localWorld = createLocalWorld1();
-        FoggyWorld foggyWorld = new FoggyWorld(localWorld, player);
-        localWorldsList.add(localWorld);
+        FoggyWorld foggyWorld = new FoggyWorld(createLocalWorld1(), player);
         foggyWorldsList.add(foggyWorld);
 
         //create local world displayable
@@ -180,9 +177,7 @@ public class GameViewMaker
         worldDisplayableMap.put(foggyWorld, foggyWorldDisplayable);
 
         //add second local world to local world list
-        localWorld = createLocalWorld2();
-        foggyWorld = new FoggyWorld(localWorld, player);
-        localWorldsList.add(localWorld);
+        foggyWorld = new FoggyWorld(createLocalWorld2(), player);
         foggyWorldsList.add(foggyWorld);
 
         //create local world displayable
@@ -190,9 +185,7 @@ public class GameViewMaker
         worldDisplayableMap.put(foggyWorld, foggyWorldDisplayable);
 
         //add third local world to local world list
-        localWorld = createLocalWorld3();
-        foggyWorld = new FoggyWorld(localWorld, player);
-        localWorldsList.add(localWorld);
+        foggyWorld = new FoggyWorld(createLocalWorld3(), player);
         foggyWorldsList.add(foggyWorld);
 
         //create local world displayable
@@ -200,9 +193,7 @@ public class GameViewMaker
         worldDisplayableMap.put(foggyWorld, foggyWorldDisplayable);
 
         //add fourth local world to local world list
-        localWorld = createLocalWorld4();
-        foggyWorld = new FoggyWorld(localWorld, player);
-        localWorldsList.add(localWorld);
+        foggyWorld = new FoggyWorld(createLocalWorld4(), player);
         foggyWorldsList.add(foggyWorld);
 
         //create local world displayable
@@ -223,7 +214,7 @@ public class GameViewMaker
 
         InteractiveItem localWorld1Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
         spriteMap.put(localWorld1Exit, ImageMaker.makeTeleporterDisplayable());
-        localWorldsList.get(0).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exit);
+        foggyWorldsList.get(0).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exit);
 
         //local world 2
         InteractiveItem localWorld2Entrance = new InteractiveItem("Encounter 2", new TransitionCommand(foggyWorldsList.get(1), new Coordinate(0, 0), game));
@@ -232,7 +223,7 @@ public class GameViewMaker
 
         InteractiveItem localWorld2Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
         spriteMap.put(localWorld2Exit, ImageMaker.makeTeleporterDisplayable());
-        localWorldsList.get(1).getTile(new Coordinate(-1, -1)).addEI(localWorld2Exit);
+        foggyWorldsList.get(1).getTile(new Coordinate(-1, -1)).addEI(localWorld2Exit);
 
         //local world 3
         InteractiveItem localWorld3Entrance = new InteractiveItem("Encounter 3", new TransitionCommand(foggyWorldsList.get(2), new Coordinate(0, 0), game));
@@ -241,7 +232,7 @@ public class GameViewMaker
 
         InteractiveItem localWorld3Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
         spriteMap.put(localWorld3Exit, ImageMaker.makeTeleporterDisplayable());
-        localWorldsList.get(2).getTile(new Coordinate(-1, -1)).addEI(localWorld3Exit);
+        foggyWorldsList.get(2).getTile(new Coordinate(-1, -1)).addEI(localWorld3Exit);
 
         //local world 4
         InteractiveItem localWorld4Entrance = new InteractiveItem("Encounter 4", new TransitionCommand(foggyWorldsList.get(3), new Coordinate(0, 0), game));
@@ -250,7 +241,7 @@ public class GameViewMaker
 
         InteractiveItem localWorld4Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
         spriteMap.put(localWorld4Exit, ImageMaker.makeTeleporterDisplayable());
-        localWorldsList.get(3).getTile(new Coordinate(-1, -1)).addEI(localWorld4Exit);
+        foggyWorldsList.get(3).getTile(new Coordinate(-1, -1)).addEI(localWorld4Exit);
 
        return new GameDisplayState(panel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overworld);
     }
