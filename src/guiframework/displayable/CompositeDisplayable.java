@@ -1,9 +1,7 @@
 package guiframework.displayable;
 
 import java.awt.*;
-import java.util.HashSet;
-import java.util.PriorityQueue;
-import java.util.Set;
+import java.util.*;
 
 public class CompositeDisplayable extends AbstractDisplayable
 {
@@ -67,7 +65,12 @@ public class CompositeDisplayable extends AbstractDisplayable
 
     public void do_draw(Graphics2D g2d)
     {
-        components.forEach(d -> d.draw(g2d));
+        Displayable[] displayables = new Displayable[0];
+        displayables = components.toArray(displayables);
+        Arrays.sort(displayables, components.comparator());
+        for(Displayable displayable: displayables) {
+            displayable.draw(g2d);
+        }
     }
 
 
