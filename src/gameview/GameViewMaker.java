@@ -2,6 +2,7 @@ package gameview;
 
 import commands.ModifyHealthCommand;
 import commands.TransitionCommand;
+import commands.*;
 import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.AI.PetAI;
@@ -25,10 +26,14 @@ import items.ItemFactory;
 import items.takeableitems.QuestItem;
 import items.takeableitems.WeaponItem;
 import maps.Influence.InfluenceType;
+import maps.entityimpaction.AreaEffect;
+import maps.entityimpaction.InfiniteAreaEffect;
+import maps.entityimpaction.OneShotAreaEffect;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
 import maps.tile.OverWorldTile;
+import maps.trajectorymodifier.River;
 import maps.world.Game;
 import maps.world.LocalWorld;
 import maps.world.OverWorld;
@@ -139,7 +144,6 @@ public class GameViewMaker
         */
 
         Entity player = new Entity();
-        player.increaseBaseMoveSpeed(1);
         player.addCompatibleTerrain(Terrain.SPACE);
         player.setMovementObserver(panel);
         player.addToInventory(new QuestItem("Radio", false, 0));
@@ -184,6 +188,22 @@ public class GameViewMaker
         localworldDisplayable = new WorldDisplayable(new Point(0, 0), 0, localWorld);
         worldDisplayableMap.put(localWorld, localworldDisplayable);
 
+        //add third local world to local world list
+        localWorld = createLocalWorld3();
+        localWorldsList.add(localWorld);
+
+        //create local world displayable
+        localworldDisplayable = new WorldDisplayable(new Point(0, 0), 0, localWorld);
+        worldDisplayableMap.put(localWorld, localworldDisplayable);
+
+        //add fourth local world to local world list
+        localWorld = createLocalWorld4();
+        localWorldsList.add(localWorld);
+
+        //create local world displayable
+        localworldDisplayable = new WorldDisplayable(new Point(0, 0), 0, localWorld);
+        worldDisplayableMap.put(localWorld, localworldDisplayable);
+
         game = new Game(overworld, overworld, localWorldsList, 0, player);
         game.setTransitionObserver(panel);
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), panel));
@@ -202,12 +222,30 @@ public class GameViewMaker
 
         //local world 2
         InteractiveItem localWorld2Entrance = new InteractiveItem("Encounter 2", new TransitionCommand(localWorldsList.get(1), new Coordinate(0, 0), game));
-        spriteMap.put(localWorld2Entrance, ImageMaker.makeEncounterDisplayable2());
+        spriteMap.put(localWorld2Entrance, ImageMaker.makeEncounterDisplayable1());
         overworld.getTile(new Coordinate(-6, 1)).setEncounter(localWorld2Entrance);
 
         InteractiveItem localWorld2Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
         spriteMap.put(localWorld2Exit, ImageMaker.makeTeleporterDisplayable());
-        localWorldsList.get(1).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exit);
+        localWorldsList.get(1).getTile(new Coordinate(-1, -1)).addEI(localWorld2Exit);
+
+        //local world 3
+        InteractiveItem localWorld3Entrance = new InteractiveItem("Encounter 3", new TransitionCommand(localWorldsList.get(2), new Coordinate(0, 0), game));
+        spriteMap.put(localWorld3Entrance, ImageMaker.makeEncounterDisplayable1());
+        overworld.getTile(new Coordinate(-5, 4)).setEncounter(localWorld3Entrance);
+
+        InteractiveItem localWorld3Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
+        spriteMap.put(localWorld3Exit, ImageMaker.makeTeleporterDisplayable());
+        localWorldsList.get(2).getTile(new Coordinate(-1, -1)).addEI(localWorld3Exit);
+
+        //local world 4
+        InteractiveItem localWorld4Entrance = new InteractiveItem("Encounter 4", new TransitionCommand(localWorldsList.get(3), new Coordinate(0, 0), game));
+        spriteMap.put(localWorld4Entrance, ImageMaker.makeEncounterDisplayable1());
+        overworld.getTile(new Coordinate(4, 3)).setEncounter(localWorld4Entrance);
+
+        InteractiveItem localWorld4Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
+        spriteMap.put(localWorld4Exit, ImageMaker.makeTeleporterDisplayable());
+        localWorldsList.get(3).getTile(new Coordinate(-1, -1)).addEI(localWorld4Exit);
 
        return new GameDisplayState(panel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overworld);
     }
@@ -280,7 +318,7 @@ public class GameViewMaker
 //        npc.getController().getEquipment().add(axe);
 //
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), -1, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Bob", false, -10, 1000, SkillType.TWOHANDEDWEAPON, 10, 500, 1, InfluenceType.ANGULARINFLUENCE, skill);
+        WeaponItem w = new WeaponItem ("Bob", false, 1000, SkillType.TWOHANDEDWEAPON, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
         npc.getController().getEquipment().add(w);
         //must add overworld as observer
         w.registerObserver(world);
@@ -412,6 +450,110 @@ public class GameViewMaker
         Vehicle thingy = createVehicle (new Coordinate(-4, -4));
         world.getTile(new Coordinate(-4, -4)).setEntity(thingy);
         spriteMap.put(thingy, ImageMaker.makeVehicleDisplayable());
+
+        return world;
+    }
+
+    private LocalWorld createLocalWorld3() {
+        Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
+
+        for(int x = -10; x <= 10; ++x) {
+            for(int z = -10; z <= 10; ++z) {
+                Coordinate coordinate = new Coordinate(x, z);
+                if(coordinate.y() > 10 || coordinate.y() < -10) {
+                    continue;
+                }
+
+                LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
+                tiles.put(coordinate, tile);
+            }
+        }
+
+        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
+
+        Item gun = ItemFactory.makeBadGun(world, true);
+        world.getTile(new Coordinate(-6, -2)).addEI(gun);
+        spriteMap.put(gun, ImageMaker.makeRangedWeaponDisplayable());
+
+        gun = ItemFactory.makeGun(world, true);
+        world.getTile(new Coordinate(-6, -1)).addEI(gun);
+        spriteMap.put(gun, ImageMaker.makeRangedWeaponDisplayable());
+
+        gun = ItemFactory.makeGoodGun(world, true);
+        world.getTile(new Coordinate(-6, 0)).addEI(gun);
+        spriteMap.put(gun, ImageMaker.makeRangedWeaponDisplayable());
+
+
+        for(int i = 2; i <= 10; ++i) {
+            Entity npc = createNPC (new Coordinate(-6, i), player, false, false);
+            world.getTile(new Coordinate(-6, i)).setEntity(npc);
+            spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
+        }
+
+        return world;
+    }
+
+    private LocalWorld createLocalWorld4() {
+        Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
+
+        for(int x = -10; x <= 10; ++x) {
+            for(int z = -10; z <= 10; ++z) {
+                Coordinate coordinate = new Coordinate(x, z);
+                if(coordinate.y() > 10 || coordinate.y() < -10) {
+                    continue;
+                }
+
+                LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
+                tiles.put(coordinate, tile);
+            }
+        }
+
+        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
+
+        Item item = ItemFactory.makeHealthPotion(10);
+        world.getTile(new Coordinate(-5, -2)).addEI(item);
+        spriteMap.put(item, ImageMaker.makeConsumableDisplayable2());
+
+        AreaEffect damageEffect = new InfiniteAreaEffect(new ModifyHealthCommand(-10), 1000, 0, "Damage Area Effect");
+        tiles.get(new Coordinate(-6, -1)).addEI(damageEffect);
+        tiles.get(new Coordinate(-7, -1)).addEI(damageEffect);
+        tiles.get(new Coordinate(-6, 0)).addEI(damageEffect);
+        tiles.get(new Coordinate(-7, 0)).addEI(damageEffect);
+
+        AreaEffect healEffect = new InfiniteAreaEffect(new ModifyHealthCommand(10), 1000, 0, "Heal Area Effect");
+        tiles.get(new Coordinate(-6, 2)).addEI(healEffect);
+        tiles.get(new Coordinate(-7, 2)).addEI(healEffect);
+        tiles.get(new Coordinate(-6, 3)).addEI(healEffect);
+        tiles.get(new Coordinate(-7, 3)).addEI(healEffect);
+
+        AreaEffect killEffect = new OneShotAreaEffect(new KillCommand(), false, "Kill Area Effect");
+        tiles.get(new Coordinate(-6, 5)).addEI(killEffect);
+        tiles.get(new Coordinate(-7, 5)).addEI(killEffect);
+        tiles.get(new Coordinate(-6, 6)).addEI(killEffect);
+        tiles.get(new Coordinate(-7, 6)).addEI(killEffect);
+
+        AreaEffect levelUp = new OneShotAreaEffect(new LevelUpCommand(), false, "Kill Area Effect");
+        tiles.get(new Coordinate(-6, 8)).addEI(levelUp);
+        tiles.get(new Coordinate(-7, 8)).addEI(levelUp);
+        tiles.get(new Coordinate(-6, 9)).addEI(levelUp);
+        tiles.get(new Coordinate(-7, 9)).addEI(levelUp);
+
+        for(int i = -5; i <= 1; ++i) {
+            River river = new River(new Vector(Direction.S, 29));
+            tiles.get(new Coordinate(7, i)).addTM(river);
+            spriteMap.put(river, ImageMaker.makeRiverDisplayable(Direction.S));
+        }
+        River river = new River(new Vector(Direction.SW, 29));
+        tiles.get(new Coordinate(7, 2)).addTM(river);
+        spriteMap.put(river, ImageMaker.makeRiverDisplayable(Direction.SW));
+        for(int i = 3; i >= -3; --i) {
+            river = new River(new Vector(Direction.N, 29));
+            tiles.get(new Coordinate(6, i)).addTM(river);
+            spriteMap.put(river, ImageMaker.makeRiverDisplayable(Direction.N));
+        }
+        river = new River(new Vector(Direction.NE, 29));
+        tiles.get(new Coordinate(6, -4)).addTM(river);
+        spriteMap.put(river, ImageMaker.makeRiverDisplayable(Direction.NE));
 
         return world;
     }

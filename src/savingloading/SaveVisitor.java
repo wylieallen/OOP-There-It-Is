@@ -260,7 +260,6 @@ public class SaveVisitor implements Visitor {
         JSONObject wearableItemsJson = new JSONObject();
         equipmentJson.put("Wearables", wearableItemsJson);
         for(WeaponItem item : equipment.getWeapons()) {
-            System.out.println(item);
             item.accept(this);
         }
         while(!itemJsonsQueue.isEmpty())
@@ -370,13 +369,14 @@ public class SaveVisitor implements Visitor {
         weaponItemJson.put("OnMap", w.isOnMap());
         w.getCommand().accept(this);
         weaponItemJson.put("SkillCommand", currentSkillCommandJson);
-        weaponItemJson.put("Damage", w.getDamage());
         weaponItemJson.put("AttackSpeed", w.getAttackSpeed());
         weaponItemJson.put("MaxRadius", w.getMaxRadius());
         weaponItemJson.put("ExpansionInterval", w.getExpansionInterval());
         weaponItemJson.put("UpdateInterval", w.getUpdateInterval());
+        weaponItemJson.put("duration", w.getDuration());
         weaponItemJson.put("RequiredSkill", w.getRequiredSkill().name());
         weaponItemJson.put("InfluenceType", w.getInfluenceType().name());
+        weaponItemJson.put("makesExpandingArea", w.makesExpandingArea());
         itemJsonsQueue.add(weaponItemJson);
     }
 
@@ -416,6 +416,18 @@ public class SaveVisitor implements Visitor {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "ModifyHealth");
         currentCommandJson.put("Amount", modifyHealthCommand.getModifyAmount());
+    }
+
+    @Override
+    public void visitKillCommand(KillCommand killCommand) {
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "Kill");
+    }
+
+    @Override
+    public void visitLevelUpCommand(LevelUpCommand levelUpCommand) {
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "LevelUp");
     }
 
     @Override
@@ -508,15 +520,10 @@ public class SaveVisitor implements Visitor {
             currentCommandJson.put("Name", "Null");
         }
         currentSkillCommandJson.put("SuccessCommand", currentCommandJson);
-
-        if(skillCommand.getFailureCommand() != null) {
+        if (skillCommand.getFailureCommand() != null) {
             skillCommand.getFailureCommand().accept(this);
-        } else {
-            currentCommandJson = new JSONObject();
-            currentCommandJson.put("Name", "Null");
+            currentSkillCommandJson.put("FailureCommand", currentCommandJson);
         }
-        currentSkillCommandJson.put("FailureCommand", currentCommandJson);
-
     }
 
     private void addReversibleCommand(ReversibleCommand reversibleCommand){
@@ -533,6 +540,7 @@ public class SaveVisitor implements Visitor {
             currentTileJson.put("Y", c.y());
             tilesJson.put(currentTileJson);
         }
+
     }
 
     public void visitLocalWorld(LocalWorld w){
@@ -616,7 +624,7 @@ public class SaveVisitor implements Visitor {
     public void visitRiver(River river) {
         JSONObject riverJson = new JSONObject();
         riverJson.put("dx", river.getVector().dx());
-        riverJson.put("dy", river.getVector().dy());
+        riverJson.put("dz", river.getVector().dz());
         currentTileJson.put("River", riverJson);
     }
 

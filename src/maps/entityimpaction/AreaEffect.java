@@ -12,6 +12,7 @@ public abstract class AreaEffect implements EntityImpactor {
 
     public AreaEffect(Command command, String name) {
         this.command = command;
+        this.name = name;
     }
 
     public abstract void touch(Entity entity);

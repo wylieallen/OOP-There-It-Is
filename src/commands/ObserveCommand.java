@@ -55,7 +55,8 @@ public class ObserveCommand implements Command {
         }
 
         System.out.println(message);
-        controller.notifyAllObservers(message);
+        if(controller != null)
+            controller.notifyAllObservers(message);
     }
 
     //0 accuracy represents perfect accuracy, -1 represents an underestimation by 100%,

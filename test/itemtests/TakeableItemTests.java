@@ -152,14 +152,17 @@ public class TakeableItemTests {
         }
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
-        WeaponItem item = new WeaponItem("Sword", true, 10,0,
-                SkillType.ONEHANDEDWEAPON, 1, 0, 0,
-                InfluenceType.LINEARINFLUENCE,
-                new SkillCommand(SkillType.ONEHANDEDWEAPON,
+//        String name, boolean onMap, long attackSpeed,
+//        SkillType requiredSkill, int maxRadius, long expansionInterval,
+//        long updateInterval, InfluenceType influenceType, SkillCommand command)
+
+        WeaponItem item = new WeaponItem("Sword", true, 0, SkillType.ONEHANDEDWEAPON, 1, 0,0, 300,
+                                InfluenceType.LINEARINFLUENCE,
+                                new SkillCommand(SkillType.ONEHANDEDWEAPON,
                                 entity.getSkillLevel(SkillType.ONEHANDEDWEAPON),
                                 -10,
                                 new ModifyHealthCommand(0),
-                                null));
+                                null), false);
         item.registerObserver(world);
 
         tiles.get(new Coordinate(2, 1)).addEI(item);

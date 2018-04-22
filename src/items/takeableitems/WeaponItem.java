@@ -20,31 +20,35 @@ import java.util.List;
 
 public class WeaponItem extends TakeableItem implements SpawnObservable {
 
-    private int damage;
+
     private long attackSpeed;
     private SkillType requiredSkill;
     private List<SpawnObserver> spawnObservers;
     private int maxRadius;
     private long expansionInterval;
     private long updateInterval;
+    private long duration;
     private InfluenceType influenceType;
     private SkillCommand command;
-    //TODO: remove damage attribute. Not needed because skill command contains damage amount
+    private boolean makesExpandingArea;
 
 
-    public WeaponItem(String name, boolean onMap, int damage, long attackSpeed,
+
+    public WeaponItem(String name, boolean onMap, long attackSpeed,
                       SkillType requiredSkill, int maxRadius, long expansionInterval,
-                      long updateInterval, InfluenceType influenceType, SkillCommand command) {
+                      long updateInterval, long duration, InfluenceType influenceType, SkillCommand command, boolean makesExpandingArea) {
         super(name, onMap);
-        this.damage = damage;
         this.attackSpeed = attackSpeed;
         this.requiredSkill = requiredSkill;
         spawnObservers = new ArrayList<>();
         this.maxRadius = maxRadius;
         this.expansionInterval = expansionInterval;
         this.updateInterval = updateInterval;
+        this.duration = duration;
         this.influenceType = influenceType;
         this.command = command;
+        this.makesExpandingArea = makesExpandingArea;
+
     }
 
     @Override
@@ -64,10 +68,25 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
             ArrayList<GameObject> whitelist = new ArrayList<>();
             if(influenceType != InfluenceType.SELFINFLUENCE)
                 whitelist.add(attacker);
-            InfluenceArea ia = new expandingInfluenceArea(influenceType, attacker.getMovementDirection(),
-                    maxRadius, location, whitelist, updateInterval, expansionInterval, command);
+            InfluenceArea ia;
+            if(makesExpandingArea) {
+                ia = new expandingInfluenceArea(influenceType, attacker.getMovementDirection(),
+                        maxRadius, location, whitelist, updateInterval, expansionInterval, command);
+            }
+            else{
+                ia = new StaticInfluenceArea(influenceType,attacker.getMovementDirection(),
+                        maxRadius,location,whitelist,updateInterval,duration,command);
+            }
             notifyAllOfSpawn(ia);
         }
+    }
+
+    public boolean makesExpandingArea(){
+        return makesExpandingArea;
+    }
+
+    public long getDuration(){
+        return duration;
     }
 
     @Override
@@ -94,9 +113,6 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
         return command;
     }
 
-    public int getDamage(){
-        return damage;
-    }
 
     public long getAttackSpeed(){
         return attackSpeed;

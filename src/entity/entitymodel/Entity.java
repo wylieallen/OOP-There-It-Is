@@ -160,6 +160,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         return getCurrHealth() <= 0;
     }
 
+    public void kill() { stats.kill(); }
+
     public int getCurrHealth () {
         return stats.getCurHealth();
     }
@@ -208,6 +210,10 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         if (leveled)
             controller.notifyLevelUp(this);
 
+    }
+
+    public void levelUp() {
+        increaseXP(levelUpIncreament - getCurXP());
     }
 
     public int getUnusedSkillPoints () { return stats.getUnspentSkillPoints(); }

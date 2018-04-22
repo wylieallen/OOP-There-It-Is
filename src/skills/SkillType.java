@@ -29,11 +29,11 @@ public enum SkillType {
         int adjustedSuccessRate = (int)( successRate
                                     + (level * levelSuccessModifier)
                                     - (distance * distanceSuccessModifier) );
-        System.out.println("successrate + (level * LSM) - (distance * DSM)");
-        System.out.println("successrate = " + successRate);
-        System.out.println("level = " + level + " LSM = " + levelSuccessModifier);
-        System.out.println("distance = " + distance + " DSM = " + distanceSuccessModifier);
-        System.out.println("Rolled " + rand + ", adjustedSuccessRate " + adjustedSuccessRate);
+//        System.out.println("successrate + (level * LSM) - (distance * DSM)");
+//        System.out.println("successrate = " + successRate);
+//        System.out.println("level = " + level + " LSM = " + levelSuccessModifier);
+//        System.out.println("distance = " + distance + " DSM = " + distanceSuccessModifier);
+//        System.out.println("Rolled " + rand + ", adjustedSuccessRate " + adjustedSuccessRate);
         return rand < adjustedSuccessRate;
     }
 
