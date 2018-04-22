@@ -200,11 +200,11 @@ public class GameViewMaker
 
         //local world 2
         InteractiveItem localWorld2Entrance = new InteractiveItem("Encounter 2", new TransitionCommand(localWorldsList.get(1), new Coordinate(0, 0), game));
-        spriteMap.put(localWorld1Entrance, ImageMaker.makeEncounterDisplayable1());
-        overworld.getTile(new Coordinate(-6, 1)).setEncounter(localWorld1Entrance);
+        spriteMap.put(localWorld2Entrance, ImageMaker.makeEncounterDisplayable2());
+        overworld.getTile(new Coordinate(-6, 1)).setEncounter(localWorld2Entrance);
 
         InteractiveItem localWorld2Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
-        spriteMap.put(localWorld1Exit, ImageMaker.makeTeleporterDisplayable());
+        spriteMap.put(localWorld2Exit, ImageMaker.makeTeleporterDisplayable());
         localWorldsList.get(1).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exit);
 
        return new GameDisplayState(panel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overworld);
@@ -365,29 +365,41 @@ public class GameViewMaker
         world.getTile(new Coordinate(-6, 0)).addEI(gadget);
         spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable1());
 
-        /*Item sword = ItemFactory.makeBadSword(world, true);
-        world.getTile(new Coordinate(-5, -2)).addEI(sword);
-        spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+        gadget = ItemFactory.makeHealGadget(world, true);
+        world.getTile(new Coordinate(-5, -2)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable2());
 
-        sword = ItemFactory.makeSword(world, true);
-        world.getTile(new Coordinate(-5, -1)).addEI(sword);
-        spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+        gadget = ItemFactory.makeStaminaRegenGadget(world, true);
+        world.getTile(new Coordinate(-5, -1)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable2());
 
-        sword = ItemFactory.makeGoodSword(world, true);
-        world.getTile(new Coordinate(-5, 0)).addEI(sword);
-        spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+        gadget = ItemFactory.makeStrongHealGadget(world, true);
+        world.getTile(new Coordinate(-5, 0)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable2());
 
-        Item brawling = ItemFactory.makeBadGlove(world, true);
-        world.getTile(new Coordinate(-4, -2)).addEI(brawling);
-        spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());
+        gadget = ItemFactory.makeLinearBaneGadget(world, true);
+        world.getTile(new Coordinate(-4, -2)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable3());
 
-        brawling = ItemFactory.makeGlove(world, true);
-        world.getTile(new Coordinate(-4, -1)).addEI(brawling);
-        spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());
+        gadget = ItemFactory.makeAngularBaneGadget(world, true);
+        world.getTile(new Coordinate(-4, -1)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable3());
 
-        brawling = ItemFactory.makeGoodGlove(world, true);
-        world.getTile(new Coordinate(-4, 0)).addEI(brawling);
-        spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());*/
+        gadget = ItemFactory.makeCircularBaneGadget(world, true);
+        world.getTile(new Coordinate(-4, 0)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable3());
+
+        gadget = ItemFactory.makeBadStaff(world, true);
+        world.getTile(new Coordinate(-3, -2)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable4());
+
+        gadget = ItemFactory.makeStaff(world, true);
+        world.getTile(new Coordinate(-3, -1)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable4());
+
+        gadget = ItemFactory.makeGoodStaff(world, true);
+        world.getTile(new Coordinate(-3, 0)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable4());
 
         for(int i = 2; i <= 10; ++i) {
             Entity npc = createNPC (new Coordinate(-6, i), player, false, false);

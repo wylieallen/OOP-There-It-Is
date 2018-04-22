@@ -500,10 +500,23 @@ public class SaveVisitor implements Visitor {
         currentSkillCommandJson.put("SkillType", skillCommand.getSkillType().name());
         currentSkillCommandJson.put("Level", skillCommand.getLevel());
         currentSkillCommandJson.put("Effectiveness", skillCommand.getEffectiveness());
-        skillCommand.getSuccessCommand().accept(this);
+
+        if(skillCommand.getSuccessCommand() != null) {
+            skillCommand.getSuccessCommand().accept(this);
+        } else {
+            currentCommandJson = new JSONObject();
+            currentCommandJson.put("Name", "Null");
+        }
         currentSkillCommandJson.put("SuccessCommand", currentCommandJson);
-        skillCommand.getFailureCommand().accept(this);
+
+        if(skillCommand.getFailureCommand() != null) {
+            skillCommand.getFailureCommand().accept(this);
+        } else {
+            currentCommandJson = new JSONObject();
+            currentCommandJson.put("Name", "Null");
+        }
         currentSkillCommandJson.put("FailureCommand", currentCommandJson);
+
     }
 
     private void addReversibleCommand(ReversibleCommand reversibleCommand){
