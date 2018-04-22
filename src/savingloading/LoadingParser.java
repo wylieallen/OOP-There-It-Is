@@ -86,7 +86,7 @@ public class LoadingParser {
 
         List<FoggyWorld> foggyWorlds = loadFoggyWorlds();
 
-        overWorld.add(new Coordinate(0,0), player);
+        overWorld.add(playerController.getEntityLocation(), player);
 
         game = new Game(overWorld, overWorld, foggyWorlds, 0, player);
 
@@ -124,7 +124,7 @@ public class LoadingParser {
         playerController = new HumanEntityController(player, equipment, coordinate, gamePanel);
         player.setController(playerController);
         List<ControllerAction> controllerActions = loadControllerActions(playerJson.getString("Name"), player, playerController, equipment);
-        playerController.setControllerActions(controllerActions);
+//        playerController.setControllerActions(controllerActions);
         Displayable displayable = loadDisplayable(playerJson.getString("Name"));
         spriteMap.put(player, displayable);
     }
@@ -158,7 +158,6 @@ public class LoadingParser {
             LocalWorld localWorld = new LocalWorld(localWorldTiles, new HashSet<InfluenceArea>());
             localWorlds.add(localWorld);
             worldIdMappings.put(localWorldId, localWorld);
-            worldDisplayableMap.put(localWorld, new WorldDisplayable(new Point(0, 0), 0, localWorld));
             while(!spawnObservables.isEmpty()){
                 spawnObservables.remove().registerObserver(localWorld);
             }
@@ -168,7 +167,9 @@ public class LoadingParser {
     private List<FoggyWorld> loadFoggyWorlds() {
         List<FoggyWorld> foggyWorlds = new ArrayList<>();
         for (LocalWorld localWorld : localWorlds){
-            foggyWorlds.add(new FoggyWorld(localWorld, player));
+            FoggyWorld foggyWorld = new FoggyWorld(localWorld, player);
+            foggyWorlds.add(foggyWorld);
+            worldDisplayableMap.put(foggyWorld, new WorldDisplayable(new Point(0, 0), 0, foggyWorld));
         }
         return foggyWorlds;
     }

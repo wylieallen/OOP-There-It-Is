@@ -238,7 +238,7 @@ public class SaveVisitor implements Visitor {
 
     private void addCoordinates(Coordinate coordinate){
         currentEntityJson.put("X", coordinate.x());
-        currentEntityJson.put("Y", coordinate.y());
+        currentEntityJson.put("Y", coordinate.z());
     }
 
     @Override
@@ -549,7 +549,7 @@ public class SaveVisitor implements Visitor {
             Coordinate c = entry.getKey();
             entry.getValue().accept(this);
             currentTileJson.put("X", c.x());
-            currentTileJson.put("Y", c.y());
+            currentTileJson.put("Y", c.z());
             tilesJson.put(currentTileJson);
         }
 
@@ -565,7 +565,7 @@ public class SaveVisitor implements Visitor {
             Coordinate c = entry.getKey();
             entry.getValue().accept(this);
             currentTileJson.put("X", c.x());
-            currentTileJson.put("Y", c.y());
+            currentTileJson.put("Y", c.z());
             tilesJson.put(currentTileJson);
             if (entityFound){
                 entitiesJson.put(currentEntityJson);
@@ -623,6 +623,7 @@ public class SaveVisitor implements Visitor {
         for (MoveLegalityChecker mlc : mlcs){
             mlc.accept(this);
         }
+        tile.getTerrain().accept(this);
     }
 
     private void addItemsToTile(){

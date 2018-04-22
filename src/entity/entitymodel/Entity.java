@@ -455,4 +455,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     {
         stats.modifyMaxHealth(-amount);
     }
+
+    public void setName(String name){
+        this.name = name;
+    }
 }

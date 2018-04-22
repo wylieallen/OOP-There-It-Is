@@ -55,7 +55,7 @@ public class GameViewMaker
     private Map<World, WorldDisplayable> worldDisplayableMap;
     private Entity player;
 
-    private boolean loadFromFile = false;
+    private boolean loadFromFile = true;
 
     private Game game;
 
@@ -158,6 +158,7 @@ public class GameViewMaker
         */
 
         Entity player = new Entity();
+        player.setName("Smasher");
         player.addCompatibleTerrain(Terrain.SPACE);
         player.setMovementObserver(panel);
         player.addToInventory(new QuestItem("Radio", false, 0));
