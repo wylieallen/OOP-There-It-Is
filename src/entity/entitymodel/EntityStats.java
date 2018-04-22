@@ -44,8 +44,8 @@ public class EntityStats implements Visitable {
 
     public EntityStats()
     {
-        this(new HashMap<>(), 30, 1000, 1000, 10, 10, 1,
-                10, 0, 1, 1, 100, false, false, defaultCompatibleTerrains);
+        this(new HashMap<>(), 30, 1000, 1000, 100, 100, 1,
+                10, 0, 5, 1, 100, false, false, defaultCompatibleTerrains);
     }
 
     public EntityStats(Map<SkillType, Integer> skills,
@@ -262,9 +262,19 @@ public class EntityStats implements Visitable {
 
     public void addCompatibleTerrain(Terrain t) { compatibleTerrains.add(t); }
 
-    public boolean tryToAttack(long attackSpeed) {
-        if(Game.getCurrentTime() - lastAttackTime > attackSpeed) {
+    public boolean tryToAttack(long attackSpeed, int staminaCost) {
+        if(Game.getCurrentTime() - lastAttackTime > attackSpeed
+                && getCurMana() >= staminaCost) {
             lastAttackTime = Game.getCurrentTime();
+            setCurMana(getCurMana() - staminaCost);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean tryToUseStamina(int staminaCost){
+        if(getCurMana() >= staminaCost){
+            setCurMana(getCurMana() - staminaCost);
             return true;
         }
         return false;
@@ -279,5 +289,14 @@ public class EntityStats implements Visitable {
             return true;
         }
         return false;
+    }
+
+    public void modifyMaxHealth(int amount)
+    {
+        maxHealth += amount;
+        if(curHealth > maxHealth)
+        {
+            curHealth = maxHealth;
+        }
     }
 }

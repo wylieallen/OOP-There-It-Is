@@ -51,6 +51,10 @@ public abstract class Tile implements GameObjectContainer, Visitable {
     // for testing purposes
     public Collection<MoveLegalityChecker> getMoveLegalityCheckers() { return moveLegalityCheckers; }
 
+    public void addMLC(MoveLegalityChecker mlc) {
+        moveLegalityCheckers.add(mlc);
+    }
+
     public void do_update(Map <Coordinate, Tile> map) {
         if (hasEntity() && !entity.isOnMap())
             entity = null;
@@ -146,7 +150,7 @@ public abstract class Tile implements GameObjectContainer, Visitable {
 
     public boolean placeEntityOnNeighbor (Entity e) {
         for (Tile t : neighbors.values()) {
-            if (!t.hasEntity() && t.isMoveLegal(e)) {
+            if (t!= null && !t.hasEntity() && t.isMoveLegal(e)) {
                 t.setEntity(e);
                 return true;
             }

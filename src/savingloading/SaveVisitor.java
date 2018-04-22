@@ -1,10 +1,7 @@
 package savingloading;
 
 import commands.*;
-import commands.reversiblecommands.MakeConfusedCommand;
-import commands.reversiblecommands.MakeParalyzedCommand;
-import commands.reversiblecommands.ReversibleCommand;
-import commands.reversiblecommands.TimedStaminaRegenCommand;
+import commands.reversiblecommands.*;
 import commands.skillcommands.*;
 import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
@@ -30,10 +27,7 @@ import maps.tile.OverWorldTile;
 import maps.tile.Tile;
 import maps.trajectorymodifier.River;
 import maps.trajectorymodifier.TrajectoryModifier;
-import maps.world.Game;
-import maps.world.LocalWorld;
-import maps.world.OverWorld;
-import maps.world.World;
+import maps.world.*;
 import org.json.*;
 import skills.SkillType;
 import utilities.Coordinate;
@@ -375,6 +369,7 @@ public class SaveVisitor implements Visitor {
         weaponItemJson.put("UpdateInterval", w.getUpdateInterval());
         weaponItemJson.put("duration", w.getDuration());
         weaponItemJson.put("RequiredSkill", w.getRequiredSkill().name());
+        weaponItemJson.put("StaminaCost", w.getStaminaCost());
         weaponItemJson.put("InfluenceType", w.getInfluenceType().name());
         weaponItemJson.put("makesExpandingArea", w.makesExpandingArea());
         itemJsonsQueue.add(weaponItemJson);
@@ -416,6 +411,14 @@ public class SaveVisitor implements Visitor {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "ModifyHealth");
         currentCommandJson.put("Amount", modifyHealthCommand.getModifyAmount());
+    }
+
+    @Override
+    public void visitBuffHealthCommand(BuffHealthCommand buffHealthCommand)
+    {
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "BuffHealth");
+        currentCommandJson.put("Amount", buffHealthCommand.getBuffAmount());
     }
 
     @Override
@@ -558,6 +561,11 @@ public class SaveVisitor implements Visitor {
         }
     }
 
+    @Override
+    public void visitFoggyWorld(FoggyWorld foggyWorld) {
+        foggyWorld.getLocalWorld().accept(this);
+    }
+
     private String getLocalWorldID(int localWorldNumber){
         if(localWorldNumber < 10)
             return "000" + Integer.toString(localWorldNumber);
@@ -668,8 +676,8 @@ public class SaveVisitor implements Visitor {
 
         visitEntity(g.getPlayer());
         visitOverWorld(g.getOverWorld());
-        for (LocalWorld localWorld : g.getLocalWorlds())
-            visitLocalWorld(localWorld);
+        for (FoggyWorld foggyWorld : g.getLocalWorlds())
+            foggyWorld.accept(this);
         addTransitionCommandTargetWorlds(g.getWorlds());
 
         saveFileJson.put("Player", playerJson);

@@ -39,7 +39,7 @@ public abstract class EntityController implements Visitable, DialogObservable{
     }
 
 
-    //this is the specific funcitonality that each entity controller is responsible for implementing
+    //this is the specific functionality that each entity controller is responsible for implementing
     protected abstract void processController();
     public abstract void interact(EntityController interacter);
     public abstract void notifyFreeMove(Entity e);

@@ -79,4 +79,5 @@ public class Trap implements EntityImpactor, MoveLegalityChecker {
     public void accept(Visitor v) {
         v.visitTrap(this);
     }
+
 }

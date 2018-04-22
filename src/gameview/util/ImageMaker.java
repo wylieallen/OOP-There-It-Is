@@ -3,8 +3,10 @@ package gameview.util;
 import entity.entitycontrol.controllerActions.DirectionalMoveAction;
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
+import guiframework.displayable.ConditionalDisplayable;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
+import maps.entityimpaction.Trap;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 
@@ -21,6 +23,8 @@ public class ImageMaker
     private static int TERRAIN_HEIGHT = 0;
     private static int ITEM_HEIGHT = 500;
     private static int ENTITY_HEIGHT = 999;
+    private static int FOG_HEIGHT = 2000;
+    private static int PROJECTILE_HEIGHT = 1100;
 
     private static Shape hexShape = makeHexShape();
 
@@ -101,6 +105,26 @@ public class ImageMaker
     public static Displayable makeShopKeepDisplayable()
     {
         return new ImageDisplayable(new Point(22, 5), loadImage("assets/entities/shopkeeper.png"), ENTITY_HEIGHT);
+    }
+
+    public static Displayable makeEnemyDisplayable1()
+    {
+        return new ImageDisplayable(new Point(16, 10), loadImage("assets/entities/enemy1.png"), ENTITY_HEIGHT);
+    }
+
+    public static Displayable makeEnemyDisplayable2()
+    {
+        return new ImageDisplayable(new Point(16, 10), loadImage("assets/entities/enemy2.png"), ENTITY_HEIGHT);
+    }
+
+    public static Displayable makeEnemyDisplayable3()
+    {
+        return new ImageDisplayable(new Point(16, 10), loadImage("assets/entities/enemy3.png"), ENTITY_HEIGHT);
+    }
+
+    public static Displayable makeEnemyDisplayable4()
+    {
+        return new ImageDisplayable(new Point(16, 10), loadImage("assets/entities/enemy4.png"), ENTITY_HEIGHT);
     }
 
     public static Displayable makeConsumableDisplayable1()
@@ -195,8 +219,43 @@ public class ImageMaker
         }
     }
 
+    public static Displayable makeFogDisplayable() {
+       return new ImageDisplayable(new Point(0, 0), makeFog(), FOG_HEIGHT);
+    }
 
+    public static Displayable makeBlueProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/blueprojectile.png"), PROJECTILE_HEIGHT);
+    }
 
+    public static Displayable makeCyanProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/cyanprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makeGreenProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/greenprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makePurpleProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/purpleprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makeRedProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/redprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makeYellowProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/yellowprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makeTrapDisplayable(Trap trap) {
+        ConditionalDisplayable displayable = new ConditionalDisplayable(new Point(0, 0), ITEM_HEIGHT,
+                new ImageDisplayable(new Point(0, 0), loadImage("assets/blank.png"), ITEM_HEIGHT));
+
+        displayable.add(trap::hasFired, new ImageDisplayable(new Point(8, 8), loadImage("assets/maps/firedtrap.png"), ITEM_HEIGHT));
+        displayable.add(trap::isVisible, new ImageDisplayable(new Point(8, 8), loadImage("assets/maps/trap.png"), ITEM_HEIGHT));
+
+        return displayable;
+    }
 
     // Todo: split BufferedImage creation off into a separate class
     public static BufferedImage makeBorderedHex(Color color)
@@ -219,6 +278,21 @@ public class ImageMaker
         g2d.drawImage(graphics, 0, 0, 64, 64, null);
         g2d.setColor(Color.WHITE);
         g2d.draw(hexShape);
+        return image;
+    }
+
+    public static BufferedImage makeFog()
+    {
+        BufferedImage image = new BufferedImage(64 + 1, 64 + 1, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+
+        AlphaComposite acomp = AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER, 0.75f);
+        g2d.setComposite(acomp);
+
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.fill(hexShape);
+
         return image;
     }
 
@@ -264,5 +338,17 @@ public class ImageMaker
             e.printStackTrace();
             return nullImage;
         }
+    }
+
+    public static BufferedImage makeRightPointingTriangle()
+    {
+        int x[] = {0, 0, 8};
+        int y[] = {0, 8, 4};
+        Shape shape = new Polygon(x, y, 3);
+        BufferedImage image = new BufferedImage(9, 9, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.setColor(Color.RED);
+        g2d.fill(shape);
+        return image;
     }
 }

@@ -13,9 +13,9 @@ public abstract class TakeableItem extends Item {
         this.onMap = onMap;
     }
 
-    public void touch(Entity e) {
-        e.addToInventory(this);
-        onMap = false;
+    public void touch(Entity e)
+    {
+        onMap = !e.addToInventory(this);
     }
 
     public abstract void activate(Equipment e);
@@ -27,5 +27,8 @@ public abstract class TakeableItem extends Item {
 
     public boolean isOnMap(){
         return onMap;
+    }
+    public void setOnMap(boolean onMap){
+        this.onMap = onMap;
     }
 }

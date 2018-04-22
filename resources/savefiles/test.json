@@ -4,20 +4,7 @@
   "Type": "Player",
   "Equipment": {
    "Weapons": [],
-   "Wearables": {
-    "ARMOUR": {
-     "OnMap": false,
-     "Type": "Wearable",
-     "EquipType": "NONE",
-     "Name": "NONE"
-    },
-    "RING": {
-     "OnMap": false,
-     "Type": "Wearable",
-     "EquipType": "NONE",
-     "Name": "NONE"
-    }
-   }
+   "Wearables": {}
   },
   "ActorInteractions": [],
   "InVehicle": false,
@@ -27,11 +14,11 @@
    "CurrentHealth": 1000,
    "Gold": 100,
    "Concealment": 1,
-   "VisibilityRadius": 1,
+   "VisibilityRadius": 5,
    "BaseMoveSpeed": 30,
    "UnspentSkillPoints": 0,
    "MaxHealth": 1000,
-   "MaxMana": 10,
+   "MaxMana": 100,
    "IsConfused": false,
    "IsSearching": false,
    "Skills": {
@@ -41,7 +28,7 @@
    },
    "ManaRegenRate": 1,
    "CurrentXP": 10,
-   "CurrentMana": 10
+   "CurrentMana": 100
   },
   "Y": -3,
   "Inventory": [{
@@ -574,7 +561,17 @@
    },
    {
     "X": 3,
-    "Y": -6
+    "Y": -6,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Wearable",
+     "EquipType": "ARMOUR",
+     "ReversableCommand": {
+      "Amount": 100000,
+      "Name": "BuffHealth"
+     },
+     "Name": "Good Armor"
+    }]
    },
    {
     "X": -3,

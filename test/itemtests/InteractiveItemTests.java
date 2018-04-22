@@ -11,9 +11,7 @@ import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
 import maps.tile.OverWorldTile;
 import maps.tile.Tile;
-import maps.world.Game;
-import maps.world.LocalWorld;
-import maps.world.OverWorld;
+import maps.world.*;
 import org.junit.Assert;
 import org.junit.Test;
 import utilities.Coordinate;
@@ -61,9 +59,9 @@ public class InteractiveItemTests {
         }
         OverWorld overworld = new OverWorld(tiles3);
 
-        List<LocalWorld> worlds = new ArrayList<>();
-        worlds.add(world);
-        worlds.add(world2);
+        List<FoggyWorld> worlds = new ArrayList<>();
+        worlds.add(new FoggyWorld(world, entity));
+        worlds.add(new FoggyWorld(world2, entity));
 
         Game game = new Game(world, overworld, worlds, 0, entity);
 

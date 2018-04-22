@@ -22,6 +22,7 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
 
     private long attackSpeed;
     private SkillType requiredSkill;
+    private int staminaCost;
     private List<SpawnObserver> spawnObservers;
     private int maxRadius;
     private long expansionInterval;
@@ -34,11 +35,12 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
 
 
     public WeaponItem(String name, boolean onMap, long attackSpeed,
-                      SkillType requiredSkill, int maxRadius, long expansionInterval,
+                      SkillType requiredSkill, int staminaCost, int maxRadius, long expansionInterval,
                       long updateInterval, long duration, InfluenceType influenceType, SkillCommand command, boolean makesExpandingArea) {
         super(name, onMap);
         this.attackSpeed = attackSpeed;
         this.requiredSkill = requiredSkill;
+        this.staminaCost = staminaCost;
         spawnObservers = new ArrayList<>();
         this.maxRadius = maxRadius;
         this.expansionInterval = expansionInterval;
@@ -52,7 +54,12 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
 
     @Override
     public void activate(Equipment e) {
-        e.add(this);
+        if(e.has(this))
+        {
+            e.remove(this);
+        }
+        else
+            e.add(this);
     }
 
     public void attack(Entity attacker, Coordinate location) {
@@ -60,8 +67,9 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
             return;
 
         int skillLevel = attacker.getSkillLevel(requiredSkill);
+//        System.out.println("attack with skill level " + skillLevel);
         command.setLevel(skillLevel);
-        boolean canAttack = attacker.tryToAttack(attackSpeed);
+        boolean canAttack = attacker.tryToAttack(attackSpeed, staminaCost);
         if(canAttack) {
             ArrayList<GameObject> whitelist = new ArrayList<>();
             if(influenceType != InfluenceType.SELFINFLUENCE)
@@ -135,6 +143,8 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
     public InfluenceType getInfluenceType() {
         return influenceType;
     }
+
+    public int getStaminaCost() { return staminaCost; }
 
     @Override
     public void accept(Visitor v) {

@@ -10,6 +10,7 @@ public class BindWoundsAction extends ControllerAction {
     //This will use the Entity's bind wounds skill to heal them
 
     private Entity controlledEntity;
+    private int staminaCost = 10;
 
     public BindWoundsAction(Entity controlledEntity){
         if(controlledEntity.getSkillLevel(SkillType.BINDWOUNDS)==-1){
@@ -22,11 +23,13 @@ public class BindWoundsAction extends ControllerAction {
 
     @Override
     protected void execute() {
-        ModifyHealthCommand bindWounds = new ModifyHealthCommand(2);
-        SkillCommand skillCommand = new SkillCommand(SkillType.BINDWOUNDS,
-                controlledEntity.getSkillLevel(SkillType.BINDWOUNDS), 10,
-                bindWounds, null);
-        skillCommand.trigger(controlledEntity);
+        if(controlledEntity.tryToUseStamina(staminaCost)) {
+            ModifyHealthCommand bindWounds = new ModifyHealthCommand(2);
+            SkillCommand skillCommand = new SkillCommand(SkillType.BINDWOUNDS,
+                    controlledEntity.getSkillLevel(SkillType.BINDWOUNDS), 10,
+                    bindWounds, null);
+            skillCommand.trigger(controlledEntity);
+        }
     }
 
     @Override
