@@ -85,12 +85,12 @@ public class LoadingParser {
         loadOverWorld(gameJson.getJSONObject("OverWorld"));
         loadLocalWorlds(gameJson.getJSONObject("LocalWorlds"));
 
-        game = new Game(overWorld, overWorld, localWorlds, 0, player);
+        //game = new Game(overWorld, overWorld, localWorlds, 0, player);
 
         // must do this after game is made
         setTransitionCommands();
 
-        gameDisplay = new GameDisplayState(gamePanel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overWorld);
+        //gameDisplay = new GameDisplayState(gamePanel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overWorld);
     }
 
     private void loadFileToJson(String saveFileName) throws FileNotFoundException {

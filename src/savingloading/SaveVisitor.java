@@ -668,9 +668,9 @@ public class SaveVisitor implements Visitor {
 
         visitEntity(g.getPlayer());
         visitOverWorld(g.getOverWorld());
-        for (LocalWorld localWorld : g.getLocalWorlds())
+        /*for (LocalWorld localWorld : g.getLocalWorlds())
             visitLocalWorld(localWorld);
-        addTransitionCommandTargetWorlds(g.getWorlds());
+        addTransitionCommandTargetWorlds(g.getWorlds());*/
 
         saveFileJson.put("Player", playerJson);
         saveFileJson.put("OverWorld", overWorldJson);

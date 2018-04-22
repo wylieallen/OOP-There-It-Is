@@ -37,6 +37,10 @@ public class FoggyWorld implements World {
 
     @Override
     public Map<Coordinate, GameObjectContainer> getMap() {
+        if(world.getEntityCoordinate(entity) == null) {
+            return new HashMap<>();
+        }
+
         Map<Coordinate, GameObjectContainer> wholeMap = world.getMap();
         Coordinate entityCoordinate = world.getEntityCoordinate(entity);
 
