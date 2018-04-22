@@ -265,4 +265,16 @@ public class ImageMaker
             return nullImage;
         }
     }
+
+    public static BufferedImage makeRightPointingTriangle()
+    {
+        int x[] = {0, 0, 8};
+        int y[] = {0, 8, 4};
+        Shape shape = new Polygon(x, y, 3);
+        BufferedImage image = new BufferedImage(9, 9, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.setColor(Color.RED);
+        g2d.fill(shape);
+        return image;
+    }
 }
