@@ -164,6 +164,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
 
     public void centerOnPlayer()
     {
+        //Point playerTileOrigin = game.getPlayer().getController().getEntityLocation().toPixelPt();
         Point playerTileOrigin = game.getCoordinate(game.getPlayer()).toPixelPt();
         snapCamera(playerTileOrigin.x - size.width/2 + 32, playerTileOrigin.y - size.height/2 + 32 + 32);
     }

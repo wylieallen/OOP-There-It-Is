@@ -130,8 +130,9 @@ public class LocalWorld implements World {
 
     @Override
     public Coordinate getEntityCoordinate(Entity e) {
+        Entity trueEntity = e.getEntity ();
         for(Map.Entry<Coordinate, LocalWorldTile> entry: tiles.entrySet()) {
-            if(entry.getValue().has(e)) {
+            if (entry.getValue().has(trueEntity)) {
                 return new Coordinate(entry.getKey());
             }
         }

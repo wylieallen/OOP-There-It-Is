@@ -176,4 +176,8 @@ public abstract class EntityController implements Visitable, DialogObservable{
         }
     }
 
+    public Entity getEntity () {
+        return inVehicle ? mount : controlledEntity;
+    }
+
 }

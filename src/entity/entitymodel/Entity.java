@@ -309,7 +309,6 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     public void setMount (Vehicle mount) {
         setOnMap(false);
         controller.notifyMount(mount);
-        System.out.println("Mounted");
     }
 
     @Override   // assumes e is player.
@@ -431,4 +430,13 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         stats.addCompatibleTerrain(t);
     }
 
+    public Entity getEntity () {
+        if (hasController ()) {
+            return controller.getEntity();
+        } else {
+            return this;
+        }
+    }
+
+    private boolean hasController () {return controller != null;}
 }
