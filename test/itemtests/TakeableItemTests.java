@@ -46,12 +46,12 @@ public class TakeableItemTests {
 
         Map<SkillType, Integer> skills = new HashMap<>();
         skills.put(SkillType.ONEHANDEDWEAPON, 1);
-        EntityStats entityStats = new EntityStats(skills, 2, 100,
+        EntityStats entityStats = new EntityStats(skills, 1001, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false);
         entityStats.addCompatibleTerrain(Terrain.GRASS);
         inventory = new Inventory();
-        entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+        entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
                 inventory, true);
 
         equipment = new Equipment(new HashMap<>(), new WeaponItem[5], 5, inventory, entity);
@@ -80,9 +80,6 @@ public class TakeableItemTests {
 
         entity.hurtEntity(20);
 
-        try {
-            Thread.sleep(600);
-        } catch (Exception e) {}
         Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
@@ -124,9 +121,6 @@ public class TakeableItemTests {
 
         tiles.get(new Coordinate(2, 1)).addEI(item);
 
-        try {
-            Thread.sleep(600);
-        } catch (Exception e) {}
         Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
@@ -170,9 +164,6 @@ public class TakeableItemTests {
 
         tiles.get(new Coordinate(2, 1)).addEI(item);
 
-        try {
-            Thread.sleep(600);
-        } catch (Exception e) {}
         Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
@@ -218,9 +209,7 @@ public class TakeableItemTests {
 
         tiles.get(new Coordinate(2, 1)).addEI(item);
 
-        try {
-            Thread.sleep(600);
-        } catch (Exception e) {}
+
         Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();

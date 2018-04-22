@@ -43,6 +43,10 @@ public class OverWorldTile extends Tile {
     @Override
     public void do_update(Map<Coordinate, Tile> map) {
         super.do_update(map);
+
+        if(encounter != null && encounter.expired()) {
+            encounter = null;
+        }
     }
 
     @Override

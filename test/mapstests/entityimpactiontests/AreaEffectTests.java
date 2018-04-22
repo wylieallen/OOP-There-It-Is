@@ -32,11 +32,11 @@ public class AreaEffectTests {
         }
         LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
-        EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
+        EntityStats entityStats = new EntityStats(new HashMap<>(), 1001, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
         entityStats.addCompatibleTerrain(Terrain.GRASS);
-        Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+        Entity entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
                 null, true);
 
         EntityController entityController = new HumanEntityController(entity, null,
@@ -87,11 +87,11 @@ public class AreaEffectTests {
         }
         LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
-        EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
+        EntityStats entityStats = new EntityStats(new HashMap<>(), 1001, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, new HashSet<>());
         entityStats.addCompatibleTerrain(Terrain.GRASS);
-        Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+        Entity entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
                 null, true);
 
         EntityController entityController = new HumanEntityController(entity, null,

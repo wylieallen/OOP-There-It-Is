@@ -36,7 +36,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     private Map<World, WorldDisplayable> worlds;
     private WorldDisplayable activeWorldDisplayable;
 
-    private static final int RENDERING_FRAMES_PER_GAME_TICK = 1;
+    private static final int RENDERING_FRAMES_PER_GAME_TICK = 10;
     private int gameTickCountdown = RENDERING_FRAMES_PER_GAME_TICK;
 
     // todo: the Map<World, WorldDisplayable> doesn't need to be a constructor parameter
@@ -129,11 +129,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
         super.update();
 
         // todo: this could potentially be enough of a performance drain that we should just skip it and let memory leak
-        for(GameObject o : spriteMap.keySet())
-        {
-            if(o.expired())
-                spriteMap.remove(o);
-        }
+        spriteMap.keySet().removeIf(GameObject::expired);
     }
 
     public void centerOnPlayer()

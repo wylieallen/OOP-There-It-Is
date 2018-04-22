@@ -116,7 +116,6 @@ public class LoadingParser {
         player.setController(controller);
         List<ControllerAction> controllerActions = loadControllerActions(playerJson.getString("Name"), player, controller, equipment);
         controller.setControllerActions(controllerActions);
-        player.setControllerActions(controllerActions);
         Displayable displayable = loadDisplayable(playerJson.getString("Name"));
         spriteMap.put(player, displayable);
     }
@@ -176,7 +175,6 @@ public class LoadingParser {
         entity.setController(controller);
         List<ControllerAction> controllerActions = loadControllerActions(entityJson.getString("Name"), entity, controller, equipment);
         controller.setControllerActions(controllerActions);
-        entity.setControllerActions(controllerActions);
         Displayable displayable = loadDisplayable(entityJson.getString("Name"));
         spriteMap.put(entity, displayable);
         return entity;

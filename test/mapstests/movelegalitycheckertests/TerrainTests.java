@@ -39,10 +39,10 @@ public class TerrainTests {
 
         Set<Terrain> terrains = new HashSet<>();
         terrains.add(Terrain.GRASS);
-        EntityStats entityStats = new EntityStats(new HashMap<>(), 2, 100,
+        EntityStats entityStats = new EntityStats(new HashMap<>(), 1001, 100,
                 100, 100, 100, 5, 0, 0,
                 3, 3, 0, false, false, terrains);
-        Entity entity = new Entity(new Vector(), entityStats, null, new ArrayList<>(), null,
+        Entity entity = new Entity(new Vector(), entityStats, new ArrayList<>(), null,
                 null, true);
 
         EntityController entityController = new HumanEntityController(entity, null,
@@ -52,9 +52,6 @@ public class TerrainTests {
 
         tiles.get(new Coordinate(2, 2)).setEntity(entity);
 
-        try {
-            Thread.sleep(600);
-        } catch (Exception e) {}
         Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
@@ -71,9 +68,6 @@ public class TerrainTests {
             }
         }
 
-        try {
-            Thread.sleep(600);
-        } catch (Exception e) {}
         Game.updateGameTime();
         entity.setFacing(Direction.N);
         entity.setMoving();
@@ -90,9 +84,6 @@ public class TerrainTests {
             }
         }
 
-        try {
-            Thread.sleep(600);
-        } catch (Exception e) {}
         Game.updateGameTime();
         entity.setFacing(Direction.NW);
         entity.setMoving();
@@ -109,9 +100,7 @@ public class TerrainTests {
             }
         }
 
-        try {
-            Thread.sleep(600);
-        } catch (Exception e) {}
+
         Game.updateGameTime();
         entity.setFacing(Direction.NE);
         entity.setMoving();
