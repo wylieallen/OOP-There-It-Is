@@ -47,7 +47,8 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
         this.duration = duration;
         this.influenceType = influenceType;
         this.command = command;
-        this. makesExpandingArea = makesExpandingArea;
+        this.makesExpandingArea = makesExpandingArea;
+
     }
 
     @Override

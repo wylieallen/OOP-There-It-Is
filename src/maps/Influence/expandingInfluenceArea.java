@@ -30,6 +30,7 @@ public class expandingInfluenceArea implements InfluenceArea {
     private int currentRadius;
     private List <Coordinate> offsetPoints;
     private boolean isExpired = false;
+    private boolean hasUpdatedForTheFirstTime = false;
 
     public expandingInfluenceArea(InfluenceType influenceType, Direction direction, int maxRadius, Coordinate center, List<GameObject> whiteList, long updateInterval, long expansionInterval, SkillCommand skillCommand) {
         this.center = center;
@@ -48,6 +49,11 @@ public class expandingInfluenceArea implements InfluenceArea {
 
     @Override
     public void update(Map<Coordinate, LocalWorldTile> tilesMap) {
+        if(!hasUpdatedForTheFirstTime){
+            hasUpdatedForTheFirstTime = true;
+            startTime = Game.getCurrentTime();
+            lastUpdateTime = Game.getCurrentTime()-updateInterval;
+        }
         if(!isExpired && Game.getCurrentTime() - lastExpansionTime >= expansionInterval){
             lastExpansionTime = Game.getCurrentTime();
             currentRadius++;
