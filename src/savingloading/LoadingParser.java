@@ -169,7 +169,7 @@ public class LoadingParser {
         for (LocalWorld localWorld : localWorlds){
             FoggyWorld foggyWorld = new FoggyWorld(localWorld, player);
             foggyWorlds.add(foggyWorld);
-            worldDisplayableMap.put(foggyWorld, new WorldDisplayable(new Point(0, 0), 0, foggyWorld));
+            worldDisplayableMap.put(localWorld, new WorldDisplayable(new Point(0, 0), 0, foggyWorld));
         }
         return foggyWorlds;
     }
@@ -323,7 +323,7 @@ public class LoadingParser {
             OverWorldTile tile;
             if (tileJson.has("Encounter")){
                 JSONObject encounterJson = tileJson.getJSONObject("Encounter");
-                entityImpactor = new InteractiveItem(encounterJson.getString("Name"), loadCommand(encounterJson.getJSONObject("Command")));
+                entityImpactor = loadItem(tileJson.getJSONObject("Encounter"));
                 tile = new OverWorldTile(moveLegalityCheckers, terrain, null, entityImpactor);
             }
             else{
@@ -506,14 +506,16 @@ public class LoadingParser {
             item = loadWeaponItem(itemJson);
         else if (itemJson.getString("Type").equals("Wearable"))
             item = loadWearableItem(itemJson);
-        else if (itemJson.getString("Type").equals("Wearable"))
-            item = loadWearableItem(itemJson);
         else{
             System.out.println("ERROR: Item not loaded properly -- Type string given: " + itemJson.getString("Type"));
             return null;
         }
         Displayable displayable = loadDisplayable(itemJson.getString("Name"));
         spriteMap.put(item, displayable);
+        if (itemJson.getString("Type").equals("Interactive")) {
+            System.out.println("Item: " + item);
+            System.out.println("Displayable: " + displayable);
+        }
         return item;
     }
 
@@ -527,6 +529,7 @@ public class LoadingParser {
     private InteractiveItem loadInteractiveItem(JSONObject itemJson) {
         String name = itemJson.getString("Name");
         Command command = loadCommand(itemJson.getJSONObject("Command"));
+        InteractiveItem item = new InteractiveItem(name, command);
         return new InteractiveItem(name, command);
     }
 
@@ -808,9 +811,13 @@ public class LoadingParser {
             case "Space":
                 return ImageMaker.makeSpaceDisplayable();
                 // items
-            case "Encounter1":
+            case "Encounter 1":
                 return ImageMaker.makeEncounterDisplayable1();
-            case "Encounter2":
+            case "Encounter 2":
+                return ImageMaker.makeEncounterDisplayable2();
+            case "Encounter 3":
+                return ImageMaker.makeEncounterDisplayable2();
+            case "Encounter 4":
                 return ImageMaker.makeEncounterDisplayable2();
             case "Teleporter":
                 return ImageMaker.makeTeleporterDisplayable();

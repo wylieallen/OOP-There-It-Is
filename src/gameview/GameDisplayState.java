@@ -12,10 +12,12 @@ import guiframework.displayable.CompositeDisplayable;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
 import guiframework.displayable.StringDisplayable;
+import items.InteractiveItem;
 import items.takeableitems.TakeableItem;
 import maps.Influence.InfluenceArea;
 import maps.world.Game;
 import maps.world.World;
+import savingloading.SaveVisitor;
 import spawning.SpawnObservable;
 import spawning.SpawnObserver;
 
@@ -37,6 +39,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     private Map<World, WorldDisplayable> worlds;
     private WorldDisplayable activeWorldDisplayable;
     private InventoryDisplayable inventoryDisplayable;
+    private SaveVisitor saveVisitor = new SaveVisitor("game1");
 
     private static final int RENDERING_FRAMES_PER_GAME_TICK = 10;
     private int gameTickCountdown = RENDERING_FRAMES_PER_GAME_TICK;
@@ -87,7 +90,9 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     }
 
 
-    public static Displayable getSprite(GameObject o) { return spriteMap.getOrDefault(o, ImageMaker.getNullDisplayable()); }
+    public static Displayable getSprite(GameObject o) {
+        return spriteMap.getOrDefault(o, ImageMaker.getNullDisplayable());
+    }
 
 
     public static void registerSprite(GameObject o, Displayable d) { spriteMap.put(o, d); }
@@ -125,6 +130,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
 
         // todo: this could potentially be enough of a performance drain that we should just skip it and let memory leak
         spriteMap.keySet().removeIf(GameObject::expired);
+
     }
 
     public void centerOnPlayer()
@@ -173,4 +179,5 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     {
         return inventoryDisplayable.getCursorIndex();
     }
+
 }
