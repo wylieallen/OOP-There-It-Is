@@ -248,7 +248,7 @@ public class GameViewMaker
 
         WearableItem armor = new WearableItem("Good Armor", true, new BuffHealthCommand(100000), EquipSlot.ARMOUR);
         WearableItem ring = new WearableItem("Nice Ring", true, new BuffHealthCommand(1000), EquipSlot.RING);
-        localWorldsList.get(3).getTile(new Coordinate(3, 3)).addEI(armor);
+        foggyWorldsList.get(3).getTile(new Coordinate(3, 3)).addEI(armor);
 
        return new GameDisplayState(panel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overworld);
     }

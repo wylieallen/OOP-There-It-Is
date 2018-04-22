@@ -199,6 +199,10 @@ public class ImageMaker
         }
     }
 
+    public static Displayable makeFogDisplayable() {
+       return new ImageDisplayable(new Point(0, 0), makeFog(), FOG_HEIGHT);
+    }
+
     public static Displayable makeBlueProjectileDisplayable() {
         return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/blueprojectile.png"), PROJECTILE_HEIGHT);
     }
