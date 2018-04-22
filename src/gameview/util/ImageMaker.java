@@ -21,6 +21,7 @@ public class ImageMaker
     private static int TERRAIN_HEIGHT = 0;
     private static int ITEM_HEIGHT = 500;
     private static int ENTITY_HEIGHT = 999;
+    private static int PROJECTILE_HEIGHT = 1100;
 
     private static Shape hexShape = makeHexShape();
 
@@ -195,6 +196,30 @@ public class ImageMaker
         }
     }
 
+    public static Displayable makeBlueProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/blueprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makeCyanProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/cyanprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makeGreenProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/greenprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makePurpleProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/purpleprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makeRedProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/redprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makeYellowProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/yellowprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
 
 
 
@@ -264,5 +289,17 @@ public class ImageMaker
             e.printStackTrace();
             return nullImage;
         }
+    }
+
+    public static BufferedImage makeRightPointingTriangle()
+    {
+        int x[] = {0, 0, 8};
+        int y[] = {0, 8, 4};
+        Shape shape = new Polygon(x, y, 3);
+        BufferedImage image = new BufferedImage(9, 9, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.setColor(Color.RED);
+        g2d.fill(shape);
+        return image;
     }
 }

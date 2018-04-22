@@ -327,7 +327,7 @@ public class GameViewMaker
         w.registerObserver(world);
 //        axe.registerObserver(world);
 
-        spawnerMap.put(w,new ImageDisplayable(new Point(16,16), ImageMaker.makeBorderedCircle(Color.yellow),1000));
+        spawnerMap.put(w, ImageMaker.makeBlueProjectileDisplayable());
 //        spawnerMap.put(axe,new ImageDisplayable(new Point(16,16),ImageMaker.makeBorderedCircle(Color.blue),1000));
         world.getTile(npcLoc).setEntity(npc);
         spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
