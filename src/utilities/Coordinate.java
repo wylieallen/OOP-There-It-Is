@@ -10,15 +10,18 @@ import java.awt.*;
 public class Coordinate implements Comparable<Coordinate> {
 
     private final int x;
+    private final int y;
     private final int z;
 
     public Coordinate(int x, int z) {
         this.x = x;
+        this.y = 0 - x - z;
         this.z = z;
     }
 
     public Coordinate(Coordinate other) {
         this.x = other.x;
+        this.y = other.y;
         this.z = other.z;
     }
 
@@ -31,11 +34,11 @@ public class Coordinate implements Comparable<Coordinate> {
     }
 
     public int y() {
-        return 0 - x() - z();
+        return y;
     }
 
     public Coordinate add(Coordinate other) {
-        return new Coordinate(x() + other.x(), z() + other.z());
+        return new Coordinate(x + other.x, z + other.z);
     }
 
     public Coordinate getNeighbor(Direction direction) {
@@ -43,9 +46,9 @@ public class Coordinate implements Comparable<Coordinate> {
     }
 
     public int distance(Coordinate other) {
-        int dx = Math.abs(x() - other.x());
-        int dy = Math.abs(y() - other.y());
-        int dz = Math.abs(z() - other.z());
+        int dx = Math.abs(x - other.x);
+        int dy = Math.abs(y - other.y);
+        int dz = Math.abs(z - other.z);
 
         return Math.max( dx, Math.max(dy, dz) );
     }
@@ -54,7 +57,7 @@ public class Coordinate implements Comparable<Coordinate> {
 
         if (this.equals(toThis)) return Direction.NULL;
 
-        Coordinate diff = new Coordinate(toThis.x () - this.x (), toThis.z () - this.y ());
+        Coordinate diff = new Coordinate(toThis.x () - this.x (), toThis.z () - this.z ());
         int magnitude = this.distance(toThis);
         Coordinate unitdiff = new Coordinate(diff.x()/magnitude, diff.z()/magnitude);
         return Vector.getDirection(unitdiff);
@@ -86,7 +89,7 @@ public class Coordinate implements Comparable<Coordinate> {
 
     @Override
     public String toString() {
-        return "(" + x + "," + y() + "," + z + ")";
+        return "(" + x + "," + y + "," + z + ")";
     }
 
     public Point toPixelPt()

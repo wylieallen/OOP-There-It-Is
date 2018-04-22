@@ -1,5 +1,7 @@
 package gameview;
 
+import commands.Command;
+import commands.EnrageCommand;
 import commands.ModifyHealthCommand;
 import commands.TransitionCommand;
 import commands.skillcommands.SkillCommand;
@@ -17,6 +19,9 @@ import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
 import items.InteractiveItem;
+import items.Item;
+import items.ItemFactory;
+import items.OneshotItem;
 import items.takeableitems.QuestItem;
 import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
@@ -184,7 +189,9 @@ public class GameViewMaker
         spriteMap.put(localWorld1Exit, ImageMaker.makeTeleporterDisplayable());
         localWorldsList.get(0).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exit);
 
-        return new GameDisplayState(panel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overworld);
+        localWorld.getTile(new Coordinate(4, 4)).addEI(new QuestItem("Thingy", true, 0));
+
+       return new GameDisplayState(panel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overworld);
     }
 
     // todo: expandOverworld is very inefficient right now
@@ -207,7 +214,7 @@ public class GameViewMaker
     private Entity createNPC (Coordinate loc, Entity aggroTarget, boolean isHostile) {
 
         Map <SkillType, Integer> skills = new HashMap<>();
-        skills.put(SkillType.TWOHANDEDWEAPON, 100);
+        skills.put(SkillType.TWOHANDEDWEAPON, 1);
 
         Set <Terrain> compatible = new HashSet<>();
         compatible.add(Terrain.GRASS);
@@ -232,11 +239,22 @@ public class GameViewMaker
 
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
 
+        // add a few items to tiles
+        List<Item> items = new ArrayList<>();
+        items.add(new OneshotItem("Consumable1", new ModifyHealthCommand(20), false));
+        items.add(new QuestItem("Quest", true, 1));
+        items.add(new WeaponItem("TwoHandedWeapon", true, 20, 20,
+        SkillType.TWOHANDEDWEAPON, 5, 1,
+        1, InfluenceType.LINEARINFLUENCE, new SkillCommand(SkillType.TWOHANDEDWEAPON, 1, 70,
+                new ModifyHealthCommand(-20), new EnrageCommand())));
+
         for(int x = -10; x <= 10; ++x) {
             for(int z = -10; z <= 10; ++z) {
-                Coordinate coordinate = new Coordinate(x, z);
-                if(coordinate.y() > 10 || coordinate.y() < -10) continue;
-                tiles.put(new Coordinate(x, z), new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>()));
+                LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
+                if (x>=0 && x<items.size()){
+                    tile.addEI(items.get(x));
+                }
+                tiles.put(new Coordinate(x, z), tile);
             }
         }
 
@@ -246,15 +264,18 @@ public class GameViewMaker
         Coordinate npcLoc = new Coordinate(-2, 0);
         Entity npc = createNPC (npcLoc, player, true);
         npc.addCompatibleTerrain(Terrain.SPACE);
-        npc.increaseSkillLevel(SkillType.TWOHANDEDWEAPON, 1);
 
+        WeaponItem axe = ItemFactory.makeAxe(world, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON));
+        npc.getController().getEquipment().add(axe);
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), 0, new ModifyHealthCommand(), null);
         WeaponItem w = new WeaponItem ("Bob", false, -1, 1000, SkillType.TWOHANDEDWEAPON, 10, 50, 10, InfluenceType.ANGULARINFLUENCE, skill);
         npc.getController().getEquipment().add(w);
         //must add overworld as observer
         w.registerObserver(world);
+        w.registerObserver(world);
 
         spawnerMap.put(w,new ImageDisplayable(new Point(16,16), ImageMaker.makeBorderedCircle(Color.yellow),1000));
+        spawnerMap.put(axe,new ImageDisplayable(new Point(16,16),ImageMaker.makeBorderedCircle(Color.blue),1000));
         world.getTile(npcLoc).setEntity(npc);
         spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
 

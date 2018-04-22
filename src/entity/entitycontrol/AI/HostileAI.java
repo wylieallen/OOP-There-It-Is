@@ -42,7 +42,7 @@ public class HostileAI extends AI {
         }
 
         if (targetIsNeghbor (location)) {
-            e.setFacing(location.direction(targetsLastPosition));
+            e.setFacing(location.direction(targetPosition));
             e.setMoving();
             // TODO: this is terrible, replace when controller supports attack!!!
             e.getController().getEquipment().useWeaponItem(0, location);

@@ -33,8 +33,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     private Vector movementVector;
     private EntityStats stats;
     private List<TimedEffect> effects;
-    private List <EntityInteraction> actorInteractions;
-    private List <EntityInteraction> acteeInteractions;
+    private List<EntityInteraction> actorInteractions;
+    private List<EntityInteraction> acteeInteractions;
     private EntityController controller;
     private Inventory inventory;
     private boolean onMap;
@@ -61,7 +61,6 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     {
         this.movementVector = movementVector;
         this.stats = stats;
-        hurtEntity(5);
         this.effects = effects;
         this.actorInteractions = actorInteractions;
         //prevents errors until the AI sets the interactions
@@ -156,7 +155,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
 
     //true results in killing the entity, can be used to give skill points to attacking entity;
     public boolean hurtEntity (int amount) {
-        System.out.println("I got Hit");
+        System.out.println("I got Hit for " + amount);
         stats.setCurHealth(Math.max(0, getCurrHealth() - amount));
         return getCurrHealth() <= 0;
     }

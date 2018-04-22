@@ -2,9 +2,11 @@ package gameview;
 
 import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
+import entity.entitymodel.EquipSlot;
 import entity.entitymodel.Equipment;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
+import gameview.displayable.widget.InventoryDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.DisplayState;
 import guiframework.displayable.CompositeDisplayable;
@@ -72,26 +74,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
         playerStatus.add(new StringDisplayable(new Point(4, 190),() -> "VecDir: " + player.getMovementDirection(), Color.BLACK, 1));
         widgets.add(playerStatus);
 
-        CompositeDisplayable playerInventory = new CompositeDisplayable(new Point(16, 256), 1);
-        playerInventory.add(new ImageDisplayable(new Point(0, 0), ImageMaker.makeBorderedRect(128 + 32, 384, Color.WHITE), -1));
-        playerInventory.add(new StringDisplayable(new Point(4, 16), "Player Inventory:", Color.BLACK, 1));
-
-        // Todo: base this off the Inventory/Equipment's actual max size
-        int numInventorySlots = 8;
-        for(int i = 0; i < numInventorySlots; i++)
-        {
-            int index = i;
-            TakeableItem item = player.getItem(index);
-            String itemName = (item == null) ? "EMPTY" : item.getName();
-            playerInventory.add(new StringDisplayable(new Point(4, 32 + (i * 16)), () -> "Slot " + index + ": " + itemName, Color.BLACK, 1));
-        }
-        playerInventory.add(new StringDisplayable(new Point(4, 48 + (numInventorySlots * 16)), "Player Equipment:", Color.BLACK, 1));
-        Equipment equipment = player.getController().getEquipment();
-        int numEquipmentSlots = 4;
-        for(int i = 0; i < numEquipmentSlots; i++)
-        {
-            playerInventory.add(new StringDisplayable(new Point(4, 64 + (numInventorySlots * 16) + (i * 16)), "Slot " + i + ": ", Color.BLACK, 1));
-        }
+        CompositeDisplayable playerInventory = new InventoryDisplayable(new Point(16, 256), player);
         widgets.add(playerInventory);
     }
 
@@ -189,6 +172,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
             gameTickCountdown = RENDERING_FRAMES_PER_GAME_TICK;
         }
         super.update();
+        widgets.forEach(Displayable::update);
 
         // todo: this could potentially be enough of a performance drain that we should just skip it and let memory leak
         spriteMap.keySet().removeIf(GameObject::expired);
