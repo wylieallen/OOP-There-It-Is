@@ -1,36 +1,19 @@
 package gameview;
 
-import entity.entitycontrol.controllerActions.*;
 import entity.entitymodel.Entity;
 import entity.entitymodel.MovementObserver;
 import guiframework.DisplayPanel;
-import maps.tile.Direction;
 import maps.world.TransitionObserver;
 import maps.world.World;
 import utilities.Coordinate;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.HashMap;
-import java.util.Map;
 
-public class GamePanel extends DisplayPanel implements ControllerActionVisitor, TransitionObserver, MovementObserver
+public class GamePanel extends DisplayPanel implements TransitionObserver, MovementObserver
 {
     private GameDisplayState gameDisplayState;
-
-    private int attackKeyCode = KeyEvent.VK_SPACE;
-    private int bindWoundsKeyCode = KeyEvent.VK_B;
-    private int creepKeyCode = KeyEvent.VK_CONTROL;
-    private int dismountKeyCode = KeyEvent.VK_EQUALS;
-    private int observeKeyCode = KeyEvent.VK_O;
-
-    private Map<Direction, Integer> directionalMoveKeyCodes;
-    private Map<Direction, Integer> altDirectionalMoveKeyCodes;
-
-    private int moveKeyCode = KeyEvent.VK_SHIFT;
-    // todo: finish adding more keycodes
-
-
+    
     public GamePanel(Dimension size)
     {
         super(size);
@@ -48,21 +31,6 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor, 
             gameDisplayState.add(newTile, new Point(128 + direction.getPixelX(), 128 + direction.getPixelY()));
         }
         */
-        directionalMoveKeyCodes = new HashMap<>();
-        directionalMoveKeyCodes.put(Direction.N, KeyEvent.VK_W);
-        directionalMoveKeyCodes.put(Direction.NE, KeyEvent.VK_E);
-        directionalMoveKeyCodes.put(Direction.NW, KeyEvent.VK_Q);
-        directionalMoveKeyCodes.put(Direction.S, KeyEvent.VK_S);
-        directionalMoveKeyCodes.put(Direction.SE, KeyEvent.VK_D);
-        directionalMoveKeyCodes.put(Direction.SW, KeyEvent.VK_A);
-
-        altDirectionalMoveKeyCodes = new HashMap<>();
-        altDirectionalMoveKeyCodes.put(Direction.N, KeyEvent.VK_UP);
-        altDirectionalMoveKeyCodes.put(Direction.NE, KeyEvent.VK_PAGE_DOWN);
-        altDirectionalMoveKeyCodes.put(Direction.NW, KeyEvent.VK_PAGE_UP);
-        altDirectionalMoveKeyCodes.put(Direction.S, KeyEvent.VK_DOWN);
-        altDirectionalMoveKeyCodes.put(Direction.SE, KeyEvent.VK_RIGHT);
-        altDirectionalMoveKeyCodes.put(Direction.SW, KeyEvent.VK_LEFT);
 
         super.addMouseWheelListener(e -> {
             double clicks = e.getPreciseWheelRotation();
@@ -176,100 +144,14 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor, 
         }
     }
 
-    public void visitAttackAction(AttackAction a)
+    public void decrementInventoryDisplayableIndex()
     {
-        addKeyListener(new KeyAdapter()
-        {
-           public void keyPressed(KeyEvent e)
-           {
-                if(e.getKeyCode() == attackKeyCode)
-                {
-                    a.activate();
-                }
-           }
-        });
+        // todo
     }
 
-    public void visitBindWoundsAction(BindWoundsAction a)
+
+    public void incrementInventoryDisplayableIndex()
     {
-        addKeyListener(new KeyAdapter()
-        {
-            public void keyPressed(KeyEvent e)
-            {
-                if(e.getKeyCode() == bindWoundsKeyCode)
-                {
-                    a.activate();
-                }
-            }
-        });
-    }
-
-    public void visitCreepAction(CreepAction a)
-    {
-        addKeyListener(new KeyAdapter()
-        {
-            public void keyPressed(KeyEvent e)
-            {
-                if(e.getKeyCode() == creepKeyCode)
-                {
-                    a.activate();
-                }
-            }
-        });
-    }
-
-    public void visitDirectionalMoveAction(DirectionalMoveAction a)
-    {
-        System.out.println("Visited dirmove action: " + a.getDirection());
-        addKeyListener(new KeyAdapter()
-        {
-            public void keyPressed(KeyEvent e)
-            {
-                //System.out.println("Got key press " + e.getKeyChar());
-                Direction d = a.getDirection();
-                int movecode = directionalMoveKeyCodes.get(d);
-                if(e.getKeyCode() == movecode || e.getKeyCode() == altDirectionalMoveKeyCodes.get(d))
-                {
-                    a.activate();
-                }
-            }
-        });
-    }
-
-    public void visitMoveAction(MoveAction a)
-    {
-
-    }
-
-    public void visitObserveAction(ObserveAction a)
-    {
-        addKeyListener(new KeyAdapter()
-        {
-            public void keyPressed(KeyEvent e)
-            {
-                if(e.getKeyCode() == observeKeyCode)
-                {
-                    a.activate();
-                }
-            }
-        });
-    }
-
-    public void visitSetDirectionAction(SetDirectionAction a)
-    {
-
-    }
-
-    public void visitDismountAction (DismountAction a) {
-        addKeyListener(new KeyAdapter()
-        {
-            public void keyPressed(KeyEvent e)
-            {
-                if(e.getKeyCode() == dismountKeyCode)
-                {
-                    a.activate();
-                }
-            }
-        });
+        // todo
     }
 }
