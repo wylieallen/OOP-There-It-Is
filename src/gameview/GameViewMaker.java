@@ -1,8 +1,9 @@
 package gameview;
 
+import commands.KillCommand;
+import commands.LevelUpCommand;
 import commands.ModifyHealthCommand;
 import commands.TransitionCommand;
-import commands.*;
 import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.AI.PetAI;
@@ -10,6 +11,7 @@ import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.DismountAction;
+import entity.entitycontrol.controllerActions.ObserveAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Equipment;
@@ -42,6 +44,7 @@ import skills.SkillType;
 import spawning.SpawnObservable;
 import utilities.Coordinate;
 import utilities.Vector;
+
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -208,6 +211,10 @@ public class GameViewMaker
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), panel));
 
         player.getController().addAction(new DismountAction(player.getController()));
+        ObserveAction observe = new ObserveAction(player);
+        observe.setController(player.getController());
+        observe.registerObserver(localWorldsList.get(1));
+        player.getController().addAction(observe);
 
         //setup world transitions
         //local world 1

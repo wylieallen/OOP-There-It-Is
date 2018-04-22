@@ -18,6 +18,7 @@ public class HumanEntityController extends EntityController implements Controlle
 {
 
     private GamePanel view;
+    private Set <KeyListener> activeListeners;
 
     // KeyListener Sets:
     private Set<KeyListener> freeMoveKeyListeners;
@@ -70,6 +71,8 @@ public class HumanEntityController extends EntityController implements Controlle
             view.requestFocus();
         }
 
+        activeListeners = new HashSet<>();
+
         initializeFreeMove(entity);
         initializeInventoryManagement(entity);
         initializeEntityInteraction(entity);
@@ -117,7 +120,8 @@ public class HumanEntityController extends EntityController implements Controlle
         }
 
         addAction(new BindWoundsAction(entity));
-        addAction(new ObserveAction(entity));
+        //addAction(new ObserveAction(entity));
+        //addAction(new DismountAction(this));
     }
 
     public void initializeInventoryManagement(Entity entity)
@@ -182,9 +186,17 @@ public class HumanEntityController extends EntityController implements Controlle
         super.addAction(action);
         if(view != null) {
             action.accept(this);
+            refreshActiveList();
         }
     }
 
+    private void refreshActiveList () {
+        view.clearKeyListeners();
+
+        for (KeyListener k : activeListeners) {
+            view.addKeyListener(k);
+        }
+    }
 
     @Override
     protected void processController() {
@@ -204,6 +216,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             view.addKeyListener(k);
         }
+        activeListeners = freeMoveKeyListeners;
     }
 
     @Override
@@ -218,6 +231,8 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             view.addKeyListener(k);
         }
+
+        activeListeners = inventoryManagementKeyListeners;
         // Tell GamePanel to reinitialize KeyListeners
         // Tell GameDisplayState to remove temporary substate Displayables
         // Tell GameDisplayState to add Inventory Cursor to temporary substate Displayables
@@ -272,6 +287,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             public void keyPressed(KeyEvent e)
             {
+
                 //System.out.println("Got key press " + e.getKeyChar());
                 Direction d = a.getDirection();
                 int movecode = directionalMoveKeyCodes.get(d);
@@ -290,6 +306,7 @@ public class HumanEntityController extends EntityController implements Controlle
 
     public void visitObserveAction(ObserveAction a)
     {
+
         freeMoveKeyListeners.add(new KeyAdapter()
         {
             public void keyPressed(KeyEvent e)
@@ -300,6 +317,7 @@ public class HumanEntityController extends EntityController implements Controlle
                 }
             }
         });
+
     }
 
     public void visitSetDirectionAction(SetDirectionAction a)
@@ -323,22 +341,22 @@ public class HumanEntityController extends EntityController implements Controlle
 
     @Override
     public void notifyInteraction(Entity player, Entity interactee) {
-        //TODO
+        //TODO : set active list to interaction list
     }
 
     @Override
     public void notifyShopping(Entity trader1, Entity trader2) {
-        //TODO
+        //TODO set active list to shopping list
     }
 
     @Override
     public void notifyLevelUp(Entity e) {
-        //TODO
+        //TODO set active list to level up list
     }
 
     @Override
     public void notifyMainMenu(Entity e) {
-        //TODO
+        //TODO set active list to main menu list
     }
 
     @Override

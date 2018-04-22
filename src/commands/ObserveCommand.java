@@ -52,6 +52,8 @@ public class ObserveCommand implements Command {
             case 3:
                 message = itemObservation(e.getInventory(), distance);
                 break;
+            default:
+                message = "Default message fired?!";
         }
 
         System.out.println(message);

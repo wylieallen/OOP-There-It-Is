@@ -13,7 +13,7 @@ import java.awt.event.*;
 public class GamePanel extends DisplayPanel implements TransitionObserver, MovementObserver
 {
     private GameDisplayState gameDisplayState;
-    
+
     public GamePanel(Dimension size)
     {
         super(size);

@@ -1,15 +1,14 @@
 package items.takeableitems;
 
-import commands.Command;
 import commands.skillcommands.SkillCommand;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import gameobject.GameObject;
 import maps.Influence.InfluenceArea;
-import maps.Influence.StaticInfluenceArea;
-import savingloading.Visitor;
 import maps.Influence.InfluenceType;
+import maps.Influence.StaticInfluenceArea;
 import maps.Influence.expandingInfluenceArea;
+import savingloading.Visitor;
 import skills.SkillType;
 import spawning.SpawnObservable;
 import spawning.SpawnObserver;
@@ -61,7 +60,6 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
             return;
 
         int skillLevel = attacker.getSkillLevel(requiredSkill);
-        System.out.println("attack with skill level " + skillLevel);
         command.setLevel(skillLevel);
         boolean canAttack = attacker.tryToAttack(attackSpeed);
         if(canAttack) {
