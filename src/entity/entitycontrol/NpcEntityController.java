@@ -81,23 +81,31 @@ public class NpcEntityController extends EntityController {
     @Override
     public void updateMap (Map <Coordinate, Tile> map) {
         update(map);
-        activeAi.nextAction(map, getControlledEntity(), getEntityLocation());
+        if (activeAi != null) {
+            activeAi.nextAction(map, getControlledEntity(), getEntityLocation());
+        }
     }
 
     @Override
     public void enrage(Entity e) {
-        activeAi = aggroAi;
-        updateActeeInteractions();
+        if (aggroAi != null) {
+            activeAi = aggroAi;
+            updateActeeInteractions();
+        }
     }
 
     @Override
     public void pacify() {
-        activeAi = nonAggroAi;
-        updateActeeInteractions();
+        if (nonAggroAi != null) {
+            activeAi = nonAggroAi;
+            updateActeeInteractions();
+        }
     }
 
     public void updateActeeInteractions() {
-        getControlledEntity().setActeeInteractions(activeAi.getInteractions());
+        if (activeAi != null) {
+            getControlledEntity().setActeeInteractions(activeAi.getInteractions());
+        }
     }
 
     // TODO: make sure if there is a mount it gives a mount, not its entity

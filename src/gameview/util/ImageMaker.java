@@ -10,7 +10,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,7 +93,7 @@ public class ImageMaker
 
     public static Displayable makeVehicleDisplayable()
     {
-        return new ImageDisplayable(new Point(22, 5), loadImage("assets/entities/entity3.png"), ENTITY_HEIGHT);
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/entities/vehicle.png"), ENTITY_HEIGHT);
     }
 
     public static Displayable makeShopKeepDisplayable()

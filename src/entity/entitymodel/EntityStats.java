@@ -1,6 +1,5 @@
 package entity.entitymodel;
 
-import commands.skillcommands.SkillCommand;
 import maps.movelegalitychecker.Terrain;
 import maps.world.Game;
 import savingloading.Visitable;
@@ -45,7 +44,7 @@ public class EntityStats implements Visitable {
 
     public EntityStats()
     {
-        this(new HashMap<>(), 100, 1000, 1000, 10, 10, 1,
+        this(new HashMap<>(), 1, 1000, 1000, 10, 10, 1,
                 10, 0, 1, 1, 100, false, false, defaultCompatibleTerrains);
     }
 

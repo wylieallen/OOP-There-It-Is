@@ -8,6 +8,7 @@ import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameview.displayable.widget.DialogObservable;
 import gameview.displayable.widget.DialogObserver;
+import items.takeableitems.TakeableItem;
 import maps.tile.Tile;
 import savingloading.Visitable;
 import spawning.SpawnObserver;
@@ -72,7 +73,7 @@ public abstract class EntityController implements Visitable, DialogObservable{
             gameObjectList = container.getValue().getGameObjects();
             //iterate through all the gameObjects in each gameObjectContainer
             for(GameObject gameObject : gameObjectList){
-                if((!inVehicle && gameObject == controlledEntity) || (inVehicle && gameObject == mount)){
+                if((gameObject == controlledEntity) || (inVehicle && gameObject == mount)){
                     entityLocation = container.getKey();
                     found = true;
                 }
@@ -94,8 +95,8 @@ public abstract class EntityController implements Visitable, DialogObservable{
                 inVehicle = false;
                 mount.removeDriver();
                 mount = null;
-                dismounting = false;
             }
+            dismounting = false;
         }
 
     }
@@ -134,6 +135,10 @@ public abstract class EntityController implements Visitable, DialogObservable{
 
     public void useWeapon (int index) {
         equipment.useWeaponItem(0, entityLocation);
+    }
+
+    public void useItem (TakeableItem item) {
+        item.activate(equipment);
     }
 
     public Coordinate getEntityLocation(){

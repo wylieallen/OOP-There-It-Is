@@ -229,6 +229,7 @@
      "Type": "Interactive",
      "Command": {
       "TargetY": 0,
+      "TargetWorld": "OverWorld",
       "Name": "Transition",
       "TargetX": 0
      },
@@ -1783,6 +1784,7 @@
     "Type": "Interactive",
     "Command": {
      "TargetY": 0,
+     "TargetWorld": "0001",
      "Name": "Transition",
      "TargetX": 0
     },
@@ -2348,6 +2350,7 @@
     "Type": "Interactive",
     "Command": {
      "TargetY": 0,
+     "TargetWorld": "0002",
      "Name": "Transition",
      "TargetX": 0
     },

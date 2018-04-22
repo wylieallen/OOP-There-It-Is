@@ -1,11 +1,11 @@
 package entity.vehicle;
 
 import commands.TimedEffect;
-import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
+import entity.entitymodel.interactions.MountInteraction;
 import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
@@ -48,9 +48,9 @@ public class Vehicle extends Entity {
 
     @Override
     public List <EntityInteraction> interact (Entity actor) {
-
         if (!hasDriver()) {
             setDriver(actor);
+            System.out.println(this.toString());
             actor.setMount (this);
             // after mounting you interact with mount, maybe use item?
             return super.interact(actor);
@@ -61,8 +61,11 @@ public class Vehicle extends Entity {
 
     @Override
     public void update(Map<Coordinate, Tile> map) {
-        if (driver.isOnMap()) {
-            driver = null;
+
+        if (driver != null) {
+            if (driver.isOnMap()) {
+                driver = null;
+            }
         }
 
         super.update(map);
@@ -77,6 +80,24 @@ public class Vehicle extends Entity {
     }
 
     public boolean hasDriver () { return driver != null; }
+
+    @Override
+    public Vector getMovementVector () {
+
+        if (hasDriver()) {
+            Vector v = new Vector(driver.getMovementDirection(), driver.getBaseMoveSpeed() + getBaseMoveSpeed());
+            return v;
+        } else {
+            return super.getMovementVector();
+        }
+
+    }
+
+    @Override
+    public boolean canMoveHere (Entity mover) {
+        MountInteraction mountingTime = new MountInteraction();
+        return mountingTime.interact(mover, this);
+    }
 
     @Override
     public void accept(Visitor v) {
