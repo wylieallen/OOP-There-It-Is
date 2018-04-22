@@ -4,6 +4,7 @@ import entity.entitymodel.Entity;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.displayable.widget.DialogBoxDisplayable;
+import gameview.displayable.widget.InteractionDisplayable;
 import gameview.displayable.widget.InventoryDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.DisplayState;
@@ -35,6 +36,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     private Map<World, WorldDisplayable> worlds;
     private WorldDisplayable activeWorldDisplayable;
     private InventoryDisplayable inventoryDisplayable;
+    private InteractionDisplayable interactionDisplayable;
 
     private static final int RENDERING_FRAMES_PER_GAME_TICK = 10;
     private int gameTickCountdown = RENDERING_FRAMES_PER_GAME_TICK;
@@ -171,4 +173,15 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     {
         return inventoryDisplayable.getCursorIndex();
     }
+/*
+    public void decrementInteractionDisplayableIndex () {
+        interactionDisplayable.adjustCursorIndex (-1);
+    }
+
+    public void incrementInteractionDisplayableIndex () {
+        interactionDisplayable.adjustCursorIndex (1);
+    }
+
+    public void getInteractionDisplayableIndex() {return interactionDisplayable.getCursorIndex (); }
+    */
 }

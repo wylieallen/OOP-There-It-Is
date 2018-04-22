@@ -98,7 +98,55 @@ public class HumanEntityController extends EntityController implements Controlle
     private void initializeEntityInteraction(Entity entity)
     {
         entityInteractionKeyListeners = new HashSet<>();
+/*
+        inventoryManagementKeyListeners.add(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.N))
+                    view.decrementInventoryDisplayableIndex();
+            }
+        });
 
+        inventoryManagementKeyListeners.add(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.S))
+                    view.incrementInventoryDisplayableIndex();
+            }
+        });
+
+        inventoryManagementKeyListeners.add(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == useInventoryItemKeyCode)
+                {
+                    int cursorIndex = view.getInventoryCursorIndex();
+                    Inventory inventory = entity.getInventory();
+                    if(cursorIndex >= inventory.getItems().size())
+                    {
+                        cursorIndex -= inventory.getItems().size();
+                        if(cursorIndex >= getEquipment().getWearables().size())
+                        {
+                            cursorIndex -= getEquipment().getWearables().size();
+                            getEquipment().getWeapons().get(cursorIndex).activate(getEquipment());
+                        }
+                        else
+                        {
+                            WearableItem[] wearables = new WearableItem[0];
+                            wearables = getEquipment().getWearables().values().toArray(wearables);
+                            wearables[cursorIndex].activate(getEquipment());
+                        }
+                    }
+                    else
+                    {
+                        inventory.select(cursorIndex).activate(getEquipment());
+                    }
+                }
+            }
+        }); */
         //todo
     }
 

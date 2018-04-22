@@ -60125,2596 +60125,1336 @@
      }
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
-     },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
-     "ActorInteractions": [],
-     "InVehicle": false,
-     "Name": "Tim",
      "ActeeInteractions": [],
-     "Type": "NPC",
+     "Type": "Vehicle",
      "Equipment": {
-      "Weapons": [{
-       "StaminaCost": 5,
-       "UpdateInterval": 1,
-       "AttackSpeed": 300,
-       "Name": "Bob",
-       "SkillCommand": {
-        "Effectiveness": -1,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "TWOHANDEDWEAPON",
-        "Level": 10
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "TWOHANDEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": false
-      }],
+      "Weapons": [],
       "Wearables": {}
      },
-     "X": -2,
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
-      "Gold": 10,
-      "Concealment": 10,
-      "VisibilityRadius": 6,
-      "BaseMoveSpeed": 1,
-      "UnspentSkillPoints": 5,
-      "MaxHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "BARGAIN": 1,
-       "TWOHANDEDWEAPON": 10
+       "BARGAIN": 1
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 98,
+      "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
-     "NonAggroAi": {
-      "Type": "Pet",
-      "Interactions": []
+     "Inventory": [],
+     "Name": "Vehicle"
+    },
+    {
+     "ActeeInteractions": [],
+     "Type": "Vehicle",
+     "Equipment": {
+      "Weapons": [],
+      "Wearables": {}
      },
-     "Inventory": [{
-      "OnMap": false,
-      "Type": "Quest",
-      "QuestId": 4321,
-      "Name": "key"
-     }],
-     "AggroAi": {
-      "Type": "Hostile",
-      "Interactions": []
-     }
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "X": 2,
+     "DirectionFacing": "NULL",
+     "Stats": {
+      "CurrentHealth": 10,
+      "Gold": 100,
+      "Concealment": 1,
+      "VisibilityRadius": 5,
+      "BaseMoveSpeed": 1030,
+      "UnspentSkillPoints": 0,
+      "MaxHealth": 1000,
+      "MaxMana": 100,
+      "IsConfused": false,
+      "IsSearching": false,
+      "Skills": {
+       "BINDWOUNDS": 1,
+       "OBSERVATION": 1,
+       "BARGAIN": 1
+      },
+      "ManaRegenRate": 1,
+      "CurrentXP": 10,
+      "CurrentMana": 100
+     },
+     "Y": -4,
+     "IsAggro": true,
+     "Inventory": [],
+     "Name": "Vehicle"
     },
     {
      "ActorInteractions": [],
