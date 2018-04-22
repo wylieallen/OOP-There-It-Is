@@ -317,13 +317,13 @@ public class GameViewMaker
 //        npc.getController().getEquipment().add(axe);
 //
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), -1, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Bob", false, 1000, SkillType.TWOHANDEDWEAPON, 75, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Bob", false, 1000, SkillType.TWOHANDEDWEAPON, 0, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
         npc.getController().getEquipment().add(w);
         //must add overworld as observer
         w.registerObserver(world);
 //        axe.registerObserver(world);
 
-        spawnerMap.put(w,new ImageDisplayable(new Point(16,16), ImageMaker.makeBorderedCircle(Color.yellow),1000));
+        spawnerMap.put(w, ImageMaker.makeBlueProjectileDisplayable());
 //        spawnerMap.put(axe,new ImageDisplayable(new Point(16,16),ImageMaker.makeBorderedCircle(Color.blue),1000));
         world.getTile(npcLoc).setEntity(npc);
         spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));

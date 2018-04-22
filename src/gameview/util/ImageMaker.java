@@ -21,6 +21,7 @@ public class ImageMaker
     private static int TERRAIN_HEIGHT = 0;
     private static int ITEM_HEIGHT = 500;
     private static int ENTITY_HEIGHT = 999;
+    private static int PROJECTILE_HEIGHT = 1100;
 
     private static Shape hexShape = makeHexShape();
 
@@ -193,6 +194,30 @@ public class ImageMaker
             default:
                 return new ImageDisplayable(new Point(0, 0), loadImage("assets/maps/nsriver.png"), ITEM_HEIGHT);
         }
+    }
+
+    public static Displayable makeBlueProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/blueprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makeCyanProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/cyanprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makeGreenProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/greenprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makePurpleProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/purpleprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makeRedProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/redprojectile.png"), PROJECTILE_HEIGHT);
+    }
+
+    public static Displayable makeYellowProjectileDisplayable() {
+        return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/yellowprojectile.png"), PROJECTILE_HEIGHT);
     }
 
 
