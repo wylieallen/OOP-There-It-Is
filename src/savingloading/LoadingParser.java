@@ -594,9 +594,13 @@ public class LoadingParser {
     }
 
     private SkillCommand loadSkillCommand(JSONObject commandJson) {
+        Command failureCommand = null;
+        if(commandJson.has("FailureCommand")){
+            failureCommand = loadCommand(commandJson.getJSONObject("FailureCommand"));
+        }
         return new SkillCommand(loadSkillType(commandJson.getString("SkillType")), commandJson.getInt("Level"),
                 commandJson.getInt("Effectiveness"), loadCommand(commandJson.getJSONObject("SuccessCommand")),
-                loadCommand(commandJson.getJSONObject("FailureCommand")));
+                failureCommand);
     }
 
     private PickPocketCommand loadPickPocketCommand(JSONObject commandJson) {

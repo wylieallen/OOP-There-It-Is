@@ -260,7 +260,6 @@ public class SaveVisitor implements Visitor {
         JSONObject wearableItemsJson = new JSONObject();
         equipmentJson.put("Wearables", wearableItemsJson);
         for(WeaponItem item : equipment.getWeapons()) {
-            System.out.println(item);
             item.accept(this);
         }
         while(!itemJsonsQueue.isEmpty())
@@ -502,8 +501,10 @@ public class SaveVisitor implements Visitor {
         currentSkillCommandJson.put("Effectiveness", skillCommand.getEffectiveness());
         skillCommand.getSuccessCommand().accept(this);
         currentSkillCommandJson.put("SuccessCommand", currentCommandJson);
-        skillCommand.getFailureCommand().accept(this);
-        currentSkillCommandJson.put("FailureCommand", currentCommandJson);
+        if (skillCommand.getFailureCommand() != null) {
+            skillCommand.getFailureCommand().accept(this);
+            currentSkillCommandJson.put("FailureCommand", currentCommandJson);
+        }
     }
 
     private void addReversibleCommand(ReversibleCommand reversibleCommand){
@@ -520,6 +521,7 @@ public class SaveVisitor implements Visitor {
             currentTileJson.put("Y", c.y());
             tilesJson.put(currentTileJson);
         }
+
     }
 
     public void visitLocalWorld(LocalWorld w){

@@ -200,12 +200,14 @@ public class GameViewMaker
 
         //local world 2
         InteractiveItem localWorld2Entrance = new InteractiveItem("Encounter 2", new TransitionCommand(localWorldsList.get(1), new Coordinate(0, 0), game));
-        spriteMap.put(localWorld1Entrance, ImageMaker.makeEncounterDisplayable1());
-        overworld.getTile(new Coordinate(-6, 1)).setEncounter(localWorld1Entrance);
+        InteractiveItem localWorld1Entranceb = new InteractiveItem("Encounter 1", new TransitionCommand(localWorldsList.get(0), new Coordinate(0, 0), game));
+        spriteMap.put(localWorld1Entranceb, ImageMaker.makeEncounterDisplayable1());
+        overworld.getTile(new Coordinate(-6, 1)).setEncounter(localWorld1Entranceb);
 
         InteractiveItem localWorld2Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
-        spriteMap.put(localWorld1Exit, ImageMaker.makeTeleporterDisplayable());
-        localWorldsList.get(1).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exit);
+        InteractiveItem localWorld1Exitb = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
+        spriteMap.put(localWorld1Exitb, ImageMaker.makeTeleporterDisplayable());
+        localWorldsList.get(1).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exitb);
 
        return new GameDisplayState(panel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overworld);
     }
@@ -277,7 +279,7 @@ public class GameViewMaker
         WeaponItem axe = ItemFactory.makeAxe(world, false);
 //        npc.getController().getEquipment().add(axe);
 //
-        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), -1, new ModifyHealthCommand(), null);
+        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), -1, new ModifyHealthCommand(), new ModifyHealthCommand());
         WeaponItem w = new WeaponItem ("Bob", false, -10, 1000, SkillType.TWOHANDEDWEAPON, 10, 500, 1, InfluenceType.ANGULARINFLUENCE, skill);
         npc.getController().getEquipment().add(w);
         //must add overworld as observer
