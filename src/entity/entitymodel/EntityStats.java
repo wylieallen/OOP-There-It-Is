@@ -44,8 +44,9 @@ public class EntityStats implements Visitable {
 
     public EntityStats()
     {
+
         this(new HashMap<>(), 30, 1000, 1000, 100, 100, 1,
-                10, 0, 5, 1, 100, false, false, defaultCompatibleTerrains);
+                10, 0, 5, 1, 100, false, false,new HashSet<Terrain>(defaultCompatibleTerrains));
     }
 
     public EntityStats(Map<SkillType, Integer> skills,
