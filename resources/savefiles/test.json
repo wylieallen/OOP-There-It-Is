@@ -27,7 +27,7 @@
    "CurrentHealth": 1000,
    "Gold": 100,
    "Concealment": 1,
-   "VisibilityRadius": 1,
+   "VisibilityRadius": 5,
    "BaseMoveSpeed": 30,
    "UnspentSkillPoints": 0,
    "MaxHealth": 1000,

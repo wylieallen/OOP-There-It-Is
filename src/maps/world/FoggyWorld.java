@@ -91,10 +91,6 @@ public class FoggyWorld implements World {
     }
 
     @Override
-    public void accept(Visitor v) { }
-
-
-    @Override
     public Map<Coordinate, GameObject> getInfluences() {
         return world.getInfluences();
     }
@@ -107,6 +103,15 @@ public class FoggyWorld implements World {
 
     public LocalWorldTile getTile(Coordinate coordinate) {
         return world.getTile(coordinate);
+    }
+
+    public LocalWorld getLocalWorld() {
+        return world;
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visitFoggyWorld(this);
     }
 
 }

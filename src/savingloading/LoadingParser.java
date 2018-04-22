@@ -36,10 +36,7 @@ import maps.tile.LocalWorldTile;
 import maps.tile.OverWorldTile;
 import maps.trajectorymodifier.River;
 import maps.trajectorymodifier.TrajectoryModifier;
-import maps.world.Game;
-import maps.world.LocalWorld;
-import maps.world.OverWorld;
-import maps.world.World;
+import maps.world.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import skills.SkillType;
@@ -85,7 +82,9 @@ public class LoadingParser {
         loadOverWorld(gameJson.getJSONObject("OverWorld"));
         loadLocalWorlds(gameJson.getJSONObject("LocalWorlds"));
 
-        //game = new Game(overWorld, overWorld, localWorlds, 0, player);
+        List<FoggyWorld> foggyWorlds = loadFoggyWorlds();
+
+        game = new Game(overWorld, overWorld, foggyWorlds, 0, player);
 
         // must do this after game is made
         setTransitionCommands();
@@ -154,6 +153,14 @@ public class LoadingParser {
                 spawnObservables.remove().registerObserver(localWorld);
             }
         }
+    }
+
+    private List<FoggyWorld> loadFoggyWorlds() {
+        List<FoggyWorld> foggyWorlds = new ArrayList<>();
+        for (LocalWorld localWorld : localWorlds){
+            foggyWorlds.add(new FoggyWorld(localWorld, player));
+        }
+        return foggyWorlds;
     }
 
     private Entity loadEntity(JSONObject entityJson) {
@@ -772,6 +779,8 @@ public class LoadingParser {
                 return ImageMaker.makeConsumableDisplayable2();
             case "Consumable3":
                 return ImageMaker.makeConsumableDisplayable3();
+            case "HealthPotion":
+                return ImageMaker.makeConsumableDisplayable1();
             case "Brawling":
                 return ImageMaker.makeBrawlingWeaponDisplayable();
             case "Gadget1":
