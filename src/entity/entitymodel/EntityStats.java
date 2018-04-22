@@ -102,6 +102,10 @@ public class EntityStats implements Visitable {
         this.lastAttackTime = 0;
         this.lastMoveTime = 0;
 
+        initBasicSkills();
+    }
+
+    private void initBasicSkills() {
         if(!containsSkill(SkillType.BINDWOUNDS)) {
             skills.put(SkillType.BINDWOUNDS, 1);
         }

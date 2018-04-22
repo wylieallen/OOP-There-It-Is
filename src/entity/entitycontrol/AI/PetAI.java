@@ -19,14 +19,12 @@ public class PetAI extends AI {
     private int lastHealth;
     private boolean hasPath;
     private Coordinate mastersLastPosition;
-    private Coordinate myLastPosition;
 
     public PetAI(List<EntityInteraction> interactions, Entity master, Map<Coordinate, Direction> path, boolean hasPath) {
         super(interactions, path);
         this.master = master;
-        lastHealth = 0;
+        lastHealth = 10;
         mastersLastPosition = new Coordinate(0, 0);
-        myLastPosition = new Coordinate(0, 0);
         this.hasPath = hasPath;
     }
 
@@ -41,20 +39,25 @@ public class PetAI extends AI {
                 hasPath = false;
             }
 
+            if (lastHealth > e.getCurrHealth()) {
+                setPath(location, mastersPosition, e.getCompatibleTerrains(), map);
+                hasPath = true;
+                lastHealth = e.getCurrHealth();
+            }
+
             if (distance > maxDistanceFromMaster) {
                 setPath(location, mastersPosition, e.getCompatibleTerrains(), map);
                 hasPath = true;
-            } else if (!hasPath || myLastPosition.equals(location)) {
+            } else if (!hasPath) {
                 Coordinate targetPosition = getNextCoordinate(map.keySet(), e);
                 setPath(location, targetPosition, e.getCompatibleTerrains(), map);
                 hasPath = true;
             }
         } else {
-            mastersLastPosition = findNewMaster (map);
+            mastersLastPosition = findNewMaster (map, location);
             setPath(location, mastersLastPosition, e.getCompatibleTerrains(), map);
         }
 
-        myLastPosition = location;
         e.setFacing(getNextDirection(location));
         e.setMoving();
 
@@ -70,12 +73,13 @@ public class PetAI extends AI {
         return mastersLastPosition;
     }
 
-    private Coordinate findNewMaster (Map <Coordinate, Tile> map) {
+    private Coordinate findNewMaster (Map <Coordinate, Tile> map, Coordinate location) {
 
         List <Coordinate> points = new ArrayList<>();
 
         for (Direction d : Direction.values()) {
-            points.add(myLastPosition.getNeighbor(d));
+            if (d != Direction.NULL)
+                points.add(location.getNeighbor(d));
         }
 
         for (Coordinate c : points) {

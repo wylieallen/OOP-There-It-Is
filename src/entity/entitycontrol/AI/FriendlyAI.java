@@ -13,12 +13,10 @@ import java.util.Map;
 public class FriendlyAI extends AI {
 
     private boolean hasPath;
-    private Coordinate lastLocation;
 
     public FriendlyAI(List<EntityInteraction> interactions, Map<Coordinate, Direction> path, boolean hasPath) {
         super(interactions, path);
         this.hasPath = hasPath;
-        this.lastLocation = new Coordinate(0, 0);
     }
 
     @Override   // e is my entity
@@ -28,12 +26,10 @@ public class FriendlyAI extends AI {
 
         if (!hasPath() || getNextDirection(location) == Direction.NULL) {
             Coordinate end = getNextCoordinate (map.keySet(), e);
-//            System.out.println("end: x = " + end.x() + " y = " + end.y());
             setPath(location, end, e.getCompatibleTerrains(), map);
             hasPath = true;
         }
 
-        lastLocation = location;
         e.setFacing(getNextDirection(location));
         e.setMoving();
 

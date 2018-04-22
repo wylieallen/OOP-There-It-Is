@@ -229,7 +229,6 @@
      "Type": "Interactive",
      "Command": {
       "TargetY": 0,
-      "TargetWorld": "OverWorld",
       "Name": "Transition",
       "TargetX": 0
      },
@@ -538,7 +537,29 @@
    },
    {
     "X": -3,
-    "Y": 3
+    "Y": 3,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": -20,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "BANE",
+      "Level": 0
+     },
+     "MaxRadius": 1,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "BANE",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Good Staff"
+    }]
    },
    {
     "X": 3,
@@ -546,7 +567,29 @@
    },
    {
     "X": -3,
-    "Y": 4
+    "Y": 4,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": -15,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "STAFF",
+      "Level": 0
+     },
+     "MaxRadius": 1,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "STAFF",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Staff"
+    }]
    },
    {
     "X": 3,
@@ -554,7 +597,29 @@
    },
    {
     "X": -3,
-    "Y": 5
+    "Y": 5,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": -10,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "STAFF",
+      "Level": 0
+     },
+     "MaxRadius": 1,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "STAFF",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Bad Staff"
+    }]
    },
    {
     "X": 3,
@@ -682,7 +747,29 @@
    },
    {
     "X": -4,
-    "Y": 4
+    "Y": 4,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": -20,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "BANE",
+      "Level": 0
+     },
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "CIRCULARINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "BANE",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Circular Damage Gadget"
+    }]
    },
    {
     "X": 4,
@@ -690,7 +777,29 @@
    },
    {
     "X": -4,
-    "Y": 5
+    "Y": 5,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": -20,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "BANE",
+      "Level": 0
+     },
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "ANGULARINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "BANE",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Angular Damage Gadget"
+    }]
    },
    {
     "X": 4,
@@ -698,7 +807,29 @@
    },
    {
     "X": -4,
-    "Y": 6
+    "Y": 6,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": -15,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "BANE",
+      "Level": 0
+     },
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "BANE",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Linear Damage Gadget"
+    }]
    },
    {
     "X": 4,
@@ -818,7 +949,29 @@
    },
    {
     "X": -5,
-    "Y": 5
+    "Y": 5,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": 100,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "BOON",
+      "Level": 0
+     },
+     "MaxRadius": 1,
+     "OnMap": true,
+     "InfluenceType": "SELFINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "BOON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Strong Heal Gadget"
+    }]
    },
    {
     "X": 5,
@@ -826,7 +979,30 @@
    },
    {
     "X": -5,
-    "Y": 6
+    "Y": 6,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": 5000,
+      "SuccessCommand": {
+       "Factor": 2,
+       "Duration": 0,
+       "Name": "ModifyStaminaRegen"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "BOON",
+      "Level": 0
+     },
+     "MaxRadius": 1,
+     "OnMap": true,
+     "InfluenceType": "SELFINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "BOON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Faster Stamina Regen Gadget"
+    }]
    },
    {
     "X": 5,
@@ -834,7 +1010,29 @@
    },
    {
     "X": -5,
-    "Y": 7
+    "Y": 7,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": 10,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "BOON",
+      "Level": 0
+     },
+     "MaxRadius": 1,
+     "OnMap": true,
+     "InfluenceType": "SELFINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "BOON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Heal Gadget"
+    }]
    },
    {
     "X": 5,
@@ -1582,7 +1780,6 @@
     "Type": "Interactive",
     "Command": {
      "TargetY": 0,
-     "TargetWorld": "0001",
      "Name": "Transition",
      "TargetX": 0
     },

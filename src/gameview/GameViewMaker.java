@@ -1,12 +1,11 @@
 package gameview;
 
-import commands.Command;
 import commands.EnrageCommand;
 import commands.ModifyHealthCommand;
 import commands.TransitionCommand;
 import commands.skillcommands.SkillCommand;
-import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
+import entity.entitycontrol.AI.PetAI;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitymodel.Entity;
@@ -23,7 +22,6 @@ import items.Item;
 import items.ItemFactory;
 import items.OneshotItem;
 import items.takeableitems.QuestItem;
-import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
 import maps.Influence.InfluenceType;
 import maps.movelegalitychecker.Terrain;
@@ -147,11 +145,13 @@ public class GameViewMaker
         player.addToInventory(new QuestItem("Radio", false, 0));
 
         Coordinate npcLoc = new Coordinate(-2, 0);
+
         Entity npc = createNPC (npcLoc, player, true, false);
 
 //        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, 0, 10, new ModifyHealthCommand(-2), new ModifyHealthCommand(2));
 //        WeaponItem w = new WeaponItem ("Bob", false, 0, 500, SkillType.TWOHANDEDWEAPON, 8, 1000, 1, InfluenceType.CIRCULARINFLUENCE, skill);
 //        npc.getController().getEquipment().add(w);
+
 
         //tile.setEntity(player);
 
@@ -238,7 +238,7 @@ public class GameViewMaker
         if(canMove)
             compatible.add(Terrain.GRASS);
 
-        EntityStats stats = new EntityStats(skills, 1, 10, 10, 10, 10, 1, 98, 5, 5, 10, 10, false, false, compatible);
+        EntityStats stats = new EntityStats(skills, 1, 10, 10, 10, 10, 1, 98, 5, 6, 10, 10, false, false, compatible);
 
         Inventory i = new Inventory(new ArrayList<>());
 
@@ -246,7 +246,7 @@ public class GameViewMaker
         Equipment e = new Equipment(5, i, entity);
 
         HostileAI hostile = new HostileAI(entity.getActeeInteractions(), aggroTarget, new HashMap<>());
-        FriendlyAI friendly = new FriendlyAI(entity.getActeeInteractions(), new HashMap<>(), false);
+        PetAI friendly = new PetAI(entity.getActeeInteractions(), player, new HashMap<>(), false);
         NpcEntityController controller = new NpcEntityController(entity, e, loc, hostile, friendly, isHostile);
         entity.setController(controller);
 
@@ -367,29 +367,41 @@ public class GameViewMaker
         world.getTile(new Coordinate(-6, 0)).addEI(gadget);
         spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable1());
 
-        /*Item sword = ItemFactory.makeBadSword(world, true);
-        world.getTile(new Coordinate(-5, -2)).addEI(sword);
-        spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+        gadget = ItemFactory.makeHealGadget(world, true);
+        world.getTile(new Coordinate(-5, -2)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable2());
 
-        sword = ItemFactory.makeSword(world, true);
-        world.getTile(new Coordinate(-5, -1)).addEI(sword);
-        spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+        gadget = ItemFactory.makeStaminaRegenGadget(world, true);
+        world.getTile(new Coordinate(-5, -1)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable2());
 
-        sword = ItemFactory.makeGoodSword(world, true);
-        world.getTile(new Coordinate(-5, 0)).addEI(sword);
-        spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+        gadget = ItemFactory.makeStrongHealGadget(world, true);
+        world.getTile(new Coordinate(-5, 0)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable2());
 
-        Item brawling = ItemFactory.makeBadGlove(world, true);
-        world.getTile(new Coordinate(-4, -2)).addEI(brawling);
-        spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());
+        gadget = ItemFactory.makeLinearBaneGadget(world, true);
+        world.getTile(new Coordinate(-4, -2)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable3());
 
-        brawling = ItemFactory.makeGlove(world, true);
-        world.getTile(new Coordinate(-4, -1)).addEI(brawling);
-        spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());
+        gadget = ItemFactory.makeAngularBaneGadget(world, true);
+        world.getTile(new Coordinate(-4, -1)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable3());
 
-        brawling = ItemFactory.makeGoodGlove(world, true);
-        world.getTile(new Coordinate(-4, 0)).addEI(brawling);
-        spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());*/
+        gadget = ItemFactory.makeCircularBaneGadget(world, true);
+        world.getTile(new Coordinate(-4, 0)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable3());
+
+        gadget = ItemFactory.makeBadStaff(world, true);
+        world.getTile(new Coordinate(-3, -2)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable4());
+
+        gadget = ItemFactory.makeStaff(world, true);
+        world.getTile(new Coordinate(-3, -1)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable4());
+
+        gadget = ItemFactory.makeGoodStaff(world, true);
+        world.getTile(new Coordinate(-3, 0)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable4());
 
         for(int i = 2; i <= 10; ++i) {
             Entity npc = createNPC (new Coordinate(-6, i), player, false, false);

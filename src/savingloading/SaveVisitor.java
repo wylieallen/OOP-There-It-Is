@@ -297,7 +297,7 @@ public class SaveVisitor implements Visitor {
         JSONObject interactionJson = new JSONObject();
         interactionJson.put("Name", "TalkInteraction");
         JSONArray messagesJson = new JSONArray();
-        Set<String> messages = t.getMessages();
+        List<String> messages = t.getMessages();
         for (String message : messages){
             messagesJson.put(message);
         }
@@ -499,7 +499,13 @@ public class SaveVisitor implements Visitor {
         currentSkillCommandJson.put("SkillType", skillCommand.getSkillType().name());
         currentSkillCommandJson.put("Level", skillCommand.getLevel());
         currentSkillCommandJson.put("Effectiveness", skillCommand.getEffectiveness());
-        skillCommand.getSuccessCommand().accept(this);
+
+        if(skillCommand.getSuccessCommand() != null) {
+            skillCommand.getSuccessCommand().accept(this);
+        } else {
+            currentCommandJson = new JSONObject();
+            currentCommandJson.put("Name", "Null");
+        }
         currentSkillCommandJson.put("SuccessCommand", currentCommandJson);
         if (skillCommand.getFailureCommand() != null) {
             skillCommand.getFailureCommand().accept(this);

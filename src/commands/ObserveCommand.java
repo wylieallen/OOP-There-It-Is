@@ -1,16 +1,17 @@
 package commands;
 
+import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Inventory;
-import items.takeableitems.TakeableItem;
 import savingloading.Visitor;
-import skills.SkillType;
 
 // not sure how this will work
 public class ObserveCommand implements Command {
 
     private int distance;
     private int level;
+
+    private EntityController controller;
 
     public ObserveCommand(int level) {
         this.level = level;
@@ -54,7 +55,7 @@ public class ObserveCommand implements Command {
         }
 
         System.out.println(message);
-        //TODO: send message to the view
+        controller.notifyAllObservers(message);
     }
 
     //0 accuracy represents perfect accuracy, -1 represents an underestimation by 100%,
@@ -111,6 +112,10 @@ public class ObserveCommand implements Command {
             return "This entity has an item named " + itemName + ".";
     }
 
+    public void setEntityController (EntityController caster) {
+        controller = caster;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitObserveCommand(this);
@@ -123,4 +128,5 @@ public class ObserveCommand implements Command {
     public int getDistance() {
         return distance;
     }
+
 }

@@ -2,8 +2,8 @@ package maps.tile;
 
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
-import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.entityimpaction.EntityImpactor;
+import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
 import savingloading.Visitor;
 import utilities.Coordinate;
