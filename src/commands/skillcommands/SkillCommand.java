@@ -33,7 +33,7 @@ public class SkillCommand implements Visitable {
     }
 
     public void trigger(Entity e, int distance) {
-        boolean success = getSkillType().checkSuccess(e.getSkillLevel(getSkillType()), distance);
+        boolean success = getSkillType().checkSuccess(level, distance);
         int adjustedEffectiveness = getSkillType().calculateModification(effectiveness, distance, level);
 
         if(success)

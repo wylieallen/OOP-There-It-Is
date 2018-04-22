@@ -569,9 +569,11 @@ public class LoadingParser {
     }
 
     private Command loadCommand(JSONObject commandJson) {
-        if (commandJson.getString("Name").equals("Transition"))
+        if (commandJson.getString("Name").equals("Null"))
+            return null;
+        else if (commandJson.getString("Name").equals("Transition"))
             return loadTransitionCommand(commandJson);
-        if (commandJson.getString("Name").equals("Confuse"))
+        else if (commandJson.getString("Name").equals("Confuse"))
             return loadConfuseCommand(commandJson);
         else if (commandJson.getString("Name").equals("Enrage"))
             return loadEnrageCommand(commandJson);

@@ -45,7 +45,7 @@ public class EntityStats implements Visitable {
 
     public EntityStats()
     {
-        this(new HashMap<>(), 1, 100, 100, 100, 100, 1,
+        this(new HashMap<>(), 100, 1000, 1000, 10, 10, 1,
                 10, 0, 1, 1, 100, false, false, defaultCompatibleTerrains);
     }
 
@@ -102,6 +102,10 @@ public class EntityStats implements Visitable {
         this.lastAttackTime = 0;
         this.lastMoveTime = 0;
 
+        initBasicSkills();
+    }
+
+    private void initBasicSkills() {
         if(!containsSkill(SkillType.BINDWOUNDS)) {
             skills.put(SkillType.BINDWOUNDS, 1);
         }

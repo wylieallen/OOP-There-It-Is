@@ -24,14 +24,14 @@
   "X": 2,
   "DirectionFacing": "NULL",
   "Stats": {
-   "CurrentHealth": 100,
+   "CurrentHealth": 1000,
    "Gold": 100,
    "Concealment": 1,
    "VisibilityRadius": 1,
-   "BaseMoveSpeed": 4,
+   "BaseMoveSpeed": 103,
    "UnspentSkillPoints": 0,
-   "MaxHealth": 100,
-   "MaxMana": 100,
+   "MaxHealth": 1000,
+   "MaxMana": 10,
    "IsConfused": false,
    "IsSearching": false,
    "Skills": {
@@ -41,7 +41,7 @@
    },
    "ManaRegenRate": 1,
    "CurrentXP": 10,
-   "CurrentMana": 100
+   "CurrentMana": 10
   },
   "Y": -3,
   "Inventory": [{
@@ -56,276 +56,87 @@
   "Tiles": [
    {
     "X": 0,
-    "Y": 1,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": 1
    },
    {
     "X": 0,
-    "Y": 0,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": 0
    },
    {
     "X": 0,
-    "Y": 2,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": 2
    },
    {
     "X": 0,
-    "Y": -1,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": -1
    },
    {
     "X": 0,
-    "Y": 3,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": 3
    },
    {
     "X": 0,
-    "Y": -2,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": -2
    },
    {
     "X": 0,
-    "Y": 4,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": 4
    },
    {
     "X": 0,
-    "Y": -3,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": -3
    },
    {
     "X": 0,
-    "Y": 5,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": 5
    },
    {
     "X": 0,
-    "Y": -4,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": -4
    },
    {
     "X": 0,
-    "Y": 6,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": 6
    },
    {
     "X": 0,
-    "Y": -5,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": -5
    },
    {
     "X": 0,
-    "Y": 7,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": 7
    },
    {
     "X": 0,
-    "Y": -6,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": -6
    },
    {
     "X": 0,
-    "Y": 8,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": 8
    },
    {
     "X": 0,
-    "Y": -7,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": -7
    },
    {
     "X": 0,
-    "Y": 9,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": 9
    },
    {
     "X": 0,
-    "Y": -8,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": -8
    },
    {
     "X": 0,
-    "Y": 10,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": 10
    },
    {
     "X": 0,
-    "Y": -9,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": -9
    },
    {
     "X": 0,
-    "Y": -10,
-    "Items": [{
-     "Type": "OneShot",
-     "Command": {
-      "Amount": 20,
-      "Name": "ModifyHealth"
-     },
-     "IsActive": true,
-     "Name": "Consumable1"
-    }]
+    "Y": -10
    },
    {
     "X": -1,
@@ -337,13 +148,7 @@
    },
    {
     "X": 1,
-    "Y": 9,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": 9
    },
    {
     "X": -1,
@@ -351,13 +156,7 @@
    },
    {
     "X": 1,
-    "Y": 8,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": 8
    },
    {
     "X": -1,
@@ -365,13 +164,7 @@
    },
    {
     "X": 1,
-    "Y": 7,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": 7
    },
    {
     "X": -1,
@@ -379,13 +172,7 @@
    },
    {
     "X": 1,
-    "Y": 6,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": 6
    },
    {
     "X": -1,
@@ -393,13 +180,7 @@
    },
    {
     "X": 1,
-    "Y": 5,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": 5
    },
    {
     "X": -1,
@@ -407,13 +188,7 @@
    },
    {
     "X": 1,
-    "Y": 4,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": 4
    },
    {
     "X": -1,
@@ -421,13 +196,7 @@
    },
    {
     "X": 1,
-    "Y": 3,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": 3
    },
    {
     "X": -1,
@@ -435,13 +204,7 @@
    },
    {
     "X": 1,
-    "Y": 2,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": 2
    },
    {
     "X": -1,
@@ -449,13 +212,7 @@
    },
    {
     "X": 1,
-    "Y": 1,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": 1
    },
    {
     "X": -1,
@@ -463,13 +220,7 @@
    },
    {
     "X": 1,
-    "Y": 0,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": 0
    },
    {
     "X": -1,
@@ -478,7 +229,6 @@
      "Type": "Interactive",
      "Command": {
       "TargetY": 0,
-      "TargetWorld": "OverWorld",
       "Name": "Transition",
       "TargetX": 0
      },
@@ -487,13 +237,7 @@
    },
    {
     "X": 1,
-    "Y": -1,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": -1
    },
    {
     "X": -1,
@@ -501,13 +245,7 @@
    },
    {
     "X": 1,
-    "Y": -2,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": -2
    },
    {
     "X": -1,
@@ -515,13 +253,7 @@
    },
    {
     "X": 1,
-    "Y": -3,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": -3
    },
    {
     "X": -1,
@@ -529,13 +261,7 @@
    },
    {
     "X": 1,
-    "Y": -4,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": -4
    },
    {
     "X": -1,
@@ -543,13 +269,7 @@
    },
    {
     "X": 1,
-    "Y": -5,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": -5
    },
    {
     "X": -1,
@@ -557,13 +277,7 @@
    },
    {
     "X": 1,
-    "Y": -6,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": -6
    },
    {
     "X": -1,
@@ -571,13 +285,7 @@
    },
    {
     "X": 1,
-    "Y": -7,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": -7
    },
    {
     "X": -1,
@@ -585,13 +293,7 @@
    },
    {
     "X": 1,
-    "Y": -8,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": -8
    },
    {
     "X": -1,
@@ -599,37 +301,11 @@
    },
    {
     "X": 1,
-    "Y": -9,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
-   },
-   {
-    "X": -1,
-    "Y": 11
+    "Y": -9
    },
    {
     "X": 1,
-    "Y": -10,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
-   },
-   {
-    "X": 1,
-    "Y": -11,
-    "Items": [{
-     "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 1,
-     "Name": "Quest"
-    }]
+    "Y": -10
    },
    {
     "X": -2,
@@ -641,29 +317,7 @@
    },
    {
     "X": 2,
-    "Y": 8,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
+    "Y": 8
    },
    {
     "X": -2,
@@ -671,29 +325,7 @@
    },
    {
     "X": 2,
-    "Y": 7,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
+    "Y": 7
    },
    {
     "X": -2,
@@ -701,29 +333,7 @@
    },
    {
     "X": 2,
-    "Y": 6,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
+    "Y": 6
    },
    {
     "X": -2,
@@ -731,29 +341,7 @@
    },
    {
     "X": 2,
-    "Y": 5,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
+    "Y": 5
    },
    {
     "X": -2,
@@ -761,29 +349,7 @@
    },
    {
     "X": 2,
-    "Y": 4,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
+    "Y": 4
    },
    {
     "X": -2,
@@ -791,555 +357,209 @@
    },
    {
     "X": 2,
+    "Y": 3
+   },
+   {
+    "X": -2,
+    "Y": -1
+   },
+   {
+    "X": 2,
+    "Y": 2
+   },
+   {
+    "X": -2,
+    "Y": 0
+   },
+   {
+    "X": 2,
+    "Y": 1
+   },
+   {
+    "X": -2,
+    "Y": 1
+   },
+   {
+    "X": 2,
+    "Y": 0
+   },
+   {
+    "X": -2,
+    "Y": 2
+   },
+   {
+    "X": 2,
+    "Y": -1
+   },
+   {
+    "X": -2,
+    "Y": 3
+   },
+   {
+    "X": 2,
+    "Y": -2
+   },
+   {
+    "X": -2,
+    "Y": 4
+   },
+   {
+    "X": 2,
+    "Y": -3
+   },
+   {
+    "X": -2,
+    "Y": 5
+   },
+   {
+    "X": 2,
+    "Y": -4
+   },
+   {
+    "X": -2,
+    "Y": 6
+   },
+   {
+    "X": 2,
+    "Y": -5
+   },
+   {
+    "X": -2,
+    "Y": 7
+   },
+   {
+    "X": 2,
+    "Y": -6
+   },
+   {
+    "X": -2,
+    "Y": 8
+   },
+   {
+    "X": 2,
+    "Y": -7
+   },
+   {
+    "X": -2,
+    "Y": 9
+   },
+   {
+    "X": 2,
+    "Y": -8
+   },
+   {
+    "X": -2,
+    "Y": 10
+   },
+   {
+    "X": 2,
+    "Y": -9
+   },
+   {
+    "X": 2,
+    "Y": -10
+   },
+   {
+    "X": -3,
+    "Y": -7
+   },
+   {
+    "X": -3,
+    "Y": -6
+   },
+   {
+    "X": 3,
+    "Y": 7
+   },
+   {
+    "X": -3,
+    "Y": -5
+   },
+   {
+    "X": 3,
+    "Y": 6
+   },
+   {
+    "X": -3,
+    "Y": -4
+   },
+   {
+    "X": 3,
+    "Y": 5
+   },
+   {
+    "X": -3,
+    "Y": -3
+   },
+   {
+    "X": 3,
+    "Y": 4
+   },
+   {
+    "X": -3,
+    "Y": -2
+   },
+   {
+    "X": 3,
+    "Y": 3
+   },
+   {
+    "X": -3,
+    "Y": -1
+   },
+   {
+    "X": 3,
+    "Y": 2
+   },
+   {
+    "X": -3,
+    "Y": 0
+   },
+   {
+    "X": 3,
+    "Y": 1
+   },
+   {
+    "X": -3,
+    "Y": 1
+   },
+   {
+    "X": 3,
+    "Y": 0
+   },
+   {
+    "X": -3,
+    "Y": 2
+   },
+   {
+    "X": 3,
+    "Y": -1
+   },
+   {
+    "X": -3,
     "Y": 3,
     "Items": [{
      "SkillCommand": {
-      "Effectiveness": 70,
+      "Effectiveness": -20,
       "SuccessCommand": {
-       "Amount": -20,
+       "Amount": 0,
        "Name": "ModifyHealth"
       },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "BANE",
+      "Level": 0
      },
-     "MaxRadius": 5,
+     "MaxRadius": 1,
      "OnMap": true,
      "InfluenceType": "LINEARINFLUENCE",
      "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
+     "RequiredSkill": "BANE",
      "ExpansionInterval": 1,
      "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Good Staff"
     }]
-   },
-   {
-    "X": -2,
-    "Y": -1
-   },
-   {
-    "X": 2,
-    "Y": 2,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": -2,
-    "Y": 0
-   },
-   {
-    "X": 2,
-    "Y": 1,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": -2,
-    "Y": 1
-   },
-   {
-    "X": 2,
-    "Y": 0,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": -2,
-    "Y": 2
-   },
-   {
-    "X": 2,
-    "Y": -1,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": -2,
-    "Y": 3
-   },
-   {
-    "X": 2,
-    "Y": -2,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": -2,
-    "Y": 4
-   },
-   {
-    "X": 2,
-    "Y": -3,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": -2,
-    "Y": 5
-   },
-   {
-    "X": 2,
-    "Y": -4,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": -2,
-    "Y": 6
-   },
-   {
-    "X": 2,
-    "Y": -5,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": -2,
-    "Y": 7
-   },
-   {
-    "X": 2,
-    "Y": -6,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": -2,
-    "Y": 8
-   },
-   {
-    "X": 2,
-    "Y": -7,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": -2,
-    "Y": 9
-   },
-   {
-    "X": 2,
-    "Y": -8,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": -2,
-    "Y": 10
-   },
-   {
-    "X": 2,
-    "Y": -9,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": -2,
-    "Y": 11
-   },
-   {
-    "X": 2,
-    "Y": -10,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": -2,
-    "Y": 12
-   },
-   {
-    "X": 2,
-    "Y": -11,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": 2,
-    "Y": -12,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 70,
-      "SuccessCommand": {
-       "Amount": -20,
-       "Name": "ModifyHealth"
-      },
-      "FailureCommand": {"Name": "Enrage"},
-      "SkillType": "TWOHANDEDWEAPON",
-      "Level": 1
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "TWOHANDEDWEAPON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 20,
-     "AttackSpeed": 20,
-     "Name": "TwoHandedWeapon"
-    }]
-   },
-   {
-    "X": -3,
-    "Y": -7
-   },
-   {
-    "X": -3,
-    "Y": -6
-   },
-   {
-    "X": 3,
-    "Y": 7
-   },
-   {
-    "X": -3,
-    "Y": -5
-   },
-   {
-    "X": 3,
-    "Y": 6
-   },
-   {
-    "X": -3,
-    "Y": -4
-   },
-   {
-    "X": 3,
-    "Y": 5
-   },
-   {
-    "X": -3,
-    "Y": -3
-   },
-   {
-    "X": 3,
-    "Y": 4
-   },
-   {
-    "X": -3,
-    "Y": -2
-   },
-   {
-    "X": 3,
-    "Y": 3
-   },
-   {
-    "X": -3,
-    "Y": -1
-   },
-   {
-    "X": 3,
-    "Y": 2
-   },
-   {
-    "X": -3,
-    "Y": 0
-   },
-   {
-    "X": 3,
-    "Y": 1
-   },
-   {
-    "X": -3,
-    "Y": 1
-   },
-   {
-    "X": 3,
-    "Y": 0
-   },
-   {
-    "X": -3,
-    "Y": 2
-   },
-   {
-    "X": 3,
-    "Y": -1
-   },
-   {
-    "X": -3,
-    "Y": 3
    },
    {
     "X": 3,
@@ -1347,7 +567,29 @@
    },
    {
     "X": -3,
-    "Y": 4
+    "Y": 4,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": -15,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "STAFF",
+      "Level": 0
+     },
+     "MaxRadius": 1,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "STAFF",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Staff"
+    }]
    },
    {
     "X": 3,
@@ -1355,7 +597,29 @@
    },
    {
     "X": -3,
-    "Y": 5
+    "Y": 5,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": -10,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "STAFF",
+      "Level": 0
+     },
+     "MaxRadius": 1,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "STAFF",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Bad Staff"
+    }]
    },
    {
     "X": 3,
@@ -1402,34 +666,10 @@
     "Y": -9
    },
    {
-    "X": -3,
-    "Y": 11
-   },
-   {
     "X": 3,
     "Y": -10
    },
    {
-    "X": -3,
-    "Y": 12
-   },
-   {
-    "X": 3,
-    "Y": -11
-   },
-   {
-    "X": -3,
-    "Y": 13
-   },
-   {
-    "X": 3,
-    "Y": -12
-   },
-   {
-    "X": 3,
-    "Y": -13
-   },
-   {
     "X": -4,
     "Y": -6
    },
@@ -1507,59 +747,119 @@
    },
    {
     "X": -4,
-    "Y": 4
-   },
-   {
-    "X": 4,
-    "Y": -3
-   },
-   {
-    "X": -4,
-    "Y": 5
-   },
-   {
-    "X": 4,
-    "Y": -4
-   },
-   {
-    "X": -4,
-    "Y": 6
-   },
-   {
-    "X": 4,
-    "Y": -5
-   },
-   {
-    "X": -4,
-    "Y": 7
-   },
-   {
-    "X": 4,
-    "Y": -6
-   },
-   {
-    "X": -4,
-    "Y": 8
-   },
-   {
-    "X": 4,
-    "Y": -7
-   },
-   {
-    "X": -4,
-    "Y": 9
-   },
-   {
-    "X": 4,
-    "Y": -8,
+    "Y": 4,
     "Items": [{
+     "SkillCommand": {
+      "Effectiveness": -20,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "BANE",
+      "Level": 0
+     },
+     "MaxRadius": 5,
      "OnMap": true,
-     "Type": "Quest",
-     "QuestId": 0,
-     "Name": "Thingy"
+     "InfluenceType": "CIRCULARINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "BANE",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Circular Damage Gadget"
     }]
    },
    {
+    "X": 4,
+    "Y": -3
+   },
+   {
+    "X": -4,
+    "Y": 5,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": -20,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "BANE",
+      "Level": 0
+     },
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "ANGULARINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "BANE",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Angular Damage Gadget"
+    }]
+   },
+   {
+    "X": 4,
+    "Y": -4
+   },
+   {
+    "X": -4,
+    "Y": 6,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": -15,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "BANE",
+      "Level": 0
+     },
+     "MaxRadius": 5,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "BANE",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Linear Damage Gadget"
+    }]
+   },
+   {
+    "X": 4,
+    "Y": -5
+   },
+   {
+    "X": -4,
+    "Y": 7
+   },
+   {
+    "X": 4,
+    "Y": -6
+   },
+   {
+    "X": -4,
+    "Y": 8
+   },
+   {
+    "X": 4,
+    "Y": -7
+   },
+   {
+    "X": -4,
+    "Y": 9
+   },
+   {
+    "X": 4,
+    "Y": -8
+   },
+   {
     "X": -4,
     "Y": 10
    },
@@ -1568,42 +868,10 @@
     "Y": -9
    },
    {
-    "X": -4,
-    "Y": 11
-   },
-   {
     "X": 4,
     "Y": -10
    },
    {
-    "X": -4,
-    "Y": 12
-   },
-   {
-    "X": 4,
-    "Y": -11
-   },
-   {
-    "X": -4,
-    "Y": 13
-   },
-   {
-    "X": 4,
-    "Y": -12
-   },
-   {
-    "X": -4,
-    "Y": 14
-   },
-   {
-    "X": 4,
-    "Y": -13
-   },
-   {
-    "X": 4,
-    "Y": -14
-   },
-   {
     "X": -5,
     "Y": -5
    },
@@ -1681,7 +949,29 @@
    },
    {
     "X": -5,
-    "Y": 5
+    "Y": 5,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": 100,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "BOON",
+      "Level": 0
+     },
+     "MaxRadius": 1,
+     "OnMap": true,
+     "InfluenceType": "SELFINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "BOON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Strong Heal Gadget"
+    }]
    },
    {
     "X": 5,
@@ -1689,7 +979,30 @@
    },
    {
     "X": -5,
-    "Y": 6
+    "Y": 6,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": 5000,
+      "SuccessCommand": {
+       "Factor": 2,
+       "Duration": 0,
+       "Name": "ModifyStaminaRegen"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "BOON",
+      "Level": 0
+     },
+     "MaxRadius": 1,
+     "OnMap": true,
+     "InfluenceType": "SELFINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "BOON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Faster Stamina Regen Gadget"
+    }]
    },
    {
     "X": 5,
@@ -1697,7 +1010,29 @@
    },
    {
     "X": -5,
-    "Y": 7
+    "Y": 7,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": 10,
+      "SuccessCommand": {
+       "Amount": 0,
+       "Name": "ModifyHealth"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "BOON",
+      "Level": 0
+     },
+     "MaxRadius": 1,
+     "OnMap": true,
+     "InfluenceType": "SELFINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "BOON",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Heal Gadget"
+    }]
    },
    {
     "X": 5,
@@ -1728,48 +1063,8 @@
     "Y": -9
    },
    {
-    "X": -5,
-    "Y": 11
-   },
-   {
     "X": 5,
     "Y": -10
-   },
-   {
-    "X": -5,
-    "Y": 12
-   },
-   {
-    "X": 5,
-    "Y": -11
-   },
-   {
-    "X": -5,
-    "Y": 13
-   },
-   {
-    "X": 5,
-    "Y": -12
-   },
-   {
-    "X": -5,
-    "Y": 14
-   },
-   {
-    "X": 5,
-    "Y": -13
-   },
-   {
-    "X": -5,
-    "Y": 15
-   },
-   {
-    "X": 5,
-    "Y": -14
-   },
-   {
-    "X": 5,
-    "Y": -15
    },
    {
     "X": -6,
@@ -1849,7 +1144,26 @@
    },
    {
     "X": -6,
-    "Y": 6
+    "Y": 6,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": 0,
+      "SuccessCommand": {"Name": "MakeFriendly"},
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "ENCHANTMENT",
+      "Level": 0
+     },
+     "MaxRadius": 3,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "ENCHANTMENT",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Pacify Gadget"
+    }]
    },
    {
     "X": 6,
@@ -1857,7 +1171,29 @@
    },
    {
     "X": -6,
-    "Y": 7
+    "Y": 7,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": 5000,
+      "SuccessCommand": {
+       "Duration": 0,
+       "Name": "Paralyze"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "ENCHANTMENT",
+      "Level": 0
+     },
+     "MaxRadius": 3,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "ENCHANTMENT",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Paralyze Gadget"
+    }]
    },
    {
     "X": 6,
@@ -1865,7 +1201,29 @@
    },
    {
     "X": -6,
-    "Y": 8
+    "Y": 8,
+    "Items": [{
+     "SkillCommand": {
+      "Effectiveness": 5000,
+      "SuccessCommand": {
+       "Duration": 0,
+       "Name": "Confuse"
+      },
+      "FailureCommand": {"Name": "Null"},
+      "SkillType": "ENCHANTMENT",
+      "Level": 0
+     },
+     "MaxRadius": 3,
+     "OnMap": true,
+     "InfluenceType": "LINEARINFLUENCE",
+     "Type": "Weapon",
+     "RequiredSkill": "ENCHANTMENT",
+     "ExpansionInterval": 1,
+     "UpdateInterval": 1,
+     "Damage": 0,
+     "AttackSpeed": 5000,
+     "Name": "Confuse Gadget"
+    }]
    },
    {
     "X": 6,
@@ -1888,56 +1246,8 @@
     "Y": -9
    },
    {
-    "X": -6,
-    "Y": 11
-   },
-   {
     "X": 6,
     "Y": -10
-   },
-   {
-    "X": -6,
-    "Y": 12
-   },
-   {
-    "X": 6,
-    "Y": -11
-   },
-   {
-    "X": -6,
-    "Y": 13
-   },
-   {
-    "X": 6,
-    "Y": -12
-   },
-   {
-    "X": -6,
-    "Y": 14
-   },
-   {
-    "X": 6,
-    "Y": -13
-   },
-   {
-    "X": -6,
-    "Y": 15
-   },
-   {
-    "X": 6,
-    "Y": -14
-   },
-   {
-    "X": -6,
-    "Y": 16
-   },
-   {
-    "X": 6,
-    "Y": -15
-   },
-   {
-    "X": 6,
-    "Y": -16
    },
    {
     "X": -7,
@@ -2048,64 +1358,8 @@
     "Y": -9
    },
    {
-    "X": -7,
-    "Y": 11
-   },
-   {
     "X": 7,
     "Y": -10
-   },
-   {
-    "X": -7,
-    "Y": 12
-   },
-   {
-    "X": 7,
-    "Y": -11
-   },
-   {
-    "X": -7,
-    "Y": 13
-   },
-   {
-    "X": 7,
-    "Y": -12
-   },
-   {
-    "X": -7,
-    "Y": 14
-   },
-   {
-    "X": 7,
-    "Y": -13
-   },
-   {
-    "X": -7,
-    "Y": 15
-   },
-   {
-    "X": 7,
-    "Y": -14
-   },
-   {
-    "X": -7,
-    "Y": 16
-   },
-   {
-    "X": 7,
-    "Y": -15
-   },
-   {
-    "X": -7,
-    "Y": 17
-   },
-   {
-    "X": 7,
-    "Y": -16
-   },
-   {
-    "X": 7,
-    "Y": -17
    },
    {
     "X": -8,
@@ -2208,72 +1462,8 @@
     "Y": -9
    },
    {
-    "X": -8,
-    "Y": 11
-   },
-   {
     "X": 8,
     "Y": -10
-   },
-   {
-    "X": -8,
-    "Y": 12
-   },
-   {
-    "X": 8,
-    "Y": -11
-   },
-   {
-    "X": -8,
-    "Y": 13
-   },
-   {
-    "X": 8,
-    "Y": -12
-   },
-   {
-    "X": -8,
-    "Y": 14
-   },
-   {
-    "X": 8,
-    "Y": -13
-   },
-   {
-    "X": -8,
-    "Y": 15
-   },
-   {
-    "X": 8,
-    "Y": -14
-   },
-   {
-    "X": -8,
-    "Y": 16
-   },
-   {
-    "X": 8,
-    "Y": -15
-   },
-   {
-    "X": -8,
-    "Y": 17
-   },
-   {
-    "X": 8,
-    "Y": -16
-   },
-   {
-    "X": -8,
-    "Y": 18
-   },
-   {
-    "X": 8,
-    "Y": -17
-   },
-   {
-    "X": 8,
-    "Y": -18
    },
    {
     "X": -9,
@@ -2368,80 +1558,8 @@
     "Y": -9
    },
    {
-    "X": -9,
-    "Y": 11
-   },
-   {
     "X": 9,
     "Y": -10
-   },
-   {
-    "X": -9,
-    "Y": 12
-   },
-   {
-    "X": 9,
-    "Y": -11
-   },
-   {
-    "X": -9,
-    "Y": 13
-   },
-   {
-    "X": 9,
-    "Y": -12
-   },
-   {
-    "X": -9,
-    "Y": 14
-   },
-   {
-    "X": 9,
-    "Y": -13
-   },
-   {
-    "X": -9,
-    "Y": 15
-   },
-   {
-    "X": 9,
-    "Y": -14
-   },
-   {
-    "X": -9,
-    "Y": 16
-   },
-   {
-    "X": 9,
-    "Y": -15
-   },
-   {
-    "X": -9,
-    "Y": 17
-   },
-   {
-    "X": 9,
-    "Y": -16
-   },
-   {
-    "X": -9,
-    "Y": 18
-   },
-   {
-    "X": 9,
-    "Y": -17
-   },
-   {
-    "X": -9,
-    "Y": 19
-   },
-   {
-    "X": 9,
-    "Y": -18
-   },
-   {
-    "X": 9,
-    "Y": -19
    },
    {
     "X": -10,
@@ -2528,88 +1646,8 @@
     "Y": -9
    },
    {
-    "X": -10,
-    "Y": 11
-   },
-   {
     "X": 10,
     "Y": -10
-   },
-   {
-    "X": -10,
-    "Y": 12
-   },
-   {
-    "X": 10,
-    "Y": -11
-   },
-   {
-    "X": -10,
-    "Y": 13
-   },
-   {
-    "X": 10,
-    "Y": -12
-   },
-   {
-    "X": -10,
-    "Y": 14
-   },
-   {
-    "X": 10,
-    "Y": -13
-   },
-   {
-    "X": -10,
-    "Y": 15
-   },
-   {
-    "X": 10,
-    "Y": -14
-   },
-   {
-    "X": -10,
-    "Y": 16
-   },
-   {
-    "X": 10,
-    "Y": -15
-   },
-   {
-    "X": -10,
-    "Y": 17
-   },
-   {
-    "X": 10,
-    "Y": -16
-   },
-   {
-    "X": -10,
-    "Y": 18
-   },
-   {
-    "X": 10,
-    "Y": -17
-   },
-   {
-    "X": -10,
-    "Y": 19
-   },
-   {
-    "X": 10,
-    "Y": -18
-   },
-   {
-    "X": -10,
-    "Y": 20
-   },
-   {
-    "X": 10,
-    "Y": -19
-   },
-   {
-    "X": 10,
-    "Y": -20
    }
   ],
   "Entities": []
@@ -2745,7 +1783,6 @@
     "Type": "Interactive",
     "Command": {
      "TargetY": 0,
-     "TargetWorld": "0001",
      "Name": "Transition",
      "TargetX": 0
     },
@@ -3307,6 +2344,15 @@
   },
   {
    "X": -6,
+   "Encounter": {
+    "Type": "Interactive",
+    "Command": {
+     "TargetY": 0,
+     "Name": "Transition",
+     "TargetX": 0
+    },
+    "Name": "Encounter 2"
+   },
    "Y": 5
   },
   {

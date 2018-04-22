@@ -54,10 +54,8 @@ public class Coordinate implements Comparable<Coordinate> {
     }
 
     public Direction direction (Coordinate toThis) {
-
-        Vector v = new Vector(this, toThis);
-        return v.getDirection();
-
+       Vector v = new Vector(this,toThis);
+       return v.getDirection();
     }
 
     @Override
