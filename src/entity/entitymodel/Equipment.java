@@ -33,8 +33,6 @@ public class Equipment implements Visitable {
         this.wearables = new HashMap<>();
         this.weapons = new WeaponItem[defaultWeaponsSize];
         this.spawnObservers = new ArrayList<>();
-        wearables.put(EquipSlot.ARMOUR, WearableItem.NONE);
-        wearables.put(EquipSlot.RING, WearableItem.NONE);
     }
 
     public Equipment(Map<EquipSlot,
@@ -91,8 +89,13 @@ public class Equipment implements Visitable {
     }
 
     public void remove (WearableItem wearable) {
-        inventory.add(wearable);
-        wearables.remove(wearable.getEquipType());
+        if(wearable != WearableItem.NONE)
+        {
+            inventory.add(wearable);
+            wearables.remove(wearable.getEquipType());
+            wearable.applyEffect(entity);
+            wearables.put(wearable.getEquipType(), WearableItem.NONE);
+        }
     }
 
     public void remove (WeaponItem weapon) {
@@ -142,7 +145,14 @@ public class Equipment implements Visitable {
     public void accept(Visitor v) {
         v.visitEquipment(this);
     }
+
+    public boolean has(WearableItem i)
+    {
+        return wearables.values().contains(i);
+    }
+
     public boolean has(GameObject o) {
+        // note: This wearables.values().contains(o) doesn't seem to work as intended?
         if(wearables.values().contains(o)) {
             return true;
         } else if (inventory.has(o)) {
@@ -178,6 +188,37 @@ public class Equipment implements Visitable {
             }
         }
     }
+
+    public List<TakeableItem> emptyEquipment(){
+        List<TakeableItem> items = new ArrayList<>();
+
+        List<TakeableItem> inv = inventory.getItems();
+        for(TakeableItem item : inv){
+            items.add(item);
+        }
+        for(TakeableItem item : items){
+            inventory.remove(item);
+        }
+
+        for(WearableItem wearable: wearables.values()){
+            items.add(wearable);
+        }
+        wearables.clear();
+
+        for(WeaponItem weapon : weapons){
+            items.add(weapon);
+        }
+
+        for(int i = 0; i < weapons.length; i++){
+            if(weapons[i] != null){
+                weapons[i] = null;
+            }
+        }
+
+
+        return items;
+    }
+
 
     public static int getDefaultWeaponsSize(){
         return defaultWeaponsSize;

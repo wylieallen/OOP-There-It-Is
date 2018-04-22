@@ -3,7 +3,9 @@ package entity.entitycontrol;
 import entity.entitycontrol.controllerActions.*;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
+import entity.entitymodel.Inventory;
 import gameview.GamePanel;
+import items.takeableitems.WearableItem;
 import maps.tile.Direction;
 import maps.tile.Tile;
 import savingloading.Visitor;
@@ -157,9 +159,20 @@ public class HumanEntityController extends EntityController implements Controlle
            {
                if(e.getKeyCode() == useInventoryItemKeyCode)
                {
-                   // todo: use item in inventory
+                   int cursorIndex = view.getInventoryCursorIndex();
+                   Inventory inventory = entity.getInventory();
+                   if(cursorIndex >= inventory.getItems().size())
+                   {
+                       cursorIndex -= inventory.getItems().size();
+                       WearableItem[] wearables = new WearableItem[0];
+                       wearables = getEquipment().getWearables().values().toArray(wearables);
+                       wearables[cursorIndex].activate(getEquipment());
+                   }
+                   else
+                   {
+                       inventory.select(cursorIndex).activate(getEquipment());
+                   }
                }
-
            }
         });
     }
@@ -200,6 +213,10 @@ public class HumanEntityController extends EntityController implements Controlle
     public void notifyFreeMove(Entity e) {
         //TODO
         if(view != null) {
+            if(view.initialized())
+            {
+                view.disableInventoryCursor();
+            }
             view.clearKeyListeners();
             for (KeyListener k : freeMoveKeyListeners) {
                 view.addKeyListener(k);
@@ -218,9 +235,7 @@ public class HumanEntityController extends EntityController implements Controlle
             for (KeyListener k : inventoryManagementKeyListeners) {
                 view.addKeyListener(k);
             }
-            // Tell GamePanel to reinitialize KeyListeners
-            // Tell GameDisplayState to remove temporary substate Displayables
-            // Tell GameDisplayState to add Inventory Cursor to temporary substate Displayables
+            view.incrementInventoryDisplayableIndex();
         }
     }
 
@@ -309,7 +324,7 @@ public class HumanEntityController extends EntityController implements Controlle
     }
 
     public void visitDismountAction (DismountAction a) {
-        // todo: maybe there should be a separate in-vehicle input state instead of lumping htis into freemove
+        // todo: maybe there should be a separate in-vehicle input state instead of lumping this into freemove
         freeMoveKeyListeners.add(new KeyAdapter()
         {
             public void keyPressed(KeyEvent e)

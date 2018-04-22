@@ -51,10 +51,10 @@ public class LocalWorld implements World {
     }
 
     private void updatePhase() {
-        influenceAreas.removeIf((InfluenceArea ia) -> ia.isExpired());
         for(InfluenceArea IA: influenceAreas) {
             IA.update(tiles);
         }
+        influenceAreas.removeIf(InfluenceArea::isExpired);
         for(LocalWorldTile tile: tiles.values()) {
             tile.do_update(getTileMap ());
         }

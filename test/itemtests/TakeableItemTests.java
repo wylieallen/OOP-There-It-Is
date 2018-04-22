@@ -156,7 +156,7 @@ public class TakeableItemTests {
 //        SkillType requiredSkill, int maxRadius, long expansionInterval,
 //        long updateInterval, InfluenceType influenceType, SkillCommand command)
 
-        WeaponItem item = new WeaponItem("Sword", true, 0, SkillType.ONEHANDEDWEAPON, 1, 0,0, 300,
+        WeaponItem item = new WeaponItem("Sword", true, 0, SkillType.ONEHANDEDWEAPON, 0, 1, 0,0, 300,
                                 InfluenceType.LINEARINFLUENCE,
                                 new SkillCommand(SkillType.ONEHANDEDWEAPON,
                                 entity.getSkillLevel(SkillType.ONEHANDEDWEAPON),

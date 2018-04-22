@@ -12,6 +12,7 @@ import java.awt.event.*;
 
 public class GamePanel extends DisplayPanel implements TransitionObserver, MovementObserver
 {
+    private boolean initialized = false;
     private GameDisplayState gameDisplayState;
     
     public GamePanel(Dimension size)
@@ -113,8 +114,12 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
 
         this.requestFocus();
 
+        initialized = true;
     }
 
+    public boolean initialized() { return initialized; }
+
+    // todo: these Observer interfaces should probably just be in GameDisplayState
     @Override
     public void notifyMovement()
     {
@@ -144,14 +149,24 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
         }
     }
 
+    public int getInventoryCursorIndex()
+    {
+        return gameDisplayState.getInventoryDisplayableIndex();
+    }
+
     public void decrementInventoryDisplayableIndex()
     {
-        // todo
+        gameDisplayState.decrementInventoryDisplayableIndex();
     }
 
 
     public void incrementInventoryDisplayableIndex()
     {
-        // todo
+        gameDisplayState.incrementInventoryDisplayableIndex();
+    }
+
+    public void disableInventoryCursor()
+    {
+        gameDisplayState.disableInventoryCursor();
     }
 }

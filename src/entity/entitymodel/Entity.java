@@ -406,8 +406,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         v.visitEntity(this);
     }
 
-    public boolean tryToAttack(long attackSpeed) {
-        return stats.tryToAttack(attackSpeed);
+    public boolean tryToAttack(long attackSpeed, int staminaCost) {
+        return stats.tryToAttack(attackSpeed, staminaCost);
     }
 
     public boolean tryToMove(double moveSpeed) {
@@ -439,4 +439,14 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     }
 
     private boolean hasController () {return controller != null;}
+
+    public void increaseMaxHealth(int amount)
+    {
+        stats.modifyMaxHealth(amount);
+    }
+
+    public void decreaseMaxHealth(int amount)
+    {
+        stats.modifyMaxHealth(-amount);
+    }
 }

@@ -28,4 +28,7 @@ public abstract class TakeableItem extends Item {
     public boolean isOnMap(){
         return onMap;
     }
+    public void setOnMap(boolean onMap){
+        this.onMap = onMap;
+    }
 }
