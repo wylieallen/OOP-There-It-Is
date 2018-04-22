@@ -42,7 +42,6 @@ import skills.SkillType;
 import spawning.SpawnObservable;
 import utilities.Coordinate;
 import utilities.Vector;
-
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -554,6 +553,10 @@ public class GameViewMaker
         river = new River(new Vector(Direction.NE, 29));
         tiles.get(new Coordinate(6, -4)).addTM(river);
         spriteMap.put(river, ImageMaker.makeRiverDisplayable(Direction.NE));
+
+        Vehicle thingy = createVehicle(new Coordinate(2, 2));
+        tiles.get(new Coordinate(-4, -4)).setEntity(thingy);
+        spriteMap.put(thingy, ImageMaker.makeVehicleDisplayable());
 
         return world;
     }

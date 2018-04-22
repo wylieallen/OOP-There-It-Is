@@ -22,6 +22,7 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor, 
     private int bindWoundsKeyCode = KeyEvent.VK_B;
     private int creepKeyCode = KeyEvent.VK_CONTROL;
     private int dismountKeyCode = KeyEvent.VK_EQUALS;
+    private int observeKeyCode = KeyEvent.VK_O;
 
     private Map<Direction, Integer> directionalMoveKeyCodes;
     private Map<Direction, Integer> altDirectionalMoveKeyCodes;
@@ -242,7 +243,16 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor, 
 
     public void visitObserveAction(ObserveAction a)
     {
-
+        addKeyListener(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == observeKeyCode)
+                {
+                    a.activate();
+                }
+            }
+        });
     }
 
     public void visitSetDirectionAction(SetDirectionAction a)

@@ -125,6 +125,13 @@ public class Vehicle extends Entity {
     }
 
     @Override
+    public void notifyMovement () {
+        if (hasDriver())
+            driver.notifyMovement();
+        super.notifyMovement();
+    }
+
+    @Override
     public void accept(Visitor v) {
         v.visitVehicle(this);
     }
