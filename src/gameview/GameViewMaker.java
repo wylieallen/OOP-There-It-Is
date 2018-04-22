@@ -169,11 +169,19 @@ public class GameViewMaker
         List<LocalWorld> localWorldsList = new ArrayList<>();
 
         //add first local world to local world list
-        LocalWorld localWorld = createLocalWorld1(overworld);
+        LocalWorld localWorld = createLocalWorld1();
         localWorldsList.add(localWorld);
 
         //create local world displayable
         WorldDisplayable localworldDisplayable = new WorldDisplayable(new Point(0, 0), 0, localWorld);
+        worldDisplayableMap.put(localWorld, localworldDisplayable);
+
+        //add second local world to local world list
+        localWorld = createLocalWorld2();
+        localWorldsList.add(localWorld);
+
+        //create local world displayable
+        localworldDisplayable = new WorldDisplayable(new Point(0, 0), 0, localWorld);
         worldDisplayableMap.put(localWorld, localworldDisplayable);
 
         game = new Game(overworld, overworld, localWorldsList, 0, player);
@@ -181,6 +189,7 @@ public class GameViewMaker
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), panel));
 
         //setup world transitions
+        //local world 1
         InteractiveItem localWorld1Entrance = new InteractiveItem("Encounter 1", new TransitionCommand(localWorldsList.get(0), new Coordinate(0, 0), game));
         spriteMap.put(localWorld1Entrance, ImageMaker.makeEncounterDisplayable1());
         overworld.getTile(new Coordinate(1, -2)).setEncounter(localWorld1Entrance);
@@ -189,7 +198,14 @@ public class GameViewMaker
         spriteMap.put(localWorld1Exit, ImageMaker.makeTeleporterDisplayable());
         localWorldsList.get(0).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exit);
 
-        localWorld.getTile(new Coordinate(4, 4)).addEI(new QuestItem("Thingy", true, 0));
+        //local world 2
+        InteractiveItem localWorld2Entrance = new InteractiveItem("Encounter 2", new TransitionCommand(localWorldsList.get(1), new Coordinate(0, 0), game));
+        spriteMap.put(localWorld1Entrance, ImageMaker.makeEncounterDisplayable1());
+        overworld.getTile(new Coordinate(-6, 1)).setEncounter(localWorld1Entrance);
+
+        InteractiveItem localWorld2Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
+        spriteMap.put(localWorld1Exit, ImageMaker.makeTeleporterDisplayable());
+        localWorldsList.get(1).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exit);
 
        return new GameDisplayState(panel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overworld);
     }
@@ -211,13 +227,14 @@ public class GameViewMaker
         }
     }
 
-    private Entity createNPC (Coordinate loc, Entity aggroTarget, boolean isHostile) {
+    private Entity createNPC (Coordinate loc, Entity aggroTarget, boolean isHostile, boolean canMove) {
 
         Map <SkillType, Integer> skills = new HashMap<>();
         skills.put(SkillType.TWOHANDEDWEAPON, 1);
 
         Set <Terrain> compatible = new HashSet<>();
-        compatible.add(Terrain.GRASS);
+        if(canMove)
+            compatible.add(Terrain.GRASS);
 
         EntityStats stats = new EntityStats(skills, 1, 10, 10, 10, 10, 1, 98, 5, 5, 10, 10, false, false, compatible);
 
@@ -235,26 +252,19 @@ public class GameViewMaker
         return entity;
     }
 
-    private LocalWorld createLocalWorld1(OverWorld overworld) {
+    private LocalWorld createLocalWorld1() {
 
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
 
-        // add a few items to tiles
-        List<Item> items = new ArrayList<>();
-        items.add(new OneshotItem("Consumable1", new ModifyHealthCommand(20), false));
-        items.add(new QuestItem("Quest", true, 1));
-        items.add(new WeaponItem("TwoHandedWeapon", true, 20, 20,
-        SkillType.TWOHANDEDWEAPON, 5, 1,
-        1, InfluenceType.LINEARINFLUENCE, new SkillCommand(SkillType.TWOHANDEDWEAPON, 1, 70,
-                new ModifyHealthCommand(-20), new EnrageCommand())));
-
         for(int x = -10; x <= 10; ++x) {
             for(int z = -10; z <= 10; ++z) {
-                LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
-                if (x>=0 && x<items.size()){
-                    tile.addEI(items.get(x));
+                Coordinate coordinate = new Coordinate(x, z);
+                if(coordinate.y() > 10 || coordinate.y() < -10) {
+                    continue;
                 }
-                tiles.put(new Coordinate(x, z), tile);
+
+                LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
+                tiles.put(coordinate, tile);
             }
         }
 
@@ -262,11 +272,11 @@ public class GameViewMaker
 
         //Add npc
         Coordinate npcLoc = new Coordinate(-2, 0);
-        Entity npc = createNPC (npcLoc, player, true);
-        npc.addCompatibleTerrain(Terrain.SPACE);
+        Entity npc = createNPC (npcLoc, player, true, true);
 
-//        WeaponItem axe = ItemFactory.makeAxe(world, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON));
-//        npc.getController().getEquipment().add(axe);
+
+        WeaponItem axe = ItemFactory.makeAxe(world, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON));
+        npc.getController().getEquipment().add(axe);
 //
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), 0, new ModifyHealthCommand(), null);
         WeaponItem w = new WeaponItem ("Bob", false, -1, 1000, SkillType.TWOHANDEDWEAPON, 10, 50, 10, InfluenceType.ANGULARINFLUENCE, skill);
@@ -280,6 +290,111 @@ public class GameViewMaker
         world.getTile(npcLoc).setEntity(npc);
         spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
 
+        axe = ItemFactory.makeBadAxe(world, true);
+        world.getTile(new Coordinate(-6, -2)).addEI(axe);
+        spriteMap.put(axe, ImageMaker.makeTwoHandedWeaponDisplayable());
+
+        axe = ItemFactory.makeAxe(world, true);
+        world.getTile(new Coordinate(-6, -1)).addEI(axe);
+        spriteMap.put(axe, ImageMaker.makeTwoHandedWeaponDisplayable());
+
+        axe = ItemFactory.makeGoodAxe(world, true);
+        world.getTile(new Coordinate(-6, 0)).addEI(axe);
+        spriteMap.put(axe, ImageMaker.makeTwoHandedWeaponDisplayable());
+
+        Item sword = ItemFactory.makeBadSword(world, true);
+        world.getTile(new Coordinate(-5, -2)).addEI(sword);
+        spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+
+        sword = ItemFactory.makeSword(world, true);
+        world.getTile(new Coordinate(-5, -1)).addEI(sword);
+        spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+
+        sword = ItemFactory.makeGoodSword(world, true);
+        world.getTile(new Coordinate(-5, 0)).addEI(sword);
+        spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+
+        Item brawling = ItemFactory.makeBadGlove(world, true);
+        world.getTile(new Coordinate(-4, -2)).addEI(brawling);
+        spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());
+
+        brawling = ItemFactory.makeGlove(world, true);
+        world.getTile(new Coordinate(-4, -1)).addEI(brawling);
+        spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());
+
+        brawling = ItemFactory.makeGoodGlove(world, true);
+        world.getTile(new Coordinate(-4, 0)).addEI(brawling);
+        spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());
+
+        for(int i = 2; i <= 10; ++i) {
+            npc = createNPC (new Coordinate(-6, i), player, false, false);
+            world.getTile(new Coordinate(-6, i)).setEntity(npc);
+            spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
+        }
+
+
+
+        return world;
+    }
+
+    private LocalWorld createLocalWorld2() {
+        Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
+
+        for(int x = -10; x <= 10; ++x) {
+            for(int z = -10; z <= 10; ++z) {
+                Coordinate coordinate = new Coordinate(x, z);
+                if(coordinate.y() > 10 || coordinate.y() < -10) {
+                    continue;
+                }
+
+                LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
+                tiles.put(coordinate, tile);
+            }
+        }
+
+        LocalWorld world = new LocalWorld(tiles, new HashSet<>());
+
+        Item gadget = ItemFactory.makeConfuseGadget(world, true);
+        world.getTile(new Coordinate(-6, -2)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable1());
+
+        gadget = ItemFactory.makeParalyzeGadget(world, true);
+        world.getTile(new Coordinate(-6, -1)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable1());
+
+        gadget = ItemFactory.makePacifyGadget(world, true);
+        world.getTile(new Coordinate(-6, 0)).addEI(gadget);
+        spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable1());
+
+        /*Item sword = ItemFactory.makeBadSword(world, true);
+        world.getTile(new Coordinate(-5, -2)).addEI(sword);
+        spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+
+        sword = ItemFactory.makeSword(world, true);
+        world.getTile(new Coordinate(-5, -1)).addEI(sword);
+        spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+
+        sword = ItemFactory.makeGoodSword(world, true);
+        world.getTile(new Coordinate(-5, 0)).addEI(sword);
+        spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+
+        Item brawling = ItemFactory.makeBadGlove(world, true);
+        world.getTile(new Coordinate(-4, -2)).addEI(brawling);
+        spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());
+
+        brawling = ItemFactory.makeGlove(world, true);
+        world.getTile(new Coordinate(-4, -1)).addEI(brawling);
+        spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());
+
+        brawling = ItemFactory.makeGoodGlove(world, true);
+        world.getTile(new Coordinate(-4, 0)).addEI(brawling);
+        spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());*/
+
+        for(int i = 2; i <= 10; ++i) {
+            Entity npc = createNPC (new Coordinate(-6, i), player, false, false);
+            world.getTile(new Coordinate(-6, i)).setEntity(npc);
+            spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
+        }
 
         return world;
     }
