@@ -1,6 +1,5 @@
 package gameview;
 
-import commands.Command;
 import commands.EnrageCommand;
 import commands.ModifyHealthCommand;
 import commands.TransitionCommand;

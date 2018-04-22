@@ -3,7 +3,6 @@ package savingloading;
 import gameview.GamePanel;
 import gameview.GameViewMaker;
 import maps.world.Game;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.awt.*;

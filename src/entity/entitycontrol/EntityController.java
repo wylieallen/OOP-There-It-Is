@@ -6,6 +6,8 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
+import gameview.displayable.widget.DialogObservable;
+import gameview.displayable.widget.DialogObserver;
 import maps.tile.Tile;
 import savingloading.Visitable;
 import spawning.SpawnObserver;
@@ -14,15 +16,15 @@ import utilities.Coordinate;
 import java.util.Collection;
 import java.util.Map;
 
-public abstract class EntityController implements Visitable{
+public abstract class EntityController implements Visitable, DialogObservable{
 
     private Entity controlledEntity;
     private Equipment equipment;
     private Coordinate entityLocation;
     private Collection<ControllerAction> actions;
     //make sure if we load in and we are on a vehicle that this is set correctly
-    private boolean inVehicle = false;
-    private boolean dismounting = false;
+    private boolean inVehicle;
+    private boolean dismounting;
     private Vehicle mount;
 
     public EntityController(Entity entity, Equipment equipment,
@@ -31,7 +33,7 @@ public abstract class EntityController implements Visitable{
         this.equipment = equipment;
         this.entityLocation = entityLocation;
         this.actions = actions;
-        this.inVehicle = !controlledEntity.isOnMap();
+        this.inVehicle = !entity.isOnMap();
         dismounting = false;
     }
 
@@ -149,6 +151,23 @@ public abstract class EntityController implements Visitable{
 
     private final boolean dismountTo (Tile toTile) {
         return toTile.placeEntityOnNeighbor(controlledEntity);
+    }
+
+    @Override
+    public final void register (DialogObserver o) {
+        observers.add(o);
+    }
+
+    @Override
+    public final void unregister (DialogObserver o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public final void notifyAllObservers (String message) {
+        for (DialogObserver o : observers) {
+            o.notfiy(message);
+        }
     }
 
 }

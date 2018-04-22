@@ -78,6 +78,7 @@ public class LoadingParser {
     private List<TransitionCommandHolder> transitionCommands = new ArrayList<>();
     private Queue<SpawnObservable> spawnObservables = new ArrayDeque<>();
 
+
     public void loadGame (String saveFileName, GamePanel gamePanel) throws FileNotFoundException {
         loadFileToJson(saveFileName);
         loadPlayer(gameJson.getJSONObject("Player"), gamePanel);

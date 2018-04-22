@@ -87,16 +87,23 @@ public class InteractionTests {
 
         Equipment actorEquipment = new Equipment(5, actorInventory, actor);
 
+        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorEffects, actorActorInteractions, actorInventory, true);
+        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeEffects, acteeActorInteractions, acteeInventory, true);
+        vehicle = new Vehicle(new Vector(Direction.N, 0), acteeStats, acteeEffects, acteeActorInteractions, acteeInventory, true);
+
         EntityController actorController = new HumanEntityController(actor, actorEquipment, new Coordinate(0, 0), null);
         actorController.setControllerActions(actorActions);
+
+        actor.setController(actorController);
 
         EntityController vehicleController = new HumanEntityController(vehicle, new Equipment(5, acteeInventory, vehicle), new Coordinate(0, 0),  null);
         vehicleController.setControllerActions(acteeActions);
 
+        actee.setController(vehicleController);
+        vehicle.setController(vehicleController);
+
         actorActions.add(new DismountAction(actorController));
 
-        actor = new Entity(new Vector(Direction.N, 0), actorStats, actorEffects, actorActorInteractions, actorInventory, true);
-        actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeEffects, acteeActorInteractions, acteeInventory, true);
 
     }
 

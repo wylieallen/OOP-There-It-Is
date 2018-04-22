@@ -2,8 +2,6 @@ package entity.entitymodel;
 
 import commands.TimedEffect;
 import entity.entitycontrol.EntityController;
-import entity.entitycontrol.controllerActions.ControllerAction;
-import entity.entitycontrol.controllerActions.DirectionalMoveAction;
 import entity.entitymodel.interactions.EntityInteraction;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
@@ -19,7 +17,10 @@ import spawning.SpawnObserver;
 import utilities.Coordinate;
 import utilities.Vector;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by dontf on 4/13/2018.
