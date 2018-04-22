@@ -83,7 +83,7 @@ public class EquipmentTest {
 
         equipment.remove(wearable);
 
-        Assert.assertFalse(wearables.containsKey(EquipSlot.ARMOUR));
+        Assert.assertFalse(wearables.containsValue(wearable));
         Assert.assertTrue(items.contains(wearable));
     }
 

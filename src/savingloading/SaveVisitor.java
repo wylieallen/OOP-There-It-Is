@@ -1,10 +1,7 @@
 package savingloading;
 
 import commands.*;
-import commands.reversiblecommands.MakeConfusedCommand;
-import commands.reversiblecommands.MakeParalyzedCommand;
-import commands.reversiblecommands.ReversibleCommand;
-import commands.reversiblecommands.TimedStaminaRegenCommand;
+import commands.reversiblecommands.*;
 import commands.skillcommands.*;
 import entity.entitycontrol.AI.FriendlyAI;
 import entity.entitycontrol.AI.HostileAI;
@@ -417,6 +414,14 @@ public class SaveVisitor implements Visitor {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "ModifyHealth");
         currentCommandJson.put("Amount", modifyHealthCommand.getModifyAmount());
+    }
+
+    @Override
+    public void visitBuffHealthCommand(BuffHealthCommand buffHealthCommand)
+    {
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "BuffHealth");
+        currentCommandJson.put("Amount", buffHealthCommand.getBuffAmount());
     }
 
     @Override

@@ -16,6 +16,7 @@ public class ConsumableItem extends TakeableItem {
 
     @Override
     public void activate(Equipment e) {
+        System.out.println("consuming");
         e.consume(this);
     }
 

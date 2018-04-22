@@ -1,10 +1,7 @@
 package savingloading;
 
 import commands.*;
-import commands.reversiblecommands.MakeConfusedCommand;
-import commands.reversiblecommands.MakeParalyzedCommand;
-import commands.reversiblecommands.ReversibleCommand;
-import commands.reversiblecommands.TimedStaminaRegenCommand;
+import commands.reversiblecommands.*;
 import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.*;
 import entity.entitycontrol.EntityController;
@@ -585,6 +582,8 @@ public class LoadingParser {
             return loadMakeFriendlyCommand(commandJson);
         else if (commandJson.getString("Name").equals("ModifyHealth"))
             return loadModifyHealthCommand(commandJson);
+        else if (commandJson.getString("Name").equals("BuffHealth"))
+            return loadBuffHealthCommand(commandJson);
         else if (commandJson.getString("Name").equals("Kill"))
             return loadKillCommand(commandJson);
         else if (commandJson.getString("Name").equals("LevelUp"))
@@ -631,6 +630,11 @@ public class LoadingParser {
 
     private ModifyHealthCommand loadModifyHealthCommand(JSONObject commandJson) {
         return new ModifyHealthCommand(commandJson.getInt("Amount"));
+    }
+
+    private BuffHealthCommand loadBuffHealthCommand(JSONObject commandJson)
+    {
+        return new BuffHealthCommand(commandJson.getInt("Amount"));
     }
 
     private KillCommand loadKillCommand(JSONObject commandJson) {

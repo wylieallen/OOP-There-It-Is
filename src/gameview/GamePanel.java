@@ -149,6 +149,11 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
         }
     }
 
+    public int getInventoryCursorIndex()
+    {
+        return gameDisplayState.getInventoryDisplayableIndex();
+    }
+
     public void decrementInventoryDisplayableIndex()
     {
         gameDisplayState.decrementInventoryDisplayableIndex();

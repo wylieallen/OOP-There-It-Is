@@ -168,4 +168,9 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     {
         inventoryDisplayable.setCursorIndex(-1);
     }
+
+    public int getInventoryDisplayableIndex()
+    {
+        return inventoryDisplayable.getCursorIndex();
+    }
 }

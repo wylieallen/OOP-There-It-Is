@@ -3,7 +3,9 @@ package entity.entitycontrol;
 import entity.entitycontrol.controllerActions.*;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
+import entity.entitymodel.Inventory;
 import gameview.GamePanel;
+import items.takeableitems.WearableItem;
 import maps.tile.Direction;
 import maps.tile.Tile;
 import savingloading.Visitor;
@@ -157,9 +159,20 @@ public class HumanEntityController extends EntityController implements Controlle
            {
                if(e.getKeyCode() == useInventoryItemKeyCode)
                {
-                   // todo: use item in inventory
+                   int cursorIndex = view.getInventoryCursorIndex();
+                   Inventory inventory = entity.getInventory();
+                   if(cursorIndex >= inventory.getItems().size())
+                   {
+                       cursorIndex -= inventory.getItems().size();
+                       WearableItem[] wearables = new WearableItem[0];
+                       wearables = getEquipment().getWearables().values().toArray(wearables);
+                       wearables[cursorIndex].activate(getEquipment());
+                   }
+                   else
+                   {
+                       inventory.select(cursorIndex).activate(getEquipment());
+                   }
                }
-
            }
         });
     }

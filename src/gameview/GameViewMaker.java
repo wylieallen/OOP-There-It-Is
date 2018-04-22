@@ -3,6 +3,8 @@ package gameview;
 import commands.ModifyHealthCommand;
 import commands.TransitionCommand;
 import commands.*;
+import commands.reversiblecommands.BuffHealthCommand;
+import commands.reversiblecommands.ReversibleCommand;
 import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.AI.PetAI;
@@ -10,10 +12,7 @@ import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.DismountAction;
-import entity.entitymodel.Entity;
-import entity.entitymodel.EntityStats;
-import entity.entitymodel.Equipment;
-import entity.entitymodel.Inventory;
+import entity.entitymodel.*;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
@@ -26,6 +25,7 @@ import items.ItemFactory;
 import items.takeableitems.QuestItem;
 import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
+import items.takeableitems.WearableItem;
 import maps.Influence.InfluenceType;
 import maps.entityimpaction.AreaEffect;
 import maps.entityimpaction.InfiniteAreaEffect;
@@ -206,7 +206,7 @@ public class GameViewMaker
 
         game = new Game(overworld, overworld, localWorldsList, 0, player);
         game.setTransitionObserver(panel);
-        game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), panel));
+        game.setPlayerController(new HumanEntityController(player, new Equipment(10, player.getInventory(), player), game.getCoordinate(player), panel));
 
         player.getController().addAction(new DismountAction(player.getController()));
 
@@ -246,6 +246,10 @@ public class GameViewMaker
         InteractiveItem localWorld4Exit = new InteractiveItem("Teleporter", new TransitionCommand(overworld, new Coordinate(0, 0), game));
         spriteMap.put(localWorld4Exit, ImageMaker.makeTeleporterDisplayable());
         localWorldsList.get(3).getTile(new Coordinate(-1, -1)).addEI(localWorld4Exit);
+
+        WearableItem armor = new WearableItem("Good Armor", true, new BuffHealthCommand(100000), EquipSlot.ARMOUR);
+        WearableItem ring = new WearableItem("Nice Ring", true, new BuffHealthCommand(1000), EquipSlot.RING);
+        localWorldsList.get(3).getTile(new Coordinate(3, 3)).addEI(armor);
 
        return new GameDisplayState(panel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overworld);
     }

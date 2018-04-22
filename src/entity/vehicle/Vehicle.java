@@ -1,6 +1,7 @@
 package entity.vehicle;
 
 import commands.TimedEffect;
+import entity.entitycontrol.controllerActions.DismountAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;

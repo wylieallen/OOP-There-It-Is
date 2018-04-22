@@ -282,4 +282,13 @@ public class EntityStats implements Visitable {
         }
         return false;
     }
+
+    public void modifyMaxHealth(int amount)
+    {
+        maxHealth += amount;
+        if(curHealth > maxHealth)
+        {
+            curHealth = maxHealth;
+        }
+    }
 }

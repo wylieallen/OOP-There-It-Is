@@ -439,4 +439,14 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     }
 
     private boolean hasController () {return controller != null;}
+
+    public void increaseMaxHealth(int amount)
+    {
+        stats.modifyMaxHealth(amount);
+    }
+
+    public void decreaseMaxHealth(int amount)
+    {
+        stats.modifyMaxHealth(-amount);
+    }
 }

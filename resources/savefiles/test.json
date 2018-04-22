@@ -4,20 +4,7 @@
   "Type": "Player",
   "Equipment": {
    "Weapons": [],
-   "Wearables": {
-    "ARMOUR": {
-     "OnMap": false,
-     "Type": "Wearable",
-     "EquipType": "NONE",
-     "Name": "NONE"
-    },
-    "RING": {
-     "OnMap": false,
-     "Type": "Wearable",
-     "EquipType": "NONE",
-     "Name": "NONE"
-    }
-   }
+   "Wearables": {}
   },
   "ActorInteractions": [],
   "InVehicle": false,
@@ -574,7 +561,17 @@
    },
    {
     "X": 3,
-    "Y": -6
+    "Y": -6,
+    "Items": [{
+     "OnMap": true,
+     "Type": "Wearable",
+     "EquipType": "ARMOUR",
+     "ReversableCommand": {
+      "Amount": 100000,
+      "Name": "BuffHealth"
+     },
+     "Name": "Good Armor"
+    }]
    },
    {
     "X": -3,
