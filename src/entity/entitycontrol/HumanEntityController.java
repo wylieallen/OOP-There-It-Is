@@ -9,6 +9,7 @@ import items.takeableitems.WearableItem;
 import maps.tile.Direction;
 import maps.tile.Tile;
 import savingloading.Visitor;
+import skills.SkillType;
 import utilities.Coordinate;
 
 import java.awt.event.KeyAdapter;
@@ -37,6 +38,7 @@ public class HumanEntityController extends EntityController implements Controlle
     private int dismountKeyCode = KeyEvent.VK_EQUALS;
     private int observeKeyCode = KeyEvent.VK_O;
     private int manageInventoryKeyCode = KeyEvent.VK_I;
+    private int manageSkillsKeyCode = KeyEvent.VK_L;
 
     private Map<Direction, Integer> directionalMoveKeyCodes;
     private Map<Direction, Integer> altDirectionalMoveKeyCodes;
@@ -95,6 +97,60 @@ public class HumanEntityController extends EntityController implements Controlle
     private void initializeLevelUp(Entity entity)
     {
         levelUpKeyListeners = new HashSet<>();
+
+        levelUpKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.N))
+                    view.decrementLevelUpDisplayableIndex();
+            }
+        });
+
+        levelUpKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.S))
+                    view.incrementLevelUpDisplayableIndex();
+            }
+        });
+
+        levelUpKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == manageSkillsKeyCode)
+                {
+                    view.disableLevelUpDisplayable();
+                    notifyFreeMove(entity);
+                }
+
+            }
+        });
+
+        levelUpKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == useInventoryItemKeyCode)
+                {
+                    // Determine selected skill
+                    // Attempt to spend skillpoint if possible
+                    int index = view.getLevelUpCursorIndex();
+                    SkillType selectedSkill = SkillType.values()[index];
+                    if(entity.getSkillLevel(selectedSkill) > -1 && entity.getUnusedSkillPoints() > 0)
+                    {
+                        entity.increaseSkillLevel(selectedSkill, 1);
+                        entity.decreaseSkillPoints(1);
+                    }
+                }
+            }
+        });
     }
 
     private void initializeShopping(Entity entity)
@@ -168,6 +224,15 @@ public class HumanEntityController extends EntityController implements Controlle
             {
                 if(e.getKeyCode() == manageInventoryKeyCode)
                     notifyInventoryManagment(entity);
+            }
+        });
+
+        freeMoveKeyListeners.add(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == manageSkillsKeyCode)
+                    notifyLevelUp(entity);
             }
         });
 
@@ -437,6 +502,19 @@ public class HumanEntityController extends EntityController implements Controlle
     @Override
     public void notifyLevelUp(Entity e) {
         //TODO set active list to level up list
+        if(view != null) {
+            for (KeyListener k : freeMoveKeyListeners) {
+                view.removeKeyListener(k);
+            }
+
+            for (KeyListener k : levelUpKeyListeners) {
+                view.addKeyListener(k);
+            }
+            view.enableLevelUpDisplayable();
+        }
+
+        activeListeners = inventoryManagementKeyListeners;
+
     }
 
     @Override

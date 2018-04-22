@@ -169,6 +169,28 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
         gameDisplayState.disableInventoryCursor();
     }
 
+    public void decrementLevelUpDisplayableIndex()
+    {
+        gameDisplayState.decrementLevelUpDisplayableIndex();
+    }
+
+    public void incrementLevelUpDisplayableIndex()
+    {
+        gameDisplayState.incrementLevelUpDisplayableIndex();
+    }
+
+    public void disableLevelUpDisplayable()
+    {
+        gameDisplayState.disableLevelUpDisplayable();
+    }
+
+    public void enableLevelUpDisplayable()
+    {
+        gameDisplayState.enableLevelUpDisplayable();
+    }
+
+    public int getLevelUpCursorIndex() { return gameDisplayState.getLevelUpDisplayableIndex(); }
+
 /*
     public int getInteractionCursorIndex()
     {

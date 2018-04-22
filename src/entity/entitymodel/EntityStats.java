@@ -209,12 +209,8 @@ public class EntityStats implements Visitable {
 
     public void increaseSkillLevel (SkillType s, int amount) {
         int curLevel = skills.getOrDefault(s, defaultValue);
-
-        if (curLevel != defaultValue) {
-            curLevel = Math.min(maxSkillLevel, curLevel + amount);
-            skills.replace(s, curLevel);
-        }
-
+        curLevel = Math.min(maxSkillLevel, curLevel + amount);
+        skills.put(s, curLevel);
     }
 
     public boolean getIsSearching() { return isSearching; }

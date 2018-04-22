@@ -64,7 +64,10 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
 
     public void attack(Entity attacker, Coordinate location) {
         if(!attacker.containsSkill(requiredSkill))
+        {
+            System.out.println("Attacker does not have requisite skill " + requiredSkill);
             return;
+        }
 
         int skillLevel = attacker.getSkillLevel(requiredSkill);
 //        System.out.println("attack with skill level " + skillLevel);

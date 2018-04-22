@@ -6,6 +6,7 @@ import gameview.displayable.sprite.WorldDisplayable;
 import gameview.displayable.widget.DialogBoxDisplayable;
 import gameview.displayable.widget.InteractionDisplayable;
 import gameview.displayable.widget.InventoryDisplayable;
+import gameview.displayable.widget.LevelUpDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.DisplayState;
 import guiframework.displayable.CompositeDisplayable;
@@ -36,6 +37,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     private Map<World, WorldDisplayable> worlds;
     private WorldDisplayable activeWorldDisplayable;
     private InventoryDisplayable inventoryDisplayable;
+    private LevelUpDisplayable levelUpDisplayable;
     private InteractionDisplayable interactionDisplayable;
 
     private static final int RENDERING_FRAMES_PER_GAME_TICK = 10;
@@ -84,6 +86,8 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
 
         DialogBoxDisplayable dialogueToPlayer = new DialogBoxDisplayable(new Point(950, 16), player.getController());
         widgets.add(dialogueToPlayer);
+
+        levelUpDisplayable = new LevelUpDisplayable(new Point(256, 256), player);
     }
 
 
@@ -172,6 +176,31 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     public int getInventoryDisplayableIndex()
     {
         return inventoryDisplayable.getCursorIndex();
+    }
+
+    public void decrementLevelUpDisplayableIndex()
+    {
+        levelUpDisplayable.modifyIndex(-1);
+    }
+
+    public void incrementLevelUpDisplayableIndex()
+    {
+        levelUpDisplayable.modifyIndex(1);
+    }
+
+    public void enableLevelUpDisplayable()
+    {
+        widgets.add(levelUpDisplayable);
+    }
+
+    public void disableLevelUpDisplayable()
+    {
+        widgets.remove(levelUpDisplayable);
+    }
+
+    public int getLevelUpDisplayableIndex()
+    {
+        return levelUpDisplayable.getCursorIndex();
     }
 /*
     public void decrementInteractionDisplayableIndex () {
