@@ -1,7 +1,9 @@
 package maps.tile;
 
+import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
+import items.takeableitems.TakeableItem;
 import maps.entityimpaction.EntityImpactor;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
@@ -11,10 +13,7 @@ import savingloading.Visitor;
 import utilities.Coordinate;
 import utilities.Vector;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class LocalWorldTile extends Tile {
 
@@ -47,10 +46,24 @@ public class LocalWorldTile extends Tile {
 
     @Override
     public void do_update(Map<Coordinate, Tile> map) {
+        if(super.hasEntity()){
+            Entity ent = super.getEntity();
+            if(ent.expired()){
+                EntityController cont = ent.getController();
+                List<TakeableItem> items = cont.getEquipment().emptyEquipment();
+                for(TakeableItem item : items){
+                    if(item != null) {
+                        addEI(item);
+                        item.setOnMap(true);
+                    }
+                }
+            }
+        }
         super.do_update(map);
 
         trajectoryModifiers.removeIf(GameObject::expired);
-        entityImpactors.removeIf(GameObject::expired);
+
+        entityImpactors.removeIf((GameObject go) -> (go == null || go.expired()));
 
         trajectoryModifiers.forEach(GameObject::update);
         entityImpactors.forEach(GameObject::update);

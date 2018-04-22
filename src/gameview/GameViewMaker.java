@@ -3,6 +3,8 @@ package gameview;
 import commands.ModifyHealthCommand;
 import commands.TransitionCommand;
 import commands.*;
+import commands.reversiblecommands.BuffHealthCommand;
+import commands.reversiblecommands.ReversibleCommand;
 import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.AI.PetAI;
@@ -10,25 +12,26 @@ import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.DismountAction;
-import entity.entitymodel.Entity;
-import entity.entitymodel.EntityStats;
-import entity.entitymodel.Equipment;
-import entity.entitymodel.Inventory;
+import entity.entitymodel.*;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
+import guiframework.displayable.ConditionalDisplayable;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
 import items.InteractiveItem;
 import items.Item;
 import items.ItemFactory;
 import items.takeableitems.QuestItem;
+import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
+import items.takeableitems.WearableItem;
 import maps.Influence.InfluenceType;
 import maps.entityimpaction.AreaEffect;
 import maps.entityimpaction.InfiniteAreaEffect;
 import maps.entityimpaction.OneShotAreaEffect;
+import maps.entityimpaction.Trap;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
@@ -202,7 +205,7 @@ public class GameViewMaker
 
         game = new Game(overworld, overworld, foggyWorldsList, 0, player);
         game.setTransitionObserver(panel);
-        game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), panel));
+        game.setPlayerController(new HumanEntityController(player, new Equipment(10, player.getInventory(), player), game.getCoordinate(player), panel));
 
         player.getController().addAction(new DismountAction(player.getController()));
 
@@ -243,6 +246,10 @@ public class GameViewMaker
         spriteMap.put(localWorld4Exit, ImageMaker.makeTeleporterDisplayable());
         foggyWorldsList.get(3).getTile(new Coordinate(-1, -1)).addEI(localWorld4Exit);
 
+        WearableItem armor = new WearableItem("Good Armor", true, new BuffHealthCommand(100000), EquipSlot.ARMOUR);
+        WearableItem ring = new WearableItem("Nice Ring", true, new BuffHealthCommand(1000), EquipSlot.RING);
+        foggyWorldsList.get(3).getTile(new Coordinate(3, 3)).addEI(armor);
+
        return new GameDisplayState(panel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overworld);
     }
 
@@ -272,9 +279,12 @@ public class GameViewMaker
         if(canMove)
             compatible.add(Terrain.GRASS);
 
-        EntityStats stats = new EntityStats(skills, 1, 10, 10, 10, 10, 1, 98, 5, 6, 10, 10, false, false, compatible);
+        EntityStats stats = new EntityStats(skills, 1, 10, 10, 100, 100, 1, 98, 5, 6, 10, 10, false, false, compatible);
 
         Inventory i = new Inventory(new ArrayList<>());
+        TakeableItem key = new QuestItem("key",false,4321);
+        i.add(key);
+        spriteMap.put(key,new ImageDisplayable(new Point(20,20), ImageMaker.makeBorderedCircle(Color.blue),100));
 
         Entity entity = new Entity(new Vector(Direction.NULL, 0), stats, new ArrayList<>(), new ArrayList<>(), i, true, "Tim");
         Equipment e = new Equipment(5, i, entity);
@@ -314,13 +324,13 @@ public class GameViewMaker
 //        npc.getController().getEquipment().add(axe);
 //
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), -1, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Bob", false, 1000, SkillType.TWOHANDEDWEAPON, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Bob", false, 300, SkillType.TWOHANDEDWEAPON, 5, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
         npc.getController().getEquipment().add(w);
         //must add overworld as observer
         w.registerObserver(world);
 //        axe.registerObserver(world);
 
-        spawnerMap.put(w,new ImageDisplayable(new Point(16,16), ImageMaker.makeBorderedCircle(Color.yellow),1000));
+        spawnerMap.put(w, ImageMaker.makeBlueProjectileDisplayable());
 //        spawnerMap.put(axe,new ImageDisplayable(new Point(16,16),ImageMaker.makeBorderedCircle(Color.blue),1000));
         world.getTile(npcLoc).setEntity(npc);
         spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
@@ -484,6 +494,13 @@ public class GameViewMaker
             Entity npc = createNPC (new Coordinate(-6, i), player, false, false);
             world.getTile(new Coordinate(-6, i)).setEntity(npc);
             spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
+        }
+
+        for(int i = -2; i <= 4; ++i) {
+            Trap trap = new Trap(new ModifyHealthCommand(-20), false, 25, false);
+            spriteMap.put(trap, ImageMaker.makeTrapDisplayable(trap));
+            world.getTile(new Coordinate(6, i)).addMLC(trap);
+            world.getTile(new Coordinate(6, i)).addEI(trap);
         }
 
         return world;
