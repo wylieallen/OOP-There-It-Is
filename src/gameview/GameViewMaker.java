@@ -138,7 +138,7 @@ public class GameViewMaker
         */
 
         Entity player = new Entity();
-        //player.increaseBaseMoveSpeed(3);
+        player.increaseBaseMoveSpeed(3);
         player.addCompatibleTerrain(Terrain.SPACE);
         player.setMovementObserver(panel);
         player.addToInventory(new QuestItem("Radio", false, 0));
@@ -419,7 +419,7 @@ public class GameViewMaker
 
     private Vehicle createVehicle (Coordinate loc) {
         Vehicle thingy = new Vehicle(new Vector(), new EntityStats(), new ArrayList<>(), new ArrayList<>(), new Inventory(), true, null);
-        thingy.increaseBaseMoveSpeed(1);
+        thingy.increaseBaseMoveSpeed(1000);
         Inventory i = new Inventory();
         Equipment e = new Equipment(5, i , thingy);
         EntityController vehicleController = new NpcEntityController(thingy, e, loc, null, null, false);

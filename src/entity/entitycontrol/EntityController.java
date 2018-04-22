@@ -73,7 +73,7 @@ public abstract class EntityController implements Visitable, DialogObservable{
             gameObjectList = container.getValue().getGameObjects();
             //iterate through all the gameObjects in each gameObjectContainer
             for(GameObject gameObject : gameObjectList){
-                if((gameObject == controlledEntity) || (inVehicle && gameObject == mount)){
+                if((!inVehicle && gameObject == controlledEntity) || (inVehicle && gameObject == mount)){
                     entityLocation = container.getKey();
                     found = true;
                 }

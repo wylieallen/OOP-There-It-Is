@@ -50,7 +50,6 @@ public class Vehicle extends Entity {
     public List <EntityInteraction> interact (Entity actor) {
         if (!hasDriver()) {
             setDriver(actor);
-            System.out.println(this.toString());
             actor.setMount (this);
             // after mounting you interact with mount, maybe use item?
             return super.interact(actor);
@@ -85,8 +84,13 @@ public class Vehicle extends Entity {
     public Vector getMovementVector () {
 
         if (hasDriver()) {
-            Vector v = new Vector(driver.getMovementDirection(), driver.getBaseMoveSpeed() + getBaseMoveSpeed());
-            return v;
+            Vector v = new Vector(driver.getMovementDirection(), driver.getBaseMoveSpeed());
+
+            if (v.isZeroVector()) {
+                return v;
+            } else {
+                return new Vector(driver.getMovementDirection(), driver.getBaseMoveSpeed() + getBaseMoveSpeed());
+            }
         } else {
             return super.getMovementVector();
         }
@@ -96,7 +100,8 @@ public class Vehicle extends Entity {
     @Override
     public boolean canMoveHere (Entity mover) {
         MountInteraction mountingTime = new MountInteraction();
-        return mountingTime.interact(mover, this);
+        mountingTime.interact(mover, this);
+        return false;
     }
 
     @Override
