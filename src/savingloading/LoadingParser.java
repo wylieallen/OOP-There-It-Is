@@ -77,7 +77,7 @@ public class LoadingParser {
     private Map<String,World> worldIdMappings = new HashMap<>();
     private List<TransitionCommandHolder> transitionCommands = new ArrayList<>();
     private Queue<SpawnObservable> spawnObservables = new ArrayDeque<>();
-
+    private Map<SpawnObservable, Displayable> spawnerMap = new HashMap<>();
 
     public void loadGame (String saveFileName, GamePanel gamePanel) throws FileNotFoundException {
         loadFileToJson(saveFileName);
@@ -90,7 +90,7 @@ public class LoadingParser {
         // must do this after game is made
         setTransitionCommands();
 
-        gameDisplay = new GameDisplayState(gamePanel.getSize(), game, spriteMap, worldDisplayableMap, overWorld);
+        gameDisplay = new GameDisplayState(gamePanel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overWorld);
     }
 
     private void loadFileToJson(String saveFileName) throws FileNotFoundException {
@@ -453,6 +453,8 @@ public class LoadingParser {
             WeaponItem item = loadWeaponItem(itemJson);
             weaponItems.add(item);
             spawnObservables.add(item);
+            Displayable spawningThingDisplayable = loadDisplayable(itemJson.getString("Name") +"-Spawn");
+            spawnerMap.put(item, spawningThingDisplayable);
         }
         Iterator<String> equipSlotStrings = wearableItemsJson.keys();
         while(equipSlotStrings.hasNext()) {
@@ -775,6 +777,8 @@ public class LoadingParser {
                 return ImageMaker.makeRangedWeaponDisplayable();
             case "TwoHandedWeapon":
                 return ImageMaker.makeTwoHandedWeaponDisplayable();
+            case "RangedWeapon-Spawn": // format for spawning Displayables: "GameObject's name" + "-Spawn"
+//                return ImageMaker.makeTwoHandedWeaponSpawnDisplayable();
                 ///... TODO: add more for each new game object
             default:
                 System.out.println("No Displayable for GameObject type -- " + name);

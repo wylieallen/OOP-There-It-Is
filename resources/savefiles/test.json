@@ -229,6 +229,7 @@
      "Type": "Interactive",
      "Command": {
       "TargetY": 0,
+      "TargetWorld": "OverWorld",
       "Name": "Transition",
       "TargetX": 0
      },
@@ -545,7 +546,6 @@
        "Amount": 0,
        "Name": "ModifyHealth"
       },
-      "FailureCommand": {"Name": "Null"},
       "SkillType": "BANE",
       "Level": 0
      },
@@ -575,7 +575,6 @@
        "Amount": 0,
        "Name": "ModifyHealth"
       },
-      "FailureCommand": {"Name": "Null"},
       "SkillType": "STAFF",
       "Level": 0
      },
@@ -605,7 +604,6 @@
        "Amount": 0,
        "Name": "ModifyHealth"
       },
-      "FailureCommand": {"Name": "Null"},
       "SkillType": "STAFF",
       "Level": 0
      },
@@ -755,7 +753,6 @@
        "Amount": 0,
        "Name": "ModifyHealth"
       },
-      "FailureCommand": {"Name": "Null"},
       "SkillType": "BANE",
       "Level": 0
      },
@@ -785,7 +782,6 @@
        "Amount": 0,
        "Name": "ModifyHealth"
       },
-      "FailureCommand": {"Name": "Null"},
       "SkillType": "BANE",
       "Level": 0
      },
@@ -815,7 +811,6 @@
        "Amount": 0,
        "Name": "ModifyHealth"
       },
-      "FailureCommand": {"Name": "Null"},
       "SkillType": "BANE",
       "Level": 0
      },
@@ -957,7 +952,6 @@
        "Amount": 0,
        "Name": "ModifyHealth"
       },
-      "FailureCommand": {"Name": "Null"},
       "SkillType": "BOON",
       "Level": 0
      },
@@ -988,7 +982,6 @@
        "Duration": 0,
        "Name": "ModifyStaminaRegen"
       },
-      "FailureCommand": {"Name": "Null"},
       "SkillType": "BOON",
       "Level": 0
      },
@@ -1018,7 +1011,6 @@
        "Amount": 0,
        "Name": "ModifyHealth"
       },
-      "FailureCommand": {"Name": "Null"},
       "SkillType": "BOON",
       "Level": 0
      },
@@ -1780,6 +1772,7 @@
     "Type": "Interactive",
     "Command": {
      "TargetY": 0,
+     "TargetWorld": "0001",
      "Name": "Transition",
      "TargetX": 0
     },
