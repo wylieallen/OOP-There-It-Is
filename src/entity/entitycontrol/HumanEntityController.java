@@ -5,6 +5,7 @@ import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import entity.entitymodel.Inventory;
 import gameview.GamePanel;
+import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
 import maps.tile.Direction;
 import maps.tile.Tile;
@@ -163,10 +164,19 @@ public class HumanEntityController extends EntityController implements Controlle
                    Inventory inventory = entity.getInventory();
                    if(cursorIndex >= inventory.getItems().size())
                    {
-                       cursorIndex -= inventory.getItems().size();
-                       WearableItem[] wearables = new WearableItem[0];
-                       wearables = getEquipment().getWearables().values().toArray(wearables);
-                       wearables[cursorIndex].activate(getEquipment());
+                       if(cursorIndex >= inventory.getItems().size() + getEquipment().getWearables().size())
+                       {
+                           cursorIndex -= inventory.getItems().size();
+                           cursorIndex -= getEquipment().getWearables().size();
+                           getEquipment().getWeapons().get(cursorIndex).activate(getEquipment());
+                       }
+                       else
+                       {
+                           cursorIndex -= inventory.getItems().size();
+                           WearableItem[] wearables = new WearableItem[0];
+                           wearables = getEquipment().getWearables().values().toArray(wearables);
+                           wearables[cursorIndex].activate(getEquipment());
+                       }
                    }
                    else
                    {

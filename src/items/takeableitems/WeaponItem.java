@@ -55,7 +55,12 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
 
     @Override
     public void activate(Equipment e) {
-        e.add(this);
+        if(e.has(this))
+        {
+            e.remove(this);
+        }
+        else
+            e.add(this);
     }
 
     public void attack(Entity attacker, Coordinate location) {
