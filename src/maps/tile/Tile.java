@@ -146,7 +146,7 @@ public abstract class Tile implements GameObjectContainer, Visitable {
 
     public boolean placeEntityOnNeighbor (Entity e) {
         for (Tile t : neighbors.values()) {
-            if (!t.hasEntity() && t.isMoveLegal(e)) {
+            if (t!= null && !t.hasEntity() && t.isMoveLegal(e)) {
                 t.setEntity(e);
                 return true;
             }

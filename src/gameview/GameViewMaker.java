@@ -24,6 +24,7 @@ import items.InteractiveItem;
 import items.Item;
 import items.ItemFactory;
 import items.takeableitems.QuestItem;
+import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
 import maps.Influence.InfluenceType;
 import maps.entityimpaction.AreaEffect;
@@ -278,6 +279,9 @@ public class GameViewMaker
         EntityStats stats = new EntityStats(skills, 1, 10, 10, 100, 100, 1, 98, 5, 6, 10, 10, false, false, compatible);
 
         Inventory i = new Inventory(new ArrayList<>());
+        TakeableItem key = new QuestItem("key",false,4321);
+        i.add(key);
+        spriteMap.put(key,new ImageDisplayable(new Point(20,20), ImageMaker.makeBorderedCircle(Color.blue),100));
 
         Entity entity = new Entity(new Vector(Direction.NULL, 0), stats, new ArrayList<>(), new ArrayList<>(), i, true, "Tim");
         Equipment e = new Equipment(5, i, entity);
@@ -317,7 +321,7 @@ public class GameViewMaker
 //        npc.getController().getEquipment().add(axe);
 //
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), -1, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Bob", false, 1000, SkillType.TWOHANDEDWEAPON, 0, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Bob", false, 300, SkillType.TWOHANDEDWEAPON, 5, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
         npc.getController().getEquipment().add(w);
         //must add overworld as observer
         w.registerObserver(world);
