@@ -94,6 +94,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     }
 
     public void setMovementObserver(MovementObserver o) { this.movementObserver = o; }
+    public MovementObserver getMovementObserver() { return movementObserver; }
 
     public void notifyMovement() { movementObserver.notifyMovement(); }
 

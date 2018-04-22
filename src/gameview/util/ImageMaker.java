@@ -95,7 +95,7 @@ public class ImageMaker
 
     public static Displayable makeVehicleDisplayable()
     {
-        return new ImageDisplayable(new Point(22, 5), loadImage("assets/entities/vehicle.png"), ENTITY_HEIGHT);
+        return new ImageDisplayable(new Point(22 - 16 + 4, 5 + 16 - 8), loadImage("assets/entities/vehicle.png"), ENTITY_HEIGHT);
     }
 
     public static Displayable makeShopKeepDisplayable()
