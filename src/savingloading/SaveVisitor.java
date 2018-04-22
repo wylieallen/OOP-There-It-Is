@@ -419,6 +419,18 @@ public class SaveVisitor implements Visitor {
     }
 
     @Override
+    public void visitKillCommand(KillCommand killCommand) {
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "Kill");
+    }
+
+    @Override
+    public void visitLevelUpCommand(LevelUpCommand levelUpCommand) {
+        currentCommandJson = new JSONObject();
+        currentCommandJson.put("Name", "LevelUp");
+    }
+
+    @Override
     public void visitModifyStaminaRegenCommand(ModifyStaminaRegenCommand modifyStaminaRegenCommand) {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "ModifyStaminaRegen");
@@ -612,7 +624,7 @@ public class SaveVisitor implements Visitor {
     public void visitRiver(River river) {
         JSONObject riverJson = new JSONObject();
         riverJson.put("dx", river.getVector().dx());
-        riverJson.put("dy", river.getVector().dy());
+        riverJson.put("dz", river.getVector().dz());
         currentTileJson.put("River", riverJson);
     }
 

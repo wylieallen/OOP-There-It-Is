@@ -35,6 +35,8 @@ import maps.world.LocalWorld;
 import maps.world.OverWorld;
 import maps.world.Game;
 
+import java.util.logging.Level;
+
 /**
  * Created by dontf on 4/13/2018.
  */
@@ -70,6 +72,8 @@ public interface Visitor {
     void visitEnrageCommand(EnrageCommand enrageCommand);
     void visitMakeFriendlyCommand(MakeFriendlyCommand makeFriendlyCommand);
     void visitModifyHealthCommand(ModifyHealthCommand modifyHealthCommand);
+    void visitKillCommand(KillCommand killCommand);
+    void visitLevelUpCommand(LevelUpCommand levelUpCommand);
     void visitModifyStaminaRegenCommand(ModifyStaminaRegenCommand modifyStaminaRegenCommand);
     void visitObserveCommand(ObserveCommand observeCommand);
     void visitParalyzeCommand(ParalyzeCommand paralyzeCommand);

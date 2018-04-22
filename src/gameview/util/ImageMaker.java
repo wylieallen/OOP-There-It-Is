@@ -1,10 +1,12 @@
 package gameview.util;
 
+import entity.entitycontrol.controllerActions.DirectionalMoveAction;
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
 import maps.movelegalitychecker.Terrain;
+import maps.tile.Direction;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -104,17 +106,17 @@ public class ImageMaker
 
     public static Displayable makeConsumableDisplayable1()
     {
-        return new ImageDisplayable(new Point(8, 8), loadImage("assets/items/consumables/consumable1.png"), ITEM_HEIGHT);
+        return new ImageDisplayable(new Point(24, 24), loadImage("assets/items/consumables/consumable1.png"), ITEM_HEIGHT);
     }
 
     public static Displayable makeConsumableDisplayable2()
     {
-        return new ImageDisplayable(new Point(8, 8), loadImage("assets/items/consumables/consumable2.png"), ITEM_HEIGHT);
+        return new ImageDisplayable(new Point(24, 24), loadImage("assets/items/consumables/consumable2.png"), ITEM_HEIGHT);
     }
 
     public static Displayable makeConsumableDisplayable3()
     {
-        return new ImageDisplayable(new Point(8, 8), loadImage("assets/items/consumables/consumable3.png"), ITEM_HEIGHT);
+        return new ImageDisplayable(new Point(24,  24), loadImage("assets/items/consumables/consumable3.png"), ITEM_HEIGHT);
     }
 
     public static Displayable makeEncounterDisplayable1()
@@ -175,6 +177,23 @@ public class ImageMaker
     public static Displayable makeTwoHandedWeaponDisplayable()
     {
         return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/takeables/twohandedweapon.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeRiverDisplayable(Direction direction)
+    {
+        switch(direction) {
+            case N:
+            case S:
+                return new ImageDisplayable(new Point(0, 0), loadImage("assets/maps/nsriver.png"), ITEM_HEIGHT);
+            case NE:
+            case SW:
+                return new ImageDisplayable(new Point(0, 0), loadImage("assets/maps/neswriver.png"), ITEM_HEIGHT);
+            case NW:
+            case SE:
+                return new ImageDisplayable(new Point(0, 0), loadImage("assets/maps/nwseriver.png"), ITEM_HEIGHT);
+            default:
+                return new ImageDisplayable(new Point(0, 0), loadImage("assets/maps/nsriver.png"), ITEM_HEIGHT);
+        }
     }
 
 

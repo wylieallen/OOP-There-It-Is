@@ -28,7 +28,7 @@
    "Gold": 100,
    "Concealment": 1,
    "VisibilityRadius": 1,
-   "BaseMoveSpeed": 103,
+   "BaseMoveSpeed": 30,
    "UnspentSkillPoints": 0,
    "MaxHealth": 1000,
    "MaxMana": 10,
@@ -538,28 +538,7 @@
    },
    {
     "X": -3,
-    "Y": 3,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": -20,
-      "SuccessCommand": {
-       "Amount": 0,
-       "Name": "ModifyHealth"
-      },
-      "SkillType": "BANE",
-      "Level": 0
-     },
-     "MaxRadius": 1,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "BANE",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 0,
-     "AttackSpeed": 5000,
-     "Name": "Good Staff"
-    }]
+    "Y": 3
    },
    {
     "X": 3,
@@ -567,28 +546,7 @@
    },
    {
     "X": -3,
-    "Y": 4,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": -15,
-      "SuccessCommand": {
-       "Amount": 0,
-       "Name": "ModifyHealth"
-      },
-      "SkillType": "STAFF",
-      "Level": 0
-     },
-     "MaxRadius": 1,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "STAFF",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 0,
-     "AttackSpeed": 5000,
-     "Name": "Staff"
-    }]
+    "Y": 4
    },
    {
     "X": 3,
@@ -596,28 +554,7 @@
    },
    {
     "X": -3,
-    "Y": 5,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": -10,
-      "SuccessCommand": {
-       "Amount": 0,
-       "Name": "ModifyHealth"
-      },
-      "SkillType": "STAFF",
-      "Level": 0
-     },
-     "MaxRadius": 1,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "STAFF",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 0,
-     "AttackSpeed": 5000,
-     "Name": "Bad Staff"
-    }]
+    "Y": 5
    },
    {
     "X": 3,
@@ -745,28 +682,7 @@
    },
    {
     "X": -4,
-    "Y": 4,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": -20,
-      "SuccessCommand": {
-       "Amount": 0,
-       "Name": "ModifyHealth"
-      },
-      "SkillType": "BANE",
-      "Level": 0
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "CIRCULARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "BANE",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 0,
-     "AttackSpeed": 5000,
-     "Name": "Circular Damage Gadget"
-    }]
+    "Y": 4
    },
    {
     "X": 4,
@@ -774,28 +690,7 @@
    },
    {
     "X": -4,
-    "Y": 5,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": -20,
-      "SuccessCommand": {
-       "Amount": 0,
-       "Name": "ModifyHealth"
-      },
-      "SkillType": "BANE",
-      "Level": 0
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "ANGULARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "BANE",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 0,
-     "AttackSpeed": 5000,
-     "Name": "Angular Damage Gadget"
-    }]
+    "Y": 5
    },
    {
     "X": 4,
@@ -803,28 +698,7 @@
    },
    {
     "X": -4,
-    "Y": 6,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": -15,
-      "SuccessCommand": {
-       "Amount": 0,
-       "Name": "ModifyHealth"
-      },
-      "SkillType": "BANE",
-      "Level": 0
-     },
-     "MaxRadius": 5,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "BANE",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 0,
-     "AttackSpeed": 5000,
-     "Name": "Linear Damage Gadget"
-    }]
+    "Y": 6
    },
    {
     "X": 4,
@@ -944,28 +818,7 @@
    },
    {
     "X": -5,
-    "Y": 5,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 100,
-      "SuccessCommand": {
-       "Amount": 0,
-       "Name": "ModifyHealth"
-      },
-      "SkillType": "BOON",
-      "Level": 0
-     },
-     "MaxRadius": 1,
-     "OnMap": true,
-     "InfluenceType": "SELFINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "BOON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 0,
-     "AttackSpeed": 5000,
-     "Name": "Strong Heal Gadget"
-    }]
+    "Y": 5
    },
    {
     "X": 5,
@@ -973,29 +826,7 @@
    },
    {
     "X": -5,
-    "Y": 6,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 5000,
-      "SuccessCommand": {
-       "Factor": 2,
-       "Duration": 0,
-       "Name": "ModifyStaminaRegen"
-      },
-      "SkillType": "BOON",
-      "Level": 0
-     },
-     "MaxRadius": 1,
-     "OnMap": true,
-     "InfluenceType": "SELFINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "BOON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 0,
-     "AttackSpeed": 5000,
-     "Name": "Faster Stamina Regen Gadget"
-    }]
+    "Y": 6
    },
    {
     "X": 5,
@@ -1005,25 +836,13 @@
     "X": -5,
     "Y": 7,
     "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 10,
-      "SuccessCommand": {
-       "Amount": 0,
-       "Name": "ModifyHealth"
-      },
-      "SkillType": "BOON",
-      "Level": 0
-     },
-     "MaxRadius": 1,
      "OnMap": true,
-     "InfluenceType": "SELFINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "BOON",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 0,
-     "AttackSpeed": 5000,
-     "Name": "Heal Gadget"
+     "Type": "Consumable",
+     "Command": {
+      "Amount": 10,
+      "Name": "ModifyHealth"
+     },
+     "Name": "HealthPotion"
     }]
    },
    {
@@ -1063,6 +882,12 @@
     "Y": -4
    },
    {
+    "AreaEffect": {
+     "Type": "OneShot",
+     "Command": {"Name": "LevelUp"},
+     "HasFired": false,
+     "Name": "Kill Area Effect"
+    },
     "X": -6,
     "Y": -3
    },
@@ -1071,6 +896,12 @@
     "Y": 4
    },
    {
+    "AreaEffect": {
+     "Type": "OneShot",
+     "Command": {"Name": "LevelUp"},
+     "HasFired": false,
+     "Name": "Kill Area Effect"
+    },
     "X": -6,
     "Y": -2
    },
@@ -1087,6 +918,12 @@
     "Y": 2
    },
    {
+    "AreaEffect": {
+     "Type": "OneShot",
+     "Command": {"Name": "Kill"},
+     "HasFired": false,
+     "Name": "Kill Area Effect"
+    },
     "X": -6,
     "Y": 0
    },
@@ -1095,6 +932,12 @@
     "Y": 1
    },
    {
+    "AreaEffect": {
+     "Type": "OneShot",
+     "Command": {"Name": "Kill"},
+     "HasFired": false,
+     "Name": "Kill Area Effect"
+    },
     "X": -6,
     "Y": 1
    },
@@ -1111,19 +954,47 @@
     "Y": -1
    },
    {
+    "AreaEffect": {
+     "Type": "Infinite",
+     "LastTriggerTime": 0,
+     "Command": {
+      "Amount": 10,
+      "Name": "ModifyHealth"
+     },
+     "TriggerInterval": 1000,
+     "Name": "Heal Area Effect"
+    },
     "X": -6,
     "Y": 3
    },
    {
     "X": 6,
+    "River": {
+     "dx": 29,
+     "dz": -29
+    },
     "Y": -2
    },
    {
+    "AreaEffect": {
+     "Type": "Infinite",
+     "LastTriggerTime": 0,
+     "Command": {
+      "Amount": 10,
+      "Name": "ModifyHealth"
+     },
+     "TriggerInterval": 1000,
+     "Name": "Heal Area Effect"
+    },
     "X": -6,
     "Y": 4
    },
    {
     "X": 6,
+    "River": {
+     "dx": 0,
+     "dz": -29
+    },
     "Y": -3
    },
    {
@@ -1132,90 +1003,66 @@
    },
    {
     "X": 6,
+    "River": {
+     "dx": 0,
+     "dz": -29
+    },
     "Y": -4
    },
    {
-    "X": -6,
-    "Y": 6,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 0,
-      "SuccessCommand": {"Name": "MakeFriendly"},
-      "SkillType": "ENCHANTMENT",
-      "Level": 0
+    "AreaEffect": {
+     "Type": "Infinite",
+     "LastTriggerTime": 0,
+     "Command": {
+      "Amount": -10,
+      "Name": "ModifyHealth"
      },
-     "MaxRadius": 3,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "ENCHANTMENT",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 0,
-     "AttackSpeed": 5000,
-     "Name": "Pacify Gadget"
-    }]
+     "TriggerInterval": 1000,
+     "Name": "Damage Area Effect"
+    },
+    "X": -6,
+    "Y": 6
    },
    {
     "X": 6,
+    "River": {
+     "dx": 0,
+     "dz": -29
+    },
     "Y": -5
    },
    {
-    "X": -6,
-    "Y": 7,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 5000,
-      "SuccessCommand": {
-       "Duration": 0,
-       "Name": "Paralyze"
-      },
-      "SkillType": "ENCHANTMENT",
-      "Level": 0
+    "AreaEffect": {
+     "Type": "Infinite",
+     "LastTriggerTime": 0,
+     "Command": {
+      "Amount": -10,
+      "Name": "ModifyHealth"
      },
-     "MaxRadius": 3,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "ENCHANTMENT",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 0,
-     "AttackSpeed": 5000,
-     "Name": "Paralyze Gadget"
-    }]
+     "TriggerInterval": 1000,
+     "Name": "Damage Area Effect"
+    },
+    "X": -6,
+    "Y": 7
    },
    {
     "X": 6,
+    "River": {
+     "dx": 0,
+     "dz": -29
+    },
     "Y": -6
    },
    {
     "X": -6,
-    "Y": 8,
-    "Items": [{
-     "SkillCommand": {
-      "Effectiveness": 5000,
-      "SuccessCommand": {
-       "Duration": 0,
-       "Name": "Confuse"
-      },
-      "SkillType": "ENCHANTMENT",
-      "Level": 0
-     },
-     "MaxRadius": 3,
-     "OnMap": true,
-     "InfluenceType": "LINEARINFLUENCE",
-     "Type": "Weapon",
-     "RequiredSkill": "ENCHANTMENT",
-     "ExpansionInterval": 1,
-     "UpdateInterval": 1,
-     "Damage": 0,
-     "AttackSpeed": 5000,
-     "Name": "Confuse Gadget"
-    }]
+    "Y": 8
    },
    {
     "X": 6,
+    "River": {
+     "dx": 0,
+     "dz": -29
+    },
     "Y": -7
    },
    {
@@ -1224,6 +1071,10 @@
    },
    {
     "X": 6,
+    "River": {
+     "dx": 0,
+     "dz": -29
+    },
     "Y": -8
    },
    {
@@ -1232,6 +1083,10 @@
    },
    {
     "X": 6,
+    "River": {
+     "dx": 0,
+     "dz": -29
+    },
     "Y": -9
    },
    {
@@ -1243,6 +1098,12 @@
     "Y": -3
    },
    {
+    "AreaEffect": {
+     "Type": "OneShot",
+     "Command": {"Name": "LevelUp"},
+     "HasFired": false,
+     "Name": "Kill Area Effect"
+    },
     "X": -7,
     "Y": -2
    },
@@ -1251,6 +1112,12 @@
     "Y": 3
    },
    {
+    "AreaEffect": {
+     "Type": "OneShot",
+     "Command": {"Name": "LevelUp"},
+     "HasFired": false,
+     "Name": "Kill Area Effect"
+    },
     "X": -7,
     "Y": -1
    },
@@ -1267,6 +1134,12 @@
     "Y": 1
    },
    {
+    "AreaEffect": {
+     "Type": "OneShot",
+     "Command": {"Name": "Kill"},
+     "HasFired": false,
+     "Name": "Kill Area Effect"
+    },
     "X": -7,
     "Y": 1
    },
@@ -1275,6 +1148,12 @@
     "Y": 0
    },
    {
+    "AreaEffect": {
+     "Type": "OneShot",
+     "Command": {"Name": "Kill"},
+     "HasFired": false,
+     "Name": "Kill Area Effect"
+    },
     "X": -7,
     "Y": 2
    },
@@ -1288,22 +1167,54 @@
    },
    {
     "X": 7,
+    "River": {
+     "dx": 0,
+     "dz": 29
+    },
     "Y": -2
    },
    {
+    "AreaEffect": {
+     "Type": "Infinite",
+     "LastTriggerTime": 0,
+     "Command": {
+      "Amount": 10,
+      "Name": "ModifyHealth"
+     },
+     "TriggerInterval": 1000,
+     "Name": "Heal Area Effect"
+    },
     "X": -7,
     "Y": 4
    },
    {
     "X": 7,
+    "River": {
+     "dx": 0,
+     "dz": 29
+    },
     "Y": -3
    },
    {
+    "AreaEffect": {
+     "Type": "Infinite",
+     "LastTriggerTime": 0,
+     "Command": {
+      "Amount": 10,
+      "Name": "ModifyHealth"
+     },
+     "TriggerInterval": 1000,
+     "Name": "Heal Area Effect"
+    },
     "X": -7,
     "Y": 5
    },
    {
     "X": 7,
+    "River": {
+     "dx": 0,
+     "dz": 29
+    },
     "Y": -4
    },
    {
@@ -1312,22 +1223,54 @@
    },
    {
     "X": 7,
+    "River": {
+     "dx": 0,
+     "dz": 29
+    },
     "Y": -5
    },
    {
+    "AreaEffect": {
+     "Type": "Infinite",
+     "LastTriggerTime": 0,
+     "Command": {
+      "Amount": -10,
+      "Name": "ModifyHealth"
+     },
+     "TriggerInterval": 1000,
+     "Name": "Damage Area Effect"
+    },
     "X": -7,
     "Y": 7
    },
    {
     "X": 7,
+    "River": {
+     "dx": 0,
+     "dz": 29
+    },
     "Y": -6
    },
    {
+    "AreaEffect": {
+     "Type": "Infinite",
+     "LastTriggerTime": 0,
+     "Command": {
+      "Amount": -10,
+      "Name": "ModifyHealth"
+     },
+     "TriggerInterval": 1000,
+     "Name": "Damage Area Effect"
+    },
     "X": -7,
     "Y": 8
    },
    {
     "X": 7,
+    "River": {
+     "dx": 0,
+     "dz": 29
+    },
     "Y": -7
    },
    {
@@ -1336,6 +1279,10 @@
    },
    {
     "X": 7,
+    "River": {
+     "dx": 0,
+     "dz": 29
+    },
     "Y": -8
    },
    {
@@ -1344,6 +1291,10 @@
    },
    {
     "X": 7,
+    "River": {
+     "dx": -29,
+     "dz": 29
+    },
     "Y": -9
    },
    {
@@ -2174,6 +2125,16 @@
   },
   {
    "X": 4,
+   "Encounter": {
+    "Type": "Interactive",
+    "Command": {
+     "TargetY": 0,
+     "TargetWorld": "0004",
+     "Name": "Transition",
+     "TargetX": 0
+    },
+    "Name": "Encounter 4"
+   },
    "Y": -7
   },
   {
@@ -2214,6 +2175,16 @@
   },
   {
    "X": -5,
+   "Encounter": {
+    "Type": "Interactive",
+    "Command": {
+     "TargetY": 0,
+     "TargetWorld": "0003",
+     "Name": "Transition",
+     "TargetX": 0
+    },
+    "Name": "Encounter 3"
+   },
    "Y": 1
   },
   {
@@ -2338,11 +2309,11 @@
     "Type": "Interactive",
     "Command": {
      "TargetY": 0,
-     "TargetWorld": "0001",
+     "TargetWorld": "0002",
      "Name": "Transition",
      "TargetX": 0
     },
-    "Name": "Encounter 1"
+    "Name": "Encounter 2"
    },
    "Y": 5
   },

@@ -584,6 +584,10 @@ public class LoadingParser {
             return loadMakeFriendlyCommand(commandJson);
         else if (commandJson.getString("Name").equals("ModifyHealth"))
             return loadModifyHealthCommand(commandJson);
+        else if (commandJson.getString("Name").equals("Kill"))
+            return loadKillCommand(commandJson);
+        else if (commandJson.getString("Name").equals("LevelUp"))
+            return loadLevelUpCommand(commandJson);
         else if (commandJson.getString("Name").equals("ModifyStaminaRegen"))
             return loadModifyStaminaRegenCommand(commandJson);
         else if (commandJson.getString("Name").equals("Observe"))
@@ -626,6 +630,14 @@ public class LoadingParser {
 
     private ModifyHealthCommand loadModifyHealthCommand(JSONObject commandJson) {
         return new ModifyHealthCommand(commandJson.getInt("Amount"));
+    }
+
+    private KillCommand loadKillCommand(JSONObject commandJson) {
+        return new KillCommand();
+    }
+
+    private LevelUpCommand loadLevelUpCommand(JSONObject commandJson) {
+        return new LevelUpCommand();
     }
 
     private EnrageCommand loadEnrageCommand(JSONObject commandJson) {
