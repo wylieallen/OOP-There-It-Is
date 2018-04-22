@@ -387,6 +387,7 @@ public class SaveVisitor implements Visitor {
         wearableItemJson.put("Type", "Wearable");
         wearableItemJson.put("Name", w.getName());
         wearableItemJson.put("OnMap", w.isOnMap());
+        System.out.println(w.getName() + " -- " + w.getCommand());
         w.getCommand().accept(this);
         wearableItemJson.put("ReversableCommand", currentCommandJson);
         wearableItemJson.put("EquipType", w.getEquipType().name());
@@ -422,9 +423,11 @@ public class SaveVisitor implements Visitor {
     @Override
     public void visitBuffHealthCommand(BuffHealthCommand buffHealthCommand)
     {
+        System.out.println("in buff");
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "BuffHealth");
         currentCommandJson.put("Amount", buffHealthCommand.getBuffAmount());
+        addReversibleCommand(buffHealthCommand);
     }
 
     @Override

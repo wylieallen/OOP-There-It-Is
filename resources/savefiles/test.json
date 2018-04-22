@@ -562,17 +562,7 @@
     },
     {
      "X": 3,
-     "Y": -6,
-     "Items": [{
-      "OnMap": true,
-      "Type": "Wearable",
-      "EquipType": "ARMOUR",
-      "ReversableCommand": {
-       "Amount": 100000,
-       "Name": "BuffHealth"
-      },
-      "Name": "Good Armor"
-     }]
+     "Y": -6
     },
     {
      "X": -3,

@@ -64,6 +64,8 @@ public class LoadingParser {
     private List<LocalWorld> localWorlds = new ArrayList<>();
     private EntityController playerController;
 
+    private GamePanel gamePanel;
+
     private Map<GameObject, Displayable> spriteMap = ImageMaker.makeDefaultMap();
     private Map<World, WorldDisplayable> worldDisplayableMap = new HashMap<World, WorldDisplayable>();
 
@@ -75,6 +77,8 @@ public class LoadingParser {
     private Map<SpawnObservable, Displayable> spawnerMap = new HashMap<>();
 
     public void loadGame (String saveFileName, GamePanel gamePanel) throws FileNotFoundException {
+        this.gamePanel = gamePanel;
+
         loadFileToJson(saveFileName);
         loadPlayer(gameJson.getJSONObject("Player"), gamePanel);
         loadOverWorld(gameJson.getJSONObject("OverWorld"));
@@ -85,8 +89,12 @@ public class LoadingParser {
         overWorld.add(new Coordinate(0,0), player);
 
         game = new Game(overWorld, overWorld, foggyWorlds, 0, player);
+
         game.setTransitionObserver(gamePanel);
-//        game.setPlayerController();
+        game.setPlayerController(playerController);
+
+        player.setMovementObserver(gamePanel);
+        player.addCompatibleTerrain(Terrain.SPACE);
 
         // must do this after game is made
         setTransitionCommands();
@@ -113,10 +121,10 @@ public class LoadingParser {
         player = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, "Default");
         Equipment equipment = loadEquipment(playerJson.getJSONObject("Equipment"), inventory, player);
         Coordinate coordinate = new Coordinate(playerJson.getInt("X"), playerJson.getInt("Y"));
-        HumanEntityController controller = new HumanEntityController(player, equipment, coordinate, gamePanel);
-        player.setController(controller);
-        List<ControllerAction> controllerActions = loadControllerActions(playerJson.getString("Name"), player, controller, equipment);
-        controller.setControllerActions(controllerActions);
+        playerController = new HumanEntityController(player, equipment, coordinate, gamePanel);
+        player.setController(playerController);
+        List<ControllerAction> controllerActions = loadControllerActions(playerJson.getString("Name"), player, playerController, equipment);
+        playerController.setControllerActions(controllerActions);
         Displayable displayable = loadDisplayable(playerJson.getString("Name"));
         spriteMap.put(player, displayable);
     }
@@ -340,6 +348,11 @@ public class LoadingParser {
             Displayable displayable = loadDisplayable("Mountain");
             spriteMap.put(MOUNTAIN, displayable);
             return MOUNTAIN;
+        }
+        else if (terrain.equals("SPACE")){
+            Displayable displayable = loadDisplayable("Space");
+            spriteMap.put(SPACE, displayable);
+            return SPACE;
         }
         else{
             System.out.println("ERROR: Terrain not loaded properly -- String given: " + terrain);
@@ -791,6 +804,8 @@ public class LoadingParser {
                 return ImageMaker.makeWaterDisplayable();
             case "Mountain":
                 return ImageMaker.makeMountainDisplayable();
+            case "Space":
+                return ImageMaker.makeSpaceDisplayable();
                 // items
             case "Encounter1":
                 return ImageMaker.makeEncounterDisplayable1();
