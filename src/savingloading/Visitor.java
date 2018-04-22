@@ -32,6 +32,7 @@ import maps.movelegalitychecker.Terrain;
 import maps.tile.LocalWorldTile;
 import maps.tile.OverWorldTile;
 import maps.trajectorymodifier.River;
+import maps.world.FoggyWorld;
 import maps.world.LocalWorld;
 import maps.world.OverWorld;
 import maps.world.Game;
@@ -88,6 +89,7 @@ public interface Visitor {
 
     void visitOverWorld(OverWorld w);
     void visitLocalWorld(LocalWorld w);
+    void visitFoggyWorld(FoggyWorld foggyWorld);
 
     void visitOverWorldTile(OverWorldTile overWorldTile);
     void visitLocalWorldTile(LocalWorldTile localWorldTile);

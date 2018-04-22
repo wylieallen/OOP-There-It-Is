@@ -23,6 +23,7 @@ public class ImageMaker
     private static int TERRAIN_HEIGHT = 0;
     private static int ITEM_HEIGHT = 500;
     private static int ENTITY_HEIGHT = 999;
+    private static int FOG_HEIGHT = 2000;
     private static int PROJECTILE_HEIGHT = 1100;
 
     private static Shape hexShape = makeHexShape();
@@ -198,6 +199,10 @@ public class ImageMaker
         }
     }
 
+    public static Displayable makeFogDisplayable() {
+       return new ImageDisplayable(new Point(0, 0), makeFog(), FOG_HEIGHT);
+    }
+
     public static Displayable makeBlueProjectileDisplayable() {
         return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/blueprojectile.png"), PROJECTILE_HEIGHT);
     }
@@ -232,8 +237,6 @@ public class ImageMaker
         return displayable;
     }
 
-
-
     // Todo: split BufferedImage creation off into a separate class
     public static BufferedImage makeBorderedHex(Color color)
     {
@@ -255,6 +258,21 @@ public class ImageMaker
         g2d.drawImage(graphics, 0, 0, 64, 64, null);
         g2d.setColor(Color.WHITE);
         g2d.draw(hexShape);
+        return image;
+    }
+
+    public static BufferedImage makeFog()
+    {
+        BufferedImage image = new BufferedImage(64 + 1, 64 + 1, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+
+        AlphaComposite acomp = AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER, 0.75f);
+        g2d.setComposite(acomp);
+
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.fill(hexShape);
+
         return image;
     }
 

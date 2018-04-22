@@ -27,10 +27,7 @@ import maps.tile.OverWorldTile;
 import maps.tile.Tile;
 import maps.trajectorymodifier.River;
 import maps.trajectorymodifier.TrajectoryModifier;
-import maps.world.Game;
-import maps.world.LocalWorld;
-import maps.world.OverWorld;
-import maps.world.World;
+import maps.world.*;
 import org.json.*;
 import skills.SkillType;
 import utilities.Coordinate;
@@ -564,6 +561,11 @@ public class SaveVisitor implements Visitor {
         }
     }
 
+    @Override
+    public void visitFoggyWorld(FoggyWorld foggyWorld) {
+        foggyWorld.getLocalWorld().accept(this);
+    }
+
     private String getLocalWorldID(int localWorldNumber){
         if(localWorldNumber < 10)
             return "000" + Integer.toString(localWorldNumber);
@@ -674,8 +676,8 @@ public class SaveVisitor implements Visitor {
 
         visitEntity(g.getPlayer());
         visitOverWorld(g.getOverWorld());
-        for (LocalWorld localWorld : g.getLocalWorlds())
-            visitLocalWorld(localWorld);
+        for (FoggyWorld foggyWorld : g.getLocalWorlds())
+            foggyWorld.accept(this);
         addTransitionCommandTargetWorlds(g.getWorlds());
 
         saveFileJson.put("Player", playerJson);

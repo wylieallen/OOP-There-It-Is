@@ -33,10 +33,7 @@ import maps.tile.LocalWorldTile;
 import maps.tile.OverWorldTile;
 import maps.trajectorymodifier.River;
 import maps.trajectorymodifier.TrajectoryModifier;
-import maps.world.Game;
-import maps.world.LocalWorld;
-import maps.world.OverWorld;
-import maps.world.World;
+import maps.world.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import skills.SkillType;
@@ -82,12 +79,14 @@ public class LoadingParser {
         loadOverWorld(gameJson.getJSONObject("OverWorld"));
         loadLocalWorlds(gameJson.getJSONObject("LocalWorlds"));
 
-        game = new Game(overWorld, overWorld, localWorlds, 0, player);
+        List<FoggyWorld> foggyWorlds = loadFoggyWorlds();
+
+        game = new Game(overWorld, overWorld, foggyWorlds, 0, player);
 
         // must do this after game is made
         setTransitionCommands();
 
-        gameDisplay = new GameDisplayState(gamePanel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overWorld);
+        //gameDisplay = new GameDisplayState(gamePanel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overWorld);
     }
 
     private void loadFileToJson(String saveFileName) throws FileNotFoundException {
@@ -151,6 +150,14 @@ public class LoadingParser {
                 spawnObservables.remove().registerObserver(localWorld);
             }
         }
+    }
+
+    private List<FoggyWorld> loadFoggyWorlds() {
+        List<FoggyWorld> foggyWorlds = new ArrayList<>();
+        for (LocalWorld localWorld : localWorlds){
+            foggyWorlds.add(new FoggyWorld(localWorld, player));
+        }
+        return foggyWorlds;
     }
 
     private Entity loadEntity(JSONObject entityJson) {
@@ -246,7 +253,7 @@ public class LoadingParser {
         double dz = riverJson.getDouble("dz");
         Vector v = new Vector(dx, dz);
         River river = new River(v);
-        Displayable displayable = loadDisplayable("River");
+        Displayable displayable = ImageMaker.makeRiverDisplayable(v.getDirection());
         spriteMap.put(river, displayable);
         return river;
     }
@@ -777,6 +784,8 @@ public class LoadingParser {
                 return ImageMaker.makeConsumableDisplayable2();
             case "Consumable3":
                 return ImageMaker.makeConsumableDisplayable3();
+            case "HealthPotion":
+                return ImageMaker.makeConsumableDisplayable1();
             case "Brawling":
                 return ImageMaker.makeBrawlingWeaponDisplayable();
             case "Gadget1":
@@ -796,7 +805,13 @@ public class LoadingParser {
             case "TwoHandedWeapon":
                 return ImageMaker.makeTwoHandedWeaponDisplayable();
             case "RangedWeapon-Spawn": // format for spawning Displayables: "GameObject's name" + "-Spawn"
-//                return ImageMaker.makeTwoHandedWeaponSpawnDisplayable();
+                return ImageMaker.makeRedProjectileDisplayable();
+            case "Kill Area Effect":
+                return ImageMaker.makeRedProjectileDisplayable();
+            case "Heal Area Effect":
+                return ImageMaker.makeBlueProjectileDisplayable();
+            case "Damage Area Effect":
+                return ImageMaker.makeYellowProjectileDisplayable();
                 ///... TODO: add more for each new game object
             default:
                 System.out.println("No Displayable for GameObject type -- " + name);

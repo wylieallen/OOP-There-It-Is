@@ -3,23 +3,28 @@ package gameview.displayable.sprite;
 import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import gameview.GameDisplayState;
+import gameview.util.ImageMaker;
 import guiframework.displayable.CompositeDisplayable;
 import maps.world.World;
 import utilities.Coordinate;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class WorldDisplayable extends CompositeDisplayable
 {
     private World world;
     private Map<GameObjectContainer, CompositeDisplayable> tiles;
+    private Set<GameObjectContainer> foggedTiles;
 
     public WorldDisplayable(Point origin, int height, World world)
     {
         super(origin, height);
         tiles = new HashMap<>();
+        foggedTiles = new HashSet<>();
         this.world = world;
     }
 
@@ -32,6 +37,7 @@ public class WorldDisplayable extends CompositeDisplayable
     @Override
     public void update()
     {
+        applyFog();
         Map<Coordinate, GameObjectContainer> map = world.getMap();
         for(Coordinate c : map.keySet())
         {
@@ -59,5 +65,16 @@ public class WorldDisplayable extends CompositeDisplayable
         {
             displayable.add(GameDisplayState.getSprite(o));
         }
+        foggedTiles.remove(t);
+    }
+
+    private void applyFog() {
+        for(Map.Entry<GameObjectContainer, CompositeDisplayable> entry: tiles.entrySet()) {
+            if(!foggedTiles.contains(entry.getKey())) {
+                entry.getValue().add(ImageMaker.makeFogDisplayable());
+                foggedTiles.add(entry.getKey());
+            }
+        }
+
     }
 }
