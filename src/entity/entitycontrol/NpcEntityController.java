@@ -1,13 +1,15 @@
 package entity.entitycontrol;
 
 import entity.entitycontrol.AI.AI;
+import entity.entitycontrol.controllerActions.DirectionalMoveAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
+import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
 import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
-
+import java.util.ArrayList;
 import java.util.Map;
 
 public class NpcEntityController extends EntityController {
@@ -18,7 +20,7 @@ public class NpcEntityController extends EntityController {
 
     public NpcEntityController(Entity entity, Equipment equipment, Coordinate entityLocation, AI AggroAi, AI nonAggroAi,
                                boolean isAggro) {
-        super(entity, equipment, entityLocation, entity.getControllerActions());
+        super(entity, equipment, entityLocation, new ArrayList<>());
         this.aggroAi = AggroAi;
         this.nonAggroAi = nonAggroAi;
         if(isAggro) {
@@ -27,6 +29,12 @@ public class NpcEntityController extends EntityController {
             activeAi = nonAggroAi;
         }
         updateActeeInteractions();
+
+        for(Direction d : Direction.values())
+        {
+            if(d != Direction.NULL)
+                addAction(new DirectionalMoveAction(entity, d));
+        }
 
     }
 

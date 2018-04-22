@@ -98,6 +98,11 @@ public abstract class EntityController implements Visitable{
 
     }
 
+    public void addAction(ControllerAction action) {
+        actions.add(action);
+    }
+
+
     public final void notifyMount(Vehicle mount){
         if(!inVehicle){
             inVehicle = true;

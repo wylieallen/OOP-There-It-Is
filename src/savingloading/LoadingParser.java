@@ -115,7 +115,6 @@ public class LoadingParser {
         player.setController(controller);
         List<ControllerAction> controllerActions = loadControllerActions(playerJson.getString("Name"), player, controller, equipment);
         controller.setControllerActions(controllerActions);
-        player.setControllerActions(controllerActions);
         Displayable displayable = loadDisplayable(playerJson.getString("Name"));
         spriteMap.put(player, displayable);
     }
@@ -175,7 +174,6 @@ public class LoadingParser {
         entity.setController(controller);
         List<ControllerAction> controllerActions = loadControllerActions(entityJson.getString("Name"), entity, controller, equipment);
         controller.setControllerActions(controllerActions);
-        entity.setControllerActions(controllerActions);
         Displayable displayable = loadDisplayable(entityJson.getString("Name"));
         spriteMap.put(entity, displayable);
         return entity;
@@ -545,7 +543,7 @@ public class LoadingParser {
                             itemJson.getLong("ExpansionInterval"),
                             itemJson.getLong("UpdateInterval"),
                             loadInfluenceType(itemJson.getString("InfluenceType")),
-                            loadSkillCommand(itemJson.getJSONObject("Command")));
+                            loadSkillCommand(itemJson.getJSONObject("SkillCommand")));
 
     }
 
@@ -562,7 +560,10 @@ public class LoadingParser {
     }
 
     private WearableItem loadWearableItem(JSONObject itemJson) {
-        return new WearableItem(itemJson.getString("Name"), itemJson.getBoolean("OnMap"),
+        if (itemJson.getString("Name").equals("NONE"))
+            return WearableItem.NONE;
+        else
+            return new WearableItem(itemJson.getString("Name"), itemJson.getBoolean("OnMap"),
                 loadReversibleCommand(itemJson.getJSONObject("ReversableCommand")), loadEquipType(itemJson.getString("EquipType")));
     }
 
@@ -592,7 +593,9 @@ public class LoadingParser {
     }
 
     private SkillCommand loadSkillCommand(JSONObject commandJson) {
-        return null;
+        return new SkillCommand(loadSkillType(commandJson.getString("SkillType")), commandJson.getInt("Level"),
+                commandJson.getInt("Effectiveness"), loadCommand(commandJson.getJSONObject("SuccessCommand")),
+                loadCommand(commandJson.getJSONObject("FailureCommand")));
     }
 
     private PickPocketCommand loadPickPocketCommand(JSONObject commandJson) {
@@ -715,28 +718,60 @@ public class LoadingParser {
     }
 
     private Displayable loadDisplayable(String name) {
-        if (name.equals("Smasher"))
-            return ImageMaker.makeSmasherEntityDisplayable();
-        else if (name.equals("Summoner"))
-            return ImageMaker.makeSummonerEntityDisplayable();
-        else if (name.equals("Sneak"))
-            return ImageMaker.makeSneakEntityDisplayable();
-        else if (name.equals("ShopKeep"))
-            return ImageMaker.makeShopKeepDisplayable();
-        else if (name.equals("Grass"))
-            return ImageMaker.makeGrassDisplayable();
-        else if (name.equals("Water"))
-            return ImageMaker.makeWaterDisplayable();
-        else if (name.equals("Mountain"))
-            return ImageMaker.makeMountainDisplayable();
-        else if (name.equals("Teleporter"))
-            return ImageMaker.makeTeleporterDisplayable();
-        else if (name.equals("Vehicle"))
-            return ImageMaker.makeVehicleDisplayable();
-        ///... TODO: add more for each new game object
-        else{
-            System.out.println("No Displayable for GameObject type -- " + name);
-            return ImageMaker.getNullDisplayable();
+        switch(name) {
+            // entities
+            case "Smasher":
+                return ImageMaker.makeSmasherEntityDisplayable();
+            case "Summoner":
+                return ImageMaker.makeSummonerEntityDisplayable();
+            case "Sneak":
+                return ImageMaker.makeSneakEntityDisplayable();
+            case "ShopKeep":
+                return ImageMaker.makeShopKeepDisplayable();
+            case "Vehicle":
+                return ImageMaker.makeVehicleDisplayable();
+                // terrains
+            case "Grass":
+                return ImageMaker.makeGrassDisplayable();
+            case "Water":
+                return ImageMaker.makeWaterDisplayable();
+            case "Mountain":
+                return ImageMaker.makeMountainDisplayable();
+                // items
+            case "Encounter1":
+                return ImageMaker.makeEncounterDisplayable1();
+            case "Encounter2":
+                return ImageMaker.makeEncounterDisplayable2();
+            case "Teleporter":
+                return ImageMaker.makeTeleporterDisplayable();
+            case "Consumable1":
+                return ImageMaker.makeConsumableDisplayable1();
+            case "Consumable2":
+                return ImageMaker.makeConsumableDisplayable2();
+            case "Consumable3":
+                return ImageMaker.makeConsumableDisplayable3();
+            case "Brawling":
+                return ImageMaker.makeBrawlingWeaponDisplayable();
+            case "Gadget1":
+                return ImageMaker.makeGadgetDisplayable1();
+            case "Gadget2":
+                return ImageMaker.makeGadgetDisplayable2();
+            case "Gadget3":
+                return ImageMaker.makeGadgetDisplayable3();
+            case "Gadget4":
+                return ImageMaker.makeGadgetDisplayable4();
+            case "Gadget5":
+                return ImageMaker.makeGadgetDisplayable5();
+            case "LaserSword":
+                return ImageMaker.makeLaserSwordDisplayable();
+            case "RangedWeapon":
+                return ImageMaker.makeRangedWeaponDisplayable();
+            case "TwoHandedWeapon":
+                return ImageMaker.makeTwoHandedWeaponDisplayable();
+                ///... TODO: add more for each new game object
+            default:
+                System.out.println("No Displayable for GameObject type -- " + name);
+                return ImageMaker.getNullDisplayable();
         }
     }
 

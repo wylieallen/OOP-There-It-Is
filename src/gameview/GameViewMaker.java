@@ -1,5 +1,7 @@
 package gameview;
 
+import commands.Command;
+import commands.EnrageCommand;
 import commands.ModifyHealthCommand;
 import commands.TransitionCommand;
 import commands.skillcommands.SkillCommand;
@@ -16,6 +18,8 @@ import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
 import items.InteractiveItem;
+import items.Item;
+import items.OneshotItem;
 import items.takeableitems.QuestItem;
 import items.takeableitems.WeaponItem;
 import maps.Influence.InfluenceType;
@@ -178,6 +182,8 @@ public class GameViewMaker
         spriteMap.put(localWorld1Exit, ImageMaker.makeTeleporterDisplayable());
         localWorldsList.get(0).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exit);
 
+        localWorld.getTile(new Coordinate(4, 4)).addEI(new QuestItem("Thingy", true, 0));
+
         return new GameDisplayState(panel.getSize(), game, spriteMap, worldDisplayableMap, overworld);
     }
 
@@ -201,7 +207,7 @@ public class GameViewMaker
     private Entity createNPC (Coordinate loc, Entity aggroTarget, boolean isHostile) {
 
         Map <SkillType, Integer> skills = new HashMap<>();
-        skills.put(SkillType.TWOHANDEDWEAPON, 100);
+        skills.put(SkillType.TWOHANDEDWEAPON, 1);
 
         Set <Terrain> compatible = new HashSet<>();
         compatible.add(Terrain.GRASS);
@@ -226,9 +232,22 @@ public class GameViewMaker
 
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
 
+        // add a few items to tiles
+        List<Item> items = new ArrayList<>();
+        items.add(new OneshotItem("Consumable1", new ModifyHealthCommand(20), false));
+        items.add(new QuestItem("Quest", true, 1));
+        items.add(new WeaponItem("TwoHandedWeapon", true, 20, 20,
+        SkillType.TWOHANDEDWEAPON, 5, 1,
+        1, InfluenceType.LINEARINFLUENCE, new SkillCommand(SkillType.TWOHANDEDWEAPON, 1, 70,
+                new ModifyHealthCommand(-20), new EnrageCommand())));
+
         for(int x = -10; x <= 10; ++x) {
             for(int z = -10; z <= 10; ++z) {
-                tiles.put(new Coordinate(x, z), new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>()));
+                LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
+                if (x>=0 && x<items.size()){
+                    tile.addEI(items.get(x));
+                }
+                tiles.put(new Coordinate(x, z), tile);
             }
         }
 
@@ -239,15 +258,17 @@ public class GameViewMaker
         Entity npc = createNPC (npcLoc, player, true);
         npc.addCompatibleTerrain(Terrain.SPACE);
 
-        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, 5, 10, new ModifyHealthCommand(-2), new ModifyHealthCommand(2));
-        WeaponItem w = new WeaponItem ("Bob", false, 3, 1, SkillType.TWOHANDEDWEAPON, 5, 1, 1, InfluenceType.CIRCULARINFLUENCE, skill);
+        SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, npc.getSkillLevel(SkillType.TWOHANDEDWEAPON), -10, new ModifyHealthCommand(), null);
+        WeaponItem w = new WeaponItem ("Bob", false, 0, 5000, SkillType.TWOHANDEDWEAPON, 2, 1, 1, InfluenceType.LINEARINFLUENCE, skill);
         npc.getController().getEquipment().add(w);
         //must add overworld as observer
         w.registerObserver(world);
 
         world.getTile(npcLoc).setEntity(npc);
-
         spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
+
+
+
 
         return world;
     }

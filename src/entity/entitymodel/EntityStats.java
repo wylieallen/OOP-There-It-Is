@@ -45,7 +45,7 @@ public class EntityStats implements Visitable {
 
     public EntityStats()
     {
-        this(new HashMap<>(), 1, 10, 10, 10, 10, 1,
+        this(new HashMap<>(), 1, 100, 100, 100, 100, 1,
                 10, 0, 1, 1, 100, false, false, defaultCompatibleTerrains);
     }
 
@@ -269,7 +269,7 @@ public class EntityStats implements Visitable {
         if(moveSpeed == 0)
             return false;
 
-        if(Game.getCurrentTime() - lastMoveTime > (1000.0 / moveSpeed)) {
+        if(Game.getCurrentTime() - lastMoveTime >= (int)(1000.0 / moveSpeed)) {
             lastMoveTime = Game.getCurrentTime();
             return true;
         }

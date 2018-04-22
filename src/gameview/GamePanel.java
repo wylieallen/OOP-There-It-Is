@@ -143,6 +143,7 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor, 
         resetCamera();
 
         this.requestFocus();
+
     }
 
     @Override

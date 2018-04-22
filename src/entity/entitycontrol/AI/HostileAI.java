@@ -40,7 +40,7 @@ public class HostileAI extends AI {
         }
 
         if (targetIsNeghbor (location)) {
-            e.setFacing(location.direction(targetsLastPosition));
+            e.setFacing(location.direction(targetPosition));
             e.setMoving();
 
             e.getController().useWeapon(0);

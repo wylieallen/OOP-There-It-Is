@@ -36,10 +36,19 @@ public class SkillCommand implements Visitable {
         boolean success = getSkillType().checkSuccess(e.getSkillLevel(getSkillType()), distance);
         int adjustedEffectiveness = getSkillType().calculateModification(effectiveness, distance, level);
 
-        if(success && successCommand != null) {
-            successCommand.trigger(e, adjustedEffectiveness);
-        } else if(failureCommand != null) {
-            failureCommand.trigger(e, adjustedEffectiveness);
+        if(success)
+        {
+            //System.out.println("Success!");
+            if(successCommand != null)
+            {
+                successCommand.trigger(e, adjustedEffectiveness);
+            }
+        } else {
+            //System.out.println("Failure!");
+            if(failureCommand != null)
+            {
+                failureCommand.trigger(e, adjustedEffectiveness);
+            }
         }
     }
 
