@@ -81,6 +81,14 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
         }
     }
 
+    public boolean makesExpandingArea(){
+        return makesExpandingArea;
+    }
+
+    public long getDuration(){
+        return duration;
+    }
+
     @Override
     public void notifyAllOfSpawn (InfluenceArea IA){
         for(SpawnObserver so: spawnObservers) {

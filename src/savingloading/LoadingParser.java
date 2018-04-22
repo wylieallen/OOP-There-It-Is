@@ -544,7 +544,7 @@ public class LoadingParser {
                             itemJson.getInt("MaxRadius"),
                             itemJson.getLong("ExpansionInterval"),
                             itemJson.getLong("UpdateInterval"),
-                            itemJson.getLong("Duration"),
+                            itemJson.getLong("duration"),
                             loadInfluenceType(itemJson.getString("InfluenceType")),
                             loadSkillCommand(itemJson.getJSONObject("SkillCommand")),
                             itemJson.getBoolean("makesExpandingArea"));
