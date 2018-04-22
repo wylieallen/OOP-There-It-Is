@@ -272,6 +272,14 @@ public class EntityStats implements Visitable {
         return false;
     }
 
+    public boolean tryToUseStamina(int staminaCost){
+        if(getCurMana() >= staminaCost){
+            setCurMana(getCurMana() - staminaCost);
+            return true;
+        }
+        return false;
+    }
+
     public boolean tryToMove(double moveSpeed) {
         if(moveSpeed == 0)
             return false;

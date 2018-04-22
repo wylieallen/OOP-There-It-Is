@@ -410,6 +410,10 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         return stats.tryToAttack(attackSpeed, staminaCost);
     }
 
+    public boolean tryToUseStamina(int staminaCost){
+        return stats.tryToUseStamina(staminaCost);
+    }
+
     public boolean tryToMove(double moveSpeed) {
         return stats.tryToMove(moveSpeed);
     }
