@@ -3,11 +3,16 @@ package entitymodel;
 import commands.TimedEffect;
 import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
+import entity.entitycontrol.EntityController;
+import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
+import entity.entitycontrol.controllerActions.DismountAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
+import entity.entitymodel.Equipment;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.*;
+import entity.vehicle.Vehicle;
 import items.takeableitems.QuestItem;
 import items.takeableitems.TakeableItem;
 import maps.tile.Direction;
@@ -15,6 +20,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import skills.SkillType;
+import utilities.Coordinate;
 import utilities.Vector;
 
 import java.util.ArrayList;
@@ -29,6 +35,7 @@ public class InteractionTests {
 
     private static Entity actor;
     private static Entity actee;
+    private static Vehicle vehicle;
     private static List<TakeableItem> actorItems;
     private static List<TakeableItem> acteeItems;
 
@@ -52,7 +59,13 @@ public class InteractionTests {
         EntityStats acteeStats = new EntityStats(skillsActee, 1001, 120, 45, 120, 43, 5, 23, 8, 6, 69, 100, false, false, new HashSet<>());
 
         //TODO: once concrete ControllerActions are made test this;
+
+        ArrayList<ControllerAction> actorActions = new ArrayList<>();
+
+        ArrayList<ControllerAction> acteeActions = new ArrayList<>();
+
         ArrayList<TimedEffect> actorEffects = new ArrayList<>();
+
         ArrayList<TimedEffect> acteeEffects = new ArrayList<>();
 
         actorEffects.add(new TimedEffect(new MakeConfusedCommand(false), 10, 0));
@@ -69,95 +82,28 @@ public class InteractionTests {
         acteeActeeInteractions.add(new TradeInteraction());
         acteeActeeInteractions.add(new UseItemInteraction());
 
-        //TODO: add constructors when it needs to be tested;
-        /*EntityController actorController = new EntityController(actor, null, null, null) {
-            @Override
-            protected void processController() {
-
-            }
-
-            @Override
-            public void interact(EntityController interacter) {
-
-            }
-
-            @Override
-            public void notifyFreeMove(Entity e) {
-
-            }
-
-            @Override
-            public void notifyInventoryManagment(Entity e) {
-
-            }
-
-            @Override
-            public void notifyInteraction(Entity player, Entity interactee) {
-
-            }
-
-            @Override
-            public void notifyShopping(Entity trader1, Entity trader2) {
-
-            }
-
-            @Override
-            public void notifyLevelUp(Entity e) {
-                System.out.println("My Entity Leveled Up: " + e.getCurLevel());
-            }
-
-            @Override
-            public void notifyMainMenu(Entity e) {
-
-            }
-        };
-        EntityController acteeController = new EntityController(actee, null, null, null) {
-            @Override
-            protected void processController() {
-
-            }
-
-            @Override
-            public void interact(EntityController interacter) {
-
-            }
-
-            @Override
-            public void notifyFreeMove(Entity e) {
-
-            }
-
-            @Override
-            public void notifyInventoryManagment(Entity e) {
-
-            }
-
-            @Override
-            public void notifyInteraction(Entity player, Entity interactee) {
-
-            }
-
-            @Override
-            public void notifyShopping(Entity trader1, Entity trader2) {
-
-            }
-
-            @Override
-            public void notifyLevelUp(Entity e) {
-
-            }
-
-            @Override
-            public void notifyMainMenu(Entity e) {
-
-            }
-        };*/
-
         Inventory actorInventory = new Inventory(actorItems);
         Inventory acteeInventory = new Inventory(acteeItems);
 
+        Equipment actorEquipment = new Equipment(5, actorInventory, actor);
+
         actor = new Entity(new Vector(Direction.N, 0), actorStats, actorEffects, actorActorInteractions, actorInventory, true);
         actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeEffects, acteeActorInteractions, acteeInventory, true);
+        vehicle = new Vehicle(new Vector(Direction.N, 0), acteeStats, acteeEffects, acteeActorInteractions, acteeInventory, true);
+
+        EntityController actorController = new HumanEntityController(actor, actorEquipment, new Coordinate(0, 0), null);
+        actorController.setControllerActions(actorActions);
+
+        actor.setController(actorController);
+
+        EntityController vehicleController = new HumanEntityController(vehicle, new Equipment(5, acteeInventory, vehicle), new Coordinate(0, 0),  null);
+        vehicleController.setControllerActions(acteeActions);
+
+        actee.setController(vehicleController);
+        vehicle.setController(vehicleController);
+
+        actorActions.add(new DismountAction(actorController));
+
 
     }
 
@@ -214,8 +160,22 @@ public class InteractionTests {
 
     // mount interaction test //
 
-    // TODO: make mount test, still needs somethings from entity controller and view to be done.
+    // TODO: make mount test
 
+    @Test
+    public void mountInteractionTest () {
+        EntityController controller = actor.getController();
+
+        MountInteraction mounting = new MountInteraction();
+
+        Assert.assertFalse(controller.isInVehicle());
+        Assert.assertFalse(vehicle.hasDriver());
+
+        mounting.interact(actor, vehicle);
+
+        Assert.assertTrue(controller.isInVehicle());
+        Assert.assertTrue(vehicle.hasDriver());
+    }
 
 
 
@@ -232,5 +192,13 @@ public class InteractionTests {
     // talk interaction test //
 
     // TODO: make talk test, still need view things and what has the messages.
+
+
+
+
+
+    // useItem interaction test //
+
+    // TODO: make useItem test.
 
 }

@@ -143,6 +143,16 @@ public abstract class Tile implements GameObjectContainer, Visitable {
         }
     }
 
+    public boolean placeEntityOnNeighbor (Entity e) {
+        for (Tile t : neighbors.values()) {
+            if (!t.hasEntity() && isMoveLegal(e)) {
+                t.setEntity(e);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Terrain getTerrain() {
         return terrain;
     }

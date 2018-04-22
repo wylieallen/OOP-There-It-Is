@@ -43,6 +43,7 @@ public class ControllerActionFactory {
         }
         actions.add(new MoveAction(entity));
         actions.add(new ObserveAction(entity));
+        actions.add(new DismountAction(controlledEntityController));
         return actions;
     }
 

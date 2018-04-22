@@ -1,29 +1,31 @@
 package entity.entitymodel.interactions;
 
 import entity.entitymodel.Entity;
-
-import entity.entitymodel.interactions.EntityInteraction;
 import savingloading.Visitor;
 
-import java.util.Set;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by dontf on 4/13/2018.
  */
 public class TalkInteraction implements EntityInteraction {
 
-    private Set<String> messages;
+    private List<String> messages;
+    private Random random;
 
-    public TalkInteraction(Set<String> messages) {
+    public TalkInteraction(List<String> messages) {
+        random = new Random();
         this.messages = messages;
     }
 
     @Override
     public boolean interact(Entity actor, Entity actee) {
-        return false;
+        actor.getController().notifyAllObservers(messages.get(random.nextInt(messages.size())));
+        return true;
     }
 
-    public Set<String> getMessages() {
+    public List<String> getMessages() {
         return messages;
     }
 
@@ -31,4 +33,6 @@ public class TalkInteraction implements EntityInteraction {
     public void accept(Visitor v) {
         v.visitTalkInteraction(this);
     }
+
+
 }

@@ -5,7 +5,6 @@ import commands.reversiblecommands.MakeConfusedCommand;
 import commands.reversiblecommands.MakeParalyzedCommand;
 import commands.reversiblecommands.ReversibleCommand;
 import commands.reversiblecommands.TimedStaminaRegenCommand;
-import commands.PickPocketCommand;
 import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.*;
 import entity.entitycontrol.EntityController;
@@ -17,11 +16,11 @@ import entity.entitymodel.*;
 import entity.entitymodel.interactions.*;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
+import gameview.GameDisplayState;
 import gameview.GamePanel;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
-import guiframework.displayable.ImageDisplayable;
 import items.InteractiveItem;
 import items.Item;
 import items.OneshotItem;
@@ -37,25 +36,25 @@ import maps.tile.LocalWorldTile;
 import maps.tile.OverWorldTile;
 import maps.trajectorymodifier.River;
 import maps.trajectorymodifier.TrajectoryModifier;
-import maps.world.*;
-import gameview.GameDisplayState;
-import org.json.*;
+import maps.world.Game;
+import maps.world.LocalWorld;
+import maps.world.OverWorld;
+import maps.world.World;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import skills.SkillType;
 import spawning.SpawnObservable;
-import spawning.SpawnObserver;
 import utilities.Coordinate;
 import utilities.Vector;
 
 import java.awt.*;
-import java.awt.geom.Dimension2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.List;
+import java.util.Queue;
 
-import static maps.movelegalitychecker.Terrain.GRASS;
-import static maps.movelegalitychecker.Terrain.MOUNTAIN;
-import static maps.movelegalitychecker.Terrain.WATER;
+import static maps.movelegalitychecker.Terrain.*;
 import static skills.SkillType.*;
 
 /**
@@ -78,6 +77,7 @@ public class LoadingParser {
     private Map<String,World> worldIdMappings = new HashMap<>();
     private List<TransitionCommandHolder> transitionCommands = new ArrayList<>();
     private Queue<SpawnObservable> spawnObservables = new ArrayDeque<>();
+    private Map<SpawnObservable, Displayable> spawnerMap = new HashMap<>();
 
     public void loadGame (String saveFileName, GamePanel gamePanel) throws FileNotFoundException {
         loadFileToJson(saveFileName);
@@ -90,7 +90,7 @@ public class LoadingParser {
         // must do this after game is made
         setTransitionCommands();
 
-        gameDisplay = new GameDisplayState(gamePanel.getSize(), game, spriteMap, worldDisplayableMap, overWorld);
+        gameDisplay = new GameDisplayState(gamePanel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overWorld);
     }
 
     private void loadFileToJson(String saveFileName) throws FileNotFoundException {
@@ -416,7 +416,7 @@ public class LoadingParser {
                 actorInteractions.add(new PickPocketInteraction());
             else if (((JSONObject) interactionJson).get("Name").equals("TalkInteraction")) {
                 JSONArray messagesJson = ((JSONObject) interactionJson).getJSONArray("Messages");
-                Set<String> messages = new HashSet<>();
+                List<String> messages = new ArrayList<>();
                 for (Object message : messagesJson){
                     messages.add((String) message);
                 }
@@ -453,6 +453,8 @@ public class LoadingParser {
             WeaponItem item = loadWeaponItem(itemJson);
             weaponItems.add(item);
             spawnObservables.add(item);
+            Displayable spawningThingDisplayable = loadDisplayable(itemJson.getString("Name") +"-Spawn");
+            spawnerMap.put(item, spawningThingDisplayable);
         }
         Iterator<String> equipSlotStrings = wearableItemsJson.keys();
         while(equipSlotStrings.hasNext()) {
@@ -570,9 +572,11 @@ public class LoadingParser {
     }
 
     private Command loadCommand(JSONObject commandJson) {
-        if (commandJson.getString("Name").equals("Transition"))
+        if (commandJson.getString("Name").equals("Null"))
+            return null;
+        else if (commandJson.getString("Name").equals("Transition"))
             return loadTransitionCommand(commandJson);
-        if (commandJson.getString("Name").equals("Confuse"))
+        else if (commandJson.getString("Name").equals("Confuse"))
             return loadConfuseCommand(commandJson);
         else if (commandJson.getString("Name").equals("Enrage"))
             return loadEnrageCommand(commandJson);
@@ -595,9 +599,13 @@ public class LoadingParser {
     }
 
     private SkillCommand loadSkillCommand(JSONObject commandJson) {
+        Command failureCommand = null;
+        if(commandJson.has("FailureCommand")){
+            failureCommand = loadCommand(commandJson.getJSONObject("FailureCommand"));
+        }
         return new SkillCommand(loadSkillType(commandJson.getString("SkillType")), commandJson.getInt("Level"),
                 commandJson.getInt("Effectiveness"), loadCommand(commandJson.getJSONObject("SuccessCommand")),
-                loadCommand(commandJson.getJSONObject("FailureCommand")));
+                failureCommand);
     }
 
     private PickPocketCommand loadPickPocketCommand(JSONObject commandJson) {
@@ -770,6 +778,8 @@ public class LoadingParser {
                 return ImageMaker.makeRangedWeaponDisplayable();
             case "TwoHandedWeapon":
                 return ImageMaker.makeTwoHandedWeaponDisplayable();
+            case "RangedWeapon-Spawn": // format for spawning Displayables: "GameObject's name" + "-Spawn"
+//                return ImageMaker.makeTwoHandedWeaponSpawnDisplayable();
                 ///... TODO: add more for each new game object
             default:
                 System.out.println("No Displayable for GameObject type -- " + name);

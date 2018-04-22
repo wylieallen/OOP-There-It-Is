@@ -1,7 +1,6 @@
 package entity.entitycontrol.controllerActions;
 
 import entity.entitycontrol.EntityController;
-import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 
 public class AttackAction extends ControllerAction {
