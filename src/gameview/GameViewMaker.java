@@ -8,6 +8,7 @@ import entity.entitycontrol.AI.PetAI;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
+import entity.entitycontrol.controllerActions.DismountAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Equipment;
@@ -138,7 +139,7 @@ public class GameViewMaker
         */
 
         Entity player = new Entity();
-        player.increaseBaseMoveSpeed(3);
+        player.increaseBaseMoveSpeed(1);
         player.addCompatibleTerrain(Terrain.SPACE);
         player.setMovementObserver(panel);
         player.addToInventory(new QuestItem("Radio", false, 0));
@@ -186,6 +187,8 @@ public class GameViewMaker
         game = new Game(overworld, overworld, localWorldsList, 0, player);
         game.setTransitionObserver(panel);
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), panel));
+
+        player.getController().addAction(new DismountAction(player.getController()));
 
         //setup world transitions
         //local world 1

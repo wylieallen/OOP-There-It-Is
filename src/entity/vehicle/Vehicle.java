@@ -6,11 +6,13 @@ import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
 import entity.entitymodel.interactions.MountInteraction;
+import items.takeableitems.TakeableItem;
 import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
 import utilities.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,10 +54,19 @@ public class Vehicle extends Entity {
             setDriver(actor);
             actor.setMount (this);
             // after mounting you interact with mount, maybe use item?
-            return super.interact(actor);
+            return new ArrayList<>();
         }
 
         return driver.interact(actor);
+    }
+
+    @Override
+    public boolean addToInventory (TakeableItem item) {
+        if (hasDriver()) {
+            return driver.addToInventory(item);
+        } else {
+            return super.addToInventory(item);
+        }
     }
 
     @Override
@@ -65,6 +76,7 @@ public class Vehicle extends Entity {
             if (driver.isOnMap()) {
                 driver = null;
             }
+            driver.update(map);
         }
 
         super.update(map);
@@ -82,17 +94,24 @@ public class Vehicle extends Entity {
 
     @Override
     public Vector getMovementVector () {
-
+        Vector v;
         if (hasDriver()) {
-            Vector v = new Vector(driver.getMovementDirection(), driver.getBaseMoveSpeed());
+            v = driver.getMovementVector();
 
             if (v.isZeroVector()) {
                 return v;
             } else {
-                return new Vector(driver.getMovementDirection(), driver.getBaseMoveSpeed() + getBaseMoveSpeed());
+                super.setFacing(driver.getFacing());
+                super.setMoving();
+                v = super.getMovementVector();
+                super.resetMovementVector();
+                driver.resetMovementVector();
+                return v;
             }
         } else {
-            return super.getMovementVector();
+            v = super.getMovementVector();
+            super.resetMovementVector();
+            return v;
         }
 
     }

@@ -21,6 +21,7 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor, 
     private int attackKeyCode = KeyEvent.VK_SPACE;
     private int bindWoundsKeyCode = KeyEvent.VK_B;
     private int creepKeyCode = KeyEvent.VK_CONTROL;
+    private int dismountKeyCode = KeyEvent.VK_EQUALS;
 
     private Map<Direction, Integer> directionalMoveKeyCodes;
     private Map<Direction, Integer> altDirectionalMoveKeyCodes;
@@ -61,7 +62,6 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor, 
         altDirectionalMoveKeyCodes.put(Direction.S, KeyEvent.VK_DOWN);
         altDirectionalMoveKeyCodes.put(Direction.SE, KeyEvent.VK_RIGHT);
         altDirectionalMoveKeyCodes.put(Direction.SW, KeyEvent.VK_LEFT);
-
 
         super.addMouseWheelListener(e -> {
             double clicks = e.getPreciseWheelRotation();
@@ -251,6 +251,15 @@ public class GamePanel extends DisplayPanel implements ControllerActionVisitor, 
     }
 
     public void visitDismountAction (DismountAction a) {
-        // TODO : fill out.
+        addKeyListener(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == dismountKeyCode)
+                {
+                    a.activate();
+                }
+            }
+        });
     }
 }

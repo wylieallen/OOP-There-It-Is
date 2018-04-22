@@ -121,7 +121,8 @@ public abstract class EntityController implements Visitable, DialogObservable{
             dismounting = true;
         }
         else{
-            throw new java.lang.RuntimeException("EntityController::notifyDismount() : The controlled entity cannot dismount because it is not currently in a vehicle");
+            System.out.println("You Cannot Dismount Yourself!");
+            //throw new java.lang.RuntimeException("EntityController::notifyDismount() : The controlled entity cannot dismount because it is not currently in a vehicle");
         }
     }
 
