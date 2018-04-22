@@ -9,6 +9,7 @@ import maps.tile.Direction;
 import maps.tile.OverWorldTile;
 import maps.tile.Tile;
 import savingloading.Visitor;
+import spawning.SpawnObservable;
 import utilities.Coordinate;
 
 import java.util.*;
@@ -112,7 +113,7 @@ public class OverWorld implements World {
 
     //throw away spawn events
     @Override
-    public void notifySpawn(InfluenceArea IA, GameObject spawner) {
+    public void notifySpawn(InfluenceArea IA, SpawnObservable spawner) {
     }
 
     @Override

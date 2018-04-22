@@ -9,6 +9,7 @@ import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
 import maps.tile.Tile;
 import savingloading.Visitor;
+import spawning.SpawnObservable;
 import utilities.Coordinate;
 
 import java.util.*;
@@ -38,7 +39,7 @@ public class LocalWorld implements World {
     }
 
     @Override
-    public void notifySpawn(InfluenceArea IA, GameObject spawner) {
+    public void notifySpawn(InfluenceArea IA, SpawnObservable spawner) {
         influenceAreas.add(IA);
     }
 
@@ -50,6 +51,7 @@ public class LocalWorld implements World {
     }
 
     private void updatePhase() {
+        influenceAreas.removeIf((InfluenceArea ia) -> ia.isExpired());
         for(InfluenceArea IA: influenceAreas) {
             IA.update(tiles);
         }

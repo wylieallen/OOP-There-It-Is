@@ -6,6 +6,7 @@ import gameobject.GameObjectContainer;
 import maps.Influence.InfluenceArea;
 import maps.tile.Tile;
 import savingloading.Visitor;
+import spawning.SpawnObservable;
 import utilities.Coordinate;
 
 import java.util.HashMap;
@@ -87,7 +88,7 @@ public class FoggyWorld implements World {
 
 
     @Override
-    public void notifySpawn(InfluenceArea IA, GameObject spawner) {
+    public void notifySpawn(InfluenceArea IA, SpawnObservable spawner) {
         world.notifySpawn(IA, spawner);
     }
 

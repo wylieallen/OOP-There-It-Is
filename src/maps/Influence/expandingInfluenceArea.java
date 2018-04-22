@@ -49,6 +49,7 @@ public class expandingInfluenceArea implements InfluenceArea {
     @Override
     public void update(Map<Coordinate, LocalWorldTile> tilesMap) {
         if(!isExpired && Game.getCurrentTime() - lastExpansionTime >= expansionInterval){
+            lastExpansionTime = Game.getCurrentTime();
             currentRadius++;
             if(currentRadius>maxRadius){
                 isExpired = true;

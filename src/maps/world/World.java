@@ -6,6 +6,7 @@ import gameobject.GameObjectContainer;
 import maps.Influence.InfluenceArea;
 import maps.tile.Tile;
 import savingloading.Visitable;
+import spawning.SpawnObservable;
 import spawning.SpawnObserver;
 import utilities.Coordinate;
 
@@ -24,6 +25,6 @@ public interface World extends SpawnObserver, Visitable {
     Map <Coordinate, Tile> getTileMap ();
     Tile getTileForEntity (Entity e);
     Coordinate getEntityCoordinate(Entity e);
-    void notifySpawn(InfluenceArea IA, GameObject spawner);
+    void notifySpawn(InfluenceArea IA, SpawnObservable spawner);
     Tile getTileForCoordinate(Coordinate c);
 }
