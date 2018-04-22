@@ -1,16 +1,18 @@
 package entity.vehicle;
 
 import commands.TimedEffect;
-import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
+import entity.entitymodel.interactions.MountInteraction;
+import items.takeableitems.TakeableItem;
 import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
 import utilities.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -48,21 +50,34 @@ public class Vehicle extends Entity {
 
     @Override
     public List <EntityInteraction> interact (Entity actor) {
-
         if (!hasDriver()) {
             setDriver(actor);
             actor.setMount (this);
             // after mounting you interact with mount, maybe use item?
-            return super.interact(actor);
+            return new ArrayList<>();
         }
 
-        return driver.interact(actor);
+        actor.getController().notifyInteraction(actor, driver);
+        return new ArrayList<>();
+    }
+
+    @Override
+    public boolean addToInventory (TakeableItem item) {
+        if (hasDriver()) {
+            return driver.addToInventory(item);
+        } else {
+            return super.addToInventory(item);
+        }
     }
 
     @Override
     public void update(Map<Coordinate, Tile> map) {
-        if (driver.isOnMap()) {
-            driver = null;
+
+        if (driver != null) {
+            if (driver.isOnMap()) {
+                driver = null;
+            }
+            driver.update(map);
         }
 
         super.update(map);
@@ -77,6 +92,37 @@ public class Vehicle extends Entity {
     }
 
     public boolean hasDriver () { return driver != null; }
+
+    @Override
+    public Vector getMovementVector () {
+        Vector v;
+        if (hasDriver()) {
+            v = driver.getMovementVector();
+
+            if (v.isZeroVector()) {
+                return v;
+            } else {
+                super.setFacing(driver.getFacing());
+                super.setMoving();
+                v = super.getMovementVector();
+                super.resetMovementVector();
+                driver.resetMovementVector();
+                return v;
+            }
+        } else {
+            v = super.getMovementVector();
+            super.resetMovementVector();
+            return v;
+        }
+
+    }
+
+    @Override
+    public boolean canMoveHere (Entity mover) {
+        MountInteraction mountingTime = new MountInteraction();
+        mountingTime.interact(mover, this);
+        return false;
+    }
 
     @Override
     public void accept(Visitor v) {

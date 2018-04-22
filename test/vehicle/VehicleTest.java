@@ -8,7 +8,6 @@ import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
-import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
@@ -27,7 +26,6 @@ import utilities.Vector;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 /**
  * Created by dontf on 4/15/2018.
@@ -76,102 +74,6 @@ public class VehicleTest {
         acteeActeeInteractions.add(trading);
         acteeActeeInteractions.add(new UseItemInteraction());
 
-        //TODO: add constructors when it needs to be tested;
-        /*EntityController actorController = new EntityController(actor, null, null, null) {
-            @Override
-            protected void processController() {
-
-            }
-
-            @Override
-            public void interact(EntityController interacter) {
-
-            }
-
-            @Override
-            public void notifyFreeMove(Entity e) {
-
-            }
-
-            @Override
-            public void notifyInventoryManagment(Entity e) {
-
-            }
-
-            @Override
-            public void notifyInteraction(Entity player, Entity interactee) {
-
-            }
-
-            @Override
-            public void notifyShopping(Entity trader1, Entity trader2) {
-
-            }
-
-            @Override
-            public void notifyLevelUp(Entity e) {
-                System.out.println("My Entity Leveled Up: " + e.getCurLevel());
-            }
-
-            @Override
-            public void notifyMainMenu(Entity e) {
-
-            }
-
-            @Override
-            public void pacify() {}
-
-            @Override
-            public void enrage(Entity e) {}
-        };
-        EntityController acteeController = new EntityController(yourMomNotMountedYet, null, null, null) {
-            @Override
-            protected void processController() {
-
-            }
-
-            @Override
-            public void interact(EntityController interacter) {
-
-            }
-
-            @Override
-            public void notifyFreeMove(Entity e) {
-
-            }
-
-            @Override
-            public void notifyInventoryManagment(Entity e) {
-
-            }
-
-            @Override
-            public void notifyInteraction(Entity player, Entity interactee) {
-
-            }
-
-            @Override
-            public void notifyShopping(Entity trader1, Entity trader2) {
-
-            }
-
-            @Override
-            public void notifyLevelUp(Entity e) {
-
-            }
-
-            @Override
-            public void notifyMainMenu(Entity e) {
-
-            }
-
-            @Override
-            public void pacify() {}
-
-            @Override
-            public void enrage(Entity e) {}
-        };*/
-
         actor = new Entity(new Vector(Direction.N, 1), actorStats, actorEffects, actorActorInteractions, new Inventory(), true);
         yourMomPreMounted = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeEffects, acteeActorInteractions, new Inventory(), true, actor);
         yourMomNotMountedYet = new Vehicle(new Vector(Direction.N, 1), acteeStats, acteeEffects, acteeActorInteractions, new Inventory(), true);
@@ -196,18 +98,16 @@ public class VehicleTest {
     @Test
     public void vehicleMountedSuccessfully () {
         Assert.assertFalse(yourMomNotMountedYet.hasDriver());
-        List<EntityInteraction> union = yourMomNotMountedYet.interact(actor);
+        yourMomNotMountedYet.interact(actor);
         Assert.assertFalse(actor.isOnMap());
         Assert.assertTrue(yourMomNotMountedYet.hasDriver());
-        Assert.assertTrue(union.contains(trading));
     }
 
     @Test
     public void vehicleMountedUnsuccessfully () {
-        List<EntityInteraction> union = yourMomPreMounted.interact(actor);
+        yourMomPreMounted.interact(actor);
         Assert.assertTrue(actor.isOnMap());
         Assert.assertTrue(yourMomPreMounted.hasDriver());
-        Assert.assertTrue(union.contains(picking));
     }
 
 }

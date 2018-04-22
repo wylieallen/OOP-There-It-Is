@@ -184,6 +184,7 @@ public class CommandsTests {
     public void testObservationCommand() {
         ObserveCommand command = new ObserveCommand(0);
 
+        command.setEntityController(caster.getController());
         command.trigger(target);
 
         command.trigger(target, 500);

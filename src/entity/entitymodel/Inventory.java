@@ -56,7 +56,9 @@ public class Inventory implements Visitable{
         Random rand = new Random();
 
         if (hasItems()) {
-            return items.get(rand.nextInt(items.size()));
+            TakeableItem item = items.get(rand.nextInt(items.size()));
+            items.remove(item);
+            return item;
         }
 
         return null;
@@ -64,9 +66,6 @@ public class Inventory implements Visitable{
 
     public TakeableItem pickPocket(){
         TakeableItem item = getRandomItem();
-        if(item != null) {
-            remove(item);
-        }
         return item;
     }
 

@@ -1,15 +1,20 @@
 package gameview;
 
+import commands.ModifyHealthCommand;
+import commands.TransitionCommand;
 import commands.*;
 import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.AI.PetAI;
+import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
+import entity.entitycontrol.controllerActions.DismountAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Equipment;
 import entity.entitymodel.Inventory;
+import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
@@ -18,7 +23,6 @@ import guiframework.displayable.ImageDisplayable;
 import items.InteractiveItem;
 import items.Item;
 import items.ItemFactory;
-import items.OneshotItem;
 import items.takeableitems.QuestItem;
 import items.takeableitems.WeaponItem;
 import maps.Influence.InfluenceType;
@@ -36,7 +40,6 @@ import maps.world.OverWorld;
 import maps.world.World;
 import skills.SkillType;
 import spawning.SpawnObservable;
-import spawning.SpawnObserver;
 import utilities.Coordinate;
 import utilities.Vector;
 
@@ -204,6 +207,8 @@ public class GameViewMaker
         game = new Game(overworld, overworld, localWorldsList, 0, player);
         game.setTransitionObserver(panel);
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, new Inventory(), player), game.getCoordinate(player), panel));
+
+        player.getController().addAction(new DismountAction(player.getController()));
 
         //setup world transitions
         //local world 1
@@ -442,6 +447,10 @@ public class GameViewMaker
             spriteMap.put(npc, ImageMaker.makeEntityDisplayable2(npc));
         }
 
+        Vehicle thingy = createVehicle (new Coordinate(-4, -4));
+        world.getTile(new Coordinate(-4, -4)).setEntity(thingy);
+        spriteMap.put(thingy, ImageMaker.makeVehicleDisplayable());
+
         return world;
     }
 
@@ -551,5 +560,15 @@ public class GameViewMaker
 
     public Game getGame(){
         return game;
+    }
+
+    private Vehicle createVehicle (Coordinate loc) {
+        Vehicle thingy = new Vehicle(new Vector(), new EntityStats(), new ArrayList<>(), new ArrayList<>(), new Inventory(), true, null);
+        thingy.increaseBaseMoveSpeed(1000);
+        Inventory i = new Inventory();
+        Equipment e = new Equipment(5, i , thingy);
+        EntityController vehicleController = new NpcEntityController(thingy, e, loc, null, null, false);
+        thingy.setController(vehicleController);
+        return thingy;
     }
 }

@@ -271,6 +271,10 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
 
     public TakeableItem getRandomItem () { return inventory.getRandomItem (); }
 
+    public void useItem (TakeableItem item) {
+        controller.useItem (item);
+    }
+
     public TakeableItem getItem (int index) { return inventory.select(index); }
 
     public TakeableItem pickPocket() {
@@ -304,6 +308,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     public void setMount (Vehicle mount) {
         setOnMap(false);
         controller.notifyMount(mount);
+        System.out.println("Mounted");
     }
 
     @Override   // assumes e is player.

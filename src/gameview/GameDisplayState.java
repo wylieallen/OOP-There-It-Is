@@ -135,6 +135,9 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
             playerInventory.add(new StringDisplayable(new Point(4, 64 + (numInventorySlots * 16) + (i * 16)), "Slot " + i + ": ", Color.BLACK, 1));
         }
         widgets.add(playerInventory);
+
+        DialogBoxDisplayable dialogueToPlayer = new DialogBoxDisplayable(new Point(1024, 16), player.getController());
+        widgets.add(dialogueToPlayer);
     }
 
 

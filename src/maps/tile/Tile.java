@@ -5,7 +5,6 @@ import gameobject.GameObject;
 import gameobject.GameObjectContainer;
 import maps.movelegalitychecker.MoveLegalityChecker;
 import maps.movelegalitychecker.Terrain;
-import maps.world.Game;
 import savingloading.Visitable;
 import utilities.Coordinate;
 import utilities.Vector;
@@ -53,6 +52,8 @@ public abstract class Tile implements GameObjectContainer, Visitable {
     public Collection<MoveLegalityChecker> getMoveLegalityCheckers() { return moveLegalityCheckers; }
 
     public void do_update(Map <Coordinate, Tile> map) {
+        if (hasEntity() && !entity.isOnMap())
+            entity = null;
         moveLegalityCheckers.removeIf(GameObject::expired);
         if(entity != null && entity.expired()) {
             entity = null;
@@ -145,7 +146,7 @@ public abstract class Tile implements GameObjectContainer, Visitable {
 
     public boolean placeEntityOnNeighbor (Entity e) {
         for (Tile t : neighbors.values()) {
-            if (!t.hasEntity() && isMoveLegal(e)) {
+            if (!t.hasEntity() && t.isMoveLegal(e)) {
                 t.setEntity(e);
                 return true;
             }

@@ -8,6 +8,7 @@ import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameview.displayable.widget.DialogObservable;
 import gameview.displayable.widget.DialogObserver;
+import items.takeableitems.TakeableItem;
 import maps.tile.Tile;
 import savingloading.Visitable;
 import spawning.SpawnObserver;
@@ -94,8 +95,8 @@ public abstract class EntityController implements Visitable, DialogObservable{
                 inVehicle = false;
                 mount.removeDriver();
                 mount = null;
-                dismounting = false;
             }
+            dismounting = false;
         }
 
     }
@@ -120,7 +121,8 @@ public abstract class EntityController implements Visitable, DialogObservable{
             dismounting = true;
         }
         else{
-            throw new java.lang.RuntimeException("EntityController::notifyDismount() : The controlled entity cannot dismount because it is not currently in a vehicle");
+            System.out.println("You Cannot Dismount Yourself!");
+            //throw new java.lang.RuntimeException("EntityController::notifyDismount() : The controlled entity cannot dismount because it is not currently in a vehicle");
         }
     }
 
@@ -134,6 +136,10 @@ public abstract class EntityController implements Visitable, DialogObservable{
 
     public void useWeapon (int index) {
         equipment.useWeaponItem(0, entityLocation);
+    }
+
+    public void useItem (TakeableItem item) {
+        item.activate(equipment);
     }
 
     public Coordinate getEntityLocation(){

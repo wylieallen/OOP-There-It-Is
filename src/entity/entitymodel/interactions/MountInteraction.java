@@ -1,7 +1,6 @@
 package entity.entitymodel.interactions;
 
 import entity.entitymodel.Entity;
-import entity.entitymodel.interactions.EntityInteraction;
 import savingloading.Visitor;
 
 

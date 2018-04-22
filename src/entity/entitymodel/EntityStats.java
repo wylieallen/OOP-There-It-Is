@@ -1,6 +1,5 @@
 package entity.entitymodel;
 
-import commands.skillcommands.SkillCommand;
 import maps.movelegalitychecker.Terrain;
 import maps.world.Game;
 import savingloading.Visitable;
