@@ -62,8 +62,9 @@ public class LoadingParser {
 
     private OverWorld overWorld;
     private List<LocalWorld> localWorlds = new ArrayList<>();
+    private EntityController playerController;
 
-    private Map<GameObject, Displayable> spriteMap = new HashMap<GameObject, Displayable>();
+    private Map<GameObject, Displayable> spriteMap = ImageMaker.makeDefaultMap();
     private Map<World, WorldDisplayable> worldDisplayableMap = new HashMap<World, WorldDisplayable>();
 
     private JSONObject gameJson;
@@ -81,12 +82,16 @@ public class LoadingParser {
 
         List<FoggyWorld> foggyWorlds = loadFoggyWorlds();
 
+        overWorld.add(new Coordinate(0,0), player);
+
         game = new Game(overWorld, overWorld, foggyWorlds, 0, player);
+        game.setTransitionObserver(gamePanel);
+//        game.setPlayerController();
 
         // must do this after game is made
         setTransitionCommands();
 
-        //gameDisplay = new GameDisplayState(gamePanel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overWorld);
+        gameDisplay = new GameDisplayState(gamePanel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overWorld);
     }
 
     private void loadFileToJson(String saveFileName) throws FileNotFoundException {
@@ -245,7 +250,7 @@ public class LoadingParser {
         int strength = trapJson.getInt("Strength");
         Boolean isVisible = trapJson.getBoolean("IsVisible");
         Trap trap = new Trap(command, hasFired, strength, isVisible);
-        Displayable displayable = loadDisplayable("Trap");
+        Displayable displayable = loadTrapDisplayable(trap);
         spriteMap.put(trap, displayable);
         return trap;
     }
@@ -932,6 +937,10 @@ public class LoadingParser {
                 System.out.println("No Displayable for GameObject type -- " + name);
                 return ImageMaker.getNullDisplayable();
         }
+    }
+
+    private Displayable loadTrapDisplayable(Trap trap){
+        return ImageMaker.makeTrapDisplayable(trap);
     }
 
     public GameDisplayState getGameDisplayState () {
