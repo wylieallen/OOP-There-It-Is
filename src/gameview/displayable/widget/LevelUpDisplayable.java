@@ -34,7 +34,7 @@ public class LevelUpDisplayable extends CompositeDisplayable
         int i = 0;
         for(SkillType skill : SkillType.values())
         {
-            if(skill != SkillType.NULL)//entity.getSkillLevel(skill) >= 0)
+            if(skill != SkillType.NULL && entity.getSkillLevel(skill) >= 0)//entity.getSkillLevel(skill) >= 0)
             {
                 int yMultiplier = i;
                 add(new StringDisplayable(new Point(4, 16 + 16 + (yMultiplier * 16)),

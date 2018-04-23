@@ -179,10 +179,12 @@ public class GameViewMaker
                 player.addSkill(SkillType.BOON, 1);
                 player.addSkill(SkillType.BANE, 1);
                 player.addSkill(SkillType.STAFF, 1);
+                break;
             case "Sneak":
                 player.addSkill(SkillType.CREEP, 1);
                 player.addSkill(SkillType.DETECTANDREMOVETRAP, 1);
                 player.addSkill(SkillType.RANGEDWEAPON, 1);
+                break;
         }
 
         Coordinate npcLoc = new Coordinate(-2, 0);
