@@ -64,7 +64,7 @@ public class GameViewMaker
         worldDisplayableMap = new HashMap<>();
     }
 
-    public GameDisplayState makeGameDisplayState(GamePanel panel)
+    public GameDisplayState makeGameDisplayState(GamePanel panel,String playerClass)
     {
         spriteMap = ImageMaker.makeDefaultMap();
         worldDisplayableMap = new HashMap<>();
@@ -152,7 +152,6 @@ public class GameViewMaker
         player.addToInventory(new QuestItem("Radio", false, 0));
         player.addActorInteraction(new PickPocketInteraction());
         player.addActorInteraction(new UseItemInteraction());
-        String playerClass = "Sneak";
         switch(playerClass) {
             case "Smasher":
                 player.addSkill(SkillType.BRAWLING, 1);

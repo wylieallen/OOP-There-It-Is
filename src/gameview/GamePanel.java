@@ -20,7 +20,7 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
     public GamePanel(Dimension size)
     {
         super(size);
-        super.setDisplayState(gameDisplayState = new GameViewMaker().makeGameDisplayState(this));
+        super.setDisplayState(gameDisplayState = new GameViewMaker().makeGameDisplayState(this, "Smasher"));
         /*
         Tile tile = new OverWorldTile();
         tile.addMLC(Terrain.GRASS);
@@ -240,9 +240,9 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
 
 
 
-    public void startNewGame()
+    public void startNewGame(String className)
     {
-        super.setDisplayState(gameDisplayState = new GameViewMaker().makeGameDisplayState(this));
+        super.setDisplayState(gameDisplayState = new GameViewMaker().makeGameDisplayState(this,className));
         resetCamera();
     }
 

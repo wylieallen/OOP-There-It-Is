@@ -14,7 +14,7 @@ public class LoadingParserTest {
     public void LoadingParserTest() throws FileNotFoundException {
 
         GameViewMaker g = new GameViewMaker();
-        g.makeGameDisplayState(new GamePanel(new Dimension()));
+        g.makeGameDisplayState(new GamePanel(new Dimension()), "Smasher");
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
         // save a game
