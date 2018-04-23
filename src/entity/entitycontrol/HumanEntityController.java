@@ -345,7 +345,7 @@ public class HumanEntityController extends EntityController implements Controlle
             addAction(new SearchAction(entity, false, 0));
         }
 
-        //addAction(new DismountAction(this));
+        addAction(new DismountAction(this));
     }
 
     public void initializeInventoryManagement(Entity entity)

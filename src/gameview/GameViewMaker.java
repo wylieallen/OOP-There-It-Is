@@ -12,7 +12,6 @@ import entity.entitycontrol.AI.PetAI;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
-import entity.entitycontrol.controllerActions.DismountAction;
 import entity.entitycontrol.controllerActions.ObserveAction;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.PickPocketInteraction;
@@ -234,7 +233,6 @@ public class GameViewMaker
         game.setTransitionObserver(panel);
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, player.getInventory(), player), game.getCoordinate(player), panel));
 
-        player.getController().addAction(new DismountAction(player.getController()));
         ObserveAction observe = new ObserveAction(player);
         observe.setController(player.getController());
         observe.registerObserver(foggyWorldsList.get(1));

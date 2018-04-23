@@ -7,6 +7,7 @@ import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
 import items.takeableitems.TakeableItem;
+import maps.movelegalitychecker.Terrain;
 import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
@@ -36,6 +37,7 @@ public class Vehicle extends Entity {
     {
         super(movementVector, stats, effects, actorInteractions, inventory, isOnMap, "Default");
         this.driver = driver;
+        addCompatibleTerrain(Terrain.SPACE);
         driverTriedToDitch = 0;
     }
 
