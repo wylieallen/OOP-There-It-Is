@@ -2,12 +2,10 @@ package entity.vehicle;
 
 import commands.TimedEffect;
 import entity.entitycontrol.EntityController;
-import entity.entitycontrol.controllerActions.DismountAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
-import entity.entitymodel.interactions.MountInteraction;
 import items.takeableitems.TakeableItem;
 import maps.tile.Tile;
 import savingloading.Visitor;
@@ -55,14 +53,12 @@ public class Vehicle extends Entity {
 
     @Override
     public List <EntityInteraction> interact (Entity actor) {
+
         if (!hasDriver()) {
             setDriver(actor);
             actor.setMount (this);
-            // after mounting you interact with mount, maybe use item?
-            return new ArrayList<>();
         }
 
-        actor.getController().notifyInteraction(actor, driver);
         return new ArrayList<>();
     }
 
@@ -145,8 +141,12 @@ public class Vehicle extends Entity {
 
     @Override
     public boolean canMoveHere (Entity mover) {
-        MountInteraction mountingTime = new MountInteraction();
-        mountingTime.interact(mover, this);
+        if (!hasDriver()) {
+            this.interact(mover);
+        } else {
+            mover.getController().notifyInteraction(mover, driver);
+            // does driver need to know?
+        }
         return false;
     }
 

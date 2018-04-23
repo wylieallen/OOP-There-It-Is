@@ -17,6 +17,9 @@ public class UseItemInteraction implements EntityInteraction {
     }
 
     @Override
+    public String name () { return "Use Item"; }
+
+    @Override
     public void accept(Visitor v) {
         v.visitUseItemInteraction(this);
     }

@@ -22,7 +22,7 @@ public class TalkInteraction implements EntityInteraction {
 
     @Override
     public boolean interact(Entity actor, Entity actee) {
-        String m = "actee: " + messages.get(random.nextInt(messages.size()));
+        String m = actee.getName() + ": " + messages.get(random.nextInt(messages.size()));
         actor.getController().notifyAllObservers(m);
         return true;
     }
@@ -30,6 +30,9 @@ public class TalkInteraction implements EntityInteraction {
     public List<String> getMessages() {
         return messages;
     }
+
+    @Override
+    public String name () { return "Talk"; }
 
     @Override
     public void accept(Visitor v) {

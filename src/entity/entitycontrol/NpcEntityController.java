@@ -4,12 +4,14 @@ import entity.entitycontrol.AI.AI;
 import entity.entitycontrol.controllerActions.DirectionalMoveAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
+import entity.entitymodel.interactions.EntityInteraction;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
 import maps.tile.Tile;
 import savingloading.Visitor;
 import utilities.Coordinate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class NpcEntityController extends EntityController {
@@ -61,6 +63,11 @@ public class NpcEntityController extends EntityController {
     @Override
     public void notifyInteraction(Entity player, Entity interactee) {
         //TODO
+    }
+
+    @Override
+    public List <EntityInteraction> getInteractionList () {
+        return getEntity().getActorInteractions();
     }
 
     @Override

@@ -1,12 +1,9 @@
 package entity.entitymodel.interactions;
 
 import entity.entitymodel.Entity;
-
-import entity.entitymodel.Entity;
 import items.takeableitems.TakeableItem;
-import skills.SkillType;
-import entity.entitymodel.interactions.EntityInteraction;
 import savingloading.Visitor;
+import skills.SkillType;
 
 /**
  * Created by dontf on 4/13/2018.
@@ -56,6 +53,9 @@ public class TradeInteraction implements EntityInteraction {
             takeFrom.removeFromInventory(item);
             giveTo.addToInventory(item);
     }
+
+    @Override
+    public String name () { return "Trade"; }
 
     @Override
     public void accept(Visitor v) {

@@ -18,6 +18,7 @@ import entity.entitymodel.EntityStats;
 import entity.entitymodel.Equipment;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.*;
+import entity.entitymodel.interactions.TalkInteraction;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
@@ -317,6 +318,7 @@ public class GameViewMaker
         PetAI friendly = new PetAI(entity.getActeeInteractions(), player, new HashMap<>(), false);
         NpcEntityController controller = new NpcEntityController(entity, e, loc, hostile, friendly, isHostile);
         entity.setController(controller);
+        entity.addActeeInteraction(new TalkInteraction(new ArrayList<String>()));
 
         return entity;
     }

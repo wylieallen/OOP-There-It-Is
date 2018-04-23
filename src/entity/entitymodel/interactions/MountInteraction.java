@@ -16,6 +16,9 @@ public class MountInteraction implements EntityInteraction {
     }
 
     @Override
+    public String name () { return "Mount"; }
+
+    @Override
     public void accept(Visitor v) {
         v.visitMountInteraction(this);
     }

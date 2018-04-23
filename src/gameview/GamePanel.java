@@ -6,6 +6,7 @@ import guiframework.DisplayPanel;
 import maps.world.TransitionObserver;
 import maps.world.World;
 import utilities.Coordinate;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -169,7 +170,6 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
         gameDisplayState.disableInventoryCursor();
     }
 
-/*
     public int getInteractionCursorIndex()
     {
         return gameDisplayState.getInteractionDisplayableIndex();
@@ -185,8 +185,10 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
         gameDisplayState.incrementInteractionDisplayableIndex();
     }
 
-    public void disableInteractionCursor()
+    public void disableInteraction()
     {
-        gameDisplayState.disableInteractionCursor();
-    } */
+        gameDisplayState.disableInteraction();
+    }
+
+    public void enableInteraction () { gameDisplayState.enableInteraction(); }
 }
