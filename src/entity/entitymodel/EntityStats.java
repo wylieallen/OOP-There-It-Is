@@ -46,7 +46,7 @@ public class EntityStats implements Visitable {
     {
 
         this(new HashMap<>(), 30, 1000, 1000, 100, 100, 1,
-                10, 0, 5, 1, 100, false, false,new HashSet<Terrain>(defaultCompatibleTerrains));
+                10, 0, 5, 3, 100, false, false,new HashSet<Terrain>(defaultCompatibleTerrains));
     }
 
     public EntityStats(Map<SkillType, Integer> skills,
@@ -285,8 +285,9 @@ public class EntityStats implements Visitable {
     }
 
     public boolean tryToMove(double moveSpeed) {
-        if(moveSpeed == 0)
+        if(moveSpeed == 0){
             return false;
+        }
 
         if(Game.getCurrentTime() - lastMoveTime >= (int)(1000.0 / moveSpeed)) {
             lastMoveTime = Game.getCurrentTime();

@@ -307,6 +307,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
 
     public void increaseSkillLevel (SkillType s, int amount) { stats.increaseSkillLevel (s, amount); }
 
+    public void addSkill(SkillType s, int startingLevel) { stats.addSkill(s, startingLevel); }
+
     public boolean isOnMap () {
         return onMap;
     }

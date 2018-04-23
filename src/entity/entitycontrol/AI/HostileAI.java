@@ -30,7 +30,7 @@ public class HostileAI extends AI {
 
         if (target != null) {
             targetPosition = findTarget(map);
-            if ((targetsLastPosition == null) || (isVisible(targetPosition, location, e) && targetsLastPosition != targetPosition)) {
+            if ((targetsLastPosition == null) || (isVisible(targetPosition, location, e) && targetsLastPosition != targetPosition && target.getConcealment() != 0)) {
                 setPath(location, targetPosition, e.getCompatibleTerrains(), map);
                 targetsLastPosition = targetPosition;
             }
@@ -40,7 +40,7 @@ public class HostileAI extends AI {
            setPath(location, targetPosition, e.getCompatibleTerrains(), map);
         }
 
-        if (targetIsNeghbor (location)) {
+        if (targetIsNeghbor (location) && target != null && target.getConcealment() != 0) {
             e.setFacing(location.direction(targetPosition));
             e.setMoving();
 

@@ -10,6 +10,8 @@ import maps.tile.Direction;
 import maps.tile.Tile;
 import savingloading.Visitor;
 import skills.SkillType;
+import spawning.SpawnObservable;
+import spawning.SpawnObserver;
 import utilities.Coordinate;
 
 import java.awt.event.KeyAdapter;
@@ -19,6 +21,8 @@ import java.util.*;
 
 public class HumanEntityController extends EntityController implements ControllerActionVisitor
 {
+    private Collection<SpawnObservable> spawnObservableActions;
+
     private GamePanel view;
     private Set <KeyListener> activeListeners;
 
@@ -53,6 +57,7 @@ public class HumanEntityController extends EntityController implements Controlle
 
     public HumanEntityController(Entity entity, Equipment equipment, Coordinate entityLocation, GamePanel view) {
         super(entity, equipment, entityLocation, new ArrayList<>());
+        this.spawnObservableActions = new ArrayList<>();
         this.view = view;
 
         directionalMoveKeyCodes = new HashMap<>();
@@ -242,12 +247,17 @@ public class HumanEntityController extends EntityController implements Controlle
                 addAction(new DirectionalMoveAction(entity, d));
         }
 
-        for(int i = 0; i < 5; i++)
-        {
-            addAction(new AttackAction(this, getEquipment(), i));
+        if(getEquipment() != null) {
+            for (int i = 0; i < getEquipment().getNumWeaponSlots(); ++i) {
+                addAction(new AttackAction(this, getEquipment(), i));
+            }
         }
 
         addAction(new BindWoundsAction(entity));
+
+        if(entity.containsSkill(SkillType.CREEP)){
+            addAction(new CreepAction(entity, false, entity.getConcealment(), 0));
+        }
         //addAction(new ObserveAction(entity));
         //addAction(new DismountAction(this));
     }
@@ -467,7 +477,7 @@ public class HumanEntityController extends EntityController implements Controlle
                 }
             }
         });
-
+        spawnObservableActions.add(a);
     }
 
     public void visitSetDirectionAction(SetDirectionAction a)
@@ -487,6 +497,15 @@ public class HumanEntityController extends EntityController implements Controlle
                 }
             }
         });
+    }
+
+    @Override
+    public void updateSpawnObservers(SpawnObserver oldObserver, SpawnObserver newObserver) {
+        super.updateSpawnObservers(oldObserver, newObserver);
+        for(SpawnObservable so: spawnObservableActions) {
+            so.deregisterObserver(oldObserver);
+            so.registerObserver(newObserver);
+        }
     }
 
     @Override

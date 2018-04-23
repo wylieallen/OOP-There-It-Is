@@ -44,6 +44,11 @@ public class LocalWorld implements World {
     }
 
     @Override
+    public void clearInfluenceAreas() {
+        influenceAreas.clear();
+    }
+
+    @Override
     public void update() {
         updatePhase();
         movementPhase();

@@ -114,8 +114,10 @@ public class OverWorld implements World {
 
     //throw away spawn events
     @Override
-    public void notifySpawn(InfluenceArea IA, SpawnObservable spawner) {
-    }
+    public void notifySpawn(InfluenceArea IA, SpawnObservable spawner) {}
+
+    @Override
+    public void clearInfluenceAreas() {}
 
     @Override
     public Tile getTileForCoordinate(Coordinate c) {
