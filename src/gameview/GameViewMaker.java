@@ -334,10 +334,17 @@ public class GameViewMaker
 
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
 
-        for(int x = -10; x <= 10; ++x) {
-            for(int z = -10; z <= 10; ++z) {
+        for(int x = -11; x <= 11; ++x) {
+            for(int z = -11; z <= 11; ++z) {
                 Coordinate coordinate = new Coordinate(x, z);
-                if(coordinate.y() > 10 || coordinate.y() < -10) {
+                if(coordinate.y() > 11 || coordinate.y() < -11) {
+                    continue;
+                }
+                if(coordinate.x() == -11 || coordinate.x() == 11 ||
+                        coordinate.y() == -11 || coordinate.y() == 11 ||
+                        coordinate.z() == -11 || coordinate.z() == 11) {
+                    LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.MOUNTAIN, null, new HashSet<>(), new HashSet<>());
+                    tiles.put(coordinate, tile);
                     continue;
                 }
 
@@ -434,15 +441,23 @@ public class GameViewMaker
     private LocalWorld createLocalWorld2() {
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
 
-        for(int x = -10; x <= 10; ++x) {
-            for(int z = -10; z <= 10; ++z) {
+        for(int x = -11; x <= 11; ++x) {
+            for(int z = -11; z <= 11; ++z) {
                 Coordinate coordinate = new Coordinate(x, z);
-                if(coordinate.y() > 10 || coordinate.y() < -10) {
+                if(coordinate.y() > 11 || coordinate.y() < -11) {
+                    continue;
+                }
+                if(coordinate.x() == -11 || coordinate.x() == 11 ||
+                        coordinate.y() == -11 || coordinate.y() == 11 ||
+                        coordinate.z() == -11 || coordinate.z() == 11) {
+                    LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.MOUNTAIN, null, new HashSet<>(), new HashSet<>());
+                    tiles.put(coordinate, tile);
                     continue;
                 }
 
                 LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
                 tiles.put(coordinate, tile);
+
             }
         }
 
@@ -524,15 +539,23 @@ public class GameViewMaker
     private LocalWorld createLocalWorld3() {
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
 
-        for(int x = -10; x <= 10; ++x) {
-            for(int z = -10; z <= 10; ++z) {
+        for(int x = -11; x <= 11; ++x) {
+            for(int z = -11; z <= 11; ++z) {
                 Coordinate coordinate = new Coordinate(x, z);
-                if(coordinate.y() > 10 || coordinate.y() < -10) {
+                if(coordinate.y() > 11 || coordinate.y() < -11) {
+                    continue;
+                }
+                if(coordinate.x() == -11 || coordinate.x() == 11 ||
+                        coordinate.y() == -11 || coordinate.y() == 11 ||
+                        coordinate.z() == -11 || coordinate.z() == 11) {
+                    LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.MOUNTAIN, null, new HashSet<>(), new HashSet<>());
+                    tiles.put(coordinate, tile);
                     continue;
                 }
 
                 LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
                 tiles.put(coordinate, tile);
+
             }
         }
 
@@ -578,12 +601,21 @@ public class GameViewMaker
     private LocalWorld createLocalWorld4() {
         Map<Coordinate, LocalWorldTile> tiles = new HashMap<>();
 
-        for(int x = -10; x <= 10; ++x) {
-            for(int z = -10; z <= 10; ++z) {
+        for(int x = -11; x <= 11; ++x) {
+            for(int z = -11; z <= 11; ++z) {
                 Coordinate coordinate = new Coordinate(x, z);
-                if(coordinate.y() > 10 || coordinate.y() < -10) {
+                if(coordinate.y() > 11 || coordinate.y() < -11) {
                     continue;
                 }
+
+                if(coordinate.x() == -11 || coordinate.x() == 11 ||
+                        coordinate.y() == -11 || coordinate.y() == 11 ||
+                        coordinate.z() == -11 || coordinate.z() == 11) {
+                    LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.MOUNTAIN, null, new HashSet<>(), new HashSet<>());
+                    tiles.put(coordinate, tile);
+                    continue;
+                }
+
                 if((x == 8 && coordinate.y() == 0 && z == -8) || (x == 9 && coordinate.y() == 0 && z == -9) || (x == 7 && coordinate.y() == 0 && z == -7)){
                     LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.WATER, null, new HashSet<>(), new HashSet<>());
                     tiles.put(coordinate, tile);
@@ -608,6 +640,10 @@ public class GameViewMaker
 
         Item item = ItemFactory.makeHealthPotion(10);
         world.getTile(new Coordinate(-5, -2)).addEI(item);
+        spriteMap.put(item, ImageMaker.makeConsumableDisplayable1());
+
+        item = ItemFactory.makeOneShotHealth(-10);
+        world.getTile(new Coordinate(-4, -2)).addEI(item);
         spriteMap.put(item, ImageMaker.makeConsumableDisplayable2());
 
         AreaEffect damageEffect = new InfiniteAreaEffect(new ModifyHealthCommand(-10), 1000, 0, "Damage Area Effect");

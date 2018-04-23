@@ -85,8 +85,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
         playerStatus.add(new StringDisplayable(new Point(4, 128),() -> "Cncl:   " + player.getConcealment(), Color.BLACK, 1));
         playerStatus.add(new StringDisplayable(new Point(4, 144),() -> "Speed:  " + player.getBaseMoveSpeed(), Color.BLACK, 1));
         playerStatus.add(new StringDisplayable(new Point(4, 160),() -> "Loc: " + game.getCoordinate(player), Color.BLACK, 1));
-        playerStatus.add(new StringDisplayable(new Point(4, 176),() -> "Gold: " + player.getMovementVector(), Color.BLACK, 1));
-        playerStatus.add(new StringDisplayable(new Point(4, 190),() -> "VecDir: " + player.getMovementDirection(), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 176),() -> "VecDir: " + player.getMovementDirection(), Color.BLACK, 1));
         widgets.add(playerStatus);
 
         inventoryDisplayable = new InventoryDisplayable(new Point(16, 256), player);

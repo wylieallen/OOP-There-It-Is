@@ -9,7 +9,7 @@
    "Weapons": [],
    "Wearables": {}
   },
-  "X": 2,
+  "X": -3,
   "KeyBindings": [
    {
     "Secondary": 87,
@@ -82,7 +82,7 @@
     "Name": "MANAGE_CONTROLS"
    },
    {
-    "Secondary": 32,
+    "Secondary": -1,
     "Primary": 49,
     "Name": "ATTACK1"
    },
@@ -107,7 +107,7 @@
     "Name": "ATTACK5"
    }
   ],
-  "DirectionFacing": "NULL",
+  "DirectionFacing": "NW",
   "Stats": {
    "CurrentHealth": 1000,
    "Gold": 100,
@@ -116,8 +116,8 @@
    "BaseMoveSpeed": 30,
    "UnspentSkillPoints": 0,
    "Terrains": [
-    "SPACE",
-    "GRASS"
+    "GRASS",
+    "SPACE"
    ],
    "MaxHealth": 1000,
    "MaxMana": 100,
@@ -126,16 +126,16 @@
    "Skills": {
     "BINDWOUNDS": 1,
     "OBSERVATION": 1,
+    "ONEHANDEDWEAPON": 1,
     "BARGAIN": 1,
     "BRAWLING": 1,
-    "ONEHANDEDWEAPON": 1,
     "TWOHANDEDWEAPON": 1
    },
    "ManaRegenRate": 1,
    "CurrentXP": 10,
    "CurrentMana": 100
   },
-  "Y": 1,
+  "Y": -2,
   "IsAggro": false,
   "Inventory": [{
    "OnMap": false,
@@ -997,7 +997,16 @@
     {
      "Terrain": "GRASS",
      "X": -4,
-     "Y": -2
+     "Y": -2,
+     "Items": [{
+      "Type": "OneShot",
+      "Command": {
+       "Amount": -10,
+       "Name": "ModifyHealth"
+      },
+      "IsActive": true,
+      "Name": "HealthPotionOneShot"
+     }]
     },
     {
      "Terrain": "GRASS",
@@ -2282,7 +2291,7 @@
      },
      "ActorInteractions": [],
      "InVehicle": false,
-     "X": 2,
+     "X": -4,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 1000,
@@ -2292,9 +2301,9 @@
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
       "Terrains": [
-       "SPACE",
        "GRASS",
-       "WATER"
+       "WATER",
+       "SPACE"
       ],
       "MaxHealth": 1000,
       "MaxMana": 100,
@@ -2309,7 +2318,7 @@
       "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
      "Inventory": [],
      "Name": "Vehicle"
@@ -2323,7 +2332,7 @@
      },
      "ActorInteractions": [],
      "InVehicle": false,
-     "X": 2,
+     "X": -4,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 1000,
@@ -2333,9 +2342,9 @@
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
       "Terrains": [
-       "SPACE",
        "GRASS",
-       "WATER"
+       "WATER",
+       "SPACE"
       ],
       "MaxHealth": 1000,
       "MaxMana": 100,
@@ -2350,7 +2359,7 @@
       "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
      "Inventory": [],
      "Name": "Vehicle"
@@ -4320,9 +4329,9 @@
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
       "Terrains": [
-       "SPACE",
        "GRASS",
-       "WATER"
+       "WATER",
+       "SPACE"
       ],
       "MaxHealth": 1000,
       "MaxMana": 100,
@@ -4361,9 +4370,9 @@
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
       "Terrains": [
-       "SPACE",
        "GRASS",
-       "WATER"
+       "WATER",
+       "SPACE"
       ],
       "MaxHealth": 1000,
       "MaxMana": 100,
@@ -10607,9 +10616,9 @@
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
       "Terrains": [
-       "SPACE",
        "GRASS",
-       "WATER"
+       "WATER",
+       "SPACE"
       ],
       "MaxHealth": 1000,
       "MaxMana": 100,
@@ -10648,9 +10657,9 @@
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
       "Terrains": [
-       "SPACE",
        "GRASS",
-       "WATER"
+       "WATER",
+       "SPACE"
       ],
       "MaxHealth": 1000,
       "MaxMana": 100,

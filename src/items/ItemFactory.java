@@ -266,7 +266,7 @@ public class ItemFactory {
     //Oneshot Items
     public static OneshotItem makeOneShotHealth(int healthIncrease){
         ModifyHealthCommand command = new ModifyHealthCommand(healthIncrease);
-        return new OneshotItem("HealthPotion", command, false);
+        return new OneshotItem("HealthPotionOneShot", command, false);
     }
 
 

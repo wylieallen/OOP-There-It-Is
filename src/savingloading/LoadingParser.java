@@ -904,6 +904,8 @@ public class LoadingParser {
                 return ImageMaker.makeConsumableDisplayable3();
             case "HealthPotion":
                 return ImageMaker.makeConsumableDisplayable1();
+            case "HealthPotionOneShot":
+                return ImageMaker.makeConsumableDisplayable2();
             case "Brawling":
                 return ImageMaker.makeBrawlingWeaponDisplayable();
             case "Gadget1":
@@ -1023,7 +1025,7 @@ public class LoadingParser {
             case "Bob":
                 return ImageMaker.makeTwoHandedWeaponDisplayable();
             case "Bob - Spawn":
-                return ImageMaker.makeRedProjectileDisplayable();
+                return ImageMaker.makeBlueProjectileDisplayable();
             // area effects
             case "Kill Area Effect":
                 return ImageMaker.makeSkullDisplayable();
