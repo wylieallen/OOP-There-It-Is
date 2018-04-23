@@ -36,6 +36,7 @@ import maps.entityimpaction.AreaEffect;
 import maps.entityimpaction.InfiniteAreaEffect;
 import maps.entityimpaction.OneShotAreaEffect;
 import maps.entityimpaction.Trap;
+import maps.movelegalitychecker.Obstacle;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
@@ -556,6 +557,11 @@ public class GameViewMaker
                 }
                 else {
                     LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
+                    if((x == 5 && coordinate.y() == 0 && z == -5) || (x == 4 && coordinate.y() == 0 && z == -4)){
+                        Obstacle ob = ItemFactory.makeBarrelObstacle();
+                        tile.addMLC(ob);
+                        spriteMap.put(ob,ImageMaker.makeBarrelDisplayable());
+                    }
                     tiles.put(coordinate, tile);
                 }
             }
