@@ -396,13 +396,19 @@ public class LoadingParser {
                 skills.put(loadSkillType(skillString), level);
             }
         }
+        Set<Terrain> compatibleTerrains = new HashSet<>();
+        List<Object> terrains = entityStatsJson.getJSONArray("Terrains").toList();
+        for(Object terrain: terrains) {
+            compatibleTerrains.add(loadTerrain((String) terrain));
+        }
         return new EntityStats(skills, entityStatsJson.getInt("BaseMoveSpeed"),
                 entityStatsJson.getInt("MaxHealth"), entityStatsJson.getInt("CurrentHealth"),
                 entityStatsJson.getInt("MaxMana"), entityStatsJson.getInt("CurrentMana"),
                 entityStatsJson.getInt("ManaRegenRate"), entityStatsJson.getInt("CurrentXP"),
                 entityStatsJson.getInt("UnspentSkillPoints"), entityStatsJson.getInt("VisibilityRadius"),
                 entityStatsJson.getInt("Concealment"), entityStatsJson.getDouble("Gold"),
-                entityStatsJson.getBoolean("IsSearching"), entityStatsJson.getBoolean("IsConfused"));
+                entityStatsJson.getBoolean("IsSearching"), entityStatsJson.getBoolean("IsConfused"),
+                compatibleTerrains);
     }
 
     private SkillType loadSkillType(String skillString){
@@ -976,6 +982,8 @@ public class LoadingParser {
                 return ImageMaker.makeArmorDisplayable();
             case "Stamina Regen Ring":
                 return ImageMaker.makeRingDisplayable();
+            case "Jeebs":
+                return ImageMaker.makeShopKeepDisplayable();
             default:
                 System.out.println("No Displayable for GameObject type -- " + name);
                 return ImageMaker.getNullDisplayable();

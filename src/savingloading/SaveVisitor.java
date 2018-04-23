@@ -219,6 +219,11 @@ public class SaveVisitor implements Visitor {
         statsJson.put("Gold", entityStats.getGold());
         statsJson.put("IsConfused", entityStats.isConfused());
         statsJson.put("IsSearching", entityStats.getIsSearching());
+        JSONArray terrains = new JSONArray();
+        for(Terrain t: entityStats.getCompatibleTerrains()) {
+            terrains.put(t.name());
+        }
+        statsJson.put("Terrains", terrains);
         currentEntityJson.put("Stats", statsJson);
     }
 

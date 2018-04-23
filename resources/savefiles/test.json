@@ -1,28 +1,26 @@
 {
  "Player": {
-  "ActeeInteractions": [
-   {"Name": "UseItemInteraction"},
-   {"Name": "PickPocketInteraction"}
-  ],
+  "ActeeInteractions": [{"Name": "UseItemInteraction"}],
   "Type": "Player",
   "Equipment": {
    "Weapons": [],
    "Wearables": {}
   },
-  "ActorInteractions": [
-   {"Name": "UseItemInteraction"},
-   {"Name": "PickPocketInteraction"}
-  ],
+  "ActorInteractions": [{"Name": "UseItemInteraction"}],
   "InVehicle": false,
-  "X": -4,
-  "DirectionFacing": "S",
+  "X": 0,
+  "DirectionFacing": "N",
   "Stats": {
-   "CurrentHealth": 921,
+   "CurrentHealth": 1000,
    "Gold": 100,
    "Concealment": 3,
    "VisibilityRadius": 5,
    "BaseMoveSpeed": 30,
    "UnspentSkillPoints": 0,
+   "Terrains": [
+    "GRASS",
+    "SPACE"
+   ],
    "MaxHealth": 1000,
    "MaxMana": 100,
    "IsConfused": false,
@@ -30,94 +28,23 @@
    "Skills": {
     "BINDWOUNDS": 1,
     "OBSERVATION": 1,
-    "CREEP": 1,
+    "BRAWLING": 1,
+    "ONEHANDEDWEAPON": 1,
     "BARGAIN": 1,
-    "DETECTANDREMOVETRAP": 1,
-    "RANGEDWEAPON": 1
+    "TWOHANDEDWEAPON": 1
    },
    "ManaRegenRate": 1,
-   "CurrentXP": 20,
+   "CurrentXP": 10,
    "CurrentMana": 100
   },
-  "Y": 2,
+  "Y": 0,
   "IsAggro": false,
-  "Inventory": [
-   {
-    "OnMap": false,
-    "Type": "Quest",
-    "QuestId": 0,
-    "Name": "Radio"
-   },
-   {
-    "StaminaCost": 15,
-    "UpdateInterval": 1,
-    "AttackSpeed": 1000,
-    "Name": "Gun",
-    "SkillCommand": {
-     "Effectiveness": -15,
-     "SuccessCommand": {
-      "Amount": 0,
-      "Name": "ModifyHealth"
-     },
-     "SkillType": "RANGEDWEAPON",
-     "Level": 0
-    },
-    "MaxRadius": 5,
-    "duration": 300,
-    "OnMap": false,
-    "InfluenceType": "LINEARINFLUENCE",
-    "Type": "Weapon",
-    "RequiredSkill": "RANGEDWEAPON",
-    "ExpansionInterval": 1,
-    "makesExpandingArea": true
-   },
-   {
-    "StaminaCost": 15,
-    "UpdateInterval": 1,
-    "AttackSpeed": 1000,
-    "Name": "Bad Gun",
-    "SkillCommand": {
-     "Effectiveness": -10,
-     "SuccessCommand": {
-      "Amount": 0,
-      "Name": "ModifyHealth"
-     },
-     "SkillType": "RANGEDWEAPON",
-     "Level": 0
-    },
-    "MaxRadius": 5,
-    "duration": 300,
-    "OnMap": false,
-    "InfluenceType": "LINEARINFLUENCE",
-    "Type": "Weapon",
-    "RequiredSkill": "RANGEDWEAPON",
-    "ExpansionInterval": 1,
-    "makesExpandingArea": true
-   },
-   {
-    "StaminaCost": 15,
-    "UpdateInterval": 1,
-    "AttackSpeed": 1000,
-    "Name": "Good Gun",
-    "SkillCommand": {
-     "Effectiveness": -20,
-     "SuccessCommand": {
-      "Amount": 0,
-      "Name": "ModifyHealth"
-     },
-     "SkillType": "RANGEDWEAPON",
-     "Level": 0
-    },
-    "MaxRadius": 5,
-    "duration": 300,
-    "OnMap": false,
-    "InfluenceType": "LINEARINFLUENCE",
-    "Type": "Weapon",
-    "RequiredSkill": "RANGEDWEAPON",
-    "ExpansionInterval": 1,
-    "makesExpandingArea": true
-   }
-  ],
+  "Inventory": [{
+   "OnMap": false,
+   "Type": "Quest",
+   "QuestId": 0,
+   "Name": "Radio"
+  }],
   "Name": "Smasher"
  },
  "LocalWorlds": {
@@ -2070,6 +1997,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -2168,6 +2096,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -2256,7 +2185,7 @@
      },
      "ActorInteractions": [],
      "InVehicle": false,
-     "X": 2,
+     "X": -4,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 1000,
@@ -2265,6 +2194,10 @@
       "VisibilityRadius": 5,
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
+      "Terrains": [
+       "GRASS",
+       "WATER"
+      ],
       "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
@@ -2278,7 +2211,7 @@
       "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
      "Inventory": [],
      "Name": "Vehicle"
@@ -2292,7 +2225,7 @@
      },
      "ActorInteractions": [],
      "InVehicle": false,
-     "X": 2,
+     "X": -4,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 1000,
@@ -2301,6 +2234,10 @@
       "VisibilityRadius": 5,
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
+      "Terrains": [
+       "GRASS",
+       "WATER"
+      ],
       "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
@@ -2314,7 +2251,7 @@
       "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 2,
+     "Y": -4,
      "IsAggro": true,
      "Inventory": [],
      "Name": "Vehicle"
@@ -4283,6 +4220,10 @@
       "VisibilityRadius": 5,
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
+      "Terrains": [
+       "GRASS",
+       "WATER"
+      ],
       "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
@@ -4319,6 +4260,10 @@
       "VisibilityRadius": 5,
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
+      "Terrains": [
+       "GRASS",
+       "WATER"
+      ],
       "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
@@ -4356,6 +4301,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -4417,6 +4363,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -4478,6 +4425,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -4539,6 +4487,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -4600,6 +4549,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -4661,6 +4611,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -4722,6 +4673,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -4783,6 +4735,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -4844,6 +4797,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -4905,6 +4859,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -4966,6 +4921,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -5027,6 +4983,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -5088,6 +5045,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -5149,6 +5107,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -5210,6 +5169,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -5271,6 +5231,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -5332,6 +5293,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -5393,6 +5355,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -6561,7 +6524,30 @@
     {
      "Terrain": "GRASS",
      "X": -6,
-     "Y": 0
+     "Y": 0,
+     "Items": [{
+      "StaminaCost": 15,
+      "UpdateInterval": 1,
+      "AttackSpeed": 1000,
+      "Name": "Good Gun",
+      "SkillCommand": {
+       "Effectiveness": -20,
+       "SuccessCommand": {
+        "Amount": 0,
+        "Name": "ModifyHealth"
+       },
+       "SkillType": "RANGEDWEAPON",
+       "Level": 0
+      },
+      "MaxRadius": 5,
+      "duration": 300,
+      "OnMap": true,
+      "InfluenceType": "LINEARINFLUENCE",
+      "Type": "Weapon",
+      "RequiredSkill": "RANGEDWEAPON",
+      "ExpansionInterval": 1,
+      "makesExpandingArea": true
+     }]
     },
     {
      "Terrain": "GRASS",
@@ -6580,7 +6566,30 @@
     {
      "Terrain": "GRASS",
      "X": -6,
-     "Y": -1
+     "Y": -1,
+     "Items": [{
+      "StaminaCost": 15,
+      "UpdateInterval": 1,
+      "AttackSpeed": 1000,
+      "Name": "Gun",
+      "SkillCommand": {
+       "Effectiveness": -15,
+       "SuccessCommand": {
+        "Amount": 0,
+        "Name": "ModifyHealth"
+       },
+       "SkillType": "RANGEDWEAPON",
+       "Level": 0
+      },
+      "MaxRadius": 5,
+      "duration": 300,
+      "OnMap": true,
+      "InfluenceType": "LINEARINFLUENCE",
+      "Type": "Weapon",
+      "RequiredSkill": "RANGEDWEAPON",
+      "ExpansionInterval": 1,
+      "makesExpandingArea": true
+     }]
     },
     {
      "Terrain": "GRASS",
@@ -6599,7 +6608,30 @@
     {
      "Terrain": "GRASS",
      "X": -6,
-     "Y": -2
+     "Y": -2,
+     "Items": [{
+      "StaminaCost": 15,
+      "UpdateInterval": 1,
+      "AttackSpeed": 1000,
+      "Name": "Bad Gun",
+      "SkillCommand": {
+       "Effectiveness": -10,
+       "SuccessCommand": {
+        "Amount": 0,
+        "Name": "ModifyHealth"
+       },
+       "SkillType": "RANGEDWEAPON",
+       "Level": 0
+      },
+      "MaxRadius": 5,
+      "duration": 300,
+      "OnMap": true,
+      "InfluenceType": "LINEARINFLUENCE",
+      "Type": "Weapon",
+      "RequiredSkill": "RANGEDWEAPON",
+      "ExpansionInterval": 1,
+      "makesExpandingArea": true
+     }]
     },
     {
      "Terrain": "GRASS",
@@ -7170,125 +7202,128 @@
    ],
    "Entities": [
     {
-     "ActeeInteractions": [
-      {"Name": "UseItemInteraction"},
-      {"Name": "PickPocketInteraction"}
-     ],
-     "Type": "Player",
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "Name": "Tim",
+     "ActeeInteractions": [],
+     "Type": "NPC",
      "Equipment": {
       "Weapons": [],
       "Wearables": {}
      },
-     "ActorInteractions": [
-      {"Name": "UseItemInteraction"},
-      {"Name": "PickPocketInteraction"}
-     ],
-     "InVehicle": false,
-     "X": -4,
-     "DirectionFacing": "S",
+     "X": 4,
+     "DirectionFacing": "NULL",
      "Stats": {
-      "CurrentHealth": 921,
-      "Gold": 100,
-      "Concealment": 3,
-      "VisibilityRadius": 5,
-      "BaseMoveSpeed": 30,
-      "UnspentSkillPoints": 0,
-      "MaxHealth": 1000,
+      "CurrentHealth": 10,
+      "Gold": 10,
+      "Concealment": 10,
+      "VisibilityRadius": 6,
+      "BaseMoveSpeed": 1,
+      "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
+      "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
       "IsSearching": false,
       "Skills": {
        "BINDWOUNDS": 1,
        "OBSERVATION": 1,
-       "CREEP": 1,
        "BARGAIN": 1,
-       "DETECTANDREMOVETRAP": 1,
-       "RANGEDWEAPON": 1
+       "TWOHANDEDWEAPON": 10
       },
       "ManaRegenRate": 1,
-      "CurrentXP": 20,
+      "CurrentXP": 98,
       "CurrentMana": 100
      },
-     "Y": 2,
-     "IsAggro": false,
-     "Inventory": [
-      {
-       "OnMap": false,
-       "Type": "Quest",
-       "QuestId": 0,
-       "Name": "Radio"
+     "Y": 4,
+     "IsAggro": true,
+     "NonAggroAi": {
+      "Type": "Pet",
+      "Interactions": [{
+       "Messages": [
+        "What in Object Orientation?",
+        "Eat my shorts!",
+        "Don't touch me!",
+        "Hello"
+       ],
+       "Name": "TalkInteraction"
+      }]
+     },
+     "Inventory": [],
+     "AggroAi": {
+      "Type": "Hostile",
+      "Interactions": [{
+       "Messages": [
+        "What in Object Orientation?",
+        "Eat my shorts!",
+        "Don't touch me!",
+        "Hello"
+       ],
+       "Name": "TalkInteraction"
+      }]
+     }
+    },
+    {
+     "ActorInteractions": [],
+     "InVehicle": false,
+     "Name": "Tim",
+     "ActeeInteractions": [],
+     "Type": "NPC",
+     "Equipment": {
+      "Weapons": [],
+      "Wearables": {}
+     },
+     "X": 4,
+     "DirectionFacing": "NULL",
+     "Stats": {
+      "CurrentHealth": 10,
+      "Gold": 10,
+      "Concealment": 10,
+      "VisibilityRadius": 6,
+      "BaseMoveSpeed": 1,
+      "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
+      "MaxHealth": 10,
+      "MaxMana": 100,
+      "IsConfused": false,
+      "IsSearching": false,
+      "Skills": {
+       "BINDWOUNDS": 1,
+       "OBSERVATION": 1,
+       "BARGAIN": 1,
+       "TWOHANDEDWEAPON": 10
       },
-      {
-       "StaminaCost": 15,
-       "UpdateInterval": 1,
-       "AttackSpeed": 1000,
-       "Name": "Gun",
-       "SkillCommand": {
-        "Effectiveness": -15,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "RANGEDWEAPON",
-        "Level": 0
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "RANGEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": true
-      },
-      {
-       "StaminaCost": 15,
-       "UpdateInterval": 1,
-       "AttackSpeed": 1000,
-       "Name": "Bad Gun",
-       "SkillCommand": {
-        "Effectiveness": -10,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "RANGEDWEAPON",
-        "Level": 0
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "RANGEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": true
-      },
-      {
-       "StaminaCost": 15,
-       "UpdateInterval": 1,
-       "AttackSpeed": 1000,
-       "Name": "Good Gun",
-       "SkillCommand": {
-        "Effectiveness": -20,
-        "SuccessCommand": {
-         "Amount": 0,
-         "Name": "ModifyHealth"
-        },
-        "SkillType": "RANGEDWEAPON",
-        "Level": 0
-       },
-       "MaxRadius": 5,
-       "duration": 300,
-       "OnMap": false,
-       "InfluenceType": "LINEARINFLUENCE",
-       "Type": "Weapon",
-       "RequiredSkill": "RANGEDWEAPON",
-       "ExpansionInterval": 1,
-       "makesExpandingArea": true
-      }
-     ],
-     "Name": "Smasher"
+      "ManaRegenRate": 1,
+      "CurrentXP": 98,
+      "CurrentMana": 100
+     },
+     "Y": 4,
+     "IsAggro": true,
+     "NonAggroAi": {
+      "Type": "Pet",
+      "Interactions": [{
+       "Messages": [
+        "What in Object Orientation?",
+        "Eat my shorts!",
+        "Don't touch me!",
+        "Hello"
+       ],
+       "Name": "TalkInteraction"
+      }]
+     },
+     "Inventory": [],
+     "AggroAi": {
+      "Type": "Hostile",
+      "Interactions": [{
+       "Messages": [
+        "What in Object Orientation?",
+        "Eat my shorts!",
+        "Don't touch me!",
+        "Hello"
+       ],
+       "Name": "TalkInteraction"
+      }]
+     }
     },
     {
      "ActorInteractions": [],
@@ -7309,6 +7344,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -7370,6 +7406,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -7431,6 +7468,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -7492,6 +7530,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -7553,6 +7592,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -7614,6 +7654,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -7675,6 +7716,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -7736,6 +7778,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -7797,6 +7840,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -7858,6 +7902,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -7919,6 +7964,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -7980,6 +8026,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -8041,6 +8088,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -8102,6 +8150,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -8163,6 +8212,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -8224,6 +8274,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -8285,6 +8336,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -8346,6 +8398,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -10298,8 +10351,8 @@
       }],
       "Wearables": {}
      },
-     "X": 0,
-     "DirectionFacing": "NW",
+     "X": -2,
+     "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
       "Gold": 10,
@@ -10307,6 +10360,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -10319,9 +10373,9 @@
       },
       "ManaRegenRate": 1,
       "CurrentXP": 98,
-      "CurrentMana": 2
+      "CurrentMana": 100
      },
-     "Y": -2,
+     "Y": 0,
      "IsAggro": true,
      "NonAggroAi": {
       "Type": "Pet",
@@ -10381,8 +10435,8 @@
       }],
       "Wearables": {}
      },
-     "X": 0,
-     "DirectionFacing": "NW",
+     "X": -2,
+     "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
       "Gold": 10,
@@ -10390,6 +10444,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": ["GRASS"],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -10402,9 +10457,9 @@
       },
       "ManaRegenRate": 1,
       "CurrentXP": 98,
-      "CurrentMana": 2
+      "CurrentMana": 100
      },
-     "Y": -2,
+     "Y": 0,
      "IsAggro": true,
      "NonAggroAi": {
       "Type": "Pet",
@@ -10441,7 +10496,7 @@
      },
      "ActorInteractions": [],
      "InVehicle": false,
-     "X": 4,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
@@ -10450,6 +10505,10 @@
       "VisibilityRadius": 5,
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
+      "Terrains": [
+       "GRASS",
+       "WATER"
+      ],
       "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
@@ -10463,7 +10522,7 @@
       "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 4,
+     "Y": 2,
      "IsAggro": true,
      "Inventory": [],
      "Name": "Vehicle"
@@ -10477,7 +10536,7 @@
      },
      "ActorInteractions": [],
      "InVehicle": false,
-     "X": 4,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 10,
@@ -10486,6 +10545,10 @@
       "VisibilityRadius": 5,
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
+      "Terrains": [
+       "GRASS",
+       "WATER"
+      ],
       "MaxHealth": 1000,
       "MaxMana": 100,
       "IsConfused": false,
@@ -10499,7 +10562,7 @@
       "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": 4,
+     "Y": 2,
      "IsAggro": true,
      "Inventory": [],
      "Name": "Vehicle"
@@ -10523,6 +10586,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -10584,6 +10648,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -10645,6 +10710,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -10706,6 +10772,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -10767,6 +10834,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -10828,6 +10896,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -10889,6 +10958,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -10950,6 +11020,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -11011,6 +11082,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -11072,6 +11144,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -11133,6 +11206,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -11194,6 +11268,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -11255,6 +11330,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -11316,6 +11392,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -11377,6 +11454,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -11438,6 +11516,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -11499,6 +11578,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
@@ -11560,6 +11640,7 @@
       "VisibilityRadius": 6,
       "BaseMoveSpeed": 1,
       "UnspentSkillPoints": 5,
+      "Terrains": [],
       "MaxHealth": 10,
       "MaxMana": 100,
       "IsConfused": false,
