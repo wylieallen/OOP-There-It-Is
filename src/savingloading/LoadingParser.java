@@ -387,7 +387,9 @@ public class LoadingParser {
         while(skillStrings.hasNext()) {
             String skillString = skillStrings.next();
             int level = (int) entityStatsJson.getJSONObject("Skills").get(skillString);
-            skills.put(loadSkillType(skillString), level);
+            if(!skillString.equals("NULL")) {
+                skills.put(loadSkillType(skillString), level);
+            }
         }
         return new EntityStats(skills, entityStatsJson.getInt("BaseMoveSpeed"),
                 entityStatsJson.getInt("MaxHealth"), entityStatsJson.getInt("CurrentHealth"),
