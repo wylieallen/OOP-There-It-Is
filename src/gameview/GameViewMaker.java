@@ -13,11 +13,8 @@ import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.DismountAction;
 import entity.entitycontrol.controllerActions.ObserveAction;
-import entity.entitymodel.Entity;
-import entity.entitymodel.EntityStats;
-import entity.entitymodel.Equipment;
-import entity.entitymodel.Inventory;
 import entity.entitymodel.*;
+import entity.entitymodel.interactions.PickPocketInteraction;
 import entity.entitymodel.interactions.TalkInteraction;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
@@ -168,6 +165,7 @@ public class GameViewMaker
         player.addCompatibleTerrain(Terrain.SPACE);
         player.setMovementObserver(panel);
         player.addToInventory(new QuestItem("Radio", false, 0));
+        player.addActorInteraction(new PickPocketInteraction());
         String playerClass = "Sneak";
         switch(playerClass) {
             case "Smasher":

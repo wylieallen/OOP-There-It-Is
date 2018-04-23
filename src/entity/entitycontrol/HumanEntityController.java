@@ -178,7 +178,7 @@ public class HumanEntityController extends EntityController implements Controlle
             public void keyPressed(KeyEvent e)
             {
                 if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.N))
-                    view.decrementInventoryDisplayableIndex();
+                    view.decrementInteractionDisplayableIndex();
             }
         });
 
@@ -187,7 +187,7 @@ public class HumanEntityController extends EntityController implements Controlle
             public void keyPressed(KeyEvent e)
             {
                 if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.S))
-                    view.incrementInventoryDisplayableIndex();
+                    view.incrementInteractionDisplayableIndex();
             }
         });
 

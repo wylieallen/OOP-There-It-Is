@@ -82,7 +82,7 @@ public class InteractionDisplayable extends CompositeDisplayable {
 
     private Point calculateCursorPoint (int size) {
         int x = 0;
-        int y = 24 * (cursorIndex + 1);
+        int y = 24 + (cursorIndex * 16);
 
         return new Point(x, y);
     }
