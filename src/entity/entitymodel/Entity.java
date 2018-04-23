@@ -223,7 +223,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     }
 
     public void levelUp() {
-        increaseXP(levelUpIncrement - getCurXP());
+        increaseXP(levelUpIncrement * (getCurLevel()+1) - getCurXP());
     }
 
     public int getUnusedSkillPoints () { return stats.getUnspentSkillPoints(); }
