@@ -701,6 +701,8 @@ public class LoadingParser {
             return loadMakeParalyzed(reversableCommandJson);
         else if (reversableCommandJson.getString("Name").equals("TimedStaminaRegen"))
             return loadTimedStaminaRegenCommand(reversableCommandJson);
+        else if (reversableCommandJson.getString("Name").equals("BuffHealth"))
+            return loadBuffHealthCommand(reversableCommandJson);
         else{
             System.out.println("ERROR: ReversableCommand not loaded properly -- Command name given: " + reversableCommandJson.getString("Name"));
             return null;

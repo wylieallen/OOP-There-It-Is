@@ -5,6 +5,7 @@ import commands.LevelUpCommand;
 import commands.ModifyHealthCommand;
 import commands.TransitionCommand;
 import commands.reversiblecommands.BuffHealthCommand;
+import commands.reversiblecommands.TimedStaminaRegenCommand;
 import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.AI.PetAI;
@@ -51,6 +52,7 @@ import utilities.Coordinate;
 import utilities.Vector;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.List;
@@ -214,12 +216,13 @@ public class GameViewMaker
         List<FoggyWorld> foggyWorldsList = new ArrayList<>();
 
         //add first local world to local world list
-        FoggyWorld foggyWorld = new FoggyWorld(createLocalWorld1(), player);
+        LocalWorld localWorld = createLocalWorld1();
+        FoggyWorld foggyWorld = new FoggyWorld(localWorld, player);
         foggyWorldsList.add(foggyWorld);
 
         //create local world displayable
         WorldDisplayable foggyWorldDisplayable = new WorldDisplayable(new Point(0, 0), 0, foggyWorld);
-        worldDisplayableMap.put(foggyWorld, foggyWorldDisplayable);
+        worldDisplayableMap.put(foggyWorld.getLocalWorld(), foggyWorldDisplayable);
 
         //add second local world to local world list
         foggyWorld = new FoggyWorld(createLocalWorld2(), player);
@@ -227,7 +230,7 @@ public class GameViewMaker
 
         //create local world displayable
         foggyWorldDisplayable = new WorldDisplayable(new Point(0, 0), 0, foggyWorld);
-        worldDisplayableMap.put(foggyWorld, foggyWorldDisplayable);
+        worldDisplayableMap.put(foggyWorld.getLocalWorld(), foggyWorldDisplayable);
 
         //add third local world to local world list
         foggyWorld = new FoggyWorld(createLocalWorld3(), player);
@@ -235,7 +238,7 @@ public class GameViewMaker
 
         //create local world displayable
         foggyWorldDisplayable = new WorldDisplayable(new Point(0, 0), 0, foggyWorld);
-        worldDisplayableMap.put(foggyWorld, foggyWorldDisplayable);
+        worldDisplayableMap.put(foggyWorld.getLocalWorld(), foggyWorldDisplayable);
 
         //add fourth local world to local world list
         foggyWorld = new FoggyWorld(createLocalWorld4(), player);
@@ -243,7 +246,7 @@ public class GameViewMaker
 
         //create local world displayable
         foggyWorldDisplayable = new WorldDisplayable(new Point(0, 0), 0, foggyWorld);
-        worldDisplayableMap.put(foggyWorld, foggyWorldDisplayable);
+        worldDisplayableMap.put(foggyWorld.getLocalWorld(), foggyWorldDisplayable);
 
         game = new Game(overworld, overworld, foggyWorldsList, 0, player);
         game.setTransitionObserver(panel);
@@ -293,9 +296,14 @@ public class GameViewMaker
         spriteMap.put(localWorld4Exit, ImageMaker.makeTeleporterDisplayable());
         foggyWorldsList.get(3).getTile(new Coordinate(-1, -1)).addEI(localWorld4Exit);
 
-//        WearableItem armor = new WearableItem("Good Armor", true, new BuffHealthCommand(100000), EquipSlot.ARMOUR);
-//        WearableItem ring = new WearableItem("Nice Ring", true, new BuffHealthCommand(1000), EquipSlot.RING);
-//        foggyWorldsList.get(3).getTile(new Coordinate(3, 3)).addEI(armor);
+        //Transition Area Effect
+        AreaEffect teleport = new InfiniteAreaEffect(new TransitionCommand(foggyWorldsList.get(3).getLocalWorld(), new Coordinate(4, -9), game), 1, 0, "Teleport Area Effect 1");
+        foggyWorldsList.get(3).getTile(new Coordinate(-4, -6)).addEI(teleport);
+        spriteMap.put(teleport, ImageMaker.makeTeleporterDisplayable());
+
+        teleport = new InfiniteAreaEffect(new TransitionCommand(foggyWorldsList.get(3).getLocalWorld(), new Coordinate(-4, -5), game), 1, 0, "Teleport Area Effect 1");
+        foggyWorldsList.get(3).getTile(new Coordinate(4, -10)).addEI(teleport);
+        spriteMap.put(teleport, ImageMaker.makeTeleporterDisplayable());
 
        return new GameDisplayState(panel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overworld);
     }
@@ -329,9 +337,6 @@ public class GameViewMaker
         EntityStats stats = new EntityStats(skills, 1, 10, 10, 100, 100, 1, 98, 5, 6, 10, 10, false, false, compatible);
 
         Inventory i = new Inventory(new ArrayList<>());
-        TakeableItem key = new QuestItem("key",false,4321);
-        i.add(key);
-        spriteMap.put(key,new ImageDisplayable(new Point(20,20), ImageMaker.makeBorderedCircle(Color.blue),100));
 
         Entity entity = new Entity(new Vector(Direction.NULL, 0), stats, new ArrayList<>(), new ArrayList<>(), i, true, "Tim");
         Equipment e = new Equipment(5, i, entity);
@@ -638,7 +643,7 @@ public class GameViewMaker
         tiles.get(new Coordinate(-6, 6)).addEI(killEffect);
         tiles.get(new Coordinate(-7, 6)).addEI(killEffect);
 
-        AreaEffect levelUp = new OneShotAreaEffect(new LevelUpCommand(), false, "Kill Area Effect");
+        AreaEffect levelUp = new OneShotAreaEffect(new LevelUpCommand(), false, "Level Up Area Effect");
         tiles.get(new Coordinate(-6, 8)).addEI(levelUp);
         tiles.get(new Coordinate(-7, 8)).addEI(levelUp);
         tiles.get(new Coordinate(-6, 9)).addEI(levelUp);
@@ -664,6 +669,15 @@ public class GameViewMaker
         Vehicle thingy = createVehicle(new Coordinate(2, 2));
         tiles.get(new Coordinate(-4, -4)).setEntity(thingy);
         spriteMap.put(thingy, ImageMaker.makeVehicleDisplayable());
+
+        BuffHealthCommand command = new BuffHealthCommand(100);
+        System.out.println("here2 " + command);
+        WearableItem armor = new WearableItem("Weak Armor", true, command, EquipSlot.ARMOUR);
+        world.getTile(new Coordinate(-1, 9)).addEI(armor);
+        armor = new WearableItem("Strong Armor", true, new BuffHealthCommand(1000), EquipSlot.ARMOUR);
+        world.getTile(new Coordinate(0, 9)).addEI(armor);
+        WearableItem ring = new WearableItem("Stamina Regen Ring", true, new TimedStaminaRegenCommand(false, 0, 2), EquipSlot.RING);
+        world.getTile(new Coordinate(1, 8)).addEI(ring);
 
         return world;
     }

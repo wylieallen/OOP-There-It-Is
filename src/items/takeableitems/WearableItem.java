@@ -13,6 +13,7 @@ public class WearableItem extends TakeableItem {
 
     public WearableItem(String name, boolean onMap, ReversibleCommand command, EquipSlot equipType) {
         super(name, onMap);
+        System.out.println("here " + command);
         this.command = command;
         this.equipType = equipType;
     }

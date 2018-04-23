@@ -257,7 +257,7 @@ public class ImageMaker
                 new ImageDisplayable(new Point(0, 0), loadImage("assets/blank.png"), ITEM_HEIGHT));
 
         displayable.add(trap::hasFired, new ImageDisplayable(new Point(8, 8), loadImage("assets/maps/firedtrap.png"), ITEM_HEIGHT));
-        displayable.add(trap::isVisible, new ImageDisplayable(new Point(8, 8), loadImage("assets/maps/trap.png"), ITEM_HEIGHT));
+        displayable.add(trap::isVisible, new ImageDisplayable(new Point(16, 16), loadImage("assets/maps/trap.png"), ITEM_HEIGHT));
 
         return displayable;
     }

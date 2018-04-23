@@ -29,19 +29,20 @@ public class CreepAction extends ControllerAction {
 
     @Override
     protected void execute() {
-        System.out.println(isCreeping);
         if(isCreeping){
             isCreeping = false;
             controlledEntity.increaseConcealment(cachedConcealmentDifference);
             controlledEntity.increaseBaseMoveSpeed(cachedSpeedDifference);
         }
-        else if(!isCreeping){
+        else {
             isCreeping = true;
             cachedConcealmentDifference = controlledEntity.getConcealment();
             controlledEntity.decreaseConcealment(cachedConcealmentDifference);
             cachedSpeedDifference = (int)(controlledEntity.getBaseMoveSpeed() * 0.98);
             controlledEntity.decreaseBaseMoveSpeed(cachedSpeedDifference);
         }
+
+        isCreeping = !isCreeping;
     }
 
     @Override
