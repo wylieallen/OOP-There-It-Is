@@ -58,8 +58,6 @@ public class GameViewMaker
     private Map<World, WorldDisplayable> worldDisplayableMap;
     private Entity player;
 
-    private boolean loadFromFile = false;
-
     private Game game;
 
     public GameViewMaker()
@@ -70,17 +68,6 @@ public class GameViewMaker
 
     public GameDisplayState makeGameDisplayState(GamePanel panel)
     {
-        if (loadFromFile){
-            LoadingParser loadingParser = new LoadingParser();
-            try {
-                loadingParser.loadGame("test", panel);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            GameDisplayState gameDisplayState = loadingParser.getGameDisplayState();
-            game = loadingParser.getGame();
-            return gameDisplayState;
-        }
         spriteMap = ImageMaker.makeDefaultMap();
         worldDisplayableMap = new HashMap<>();
 

@@ -26,6 +26,30 @@ public class RunGame
 
         JMenuBar bar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
+
+        JMenuItem newGame = new JMenuItem("Start New Game");
+        newGame.addActionListener(e -> {
+            panel.startNewGame();
+        });
+
+        menu.add(newGame);
+
+        JMenuItem loadGame = new JMenuItem("Load Game");
+        loadGame.addActionListener(e ->
+        {
+            panel.loadGame();
+        });
+
+        menu.add(loadGame);
+
+        JMenuItem saveGame = new JMenuItem("Save Game");
+        saveGame.addActionListener(e ->
+        {
+            panel.saveGame();
+        });
+
+        menu.add(saveGame);
+
         JMenuItem resetCamera = new JMenuItem("Reset Camera");
 
         resetCamera.addActionListener(e -> {
@@ -33,6 +57,7 @@ public class RunGame
         });
 
         menu.add(resetCamera);
+
         bar.add(menu);
         frame.setJMenuBar(bar);
     }
