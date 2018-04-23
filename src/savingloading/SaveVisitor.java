@@ -608,7 +608,9 @@ public class SaveVisitor implements Visitor {
             tm.accept(this);
         }
         if (localWorldTile.getEntity() != null){
-            if (localWorldTile.getEntity().getName() != "Player") {
+            if (localWorldTile.getEntity().getName() != "Smasher" &&
+                    localWorldTile.getEntity().getName() != "Summoner" &&
+                    localWorldTile.getEntity().getName() != "Sneak") {
                 localWorldTile.getEntity().accept(this);
                 entityFound = true;
             }

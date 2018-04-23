@@ -121,7 +121,7 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
 
     public boolean initialized() { return initialized; }
 
-    // todo: these Observer interfaces should probably just be in GameDisplayState
+
     @Override
     public void notifyMovement()
     {

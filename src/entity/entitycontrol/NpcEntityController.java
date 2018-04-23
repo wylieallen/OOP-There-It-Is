@@ -42,22 +42,22 @@ public class NpcEntityController extends EntityController {
 
     @Override
     protected void processController() {
-        //TODO
+
     }
 
     @Override
     public void interact(EntityController interacter) {
-        //TODO
+
     }
 
     @Override
     public void notifyFreeMove(Entity e) {
-        //TODO
+
     }
 
     @Override
     public void notifyInventoryManagment(Entity e) {
-        //TODO
+
     }
 
     @Override
@@ -76,17 +76,17 @@ public class NpcEntityController extends EntityController {
 
     @Override
     public void notifyLevelUp(Entity e) {
-        //TODO
+
     }
 
     @Override
     public void notifyUseItem (Entity player, EntityController interactee) {
-        //TODO
+
     }
 
     @Override
     public void notifyMainMenu(Entity e) {
-        //TODO
+
     }
 
     @Override
@@ -124,9 +124,9 @@ public class NpcEntityController extends EntityController {
         }
     }
 
-    // TODO: make sure if there is a mount it gives a mount, not its entity
+
     public void processAI(Map<Coordinate, LocalWorldTile> map, Entity e){
-        //TODO
+
     }
 
     public boolean isAggro() {

@@ -189,6 +189,5 @@ public class CommandsTests {
 
         command.trigger(target, 500);
 
-        //TODO: make meaningful unit tests
     }
 }

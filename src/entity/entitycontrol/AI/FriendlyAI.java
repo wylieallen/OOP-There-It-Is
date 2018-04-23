@@ -22,7 +22,7 @@ public class FriendlyAI extends AI {
     @Override   // e is my entity
     public void nextAction(Map <Coordinate, Tile> map, Entity e, Coordinate location) {
 
-        //TODO: make the entity allow for interactions with other entities
+
 
         if (!hasPath() || getNextDirection(location) == Direction.NULL) {
             Coordinate end = getNextCoordinate (map.keySet(), e);

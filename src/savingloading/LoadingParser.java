@@ -497,7 +497,10 @@ public class LoadingParser {
             wearableItems.put(equipSlot, item);
         }
         int maxSize = 10; // ?
-        WeaponItem[] weaponItemsArray = weaponItems.toArray(new WeaponItem[0]);
+        WeaponItem[] weaponItemsArray = new WeaponItem[5];
+        for(int i = 0; i < weaponItems.size(); ++i){
+            weaponItemsArray[i] = weaponItems.get(i);
+        }
         return new Equipment(wearableItems, weaponItemsArray, maxSize, inventory, entity);
     }
 

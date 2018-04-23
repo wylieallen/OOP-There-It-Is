@@ -24,7 +24,7 @@ public class PatrolAI extends AI {
 
     @Override
     public void nextAction(Map <Coordinate, Tile> map, Entity e, Coordinate location) {
-        //TODO make it follow and patrol a route
+
 
         Direction face;
 

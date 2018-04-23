@@ -20,7 +20,7 @@ import java.util.Map;
  * Created by dontf on 4/13/2018.
  */
 
-// TODO: Override all entity functions that the vehicle must push to the driver;
+
 public class Vehicle extends Entity {
 
     private Entity driver;
@@ -86,7 +86,7 @@ public class Vehicle extends Entity {
 
     private void setDriver (Entity driver) {
         this.driver = driver;
-        // todo: LoD problem?
+
         EntityController controller = driver.getController();
         controller.notifyFreeMove(this);
     }

@@ -30,8 +30,6 @@ public class ObserveAction extends ControllerAction implements SpawnObservable, 
 
     @Override
     protected void execute() {
-        //TODO: make sure to set the observe commands entitycontroller first;
-        //TODO: make influence area
 
         int level = controlledEntity.getSkillLevel(SkillType.OBSERVATION);
         List <GameObject> whiteList = new ArrayList<>();

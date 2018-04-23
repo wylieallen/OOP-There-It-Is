@@ -46,7 +46,7 @@ public class ImageMaker
         return map;
     }
 
-    private static final Displayable NULL_DISPLAYABLE = new ImageDisplayable(new Point(16, 16), makeBorderedCircle(Color.WHITE), 99999);
+    private static final Displayable NULL_DISPLAYABLE = new ImageDisplayable(new Point(16, 16), loadImage("assets/blank.png"), -1000);
 
     public static Displayable getNullDisplayable()
     {
@@ -294,7 +294,7 @@ public class ImageMaker
 
 
 
-    // Todo: split BufferedImage creation off into a separate class
+
     public static BufferedImage makeBorderedHex(Color color)
     {
         BufferedImage image = new BufferedImage(64 + 1, 64 + 1, BufferedImage.TYPE_INT_ARGB);

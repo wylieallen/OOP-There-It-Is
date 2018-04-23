@@ -13,6 +13,7 @@ import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.DismountAction;
+import entity.entitycontrol.controllerActions.ObserveAction;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.PickPocketInteraction;
 import entity.entitymodel.interactions.TalkInteraction;
@@ -235,11 +236,11 @@ public class GameViewMaker
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, player.getInventory(), player), game.getCoordinate(player), panel));
 
         player.getController().addAction(new DismountAction(player.getController()));
-        //ObserveAction observe = new ObserveAction(player);
-        //observe.setController(player.getController());
-        //observe.registerObserver(foggyWorldsList.get(1));
-        //player.getController().addAction(observe);
-        //spawnerMap.put(observe, ImageMaker.makeYellowProjectileDisplayable());
+        ObserveAction observe = new ObserveAction(player);
+        observe.setController(player.getController());
+        observe.registerObserver(foggyWorldsList.get(1));
+        player.getController().addAction(observe);
+        spawnerMap.put(observe, ImageMaker.makeYellowProjectileDisplayable());
 
         //setup world transitions
         //local world 1
@@ -290,7 +291,7 @@ public class GameViewMaker
        return new GameDisplayState(panel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overworld);
     }
 
-    // todo: expandOverworld is very inefficient right now
+
     private void expandOverworld(Map<Coordinate, OverWorldTile> map, Terrain terrain)
     {
         for(Coordinate c : new HashSet<>(map.keySet()))

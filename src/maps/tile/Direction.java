@@ -44,7 +44,6 @@ public enum Direction {
         this.pixelOffset = new Point(pixelX, pixelY);
     }
 
-    // todo: Direction is technically part of the model, not the view, so pixel coords should probably be handled elsewhere
     private Point pixelOffset;
 
     public int getPixelX() { return pixelOffset.x; }

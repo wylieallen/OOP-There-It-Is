@@ -58,7 +58,7 @@ public class InteractionTests {
         EntityStats actorStats = new EntityStats(skillsActor, 1001, 100, 85, 100, 55, 5, 25, 5, 5, 50, 65, false, false, new HashSet<>());
         EntityStats acteeStats = new EntityStats(skillsActee, 1001, 120, 45, 120, 43, 5, 23, 8, 6, 69, 100, false, false, new HashSet<>());
 
-        //TODO: once concrete ControllerActions are made test this;
+
 
         ArrayList<ControllerAction> actorActions = new ArrayList<>();
 
@@ -158,9 +158,7 @@ public class InteractionTests {
 
 
 
-    // mount interaction test //
 
-    // TODO: make mount test
 
     @Test
     public void mountInteractionTest () {
@@ -177,28 +175,5 @@ public class InteractionTests {
         Assert.assertTrue(vehicle.hasDriver());
     }
 
-
-
-
-
-    // trade interaction test //
-
-    // TODO: make trade test, still needs somethings from entity controller and view to be done.
-
-
-
-
-
-    // talk interaction test //
-
-    // TODO: make talk test, still need view things and what has the messages.
-
-
-
-
-
-    // useItem interaction test //
-
-    // TODO: make useItem test.
 
 }

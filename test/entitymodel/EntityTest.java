@@ -50,7 +50,7 @@ public class EntityTest {
         EntityStats actorStats = new EntityStats(skillsActor, 1001, 100, 85, 100, 55, 5, 25, 5, 5, 50, 65, false, false, new HashSet<>());
         EntityStats acteeStats = new EntityStats(skillsActee, 1001, 120,45, 120,43, 5, 23, 8, 6, 69, 100, false, false, new HashSet<>());
 
-        //TODO: once concrete ControllerActions are made test this;
+
         ArrayList <TimedEffect> actorEffects = new ArrayList<>();
         ArrayList <TimedEffect> acteeEffects = new ArrayList<>();
 
@@ -69,7 +69,7 @@ public class EntityTest {
         acteeActeeInteractions.add (new TradeInteraction());
         acteeActeeInteractions.add (new UseItemInteraction());
 
-        //TODO: add constructors when it needs to be tested;
+
         /*EntityController actorController = new EntityController(actor, null, null, null) {
             @Override
             protected void processController() {

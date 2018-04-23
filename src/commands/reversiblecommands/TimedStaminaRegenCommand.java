@@ -16,7 +16,7 @@ public class TimedStaminaRegenCommand extends ReversibleCommand {
 
     @Override
     protected void apply(Entity e) {
-        // TODO: decrease stamina regeneration rate in entity
+
         int oldStaminaRegen = e.getManaRegenRate();
         int newStaminaRegen = (int)(oldStaminaRegen * factor);
         cachedStaminaRegenDifference = newStaminaRegen - oldStaminaRegen;

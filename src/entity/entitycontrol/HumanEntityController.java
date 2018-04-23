@@ -32,7 +32,7 @@ public class HumanEntityController extends EntityController implements Controlle
     private Set<KeyListener> freeMoveKeyListeners;
     private Set<KeyListener> inventoryManagementKeyListeners;
     private Set<KeyListener> useItemKeyListeners;
-    // todo: entity interaction may take a little more work since we can't pre-initialize the actee's keylisteners
+
     private Set<KeyListener> entityInteractionKeyListeners;
     private List <EntityInteraction> listOfInteractions;
     private Entity currentInteractee;
@@ -41,7 +41,6 @@ public class HumanEntityController extends EntityController implements Controlle
     private Set<KeyListener> levelUpKeyListeners;
 
     // integer KeyCodes (modify these to implement rebinding)
-    // todo: enforce correctness with getter methods?
     private int attackKeyCode = KeyEvent.VK_SPACE;
     private int bindWoundsKeyCode = KeyEvent.VK_B;
     private int creepKeyCode = KeyEvent.VK_CONTROL;
@@ -56,14 +55,15 @@ public class HumanEntityController extends EntityController implements Controlle
 
     private Map<Integer, Integer> weaponSlotKeyCodes;
 
-    // todo: finish adding more keycodes
+    private int moveKeyCode = KeyEvent.VK_SHIFT;
+
 
     // Inventory Menu keycodes:
     private int useInventoryItemKeyCode = KeyEvent.VK_ENTER;
     private int selectInteractionKeyCode = KeyEvent.VK_ENTER;
 
 
-    // TODO: give entity bonuses on enrage and anti-bonuses on pacify
+
     private boolean isAggroed;
 
     public HumanEntityController(Entity entity, Equipment equipment, Coordinate entityLocation, GamePanel view) {
@@ -304,7 +304,7 @@ public class HumanEntityController extends EntityController implements Controlle
     {
         freeMoveKeyListeners = new HashSet<>();
 
-        // todo: maybe move this into a separate "default freemove key listeners" structure
+
         freeMoveKeyListeners.add(new KeyAdapter()
         {
             public void keyPressed(KeyEvent e)
@@ -489,18 +489,17 @@ public class HumanEntityController extends EntityController implements Controlle
 
     @Override
     protected void processController() {
-        //TODO
+
     }
 
     @Override
     public void interact(EntityController interacter) {
 
-        //TODO
     }
 
     @Override
     public void notifyFreeMove(Entity e) {
-        //TODO
+
         if(view != null) {
             if(view.initialized())
             {
@@ -518,7 +517,7 @@ public class HumanEntityController extends EntityController implements Controlle
 
     @Override
     public void notifyInventoryManagment(Entity e) {
-        //TODO
+
         if(view != null) {
             for (KeyListener k : freeMoveKeyListeners) {
                 view.removeKeyListener(k);
@@ -636,7 +635,6 @@ public class HumanEntityController extends EntityController implements Controlle
     }
 
     public void visitDismountAction (DismountAction a) {
-        // todo: maybe there should be a separate in-vehicle input state instead of lumping this into freemove
         freeMoveKeyListeners.add(new KeyAdapter()
         {
             public void keyPressed(KeyEvent e)
@@ -699,7 +697,7 @@ public class HumanEntityController extends EntityController implements Controlle
 
     @Override
     public void notifyLevelUp(Entity e) {
-        //TODO set active list to level up list
+
         if(view != null) {
             for (KeyListener k : freeMoveKeyListeners) {
                 view.removeKeyListener(k);
@@ -717,7 +715,7 @@ public class HumanEntityController extends EntityController implements Controlle
 
     @Override
     public void notifyMainMenu(Entity e) {
-        //TODO set active list to main menu list
+
     }
 
     @Override

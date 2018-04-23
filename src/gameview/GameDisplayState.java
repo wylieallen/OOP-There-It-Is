@@ -46,7 +46,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     private static final int RENDERING_FRAMES_PER_GAME_TICK = 10;
     private int gameTickCountdown = RENDERING_FRAMES_PER_GAME_TICK;
 
-    // todo: the Map<World, WorldDisplayable> doesn't need to be a constructor parameter
+
     // GameDisplayState can just instantiate new WorldDisplayables as we need them
 
     public GameDisplayState(Dimension size, Game game, Map<GameObject, Displayable> spriteMap, Map<SpawnObservable, Displayable> spawnerMap, Map<World, WorldDisplayable> worlds, World initialWorld)
@@ -138,7 +138,6 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
         super.update();
         widgets.forEach(Displayable::update);
 
-        // todo: this could potentially be enough of a performance drain that we should just skip it and let memory leak
         spriteMap.keySet().removeIf(GameObject::expired);
 
         /*

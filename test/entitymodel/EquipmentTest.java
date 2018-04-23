@@ -87,6 +87,5 @@ public class EquipmentTest {
         Assert.assertTrue(items.contains(wearable));
     }
 
-    //TODO: test useWeapon;
 
 }
