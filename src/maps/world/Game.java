@@ -109,6 +109,15 @@ public class Game implements TransitionObserver, Visitable {
         return worlds;
     }
 
+    public List<World> getRealWorlds(){
+        List<World> worlds = new ArrayList<World>();
+        worlds.add(overWorld);
+        for (FoggyWorld foggyWorld : localWorlds){
+            worlds.add(foggyWorld.getLocalWorld());
+        }
+        return worlds;
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitGame(this);

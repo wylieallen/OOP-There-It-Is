@@ -86,6 +86,8 @@ public class SaveVisitor implements Visitor {
         }
         e.getInventory().accept(this);
         currentEntityJson.put("Name", e.getName());
+        if (!currentEntityJson.has("IsAggro"))
+            currentEntityJson.put("IsAggro", false);
     }
 
     @Override
@@ -387,7 +389,6 @@ public class SaveVisitor implements Visitor {
         wearableItemJson.put("Type", "Wearable");
         wearableItemJson.put("Name", w.getName());
         wearableItemJson.put("OnMap", w.isOnMap());
-        System.out.println(w.getName() + " -- " + w.getCommand());
         w.getCommand().accept(this);
         wearableItemJson.put("ReversableCommand", currentCommandJson);
         wearableItemJson.put("EquipType", w.getEquipType().name());
@@ -423,7 +424,6 @@ public class SaveVisitor implements Visitor {
     @Override
     public void visitBuffHealthCommand(BuffHealthCommand buffHealthCommand)
     {
-        System.out.println("in buff");
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "BuffHealth");
         currentCommandJson.put("Amount", buffHealthCommand.getBuffAmount());
@@ -569,6 +569,7 @@ public class SaveVisitor implements Visitor {
             tilesJson.put(currentTileJson);
             if (entityFound){
                 entitiesJson.put(currentEntityJson);
+                entityFound = false;
             }
         }
         localWorldJson.put("Tiles", tilesJson);
@@ -607,8 +608,10 @@ public class SaveVisitor implements Visitor {
             tm.accept(this);
         }
         if (localWorldTile.getEntity() != null){
-            localWorldTile.getEntity().accept(this);
-            entityFound = true;
+            if (localWorldTile.getEntity().getName() != "Player") {
+                localWorldTile.getEntity().accept(this);
+                entityFound = true;
+            }
         }
         Set<EntityImpactor> eis = localWorldTile.getEntityImpactors();
         for (EntityImpactor ei : eis){
@@ -697,7 +700,7 @@ public class SaveVisitor implements Visitor {
         visitOverWorld(g.getOverWorld());
         for (FoggyWorld foggyWorld : g.getLocalWorlds())
             foggyWorld.accept(this);
-        addTransitionCommandTargetWorlds(g.getWorlds());
+        addTransitionCommandTargetWorlds(g.getRealWorlds());
 
         saveFileJson.put("Player", playerJson);
         saveFileJson.put("OverWorld", overWorldJson);

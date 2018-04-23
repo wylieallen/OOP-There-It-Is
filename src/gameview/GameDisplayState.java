@@ -39,7 +39,8 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     private Map<World, WorldDisplayable> worlds;
     private WorldDisplayable activeWorldDisplayable;
     private InventoryDisplayable inventoryDisplayable;
-    private SaveVisitor saveVisitor = new SaveVisitor("game1");
+    private SaveVisitor saveVisitor = new SaveVisitor("test");
+    private long timeSinceLastSave = 0;
 
     private static final int RENDERING_FRAMES_PER_GAME_TICK = 10;
     private int gameTickCountdown = RENDERING_FRAMES_PER_GAME_TICK;
@@ -131,6 +132,11 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
         // todo: this could potentially be enough of a performance drain that we should just skip it and let memory leak
         spriteMap.keySet().removeIf(GameObject::expired);
 
+        if (System.currentTimeMillis() - timeSinceLastSave > (1000 * 10) ){
+            game.accept(saveVisitor);
+            System.out.println("Saved!!!!!");
+            timeSinceLastSave = System.currentTimeMillis();
+        }
     }
 
     public void centerOnPlayer()

@@ -86,7 +86,7 @@ public class LoadingParser {
 
         List<FoggyWorld> foggyWorlds = loadFoggyWorlds();
 
-        overWorld.add(playerController.getEntityLocation(), player);
+        overWorld.add(new Coordinate(0,0), player);
 
         game = new Game(overWorld, overWorld, foggyWorlds, 0, player);
 
@@ -118,7 +118,7 @@ public class LoadingParser {
         List<TimedEffect> effects = new ArrayList<>();
         Inventory inventory = loadInventory(playerJson.getJSONArray("Inventory"));
         Boolean onMap = !playerJson.getBoolean("InVehicle");
-        player = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, "Default");
+        player = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, playerJson.getString("Name"));
         Equipment equipment = loadEquipment(playerJson.getJSONObject("Equipment"), inventory, player);
         Coordinate coordinate = new Coordinate(playerJson.getInt("X"), playerJson.getInt("Y"));
         playerController = new HumanEntityController(player, equipment, coordinate, gamePanel);
@@ -186,13 +186,11 @@ public class LoadingParser {
         if (entityJson.getString("Type").equals("Vehicle"))
             entity = new Vehicle(movementVector, entityStats, effects, actorInteractions, inventory, onMap, null);
         else
-            entity = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, "Default");
+            entity = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, entityJson.getString("Name"));
         Equipment equipment = loadEquipment(entityJson.getJSONObject("Equipment"), inventory, entity);
         Coordinate coordinate = new Coordinate(entityJson.getInt("X"), entityJson.getInt("Y"));
         NpcEntityController controller = loadNpcEntityController(entityJson, entity, equipment, coordinate);
         entity.setController(controller);
-        if (!entityJson.has("Name"))
-            System.out.println(entityJson.toString(1));
         List<ControllerAction> controllerActions = loadControllerActions(entityJson.getString("Name"), entity, controller, equipment);
         controller.setControllerActions(controllerActions);
         Displayable displayable = loadDisplayable(entityJson.getString("Name"));
@@ -512,10 +510,6 @@ public class LoadingParser {
         }
         Displayable displayable = loadDisplayable(itemJson.getString("Name"));
         spriteMap.put(item, displayable);
-        if (itemJson.getString("Type").equals("Interactive")) {
-            System.out.println("Item: " + item);
-            System.out.println("Displayable: " + displayable);
-        }
         return item;
     }
 

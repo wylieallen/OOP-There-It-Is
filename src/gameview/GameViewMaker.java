@@ -227,7 +227,7 @@ public class GameViewMaker
 
         //setup world transitions
         //local world 1
-        InteractiveItem localWorld1Entrance = new InteractiveItem("Encounter 1", new TransitionCommand(foggyWorldsList.get(0), new Coordinate(0, 0), game));
+        InteractiveItem localWorld1Entrance = new InteractiveItem("Encounter 1", new TransitionCommand(foggyWorldsList.get(0).getLocalWorld(), new Coordinate(0, 0), game));
         spriteMap.put(localWorld1Entrance, ImageMaker.makeEncounterDisplayable1());
         overworld.getTile(new Coordinate(1, -2)).setEncounter(localWorld1Entrance);
 
@@ -236,7 +236,7 @@ public class GameViewMaker
         foggyWorldsList.get(0).getTile(new Coordinate(-1, -1)).addEI(localWorld1Exit);
 
         //local world 2
-        InteractiveItem localWorld2Entrance = new InteractiveItem("Encounter 2", new TransitionCommand(foggyWorldsList.get(1), new Coordinate(0, 0), game));
+        InteractiveItem localWorld2Entrance = new InteractiveItem("Encounter 2", new TransitionCommand(foggyWorldsList.get(1).getLocalWorld(), new Coordinate(0, 0), game));
         spriteMap.put(localWorld2Entrance, ImageMaker.makeEncounterDisplayable1());
         overworld.getTile(new Coordinate(-6, 1)).setEncounter(localWorld2Entrance);
 
@@ -245,7 +245,7 @@ public class GameViewMaker
         foggyWorldsList.get(1).getTile(new Coordinate(-1, -1)).addEI(localWorld2Exit);
 
         //local world 3
-        InteractiveItem localWorld3Entrance = new InteractiveItem("Encounter 3", new TransitionCommand(foggyWorldsList.get(2), new Coordinate(0, 0), game));
+        InteractiveItem localWorld3Entrance = new InteractiveItem("Encounter 3", new TransitionCommand(foggyWorldsList.get(2).getLocalWorld(), new Coordinate(0, 0), game));
         spriteMap.put(localWorld3Entrance, ImageMaker.makeEncounterDisplayable1());
         overworld.getTile(new Coordinate(-5, 4)).setEncounter(localWorld3Entrance);
 
@@ -254,7 +254,7 @@ public class GameViewMaker
         foggyWorldsList.get(2).getTile(new Coordinate(-1, -1)).addEI(localWorld3Exit);
 
         //local world 4
-        InteractiveItem localWorld4Entrance = new InteractiveItem("Encounter 4", new TransitionCommand(foggyWorldsList.get(3), new Coordinate(0, 0), game));
+        InteractiveItem localWorld4Entrance = new InteractiveItem("Encounter 4", new TransitionCommand(foggyWorldsList.get(3).getLocalWorld(), new Coordinate(0, 0), game));
         spriteMap.put(localWorld4Entrance, ImageMaker.makeEncounterDisplayable1());
         overworld.getTile(new Coordinate(4, 3)).setEncounter(localWorld4Entrance);
 
@@ -262,9 +262,9 @@ public class GameViewMaker
         spriteMap.put(localWorld4Exit, ImageMaker.makeTeleporterDisplayable());
         foggyWorldsList.get(3).getTile(new Coordinate(-1, -1)).addEI(localWorld4Exit);
 
-        WearableItem armor = new WearableItem("Good Armor", true, new BuffHealthCommand(100000), EquipSlot.ARMOUR);
-        WearableItem ring = new WearableItem("Nice Ring", true, new BuffHealthCommand(1000), EquipSlot.RING);
-        foggyWorldsList.get(3).getTile(new Coordinate(3, 3)).addEI(armor);
+//        WearableItem armor = new WearableItem("Good Armor", true, new BuffHealthCommand(100000), EquipSlot.ARMOUR);
+//        WearableItem ring = new WearableItem("Nice Ring", true, new BuffHealthCommand(1000), EquipSlot.RING);
+//        foggyWorldsList.get(3).getTile(new Coordinate(3, 3)).addEI(armor);
 
        return new GameDisplayState(panel.getSize(), game, spriteMap, spawnerMap, worldDisplayableMap, overworld);
     }
