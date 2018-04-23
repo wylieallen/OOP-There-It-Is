@@ -321,7 +321,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     @Override   // assumes e is player.
     public boolean canMoveHere (Entity mover) {
         // notifyInteraction will need to get the list of interactions by calling interact on its entity.
-        if (!controller.isAggroed())
+        if (!getController().isAggroed() || mover.getConcealment() == 0)
             mover.controller.notifyInteraction(mover, this);
 
         return false;

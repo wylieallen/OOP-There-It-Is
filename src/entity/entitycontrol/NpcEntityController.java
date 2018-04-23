@@ -62,8 +62,6 @@ public class NpcEntityController extends EntityController {
 
     @Override
     public void notifyInteraction(Entity player, Entity interactee) {
-        if (!isAggro())
-            player.getController().notifyInteraction(player, interactee);
     }
 
     @Override
