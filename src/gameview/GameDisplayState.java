@@ -1,5 +1,6 @@
 package gameview;
 
+import entity.entitycontrol.KeyRole;
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
@@ -37,6 +38,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     private InventoryDisplayable inventoryDisplayable;
     private InventoryDisplayable npcInventoryDisplayable;
     private InventoryDisplayable activeShopDisplayable;
+    private ConfigControlsDisplayable configControlsDisplayable;
     private SaveVisitor saveVisitor = new SaveVisitor("test");
     private long timeSinceLastSave = 0;
     private LevelUpDisplayable levelUpDisplayable;
@@ -65,6 +67,9 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
         super.add(activeWorldDisplayable = worlds.get(initialWorld));
 
         // Initialize GUI widgets:
+
+        configControlsDisplayable = new ConfigControlsDisplayable(new Point(256, 256));
+
         this.widgets = new PriorityQueue<>();
 
         CompositeDisplayable playerStatus = new CompositeDisplayable(new Point(16, 16), 1);
@@ -314,5 +319,40 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     public int getTradingCursorIndex()
     {
         return activeShopDisplayable.getCursorIndex();
+    }
+
+    public void enableConfigWidget()
+    {
+        widgets.add(configControlsDisplayable);
+    }
+
+    public void disableConfigWidget()
+    {
+        widgets.remove(configControlsDisplayable);
+    }
+
+    public void decrementConfigDisplayableIndex()
+    {
+        configControlsDisplayable.adjustIndex(-1);
+    }
+
+    public void incrementConfigDisplayableIndex()
+    {
+        configControlsDisplayable.adjustIndex(1);
+    }
+
+    public void togglePrimarySecondary()
+    {
+        configControlsDisplayable.togglePrimarySecondary();
+    }
+
+    public KeyRole getSelectedKeyRole()
+    {
+        return KeyRole.values()[configControlsDisplayable.getCursorIndex()];
+    }
+
+    public boolean primaryKeyBindIsSelected()
+    {
+        return configControlsDisplayable.primarySelected();
     }
 }

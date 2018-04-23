@@ -1,5 +1,6 @@
 package gameview;
 
+import entity.entitycontrol.KeyRole;
 import entity.entitymodel.Entity;
 import entity.entitymodel.MovementObserver;
 import guiframework.DisplayPanel;
@@ -304,5 +305,40 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
     public int getTradingCursorIndex()
     {
         return gameDisplayState.getTradingCursorIndex();
+    }
+
+    public void enableConfigWidget()
+    {
+        gameDisplayState.enableConfigWidget();
+    }
+
+    public void disableConfigWidget()
+    {
+        gameDisplayState.disableConfigWidget();
+    }
+
+    public void decrementConfigDisplayableIndex()
+    {
+        gameDisplayState.decrementConfigDisplayableIndex();
+    }
+
+    public void incrementConfigDisplayableIndex()
+    {
+        gameDisplayState.incrementConfigDisplayableIndex();
+    }
+
+    public void togglePrimarySecondary()
+    {
+        gameDisplayState.togglePrimarySecondary();
+    }
+
+    public KeyRole getSelectedKeyRole()
+    {
+        return gameDisplayState.getSelectedKeyRole();
+    }
+
+    public boolean primaryKeyBindIsSelected()
+    {
+        return gameDisplayState.primaryKeyBindIsSelected();
     }
 }

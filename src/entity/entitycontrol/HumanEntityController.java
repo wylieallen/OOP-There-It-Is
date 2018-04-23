@@ -32,38 +32,30 @@ public class HumanEntityController extends EntityController implements Controlle
     private Set<KeyListener> freeMoveKeyListeners;
     private Set<KeyListener> inventoryManagementKeyListeners;
     private Set<KeyListener> useItemKeyListeners;
-
     private Set<KeyListener> entityInteractionKeyListeners;
+    private Set<KeyListener> controlConfigKeyListeners;
     private List <EntityInteraction> listOfInteractions;
     private Entity currentInteractee;
 
     private Set<KeyListener> shoppingKeyListeners;
     private Set<KeyListener> levelUpKeyListeners;
 
-    // integer KeyCodes (modify these to implement rebinding)
-    private int attackKeyCode = KeyEvent.VK_SPACE;
-    private int bindWoundsKeyCode = KeyEvent.VK_B;
-    private int creepKeyCode = KeyEvent.VK_CONTROL;
-    private int searchKeyCode = KeyEvent.VK_SHIFT;
-    private int dismountKeyCode = KeyEvent.VK_EQUALS;
-    private int observeKeyCode = KeyEvent.VK_O;
-    private int manageInventoryKeyCode = KeyEvent.VK_I;
-    private int manageSkillsKeyCode = KeyEvent.VK_L;
+    public int getUseInventoryItemKeyCode() { return useInventoryItemKeyCode; }
+    public int getSelectInteractionKeyCode() { return selectInteractionKeyCode; }
+    public Map<Direction, KeyRole> getDirectionalMoveKeyRoles() { return directionalMoveKeyRoles; }
+    public Map<Integer, KeyRole> getWeaponSlotKeyRoles() { return weaponSlotKeyRoles; }
 
-    private Map<Direction, Integer> directionalMoveKeyCodes;
-    private Map<Direction, Integer> altDirectionalMoveKeyCodes;
+    public void setUseInventoryItemKeyCode(int useInventoryItemKeyCode) { this.useInventoryItemKeyCode = useInventoryItemKeyCode; }
+    public void setSelectInteractionKeyCode(int selectInteractionKeyCode) { this.selectInteractionKeyCode = selectInteractionKeyCode; }
 
-    private Map<Integer, Integer> weaponSlotKeyCodes;
-
-    private int moveKeyCode = KeyEvent.VK_SHIFT;
-
-
+    private Map<Direction, KeyRole> directionalMoveKeyRoles;
+    private Map<Integer, KeyRole> weaponSlotKeyRoles;
     // Inventory Menu keycodes:
     private int useInventoryItemKeyCode = KeyEvent.VK_ENTER;
     private int selectInteractionKeyCode = KeyEvent.VK_ENTER;
 
 
-
+    // TODO: give entity bonuses on enrage and anti-bonuses on pacify
     private boolean isAggroed;
 
     public HumanEntityController(Entity entity, Equipment equipment, Coordinate entityLocation, GamePanel view) {
@@ -73,28 +65,21 @@ public class HumanEntityController extends EntityController implements Controlle
 
         isAggroed = false;
 
-        directionalMoveKeyCodes = new HashMap<>();
-        directionalMoveKeyCodes.put(Direction.N, KeyEvent.VK_W);
-        directionalMoveKeyCodes.put(Direction.NE, KeyEvent.VK_E);
-        directionalMoveKeyCodes.put(Direction.NW, KeyEvent.VK_Q);
-        directionalMoveKeyCodes.put(Direction.S, KeyEvent.VK_S);
-        directionalMoveKeyCodes.put(Direction.SE, KeyEvent.VK_D);
-        directionalMoveKeyCodes.put(Direction.SW, KeyEvent.VK_A);
+        directionalMoveKeyRoles = new HashMap<>();
+        directionalMoveKeyRoles.put(Direction.N, KeyRole.MOVE_N);
+        directionalMoveKeyRoles.put(Direction.NE, KeyRole.MOVE_NE);
+        directionalMoveKeyRoles.put(Direction.NW, KeyRole.MOVE_NW);
+        directionalMoveKeyRoles.put(Direction.S, KeyRole.MOVE_S);
+        directionalMoveKeyRoles.put(Direction.SE, KeyRole.MOVE_SE);
+        directionalMoveKeyRoles.put(Direction.SW, KeyRole.MOVE_SW);
 
-        altDirectionalMoveKeyCodes = new HashMap<>();
-        altDirectionalMoveKeyCodes.put(Direction.N, KeyEvent.VK_UP);
-        altDirectionalMoveKeyCodes.put(Direction.NE, KeyEvent.VK_PAGE_DOWN);
-        altDirectionalMoveKeyCodes.put(Direction.NW, KeyEvent.VK_PAGE_UP);
-        altDirectionalMoveKeyCodes.put(Direction.S, KeyEvent.VK_DOWN);
-        altDirectionalMoveKeyCodes.put(Direction.SE, KeyEvent.VK_RIGHT);
-        altDirectionalMoveKeyCodes.put(Direction.SW, KeyEvent.VK_LEFT);
 
-        weaponSlotKeyCodes = new HashMap<>();
-        weaponSlotKeyCodes.put(0, KeyEvent.VK_1);
-        weaponSlotKeyCodes.put(1, KeyEvent.VK_2);
-        weaponSlotKeyCodes.put(2, KeyEvent.VK_3);
-        weaponSlotKeyCodes.put(3, KeyEvent.VK_4);
-        weaponSlotKeyCodes.put(4, KeyEvent.VK_5);
+        weaponSlotKeyRoles = new HashMap<>();
+        weaponSlotKeyRoles.put(0, KeyRole.ATTACK1);
+        weaponSlotKeyRoles.put(1, KeyRole.ATTACK2);
+        weaponSlotKeyRoles.put(2, KeyRole.ATTACK3);
+        weaponSlotKeyRoles.put(3, KeyRole.ATTACK4);
+        weaponSlotKeyRoles.put(4, KeyRole.ATTACK5);
 
         if(view != null) {
             view.setFocusable(true);
@@ -110,8 +95,96 @@ public class HumanEntityController extends EntityController implements Controlle
         initializeShopping(entity);
         initializeLevelUp(entity);
         initializeUseItem(entity);
+        initializeConfigControls(entity);
 
         notifyFreeMove(entity);
+    }
+
+    private void initializeConfigControls(Entity entity)
+    {
+        controlConfigKeyListeners = new HashSet<>();
+
+        // Config state keys are hardcoded to prevent gamebreaking scenarios
+        // e.g., I unbound the keys for movement and actions...
+        controlConfigKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == KeyEvent.VK_UP)
+                    view.decrementConfigDisplayableIndex();
+            }
+        });
+
+        controlConfigKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == KeyEvent.VK_DOWN)
+                    view.incrementConfigDisplayableIndex();
+            }
+        });
+
+        controlConfigKeyListeners.add(new KeyAdapter()
+        {
+           @Override
+           public void keyPressed(KeyEvent e)
+           {
+              if(e.getKeyCode() == KeyEvent.VK_LEFT)
+                   view.togglePrimarySecondary();
+           }
+        });
+
+        controlConfigKeyListeners.add(new KeyAdapter()
+        {
+           @Override
+           public void keyPressed(KeyEvent e)
+           {
+               if(e.getKeyCode() == KeyEvent.VK_RIGHT)
+                   view.togglePrimarySecondary();
+           }
+        });
+
+        controlConfigKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER)
+                {
+                    KeyRole keyrole = view.getSelectedKeyRole();
+                    boolean primarySelected = view.primaryKeyBindIsSelected();
+                    view.addKeyListener(new KeyAdapter()
+                    {
+                       @Override
+                       public void keyPressed(KeyEvent e)
+                       {
+                           if(primarySelected) keyrole.setPrimaryKeycode(e.getKeyCode());
+                           else keyrole.setSecondaryKeycode(e.getKeyCode());
+                           view.removeKeyListener(this);
+                       }
+                    });
+                }
+            }
+        });
+
+        controlConfigKeyListeners.add(new KeyAdapter()
+        {
+           @Override
+           public void keyPressed(KeyEvent e)
+           {
+               if(KeyRole.MANAGE_CONTROLS.triggersOn(e.getKeyCode()))
+               {
+                   for(KeyListener k : controlConfigKeyListeners)
+                       view.removeKeyListener(k);
+
+                   view.disableConfigWidget();
+
+                   notifyFreeMove(entity);
+               }
+           }
+        });
     }
 
     private void initializeLevelUp(Entity entity)
@@ -123,7 +196,7 @@ public class HumanEntityController extends EntityController implements Controlle
             @Override
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.N))
+                if(directionalMoveKeyRoles.get(Direction.N).triggersOn(e.getKeyCode()))
                     view.decrementLevelUpDisplayableIndex();
             }
         });
@@ -133,7 +206,7 @@ public class HumanEntityController extends EntityController implements Controlle
             @Override
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.S))
+                if(directionalMoveKeyRoles.get(Direction.S).triggersOn(e.getKeyCode()))
                     view.incrementLevelUpDisplayableIndex();
             }
         });
@@ -143,7 +216,7 @@ public class HumanEntityController extends EntityController implements Controlle
             @Override
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == manageSkillsKeyCode)
+                if(KeyRole.MANAGE_CONTROLS.triggersOn(e.getKeyCode()))
                 {
                     view.disableLevelUpDisplayable();
                     notifyFreeMove(entity);
@@ -182,7 +255,7 @@ public class HumanEntityController extends EntityController implements Controlle
             @Override
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.N))
+                if(directionalMoveKeyRoles.get(Direction.N).triggersOn(e.getKeyCode()))
                     view.decrementTradeIndex();
             }
         });
@@ -192,7 +265,7 @@ public class HumanEntityController extends EntityController implements Controlle
             @Override
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.S))
+                if(directionalMoveKeyRoles.get(Direction.S).triggersOn(e.getKeyCode()))
                     view.incrementTradeIndex();
             }
         });
@@ -202,10 +275,9 @@ public class HumanEntityController extends EntityController implements Controlle
             @Override
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.NE)
-                        || e.getKeyCode() == directionalMoveKeyCodes.get(Direction.SE)
-                        || e.getKeyCode() == directionalMoveKeyCodes.get(Direction.NW)
-                        || e.getKeyCode() == directionalMoveKeyCodes.get(Direction.SW))
+                int code = e.getKeyCode();
+                if(KeyRole.MOVE_NE.triggersOn(code) || KeyRole.MOVE_NW.triggersOn(code)
+                        || KeyRole.MOVE_SE.triggersOn(code) || KeyRole.MOVE_SW.triggersOn(code))
                 {
                     view.toggleActiveTradeInventory();
                 }
@@ -263,7 +335,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.N))
+                if(KeyRole.MOVE_N.triggersOn(e.getKeyCode()))
                     view.decrementInteractionDisplayableIndex();
             }
         });
@@ -272,7 +344,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.S))
+                if(directionalMoveKeyRoles.get(Direction.S).triggersOn(e.getKeyCode()))
                     view.incrementInteractionDisplayableIndex();
             }
         });
@@ -304,12 +376,12 @@ public class HumanEntityController extends EntityController implements Controlle
     {
         freeMoveKeyListeners = new HashSet<>();
 
-
+        // todo: maybe move this into a separate "default freemove key listeners" structure
         freeMoveKeyListeners.add(new KeyAdapter()
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == manageInventoryKeyCode)
+                if(KeyRole.MANAGE_INVENTORY.triggersOn(e.getKeyCode()))
                     notifyInventoryManagment(entity);
             }
         });
@@ -318,8 +390,17 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == manageSkillsKeyCode)
+                if(KeyRole.MANAGE_SKILLS.triggersOn(e.getKeyCode()))
                     notifyLevelUp(entity);
+            }
+        });
+
+        freeMoveKeyListeners.add(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if(KeyRole.MANAGE_CONTROLS.triggersOn(e.getKeyCode()))
+                    notifyConfig(entity);
             }
         });
 
@@ -341,11 +422,26 @@ public class HumanEntityController extends EntityController implements Controlle
             addAction(new CreepAction(entity, false, entity.getConcealment(), 0));
         }
 
+        ObserveAction obs = new ObserveAction(getControlledEntity());
+        obs.setController(this);
+        addAction(obs);
+
         if(entity.containsSkill(SkillType.DETECTANDREMOVETRAP)){
             addAction(new SearchAction(entity, false, 0));
         }
 
         addAction(new DismountAction(this));
+    }
+
+    private void notifyConfig(Entity entity)
+    {
+        for(KeyListener k : freeMoveKeyListeners)
+            view.removeKeyListener(k);
+
+        view.enableConfigWidget();
+
+        for(KeyListener k : controlConfigKeyListeners)
+            view.addKeyListener(k);
     }
 
     public void initializeInventoryManagement(Entity entity)
@@ -356,7 +452,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
            public void keyPressed(KeyEvent e)
            {
-               if(e.getKeyCode() == manageInventoryKeyCode)
+               if(KeyRole.MANAGE_INVENTORY.triggersOn(e.getKeyCode()))
                    notifyFreeMove(entity);
            }
         });
@@ -365,7 +461,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
            public void keyPressed(KeyEvent e)
            {
-               if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.N))
+               if(directionalMoveKeyRoles.get(Direction.N).triggersOn(e.getKeyCode()))
                    view.decrementInventoryDisplayableIndex();
            }
         });
@@ -374,7 +470,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.S))
+                if(directionalMoveKeyRoles.get(Direction.S).triggersOn(e.getKeyCode()))
                     view.incrementInventoryDisplayableIndex();
             }
         });
@@ -418,7 +514,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.N))
+                if(directionalMoveKeyRoles.get(Direction.N).triggersOn(e.getKeyCode()))
                     view.decrementUseItemDisplayableIndex();
             }
         });
@@ -427,7 +523,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.S))
+                if(directionalMoveKeyRoles.get(Direction.S).triggersOn(e.getKeyCode()))
                     view.incrementUseItemDisplayableIndex();
             }
         });
@@ -485,17 +581,18 @@ public class HumanEntityController extends EntityController implements Controlle
 
     @Override
     protected void processController() {
-
+        //TODO
     }
 
     @Override
     public void interact(EntityController interacter) {
 
+        //TODO
     }
 
     @Override
     public void notifyFreeMove(Entity e) {
-
+        //TODO
         if(view != null) {
             if(view.initialized())
             {
@@ -513,7 +610,7 @@ public class HumanEntityController extends EntityController implements Controlle
 
     @Override
     public void notifyInventoryManagment(Entity e) {
-
+        //TODO
         if(view != null) {
             for (KeyListener k : freeMoveKeyListeners) {
                 view.removeKeyListener(k);
@@ -534,7 +631,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == weaponSlotKeyCodes.get(a.getWeaponSlot()))
+                if(weaponSlotKeyRoles.get(a.getWeaponSlot()).triggersOn(e.getKeyCode()))
                 {
                     a.activate();
                 }
@@ -548,7 +645,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == bindWoundsKeyCode)
+                if(KeyRole.BIND_WOUNDS.triggersOn(e.getKeyCode()))
                 {
                     a.activate();
                 }
@@ -562,7 +659,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == creepKeyCode)
+                if(KeyRole.TOGGLE_CREEP.triggersOn(e.getKeyCode()))
                 {
                     a.activate();
                 }
@@ -576,7 +673,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == searchKeyCode)
+                if(KeyRole.TOGGLE_SEARCH.triggersOn(e.getKeyCode()))
                 {
                     a.activate();
                 }
@@ -594,8 +691,7 @@ public class HumanEntityController extends EntityController implements Controlle
 
                 //System.out.println("Got key press " + e.getKeyChar());
                 Direction d = a.getDirection();
-                int movecode = directionalMoveKeyCodes.get(d);
-                if(e.getKeyCode() == movecode || e.getKeyCode() == altDirectionalMoveKeyCodes.get(d))
+                if(directionalMoveKeyRoles.get(d).triggersOn(e.getKeyCode()))
                 {
                     a.activate();
                 }
@@ -615,7 +711,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == observeKeyCode)
+                if(KeyRole.OBSERVE.triggersOn(e.getKeyCode()))
                 {
                     a.activate();
                 }
@@ -631,11 +727,12 @@ public class HumanEntityController extends EntityController implements Controlle
     }
 
     public void visitDismountAction (DismountAction a) {
+        // todo: maybe there should be a separate in-vehicle input state instead of lumping this into freemove
         freeMoveKeyListeners.add(new KeyAdapter()
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == dismountKeyCode)
+                if(KeyRole.DISMOUNT.triggersOn(e.getKeyCode()))
                 {
                     a.activate();
                 }
@@ -693,7 +790,7 @@ public class HumanEntityController extends EntityController implements Controlle
 
     @Override
     public void notifyLevelUp(Entity e) {
-
+        //TODO set active list to level up list
         if(view != null) {
             for (KeyListener k : freeMoveKeyListeners) {
                 view.removeKeyListener(k);
@@ -711,7 +808,7 @@ public class HumanEntityController extends EntityController implements Controlle
 
     @Override
     public void notifyMainMenu(Entity e) {
-
+        //TODO set active list to main menu list
     }
 
     @Override
