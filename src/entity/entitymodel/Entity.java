@@ -158,6 +158,7 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
 
     //true results in killing the entity, can be used to give skill points to attacking entity;
     public boolean hurtEntity (int amount) {
+        //System.out.println("Entity taking " + amount + " damage");
         stats.setCurHealth(Math.max(0, getCurrHealth() - amount));
         return getCurrHealth() <= 0;
     }

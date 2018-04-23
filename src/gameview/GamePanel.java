@@ -5,6 +5,8 @@ import entity.entitymodel.MovementObserver;
 import guiframework.DisplayPanel;
 import maps.world.TransitionObserver;
 import maps.world.World;
+import savingloading.LoadingParser;
+import savingloading.SaveVisitor;
 import utilities.Coordinate;
 
 import javax.swing.*;
@@ -213,4 +215,30 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
     }
 
     public void enableInteraction () { gameDisplayState.enableInteraction(); }
+
+    public void startNewGame()
+    {
+        super.setDisplayState(gameDisplayState = new GameViewMaker().makeGameDisplayState(this));
+        resetCamera();
+    }
+
+    public void loadGame()
+    {
+        try
+        {
+            LoadingParser parser = new LoadingParser();
+            parser.loadGame("test", this);
+            this.setDisplayState(gameDisplayState = parser.getGameDisplayState());
+            resetCamera();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveGame()
+    {
+        gameDisplayState.saveGame();
+    }
 }

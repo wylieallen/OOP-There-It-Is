@@ -140,11 +140,13 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
         // todo: this could potentially be enough of a performance drain that we should just skip it and let memory leak
         spriteMap.keySet().removeIf(GameObject::expired);
 
+        /*
         if (System.currentTimeMillis() - timeSinceLastSave > (1000 * 10) ){
             game.accept(saveVisitor);
             System.out.println("Saved!!!!!");
             timeSinceLastSave = System.currentTimeMillis();
         }
+        */
     }
 
     public void centerOnPlayer()
@@ -235,4 +237,8 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     public void enableInteraction () { interactionDisplayable.enable(); }
 
 
+    public void saveGame()
+    {
+        game.accept(saveVisitor);
+    }
 }
