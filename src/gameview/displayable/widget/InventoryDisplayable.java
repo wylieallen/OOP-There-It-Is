@@ -40,6 +40,7 @@ public class InventoryDisplayable extends CompositeDisplayable
             cursorIndex = 0;
         }
     }
+
     public void setCursorIndex(int cursorIndex)
     {
         this.cursorIndex = cursorIndex;

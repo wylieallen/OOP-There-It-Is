@@ -24,6 +24,7 @@ public class TalkInteraction implements EntityInteraction {
     public boolean interact(Entity actor, Entity actee) {
         String m = actee.getName() + ": " + messages.get(random.nextInt(messages.size()));
         actor.getController().notifyAllObservers(m);
+        actor.getController().notifyFreeMove(actor);
         return true;
     }
 

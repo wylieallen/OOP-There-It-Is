@@ -42,6 +42,8 @@ public class Inventory implements Visitable{
 
     private boolean hasItems () { return items.size() > 0; }
 
+    public int getSize () { return items.size(); }
+
     public TakeableItem select (int index) {
         if (index < items.size()) {
             return items.get(index);

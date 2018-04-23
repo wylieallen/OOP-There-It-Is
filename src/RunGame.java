@@ -1,5 +1,4 @@
 import gameview.GamePanel;
-import guiframework.DisplayPanel;
 
 import javax.swing.*;
 import java.awt.*;

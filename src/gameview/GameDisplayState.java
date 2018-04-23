@@ -3,18 +3,13 @@ package gameview;
 import entity.entitymodel.Entity;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
-import gameview.displayable.widget.DialogBoxDisplayable;
-import gameview.displayable.widget.InteractionDisplayable;
-import gameview.displayable.widget.InventoryDisplayable;
-import gameview.displayable.widget.LevelUpDisplayable;
+import gameview.displayable.widget.*;
 import gameview.util.ImageMaker;
 import guiframework.DisplayState;
 import guiframework.displayable.CompositeDisplayable;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
 import guiframework.displayable.StringDisplayable;
-import items.InteractiveItem;
-import items.takeableitems.TakeableItem;
 import maps.Influence.InfluenceArea;
 import maps.world.Game;
 import maps.world.World;
@@ -44,6 +39,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     private long timeSinceLastSave = 0;
     private LevelUpDisplayable levelUpDisplayable;
     private InteractionDisplayable interactionDisplayable;
+    private UseItemDisplayable useItemDisplayable;
 
     private static final int RENDERING_FRAMES_PER_GAME_TICK = 10;
     private int gameTickCountdown = RENDERING_FRAMES_PER_GAME_TICK;
@@ -91,6 +87,9 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
 
         interactionDisplayable = new InteractionDisplayable(new Point(160 + 32, 448), player.getController());
         widgets.add(interactionDisplayable);
+
+        useItemDisplayable = new UseItemDisplayable(new Point(16, 256), player, inventoryDisplayable);
+        widgets.add(useItemDisplayable);
 
         DialogBoxDisplayable dialogueToPlayer = new DialogBoxDisplayable(new Point(950, 16), player.getController());
         widgets.add(dialogueToPlayer);
@@ -236,6 +235,21 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
 
     public void enableInteraction () { interactionDisplayable.enable(); }
 
+    public void decrementUseItemDisplayableIndex () {
+        useItemDisplayable.adjustCursorIndex (-1);
+    }
+
+    public void incrementUseItemDisplayableIndex () {
+        useItemDisplayable.adjustCursorIndex (1);
+    }
+
+    public int getUseItemDisplayableIndex() {return useItemDisplayable.getCursorIndex (); }
+
+    public void disableUseItem () {
+        useItemDisplayable.disable ();
+    }
+
+    public void enableUseItem () { useItemDisplayable.enable(); }
 
     public void saveGame()
     {

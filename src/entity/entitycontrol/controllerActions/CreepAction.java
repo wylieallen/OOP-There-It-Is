@@ -1,6 +1,7 @@
 package entity.entitycontrol.controllerActions;
 
 import entity.entitymodel.Entity;
+import entity.entitymodel.interactions.BackStabInteraction;
 import skills.SkillType;
 
 public class CreepAction extends ControllerAction {
@@ -9,6 +10,7 @@ public class CreepAction extends ControllerAction {
 
     private Entity controlledEntity;
     private boolean isCreeping;
+    private BackStabInteraction backStab;
     private int cachedConcealmentDifference = 0;//will get set to the entities concealment when it starts creeping, so it can re-add
                                         //to the concealment when the entity stops creeping
     private int cachedSpeedDifference = 0;//will get set to .98 * (the entities speed) when it starts creeping, so it can re-add
@@ -24,6 +26,7 @@ public class CreepAction extends ControllerAction {
             this.isCreeping = isCreeping;
             this.cachedConcealmentDifference = cachedConcealmentDifference;
             this.cachedSpeedDifference = cachedSpeedDifference;
+            this.backStab = new BackStabInteraction();
         }
     }
 
@@ -33,6 +36,7 @@ public class CreepAction extends ControllerAction {
             isCreeping = false;
             controlledEntity.increaseConcealment(cachedConcealmentDifference);
             controlledEntity.increaseBaseMoveSpeed(cachedSpeedDifference);
+            controlledEntity.removeActorInteraction(backStab);
         }
         else {
             isCreeping = true;
@@ -40,6 +44,7 @@ public class CreepAction extends ControllerAction {
             controlledEntity.decreaseConcealment(cachedConcealmentDifference);
             cachedSpeedDifference = (int)(controlledEntity.getBaseMoveSpeed() * 0.98);
             controlledEntity.decreaseBaseMoveSpeed(cachedSpeedDifference);
+            controlledEntity.addActorInteraction(backStab);
         }
 
 

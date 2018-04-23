@@ -91,6 +91,11 @@ public class Vehicle extends Entity {
         controller.notifyFreeMove(this);
     }
 
+    @Override
+    public Entity getEntity () {
+        return (hasDriver()) ? driver : this;
+    }
+
     public void removeDriver () {
         driver = null;
     }

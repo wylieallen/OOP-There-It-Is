@@ -6,6 +6,7 @@ import entity.entitymodel.Equipment;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
 import gameview.GamePanel;
+import items.takeableitems.TakeableItem;
 import items.takeableitems.WearableItem;
 import maps.tile.Direction;
 import maps.tile.Tile;
@@ -30,6 +31,7 @@ public class HumanEntityController extends EntityController implements Controlle
     // KeyListener Sets:
     private Set<KeyListener> freeMoveKeyListeners;
     private Set<KeyListener> inventoryManagementKeyListeners;
+    private Set<KeyListener> useItemKeyListeners;
     // todo: entity interaction may take a little more work since we can't pre-initialize the actee's keylisteners
     private Set<KeyListener> entityInteractionKeyListeners;
     private List <EntityInteraction> listOfInteractions;
@@ -61,10 +63,16 @@ public class HumanEntityController extends EntityController implements Controlle
     private int useInventoryItemKeyCode = KeyEvent.VK_ENTER;
     private int selectInteractionKeyCode = KeyEvent.VK_ENTER;
 
+
+    // TODO: give entity bonuses on enrage and anti-bonuses on pacify
+    private boolean isAggroed;
+
     public HumanEntityController(Entity entity, Equipment equipment, Coordinate entityLocation, GamePanel view) {
         super(entity, equipment, entityLocation, new ArrayList<>());
         this.spawnObservableActions = new ArrayList<>();
         this.view = view;
+
+        isAggroed = false;
 
         directionalMoveKeyCodes = new HashMap<>();
         directionalMoveKeyCodes.put(Direction.N, KeyEvent.VK_W);
@@ -102,6 +110,7 @@ public class HumanEntityController extends EntityController implements Controlle
         initializeEntityInteraction(entity);
         initializeShopping(entity);
         initializeLevelUp(entity);
+        initializeUseItem(entity);
 
         notifyFreeMove(entity);
     }
@@ -179,7 +188,7 @@ public class HumanEntityController extends EntityController implements Controlle
             public void keyPressed(KeyEvent e)
             {
                 if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.N))
-                    view.decrementInventoryDisplayableIndex();
+                    view.decrementInteractionDisplayableIndex();
             }
         });
 
@@ -188,7 +197,7 @@ public class HumanEntityController extends EntityController implements Controlle
             public void keyPressed(KeyEvent e)
             {
                 if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.S))
-                    view.incrementInventoryDisplayableIndex();
+                    view.incrementInteractionDisplayableIndex();
             }
         });
 
@@ -199,15 +208,15 @@ public class HumanEntityController extends EntityController implements Controlle
                 if(e.getKeyCode() == selectInteractionKeyCode)
                 {
                     int cursorIndex = view.getInteractionCursorIndex();
-                    if (cursorIndex < listOfInteractions.size() && currentInteractee != null) {
+                    if (listOfInteractions.size() > 0 && cursorIndex < listOfInteractions.size() && currentInteractee != null) {
                         EntityInteraction interaction = listOfInteractions.get(cursorIndex);
-                        interaction.interact(getEntity(), currentInteractee);
-                        notifyFreeMove(getControlledEntity());
+                        interaction.interact(getEntity(), getCurrentInteractee());
                     } else if (currentInteractee == null){
-                        notifyFreeMove(getControlledEntity());
-                    } else {
+                        System.out.println("Interactee is null");
+                    } else if (cursorIndex >= listOfInteractions.size()){
                         System.out.println("bad index on interactions");
                     }
+
                 }
             }
         });
@@ -254,10 +263,14 @@ public class HumanEntityController extends EntityController implements Controlle
             addAction(new CreepAction(entity, false, entity.getConcealment(), 0));
         }
 
+        ObserveAction obs = new ObserveAction(getControlledEntity());
+        obs.setController(this);
+        addAction(obs);
+
         if(entity.containsSkill(SkillType.DETECTANDREMOVETRAP)){
             addAction(new SearchAction(entity, false, 0));
         }
-        //addAction(new ObserveAction(entity));
+
         //addAction(new DismountAction(this));
     }
 
@@ -324,6 +337,45 @@ public class HumanEntityController extends EntityController implements Controlle
         });
     }
 
+    public void initializeUseItem (Entity e) {
+        useItemKeyListeners = new HashSet<>();
+
+        useItemKeyListeners.add(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.N))
+                    view.decrementUseItemDisplayableIndex();
+            }
+        });
+
+        useItemKeyListeners.add(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.S))
+                    view.incrementUseItemDisplayableIndex();
+            }
+        });
+
+        useItemKeyListeners.add(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == useInventoryItemKeyCode)
+                {
+                    int cursorIndex = view.getUseItemCursorIndex();
+                    if (getControlledEntity().getInventorySize() > 0 && cursorIndex < getControlledEntity().getInventorySize () && currentInteractee != null) {
+                        TakeableItem use = getControlledEntity().getItem(cursorIndex);
+                        getControlledEntity().removeFromInventory(use);
+                        use.activate(currentInteractee.getController().getEquipment());
+                        notifyFreeMove(getControlledEntity());
+                    }
+                }
+            }
+        });
+    }
+
     public void setControllerActions(Collection<ControllerAction> actions){
         super.setControllerActions(actions);
 
@@ -376,6 +428,7 @@ public class HumanEntityController extends EntityController implements Controlle
             {
                 view.disableInventoryCursor();
                 view.disableInteraction();
+                view.disableUseItem();
             }
             view.clearKeyListeners();
             for (KeyListener k : freeMoveKeyListeners) {
@@ -460,7 +513,7 @@ public class HumanEntityController extends EntityController implements Controlle
 
     public void visitDirectionalMoveAction(DirectionalMoveAction a)
     {
-        System.out.println("Visited dirmove action: " + a.getDirection());
+        //System.out.println("Visited dirmove action: " + a.getDirection());
         freeMoveKeyListeners.add(new KeyAdapter()
         {
             public void keyPressed(KeyEvent e)
@@ -495,6 +548,7 @@ public class HumanEntityController extends EntityController implements Controlle
                 }
             }
         });
+
         spawnObservableActions.add(a);
     }
 
@@ -528,7 +582,7 @@ public class HumanEntityController extends EntityController implements Controlle
 
     @Override
     public void notifyInteraction(Entity player, Entity interactee) {
-        //TODO : set active list to interaction list
+
         currentInteractee = interactee;
         listOfInteractions = interactee.interact(player);
 
@@ -579,15 +633,44 @@ public class HumanEntityController extends EntityController implements Controlle
     }
 
     @Override
+    public void notifyUseItem (Entity player, EntityController interactee) {
+        currentInteractee = interactee.getControlledEntity();
+
+        for (KeyListener k : activeListeners) {
+            view.removeKeyListener(k);
+        }
+
+        for (KeyListener k : useItemKeyListeners) {
+            view.addKeyListener(k);
+        }
+
+        activeListeners = useItemKeyListeners;
+        view.disableInteraction();
+        view.enableUseItem();
+    }
+
+    @Override
     public void updateMap (Map<Coordinate, Tile> map) {
         update(map);
     }
 
     @Override
-    public void enrage(Entity e) {}
+    public void enrage(Entity e) {
+        if (!isAggroed) {
+            getControlledEntity().healEntity(10);
+        }
+        isAggroed = true;
+    }
 
     @Override
-    public void pacify() {}
+    public void pacify() {
+        isAggroed = false;
+    }
+
+    @Override
+    public boolean isAggroed () {
+        return isAggroed;
+    }
 
     @Override
     public void accept(Visitor v) {

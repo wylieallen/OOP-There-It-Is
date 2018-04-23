@@ -51,12 +51,14 @@ public abstract class EntityController implements Visitable, DialogObservable{
     public abstract void notifyShopping(Entity trader1, Entity trader2);
     public abstract void notifyLevelUp(Entity e);
     public abstract void notifyMainMenu(Entity e);
+    public abstract void notifyUseItem(Entity player, EntityController interactee);
 
     // used to update ai;
     public abstract void updateMap (Map <Coordinate, Tile> map);
 
     public abstract void enrage(Entity e);
     public abstract void pacify();
+    public abstract boolean isAggroed ();
 
     protected Entity getControlledEntity() { return controlledEntity; }
 

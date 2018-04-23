@@ -6,7 +6,6 @@ import guiframework.DisplayPanel;
 import maps.world.TransitionObserver;
 import maps.world.World;
 import savingloading.LoadingParser;
-import savingloading.SaveVisitor;
 import utilities.Coordinate;
 
 import javax.swing.*;
@@ -216,6 +215,31 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
 
     public void enableInteraction () { gameDisplayState.enableInteraction(); }
 
+    public int getUseItemCursorIndex()
+    {
+        return gameDisplayState.getUseItemDisplayableIndex();
+    }
+
+    public void decrementUseItemDisplayableIndex()
+    {
+        gameDisplayState.decrementUseItemDisplayableIndex();
+    }
+
+    public void incrementUseItemDisplayableIndex()
+    {
+        gameDisplayState.incrementUseItemDisplayableIndex();
+    }
+
+    public void disableUseItem()
+    {
+        gameDisplayState.disableUseItem();
+    }
+
+    public void enableUseItem () { gameDisplayState.enableUseItem(); }
+
+
+
+
     public void startNewGame()
     {
         super.setDisplayState(gameDisplayState = new GameViewMaker().makeGameDisplayState(this));
@@ -241,4 +265,5 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
     {
         gameDisplayState.saveGame();
     }
+
 }
