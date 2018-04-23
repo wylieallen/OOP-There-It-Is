@@ -150,7 +150,6 @@ public class GameViewMaker
         player.addCompatibleTerrain(Terrain.SPACE);
         player.setMovementObserver(panel);
         player.addToInventory(new QuestItem("Radio", false, 0));
-        player.addActorInteraction(new PickPocketInteraction());
         player.addActorInteraction(new UseItemInteraction());
         switch(playerClass) {
             case "Smasher":
@@ -165,6 +164,7 @@ public class GameViewMaker
                 player.addSkill(SkillType.STAFF, 1);
                 break;
             case "Sneak":
+                player.addActorInteraction(new PickPocketInteraction());
                 player.addSkill(SkillType.CREEP, 1);
                 player.addSkill(SkillType.DETECTANDREMOVETRAP, 1);
                 player.addSkill(SkillType.RANGEDWEAPON, 1);
