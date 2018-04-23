@@ -45,6 +45,7 @@ public class HumanEntityController extends EntityController implements Controlle
     private int attackKeyCode = KeyEvent.VK_SPACE;
     private int bindWoundsKeyCode = KeyEvent.VK_B;
     private int creepKeyCode = KeyEvent.VK_CONTROL;
+    private int searchKeyCode = KeyEvent.VK_SHIFT;
     private int dismountKeyCode = KeyEvent.VK_EQUALS;
     private int observeKeyCode = KeyEvent.VK_O;
     private int manageInventoryKeyCode = KeyEvent.VK_I;
@@ -255,9 +256,13 @@ public class HumanEntityController extends EntityController implements Controlle
         if(entity.containsSkill(SkillType.CREEP)){
             addAction(new CreepAction(entity, false, entity.getConcealment(), 0));
         }
-
-
+        
         addAction(new ObserveAction(entity));
+
+        if(entity.containsSkill(SkillType.DETECTANDREMOVETRAP)){
+            addAction(new SearchAction(entity, false, 0));
+        }
+
         //addAction(new DismountAction(this));
     }
 
@@ -477,6 +482,20 @@ public class HumanEntityController extends EntityController implements Controlle
             public void keyPressed(KeyEvent e)
             {
                 if(e.getKeyCode() == creepKeyCode)
+                {
+                    a.activate();
+                }
+            }
+        });
+    }
+
+    public void visitSearchAction(SearchAction a)
+    {
+        freeMoveKeyListeners.add(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == searchKeyCode)
                 {
                     a.activate();
                 }

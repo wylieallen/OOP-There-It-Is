@@ -10,9 +10,12 @@ import guiframework.displayable.CompositeDisplayable;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
 import guiframework.displayable.StringDisplayable;
+import items.InteractiveItem;
+import items.takeableitems.TakeableItem;
 import maps.Influence.InfluenceArea;
 import maps.world.Game;
 import maps.world.World;
+import savingloading.SaveVisitor;
 import spawning.SpawnObservable;
 import spawning.SpawnObserver;
 
@@ -34,6 +37,8 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     private Map<World, WorldDisplayable> worlds;
     private WorldDisplayable activeWorldDisplayable;
     private InventoryDisplayable inventoryDisplayable;
+    private SaveVisitor saveVisitor = new SaveVisitor("test");
+    private long timeSinceLastSave = 0;
     private LevelUpDisplayable levelUpDisplayable;
     private InteractionDisplayable interactionDisplayable;
     private UseItemDisplayable useItemDisplayable;
@@ -54,7 +59,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
         for(SpawnObservable spawner : spriteSpawnerMap.keySet()){
             spawner.registerObserver(this);
         }
-        System.out.println("SpriteSpawnerMap" + spawnerMap.toString());
+//        System.out.println("SpriteSpawnerMap" + spawnerMap.toString());
         this.camera = new Point(0, 0);
         this.worlds = worlds;
         super.add(activeWorldDisplayable = worlds.get(initialWorld));
@@ -95,7 +100,9 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     }
 
 
-    public static Displayable getSprite(GameObject o) { return spriteMap.getOrDefault(o, ImageMaker.getNullDisplayable()); }
+    public static Displayable getSprite(GameObject o) {
+        return spriteMap.getOrDefault(o, ImageMaker.getNullDisplayable());
+    }
 
 
     public static void registerSprite(GameObject o, Displayable d) { spriteMap.put(o, d); }
@@ -133,6 +140,12 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
 
         // todo: this could potentially be enough of a performance drain that we should just skip it and let memory leak
         spriteMap.keySet().removeIf(GameObject::expired);
+
+        if (System.currentTimeMillis() - timeSinceLastSave > (1000 * 10) ){
+            game.accept(saveVisitor);
+            System.out.println("Saved!!!!!");
+            timeSinceLastSave = System.currentTimeMillis();
+        }
     }
 
     public void centerOnPlayer()
@@ -221,7 +234,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     }
 
     public void enableInteraction () { interactionDisplayable.enable(); }
-
+    
     public void decrementUseItemDisplayableIndex () {
         useItemDisplayable.adjustCursorIndex (-1);
     }

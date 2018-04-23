@@ -86,6 +86,8 @@ public class SaveVisitor implements Visitor {
         }
         e.getInventory().accept(this);
         currentEntityJson.put("Name", e.getName());
+        if (!currentEntityJson.has("IsAggro"))
+            currentEntityJson.put("IsAggro", false);
     }
 
     @Override
@@ -238,7 +240,7 @@ public class SaveVisitor implements Visitor {
 
     private void addCoordinates(Coordinate coordinate){
         currentEntityJson.put("X", coordinate.x());
-        currentEntityJson.put("Y", coordinate.y());
+        currentEntityJson.put("Y", coordinate.z());
     }
 
     @Override
@@ -425,6 +427,7 @@ public class SaveVisitor implements Visitor {
         currentCommandJson = new JSONObject();
         currentCommandJson.put("Name", "BuffHealth");
         currentCommandJson.put("Amount", buffHealthCommand.getBuffAmount());
+        addReversibleCommand(buffHealthCommand);
     }
 
     @Override
@@ -546,7 +549,7 @@ public class SaveVisitor implements Visitor {
             Coordinate c = entry.getKey();
             entry.getValue().accept(this);
             currentTileJson.put("X", c.x());
-            currentTileJson.put("Y", c.y());
+            currentTileJson.put("Y", c.z());
             tilesJson.put(currentTileJson);
         }
 
@@ -562,10 +565,11 @@ public class SaveVisitor implements Visitor {
             Coordinate c = entry.getKey();
             entry.getValue().accept(this);
             currentTileJson.put("X", c.x());
-            currentTileJson.put("Y", c.y());
+            currentTileJson.put("Y", c.z());
             tilesJson.put(currentTileJson);
             if (entityFound){
                 entitiesJson.put(currentEntityJson);
+                entityFound = false;
             }
         }
         localWorldJson.put("Tiles", tilesJson);
@@ -604,8 +608,10 @@ public class SaveVisitor implements Visitor {
             tm.accept(this);
         }
         if (localWorldTile.getEntity() != null){
-            localWorldTile.getEntity().accept(this);
-            entityFound = true;
+            if (localWorldTile.getEntity().getName() != "Player") {
+                localWorldTile.getEntity().accept(this);
+                entityFound = true;
+            }
         }
         Set<EntityImpactor> eis = localWorldTile.getEntityImpactors();
         for (EntityImpactor ei : eis){
@@ -620,6 +626,7 @@ public class SaveVisitor implements Visitor {
         for (MoveLegalityChecker mlc : mlcs){
             mlc.accept(this);
         }
+        tile.getTerrain().accept(this);
     }
 
     private void addItemsToTile(){
@@ -693,7 +700,7 @@ public class SaveVisitor implements Visitor {
         visitOverWorld(g.getOverWorld());
         for (FoggyWorld foggyWorld : g.getLocalWorlds())
             foggyWorld.accept(this);
-        addTransitionCommandTargetWorlds(g.getWorlds());
+        addTransitionCommandTargetWorlds(g.getRealWorlds());
 
         saveFileJson.put("Player", playerJson);
         saveFileJson.put("OverWorld", overWorldJson);

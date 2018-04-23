@@ -10,4 +10,5 @@ public interface ControllerActionVisitor
     void visitObserveAction(ObserveAction a);
     void visitSetDirectionAction(SetDirectionAction a);
     void visitDismountAction (DismountAction a);
+    void visitSearchAction(SearchAction a);
 }

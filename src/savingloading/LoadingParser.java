@@ -64,6 +64,8 @@ public class LoadingParser {
     private List<LocalWorld> localWorlds = new ArrayList<>();
     private EntityController playerController;
 
+    private GamePanel gamePanel;
+
     private Map<GameObject, Displayable> spriteMap = ImageMaker.makeDefaultMap();
     private Map<World, WorldDisplayable> worldDisplayableMap = new HashMap<World, WorldDisplayable>();
 
@@ -75,6 +77,8 @@ public class LoadingParser {
     private Map<SpawnObservable, Displayable> spawnerMap = new HashMap<>();
 
     public void loadGame (String saveFileName, GamePanel gamePanel) throws FileNotFoundException {
+        this.gamePanel = gamePanel;
+
         loadFileToJson(saveFileName);
         loadPlayer(gameJson.getJSONObject("Player"), gamePanel);
         loadOverWorld(gameJson.getJSONObject("OverWorld"));
@@ -85,8 +89,12 @@ public class LoadingParser {
         overWorld.add(new Coordinate(0,0), player);
 
         game = new Game(overWorld, overWorld, foggyWorlds, 0, player);
+
         game.setTransitionObserver(gamePanel);
-//        game.setPlayerController();
+        game.setPlayerController(playerController);
+
+        player.setMovementObserver(gamePanel);
+        player.addCompatibleTerrain(Terrain.SPACE);
 
         // must do this after game is made
         setTransitionCommands();
@@ -110,13 +118,13 @@ public class LoadingParser {
         List<TimedEffect> effects = new ArrayList<>();
         Inventory inventory = loadInventory(playerJson.getJSONArray("Inventory"));
         Boolean onMap = !playerJson.getBoolean("InVehicle");
-        player = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, "Default");
+        player = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, playerJson.getString("Name"));
         Equipment equipment = loadEquipment(playerJson.getJSONObject("Equipment"), inventory, player);
         Coordinate coordinate = new Coordinate(playerJson.getInt("X"), playerJson.getInt("Y"));
-        HumanEntityController controller = new HumanEntityController(player, equipment, coordinate, gamePanel);
-        player.setController(controller);
-        List<ControllerAction> controllerActions = loadControllerActions(playerJson.getString("Name"), player, controller, equipment);
-        controller.setControllerActions(controllerActions);
+        playerController = new HumanEntityController(player, equipment, coordinate, gamePanel);
+        player.setController(playerController);
+        List<ControllerAction> controllerActions = loadControllerActions(playerJson.getString("Name"), player, playerController, equipment);
+//        playerController.setControllerActions(controllerActions);
         Displayable displayable = loadDisplayable(playerJson.getString("Name"));
         spriteMap.put(player, displayable);
     }
@@ -150,7 +158,6 @@ public class LoadingParser {
             LocalWorld localWorld = new LocalWorld(localWorldTiles, new HashSet<InfluenceArea>());
             localWorlds.add(localWorld);
             worldIdMappings.put(localWorldId, localWorld);
-            worldDisplayableMap.put(localWorld, new WorldDisplayable(new Point(0, 0), 0, localWorld));
             while(!spawnObservables.isEmpty()){
                 spawnObservables.remove().registerObserver(localWorld);
             }
@@ -160,7 +167,9 @@ public class LoadingParser {
     private List<FoggyWorld> loadFoggyWorlds() {
         List<FoggyWorld> foggyWorlds = new ArrayList<>();
         for (LocalWorld localWorld : localWorlds){
-            foggyWorlds.add(new FoggyWorld(localWorld, player));
+            FoggyWorld foggyWorld = new FoggyWorld(localWorld, player);
+            foggyWorlds.add(foggyWorld);
+            worldDisplayableMap.put(localWorld, new WorldDisplayable(new Point(0, 0), 0, foggyWorld));
         }
         return foggyWorlds;
     }
@@ -177,13 +186,11 @@ public class LoadingParser {
         if (entityJson.getString("Type").equals("Vehicle"))
             entity = new Vehicle(movementVector, entityStats, effects, actorInteractions, inventory, onMap, null);
         else
-            entity = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, "Default");
+            entity = new Entity(movementVector, entityStats, effects, actorInteractions, inventory, onMap, entityJson.getString("Name"));
         Equipment equipment = loadEquipment(entityJson.getJSONObject("Equipment"), inventory, entity);
         Coordinate coordinate = new Coordinate(entityJson.getInt("X"), entityJson.getInt("Y"));
         NpcEntityController controller = loadNpcEntityController(entityJson, entity, equipment, coordinate);
         entity.setController(controller);
-        if (!entityJson.has("Name"))
-            System.out.println(entityJson.toString(1));
         List<ControllerAction> controllerActions = loadControllerActions(entityJson.getString("Name"), entity, controller, equipment);
         controller.setControllerActions(controllerActions);
         Displayable displayable = loadDisplayable(entityJson.getString("Name"));
@@ -219,7 +226,9 @@ public class LoadingParser {
                 terrain = loadTerrain(tileJson.getString("Terrain"));
             }
             if (tileJson.has("Obstacle")){
-                moveLegalityCheckers.add(new Obstacle());
+                Obstacle obs = new Obstacle();
+                spriteMap.put(obs,ImageMaker.makeBarrelDisplayable());
+                moveLegalityCheckers.add(obs);
             }
             if (tileJson.has("River")){
                 JSONObject riverJson = tileJson.getJSONObject("River");
@@ -309,12 +318,14 @@ public class LoadingParser {
                 terrain = loadTerrain(tileJson.getString("Terrain"));
             }
             if (tileJson.has("Obstacle")){
-                moveLegalityCheckers.add(new Obstacle());
+                Obstacle obs = new Obstacle();
+                spriteMap.put(obs,ImageMaker.makeBarrelDisplayable());
+                moveLegalityCheckers.add(obs);
             }
             OverWorldTile tile;
             if (tileJson.has("Encounter")){
                 JSONObject encounterJson = tileJson.getJSONObject("Encounter");
-                entityImpactor = new InteractiveItem(encounterJson.getString("Name"), loadCommand(encounterJson.getJSONObject("Command")));
+                entityImpactor = loadItem(tileJson.getJSONObject("Encounter"));
                 tile = new OverWorldTile(moveLegalityCheckers, terrain, null, entityImpactor);
             }
             else{
@@ -340,6 +351,11 @@ public class LoadingParser {
             Displayable displayable = loadDisplayable("Mountain");
             spriteMap.put(MOUNTAIN, displayable);
             return MOUNTAIN;
+        }
+        else if (terrain.equals("SPACE")){
+            Displayable displayable = loadDisplayable("Space");
+            spriteMap.put(SPACE, displayable);
+            return SPACE;
         }
         else{
             System.out.println("ERROR: Terrain not loaded properly -- String given: " + terrain);
@@ -371,7 +387,9 @@ public class LoadingParser {
         while(skillStrings.hasNext()) {
             String skillString = skillStrings.next();
             int level = (int) entityStatsJson.getJSONObject("Skills").get(skillString);
-            skills.put(loadSkillType(skillString), level);
+            if(!skillString.equals("NULL")) {
+                skills.put(loadSkillType(skillString), level);
+            }
         }
         return new EntityStats(skills, entityStatsJson.getInt("BaseMoveSpeed"),
                 entityStatsJson.getInt("MaxHealth"), entityStatsJson.getInt("CurrentHealth"),
@@ -492,8 +510,6 @@ public class LoadingParser {
             item = loadWeaponItem(itemJson);
         else if (itemJson.getString("Type").equals("Wearable"))
             item = loadWearableItem(itemJson);
-        else if (itemJson.getString("Type").equals("Wearable"))
-            item = loadWearableItem(itemJson);
         else{
             System.out.println("ERROR: Item not loaded properly -- Type string given: " + itemJson.getString("Type"));
             return null;
@@ -513,6 +529,7 @@ public class LoadingParser {
     private InteractiveItem loadInteractiveItem(JSONObject itemJson) {
         String name = itemJson.getString("Name");
         Command command = loadCommand(itemJson.getJSONObject("Command"));
+        InteractiveItem item = new InteractiveItem(name, command);
         return new InteractiveItem(name, command);
     }
 
@@ -690,6 +707,8 @@ public class LoadingParser {
             return loadMakeParalyzed(reversableCommandJson);
         else if (reversableCommandJson.getString("Name").equals("TimedStaminaRegen"))
             return loadTimedStaminaRegenCommand(reversableCommandJson);
+        else if (reversableCommandJson.getString("Name").equals("BuffHealth"))
+            return loadBuffHealthCommand(reversableCommandJson);
         else{
             System.out.println("ERROR: ReversableCommand not loaded properly -- Command name given: " + reversableCommandJson.getString("Name"));
             return null;
@@ -791,10 +810,16 @@ public class LoadingParser {
                 return ImageMaker.makeWaterDisplayable();
             case "Mountain":
                 return ImageMaker.makeMountainDisplayable();
+            case "Space":
+                return ImageMaker.makeSpaceDisplayable();
                 // items
-            case "Encounter1":
+            case "Encounter 1":
                 return ImageMaker.makeEncounterDisplayable1();
-            case "Encounter2":
+            case "Encounter 2":
+                return ImageMaker.makeEncounterDisplayable2();
+            case "Encounter 3":
+                return ImageMaker.makeEncounterDisplayable1();
+            case "Encounter 4":
                 return ImageMaker.makeEncounterDisplayable2();
             case "Teleporter":
                 return ImageMaker.makeTeleporterDisplayable();
@@ -827,61 +852,61 @@ public class LoadingParser {
             case "RangedWeapon-Spawn": // format for spawning Displayables: "GameObject's name" + "-Spawn"
                 return ImageMaker.makeRedProjectileDisplayable();
             case "Good Staff":
-                return ImageMaker.makeLaserSwordDisplayable();
+                return ImageMaker.makeGadgetDisplayable4();
             case "Good Staff - Spawn":
-                return ImageMaker.makeLaserSwordDisplayable();
+                return ImageMaker.makeBlueProjectileDisplayable();
             case "Staff":
-                return ImageMaker.makeLaserSwordDisplayable();
+                return ImageMaker.makeGadgetDisplayable4();
             case "Staff - Spawn":
-                return ImageMaker.makeLaserSwordDisplayable();
+                return ImageMaker.makeBlueProjectileDisplayable();
             case "Bad Staff":
-                return ImageMaker.makeLaserSwordDisplayable();
+                return ImageMaker.makeGadgetDisplayable4();
             case "Bad Staff - Spawn":
-                return ImageMaker.makeLaserSwordDisplayable();
+                return ImageMaker.makeBlueProjectileDisplayable();
             case "Circular Damage Gadget":
-                return ImageMaker.makeGadgetDisplayable2();
+                return ImageMaker.makeGadgetDisplayable3();
             case "Circular Damage Gadget - Spawn":
-                return ImageMaker.makeGadgetDisplayable2();
+                return ImageMaker.makeRedProjectileDisplayable();
             case "Angular Damage Gadget":
-                return ImageMaker.makeGadgetDisplayable5();
+                return ImageMaker.makeGadgetDisplayable3();
             case "Angular Damage Gadget - Spawn":
-                return ImageMaker.makeGadgetDisplayable5();
+                return ImageMaker.makeRedProjectileDisplayable();
             case "Linear Damage Gadget":
-                return ImageMaker.makeGadgetDisplayable4();
+                return ImageMaker.makeGadgetDisplayable3();
             case "Linear Damage Gadget - Spawn":
-                return ImageMaker.makeGadgetDisplayable4();
+                return ImageMaker.makeRedProjectileDisplayable();
             case "Strong Heal Gadget":
-                return ImageMaker.makeGadgetDisplayable1();
+                return ImageMaker.makeGadgetDisplayable2();
             case "Strong Heal Gadget - Spawn":
-                return ImageMaker.makeGadgetDisplayable1();
+                return ImageMaker.makeGreenProjectileDisplayable();
             case "Faster Stamina Regen Gadget":
-                return ImageMaker.makeGadgetDisplayable3();
+                return ImageMaker.makeGadgetDisplayable2();
             case "Faster Stamina Regen Gadget - Spawn":
-                return ImageMaker.makeGadgetDisplayable3();
+                return ImageMaker.makeGreenProjectileDisplayable();
             case "Heal Gadget":
-                return ImageMaker.makeGadgetDisplayable1();
+                return ImageMaker.makeGadgetDisplayable2();
             case "Heal Gadget - Spawn":
-                return ImageMaker.makeGadgetDisplayable1();
+                return ImageMaker.makeGreenProjectileDisplayable();
             case "Pacify Gadget":
-                return ImageMaker.makeBrawlingWeaponDisplayable();
+                return ImageMaker.makeGadgetDisplayable1();
             case "Pacify Gadget - Spawn":
-                return ImageMaker.makeBrawlingWeaponDisplayable();
+                return ImageMaker.makeYellowProjectileDisplayable();
             case "Paralyze Gadget":
-                return ImageMaker.makeRangedWeaponDisplayable();
+                return ImageMaker.makeGadgetDisplayable1();
             case "Paralyze Gadget - Spawn":
-                return ImageMaker.makeRangedWeaponDisplayable();
+                return ImageMaker.makeYellowProjectileDisplayable();
             case "Confuse Gadget":
-                return ImageMaker.makeTwoHandedWeaponDisplayable();
+                return ImageMaker.makeGadgetDisplayable1();
             case "Confuse Gadget - Spawn":
-                return ImageMaker.makeTwoHandedWeaponDisplayable();
+                return ImageMaker.makeYellowProjectileDisplayable();
             case "Good Gun":
                 return ImageMaker.makeRangedWeaponDisplayable();
             case "Good Gun - Spawn":
-                return ImageMaker.makeBlueProjectileDisplayable();
+                return ImageMaker.makeRedProjectileDisplayable();
             case "Gun":
                 return ImageMaker.makeRangedWeaponDisplayable();
             case "Gun - Spawn":
-                return ImageMaker.makeYellowProjectileDisplayable();
+                return ImageMaker.makeRedProjectileDisplayable();
             case "Bad Gun":
                 return ImageMaker.makeRangedWeaponDisplayable();
             case "Bad Gun - Spawn":
@@ -889,50 +914,60 @@ public class LoadingParser {
             case "Good Glove":
                 return ImageMaker.makeBrawlingWeaponDisplayable();
             case "Good Glove - Spawn":
-                return ImageMaker.makeBrawlingWeaponDisplayable();
+                return ImageMaker.makeBlueProjectileDisplayable();
             case "Glove":
                 return ImageMaker.makeBrawlingWeaponDisplayable();
             case "Glove - Spawn":
-                return ImageMaker.makeBrawlingWeaponDisplayable();
+                return ImageMaker.makeBlueProjectileDisplayable();
             case "Bad Glove":
                 return ImageMaker.makeBrawlingWeaponDisplayable();
             case "Bad Glove - Spawn":
-                return ImageMaker.makeBrawlingWeaponDisplayable();
+                return ImageMaker.makeBlueProjectileDisplayable();
             case "Good Sword":
                 return ImageMaker.makeLaserSwordDisplayable();
             case "Good Sword - Spawn":
-                return ImageMaker.makeLaserSwordDisplayable();
+                return ImageMaker.makeBlueProjectileDisplayable();
             case "Sword":
                 return ImageMaker.makeLaserSwordDisplayable();
             case "Sword - Spawn":
-                return ImageMaker.makeLaserSwordDisplayable();
+                return ImageMaker.makeBlueProjectileDisplayable();
             case "Bad Sword":
                 return ImageMaker.makeLaserSwordDisplayable();
             case "Bad Sword - Spawn":
-                return ImageMaker.makeLaserSwordDisplayable();
+                return ImageMaker.makeBlueProjectileDisplayable();
             case "Good Axe":
                 return ImageMaker.makeTwoHandedWeaponDisplayable();
             case "Good Axe - Spawn":
-                return ImageMaker.makeTwoHandedWeaponDisplayable();
+                return ImageMaker.makeBlueProjectileDisplayable();
             case "Axe":
                 return ImageMaker.makeTwoHandedWeaponDisplayable();
             case "Axe - Spawn":
-                return ImageMaker.makeTwoHandedWeaponDisplayable();
+                return ImageMaker.makeBlueProjectileDisplayable();
             case "Bad Axe":
                 return ImageMaker.makeTwoHandedWeaponDisplayable();
             case "Bad Axe - Spawn":
-                return ImageMaker.makeTwoHandedWeaponDisplayable();
+                return ImageMaker.makeBlueProjectileDisplayable();
             case "Bob":
-                return ImageMaker.makeGadgetDisplayable1();
+                return ImageMaker.makeTwoHandedWeaponDisplayable();
             case "Bob - Spawn":
-                return ImageMaker.makeGadgetDisplayable1();
+                return ImageMaker.makeRedProjectileDisplayable();
             // area effects
             case "Kill Area Effect":
-                return ImageMaker.makeRedProjectileDisplayable();
+                return ImageMaker.makeSkullDisplayable();
             case "Heal Area Effect":
-                return ImageMaker.makeBlueProjectileDisplayable();
+                return ImageMaker.makeHeartDisplayable();
             case "Damage Area Effect":
-                return ImageMaker.makeYellowProjectileDisplayable();
+                return ImageMaker.makeSkullDisplayable();
+            case "Level Up Area Effect":
+                return ImageMaker.makeArrowDisplayable();
+            case "Teleport Area Effect 1":
+                return ImageMaker.makeTeleporterDisplayable2();
+            case "Weak Armor":
+                return ImageMaker.makeArmorDisplayable();
+            case "Strong Armor":
+                return ImageMaker.makeArmorDisplayable();
+            case "Stamina Regen Ring":
+                return ImageMaker.makeRingDisplayable();
             default:
                 System.out.println("No Displayable for GameObject type -- " + name);
                 return ImageMaker.getNullDisplayable();
