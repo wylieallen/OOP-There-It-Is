@@ -234,7 +234,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     }
 
     public void enableInteraction () { interactionDisplayable.enable(); }
-    
+
     public void decrementUseItemDisplayableIndex () {
         useItemDisplayable.adjustCursorIndex (-1);
     }

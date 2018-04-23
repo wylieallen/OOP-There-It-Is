@@ -256,8 +256,10 @@ public class HumanEntityController extends EntityController implements Controlle
         if(entity.containsSkill(SkillType.CREEP)){
             addAction(new CreepAction(entity, false, entity.getConcealment(), 0));
         }
-        
-        addAction(new ObserveAction(entity));
+
+        ObserveAction obs = new ObserveAction(getControlledEntity());
+        obs.setController(this);
+        addAction(obs);
 
         if(entity.containsSkill(SkillType.DETECTANDREMOVETRAP)){
             addAction(new SearchAction(entity, false, 0));

@@ -13,7 +13,6 @@ import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.DismountAction;
-import entity.entitycontrol.controllerActions.ObserveAction;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.PickPocketInteraction;
 import entity.entitymodel.interactions.TalkInteraction;
@@ -23,12 +22,10 @@ import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.displayable.Displayable;
-import guiframework.displayable.ImageDisplayable;
 import items.InteractiveItem;
 import items.Item;
 import items.ItemFactory;
 import items.takeableitems.QuestItem;
-import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
 import maps.Influence.InfluenceType;
@@ -50,7 +47,6 @@ import utilities.Coordinate;
 import utilities.Vector;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.List;
@@ -62,7 +58,7 @@ public class GameViewMaker
     private Map<World, WorldDisplayable> worldDisplayableMap;
     private Entity player;
 
-    private boolean loadFromFile = true;
+    private boolean loadFromFile = false;
 
     private Game game;
 
@@ -253,11 +249,11 @@ public class GameViewMaker
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, player.getInventory(), player), game.getCoordinate(player), panel));
 
         player.getController().addAction(new DismountAction(player.getController()));
-        ObserveAction observe = new ObserveAction(player);
-        observe.setController(player.getController());
-        observe.registerObserver(foggyWorldsList.get(1));
-        player.getController().addAction(observe);
-        spawnerMap.put(observe, ImageMaker.makeYellowProjectileDisplayable());
+        //ObserveAction observe = new ObserveAction(player);
+        //observe.setController(player.getController());
+        //observe.registerObserver(foggyWorldsList.get(1));
+        //player.getController().addAction(observe);
+        //spawnerMap.put(observe, ImageMaker.makeYellowProjectileDisplayable());
 
         //setup world transitions
         //local world 1
