@@ -25,7 +25,7 @@ public class HostileAI extends AI {
 
     @Override
     public void nextAction(Map <Coordinate, Tile> map, Entity e, Coordinate location) {
-        //TODO: make it chase and attack the target
+
         Coordinate targetPosition;
 
         if (target != null) {
