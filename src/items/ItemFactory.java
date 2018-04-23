@@ -6,6 +6,7 @@ import items.takeableitems.ConsumableItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
 import maps.Influence.InfluenceType;
+import maps.movelegalitychecker.Obstacle;
 import maps.world.Game;
 import maps.world.World;
 import skills.SkillType;
@@ -32,6 +33,10 @@ public class ItemFactory {
         w.registerObserver(world);
 
         return w;
+    }
+
+    public static Obstacle makeBarrelObstacle(){
+        return new Obstacle();
     }
 
     public static WeaponItem makeGoodGlove(World world, boolean onMap) {
