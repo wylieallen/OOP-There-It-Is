@@ -42,7 +42,7 @@ public class CreepAction extends ControllerAction {
             controlledEntity.decreaseBaseMoveSpeed(cachedSpeedDifference);
         }
 
-        isCreeping = !isCreeping;
+
     }
 
     @Override
