@@ -265,5 +265,4 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
     {
         gameDisplayState.saveGame();
     }
-
 }

@@ -567,6 +567,11 @@ public class GameViewMaker
             world.getTile(new Coordinate(6, i)).addEI(trap);
         }
 
+        Coordinate petCoordinate = new Coordinate(4, 4);
+        Entity pet = createNPC(petCoordinate, null, true, true);
+        world.getTile(petCoordinate).setEntity(pet);
+        spriteMap.put(pet, ImageMaker.makeEnemyDisplayable4());
+
         return world;
     }
 
@@ -670,7 +675,6 @@ public class GameViewMaker
         spriteMap.put(thingy, ImageMaker.makeVehicleDisplayable());
 
         BuffHealthCommand command = new BuffHealthCommand(100);
-        System.out.println("here2 " + command);
         WearableItem armor = new WearableItem("Weak Armor", true, command, EquipSlot.ARMOUR);
         world.getTile(new Coordinate(-1, 9)).addEI(armor);
         spriteMap.put(armor, ImageMaker.makeArmorDisplayable());
