@@ -62,6 +62,7 @@ public class LocalWorldTile extends Tile {
         super.do_update(map);
 
         trajectoryModifiers.removeIf(GameObject::expired);
+
         entityImpactors.removeIf((EntityImpactor go) -> (go == null || go.expired() || go.shouldBeRemoved()));
 
         trajectoryModifiers.forEach(GameObject::update);

@@ -68,7 +68,7 @@ public class ImageMaker
         return new ImageDisplayable(new Point(0, 0), makeBorderedHex("assets/terrains/alienwater.jpg"), TERRAIN_HEIGHT);
     }
 
-    private static Displayable makeSpaceDisplayable()
+    public static Displayable makeSpaceDisplayable()
     {
         return new ImageDisplayable(new Point(0, 0), makeBorderedHex("assets/terrains/space.png"), TERRAIN_HEIGHT);
     }
