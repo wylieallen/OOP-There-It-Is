@@ -9,6 +9,7 @@ import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitycontrol.controllerActions.ControllerActionFactory;
+import entity.entitycontrol.controllerActions.ObserveAction;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.*;
 import entity.vehicle.Vehicle;
@@ -123,8 +124,12 @@ public class LoadingParser {
         Coordinate coordinate = new Coordinate(playerJson.getInt("X"), playerJson.getInt("Y"));
         playerController = new HumanEntityController(player, equipment, coordinate, gamePanel);
         player.setController(playerController);
-        List<ControllerAction> controllerActions = loadControllerActions(playerJson.getString("Name"), player, playerController, equipment);
+        //List<ControllerAction> controllerActions = loadControllerActions(playerJson.getString("Name"), player, playerController, equipment);
 //        playerController.setControllerActions(controllerActions);
+        ObserveAction observe = new ObserveAction(player);
+        observe.setController(playerController);
+        playerController.addAction(observe);
+        spawnerMap.put(observe, ImageMaker.makeYellowProjectileDisplayable());
         Displayable displayable = loadDisplayable(playerJson.getString("Name"));
         spriteMap.put(player, displayable);
     }

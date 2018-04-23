@@ -65,7 +65,7 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
     }
 
     public void attack(Entity attacker, Coordinate location) {
-        System.out.println(attacker.getSkillLevel(requiredSkill));
+        //System.out.println(attacker.getSkillLevel(requiredSkill));
         if(!attacker.containsSkill(requiredSkill))
         {
             System.out.println("Attacker does not have requisite skill " + requiredSkill);
@@ -76,7 +76,7 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
 //        System.out.println("attack with skill level " + skillLevel);
         command.setLevel(skillLevel);
         boolean canAttack = attacker.tryToAttack(attackSpeed, staminaCost);
-        System.out.println(canAttack);
+        //System.out.println(canAttack);
         if(canAttack) {
             ArrayList<GameObject> whitelist = new ArrayList<>();
             if(influenceType != InfluenceType.SELFINFLUENCE)
