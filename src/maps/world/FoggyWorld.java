@@ -114,4 +114,9 @@ public class FoggyWorld implements World {
         v.visitFoggyWorld(this);
     }
 
+    @Override
+    public void clearInfluenceAreas() {
+        world.clearInfluenceAreas();
+    }
+
 }

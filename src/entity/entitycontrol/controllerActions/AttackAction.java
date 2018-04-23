@@ -24,4 +24,6 @@ public class AttackAction extends ControllerAction {
 
     @Override
     public void accept(ControllerActionVisitor v) { v.visitAttackAction(this); }
+
+    public int getWeaponSlot() { return weaponSlot; }
 }

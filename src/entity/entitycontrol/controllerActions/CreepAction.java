@@ -11,7 +11,7 @@ public class CreepAction extends ControllerAction {
     private boolean isCreeping;
     private int cachedConcealmentDifference = 0;//will get set to the entities concealment when it starts creeping, so it can re-add
                                         //to the concealment when the entity stops creeping
-    private int cachedSpeedDifference = 0;//will get set to .25 * (the entities speed) when it starts creeping, so it can re-add
+    private int cachedSpeedDifference = 0;//will get set to .98 * (the entities speed) when it starts creeping, so it can re-add
                                   //to the speed when the entity stops creeping
 
 
@@ -29,6 +29,7 @@ public class CreepAction extends ControllerAction {
 
     @Override
     protected void execute() {
+        System.out.println(isCreeping);
         if(isCreeping){
             isCreeping = false;
             controlledEntity.increaseConcealment(cachedConcealmentDifference);
@@ -38,7 +39,7 @@ public class CreepAction extends ControllerAction {
             isCreeping = true;
             cachedConcealmentDifference = controlledEntity.getConcealment();
             controlledEntity.decreaseConcealment(cachedConcealmentDifference);
-            cachedSpeedDifference = (int)(controlledEntity.getBaseMoveSpeed() * 0.25);
+            cachedSpeedDifference = (int)(controlledEntity.getBaseMoveSpeed() * 0.98);
             controlledEntity.decreaseBaseMoveSpeed(cachedSpeedDifference);
         }
     }

@@ -10,6 +10,9 @@ import items.takeableitems.WearableItem;
 import maps.tile.Direction;
 import maps.tile.Tile;
 import savingloading.Visitor;
+import skills.SkillType;
+import spawning.SpawnObservable;
+import spawning.SpawnObserver;
 import utilities.Coordinate;
 
 import java.awt.event.KeyAdapter;
@@ -19,7 +22,7 @@ import java.util.*;
 
 public class HumanEntityController extends EntityController implements ControllerActionVisitor
 {
-    private Map<ControllerAction, KeyListener> actionToListenerMap = new HashMap<>();
+    private Collection<SpawnObservable> spawnObservableActions;
 
     private GamePanel view;
     private Set <KeyListener> activeListeners;
@@ -43,9 +46,12 @@ public class HumanEntityController extends EntityController implements Controlle
     private int dismountKeyCode = KeyEvent.VK_EQUALS;
     private int observeKeyCode = KeyEvent.VK_O;
     private int manageInventoryKeyCode = KeyEvent.VK_I;
+    private int manageSkillsKeyCode = KeyEvent.VK_L;
 
     private Map<Direction, Integer> directionalMoveKeyCodes;
     private Map<Direction, Integer> altDirectionalMoveKeyCodes;
+
+    private Map<Integer, Integer> weaponSlotKeyCodes;
 
     private int moveKeyCode = KeyEvent.VK_SHIFT;
     // todo: finish adding more keycodes
@@ -56,6 +62,7 @@ public class HumanEntityController extends EntityController implements Controlle
 
     public HumanEntityController(Entity entity, Equipment equipment, Coordinate entityLocation, GamePanel view) {
         super(entity, equipment, entityLocation, new ArrayList<>());
+        this.spawnObservableActions = new ArrayList<>();
         this.view = view;
 
         directionalMoveKeyCodes = new HashMap<>();
@@ -73,6 +80,13 @@ public class HumanEntityController extends EntityController implements Controlle
         altDirectionalMoveKeyCodes.put(Direction.S, KeyEvent.VK_DOWN);
         altDirectionalMoveKeyCodes.put(Direction.SE, KeyEvent.VK_RIGHT);
         altDirectionalMoveKeyCodes.put(Direction.SW, KeyEvent.VK_LEFT);
+
+        weaponSlotKeyCodes = new HashMap<>();
+        weaponSlotKeyCodes.put(0, KeyEvent.VK_1);
+        weaponSlotKeyCodes.put(1, KeyEvent.VK_2);
+        weaponSlotKeyCodes.put(2, KeyEvent.VK_3);
+        weaponSlotKeyCodes.put(3, KeyEvent.VK_4);
+        weaponSlotKeyCodes.put(4, KeyEvent.VK_5);
 
         if(view != null) {
             view.setFocusable(true);
@@ -94,6 +108,60 @@ public class HumanEntityController extends EntityController implements Controlle
     private void initializeLevelUp(Entity entity)
     {
         levelUpKeyListeners = new HashSet<>();
+
+        levelUpKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.N))
+                    view.decrementLevelUpDisplayableIndex();
+            }
+        });
+
+        levelUpKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.S))
+                    view.incrementLevelUpDisplayableIndex();
+            }
+        });
+
+        levelUpKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == manageSkillsKeyCode)
+                {
+                    view.disableLevelUpDisplayable();
+                    notifyFreeMove(entity);
+                }
+
+            }
+        });
+
+        levelUpKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == useInventoryItemKeyCode)
+                {
+                    // Determine selected skill
+                    // Attempt to spend skillpoint if possible
+                    int index = view.getLevelUpCursorIndex();
+                    SkillType selectedSkill = SkillType.values()[index];
+                    if(entity.getSkillLevel(selectedSkill) > -1 && entity.getUnusedSkillPoints() > 0)
+                    {
+                        entity.increaseSkillLevel(selectedSkill, 1);
+                        entity.decreaseSkillPoints(1);
+                    }
+                }
+            }
+        });
     }
 
     private void initializeShopping(Entity entity)
@@ -158,13 +226,32 @@ public class HumanEntityController extends EntityController implements Controlle
             }
         });
 
+        freeMoveKeyListeners.add(new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == manageSkillsKeyCode)
+                    notifyLevelUp(entity);
+            }
+        });
+
         for(Direction d : Direction.values())
         {
             if(d != Direction.NULL)
                 addAction(new DirectionalMoveAction(entity, d));
         }
 
+        if(getEquipment() != null) {
+            for (int i = 0; i < getEquipment().getNumWeaponSlots(); ++i) {
+                addAction(new AttackAction(this, getEquipment(), i));
+            }
+        }
+
         addAction(new BindWoundsAction(entity));
+
+        if(entity.containsSkill(SkillType.CREEP)){
+            addAction(new CreepAction(entity, false, entity.getConcealment(), 0));
+        }
         //addAction(new ObserveAction(entity));
         //addAction(new DismountAction(this));
     }
@@ -316,7 +403,7 @@ public class HumanEntityController extends EntityController implements Controlle
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == attackKeyCode)
+                if(e.getKeyCode() == weaponSlotKeyCodes.get(a.getWeaponSlot()))
                 {
                     a.activate();
                 }
@@ -389,7 +476,7 @@ public class HumanEntityController extends EntityController implements Controlle
                 }
             }
         });
-
+        spawnObservableActions.add(a);
     }
 
     public void visitSetDirectionAction(SetDirectionAction a)
@@ -409,6 +496,15 @@ public class HumanEntityController extends EntityController implements Controlle
                 }
             }
         });
+    }
+
+    @Override
+    public void updateSpawnObservers(SpawnObserver oldObserver, SpawnObserver newObserver) {
+        super.updateSpawnObservers(oldObserver, newObserver);
+        for(SpawnObservable so: spawnObservableActions) {
+            so.deregisterObserver(oldObserver);
+            so.registerObserver(newObserver);
+        }
     }
 
     @Override
@@ -443,6 +539,19 @@ public class HumanEntityController extends EntityController implements Controlle
     @Override
     public void notifyLevelUp(Entity e) {
         //TODO set active list to level up list
+        if(view != null) {
+            for (KeyListener k : freeMoveKeyListeners) {
+                view.removeKeyListener(k);
+            }
+
+            for (KeyListener k : levelUpKeyListeners) {
+                view.addKeyListener(k);
+            }
+            view.enableLevelUpDisplayable();
+        }
+
+        activeListeners = inventoryManagementKeyListeners;
+
     }
 
     @Override

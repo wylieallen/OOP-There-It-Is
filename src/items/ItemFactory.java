@@ -6,6 +6,7 @@ import items.takeableitems.ConsumableItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
 import maps.Influence.InfluenceType;
+import maps.movelegalitychecker.Obstacle;
 import maps.world.Game;
 import maps.world.World;
 import skills.SkillType;
@@ -18,7 +19,7 @@ public class ItemFactory {
     //Brawling Weapons
     public static WeaponItem makeBadGlove(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.BRAWLING, 0, -5, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Bad Glove", onMap, 1000, SkillType.BRAWLING, 5, 1, 1, 1, 300,InfluenceType.LINEARINFLUENCE, skill,false);
+        WeaponItem w = new WeaponItem ("Bad Glove", onMap, 500, SkillType.BRAWLING, 5, 1, 1, 1, 300,InfluenceType.LINEARINFLUENCE, skill,false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -27,16 +28,20 @@ public class ItemFactory {
 
     public static WeaponItem makeGlove(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.BRAWLING, 0, -10, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Glove", onMap, 1000, SkillType.BRAWLING, 5, 1, 1, 1, 300,InfluenceType.LINEARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Glove", onMap, 500, SkillType.BRAWLING, 5, 1, 1, 1, 300,InfluenceType.LINEARINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
         return w;
     }
 
+    public static Obstacle makeBarrelObstacle(){
+        return new Obstacle();
+    }
+
     public static WeaponItem makeGoodGlove(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.BRAWLING, 0, -15, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Good Glove", onMap, 1000, SkillType.BRAWLING, 5, 1, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Good Glove", onMap, 500, SkillType.BRAWLING, 5, 1, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -46,7 +51,7 @@ public class ItemFactory {
     //One-handed Weapons
     public static WeaponItem makeBadSword(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.ONEHANDEDWEAPON, 0, -15, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Bad Sword", onMap, 1000, SkillType.ONEHANDEDWEAPON, 10, 1, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Bad Sword", onMap, 750, SkillType.ONEHANDEDWEAPON, 10, 1, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -55,7 +60,7 @@ public class ItemFactory {
 
     public static WeaponItem makeSword(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.ONEHANDEDWEAPON, 0, -20, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Sword", onMap, 1000, SkillType.ONEHANDEDWEAPON, 10, 1, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Sword", onMap, 750, SkillType.ONEHANDEDWEAPON, 10, 1, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -64,7 +69,7 @@ public class ItemFactory {
 
     public static WeaponItem makeGoodSword(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.ONEHANDEDWEAPON, 0, -25, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Good Sword", onMap, 1000, SkillType.ONEHANDEDWEAPON, 10, 1, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Good Sword", onMap, 750, SkillType.ONEHANDEDWEAPON, 10, 1, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -75,7 +80,7 @@ public class ItemFactory {
     //Two-Handed Weapons
     public static WeaponItem makeBadAxe(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, 0, -20, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Bad Axe", onMap, 5000, SkillType.TWOHANDEDWEAPON, 20, 1, 1, 1, 300, InfluenceType.ANGULARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Bad Axe", onMap, 1000, SkillType.TWOHANDEDWEAPON, 20, 1, 1, 1, 300, InfluenceType.ANGULARINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -84,7 +89,7 @@ public class ItemFactory {
 
     public static WeaponItem makeAxe(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, 0, -25, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Axe", onMap, 5000, SkillType.TWOHANDEDWEAPON, 20, 1, 1, 1, 300, InfluenceType.CIRCULARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Axe", onMap, 1000, SkillType.TWOHANDEDWEAPON, 20, 1, 1, 1, 300, InfluenceType.CIRCULARINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -93,7 +98,7 @@ public class ItemFactory {
 
     public static WeaponItem makeGoodAxe(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.TWOHANDEDWEAPON, 0, -30, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Good Axe", onMap, 5000, SkillType.TWOHANDEDWEAPON, 20, 2, 1, 1, 300, InfluenceType.CIRCULARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Good Axe", onMap, 1000, SkillType.TWOHANDEDWEAPON, 20, 2, 1, 1, 300, InfluenceType.CIRCULARINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -104,8 +109,8 @@ public class ItemFactory {
 
     //Enchantment Weapons
     public static WeaponItem makeConfuseGadget(World world, boolean onMap) {
-        SkillCommand skill = new SkillCommand(SkillType.ENCHANTMENT, 0, 5000, new ConfuseCommand(), null);
-        WeaponItem w = new WeaponItem ("Confuse Gadget", onMap, 5000, SkillType.ENCHANTMENT, 10, 3, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
+        SkillCommand skill = new SkillCommand(SkillType.ENCHANTMENT, 0, 5000, new ConfuseCommand(5000), null);
+        WeaponItem w = new WeaponItem ("Confuse Gadget", onMap, 500, SkillType.ENCHANTMENT, 10, 3, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -113,8 +118,8 @@ public class ItemFactory {
     }
 
     public static WeaponItem makeParalyzeGadget(World world, boolean onMap) {
-        SkillCommand skill = new SkillCommand(SkillType.ENCHANTMENT, 0, 5000, new ParalyzeCommand(), null);
-        WeaponItem w = new WeaponItem ("Paralyze Gadget", onMap, 5000, SkillType.ENCHANTMENT, 10, 3, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
+        SkillCommand skill = new SkillCommand(SkillType.ENCHANTMENT, 0, 5000, new ParalyzeCommand(5000), null);
+        WeaponItem w = new WeaponItem ("Paralyze Gadget", onMap, 500, SkillType.ENCHANTMENT, 10, 3, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -122,8 +127,8 @@ public class ItemFactory {
     }
 
     public static WeaponItem makePacifyGadget(World world, boolean onMap) {
-        SkillCommand skill = new SkillCommand(SkillType.ENCHANTMENT, 0, 0, new MakeFriendlyCommand(), null);
-        WeaponItem w = new WeaponItem ("Pacify Gadget", onMap, 5000, SkillType.ENCHANTMENT, 10, 3, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill,false);
+        SkillCommand skill = new SkillCommand(SkillType.ENCHANTMENT, 0, 0, new MakeFriendlyCommand(), new EnrageCommand());
+        WeaponItem w = new WeaponItem ("Pacify Gadget", onMap, 500, SkillType.ENCHANTMENT, 10, 3, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill,false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -133,7 +138,7 @@ public class ItemFactory {
     //Boon Weapons
     public static WeaponItem makeHealGadget(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.BOON, 0, 10, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Heal Gadget", onMap, 5000, SkillType.BOON, 1, 20, 1, 1, 300, InfluenceType.SELFINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Heal Gadget", onMap, 500, SkillType.BOON, 1, 20, 1, 1, 300, InfluenceType.SELFINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -141,7 +146,7 @@ public class ItemFactory {
     }
 
     public static WeaponItem makeStaminaRegenGadget(World world, boolean onMap) {
-        SkillCommand skill = new SkillCommand(SkillType.BOON, 0, 5000, new ModifyStaminaRegenCommand(2), null);
+        SkillCommand skill = new SkillCommand(SkillType.BOON, 0, 5, new ModifyStaminaRegenCommand(2), null);
         WeaponItem w = new WeaponItem ("Faster Stamina Regen Gadget", onMap, 5000, SkillType.BOON, 20, 1, 1, 1, 300, InfluenceType.SELFINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
@@ -151,7 +156,7 @@ public class ItemFactory {
 
     public static WeaponItem makeStrongHealGadget(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.BOON, 0, 100, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Strong Heal Gadget", onMap, 5000, SkillType.BOON, 20, 1, 1, 1, 300, InfluenceType.SELFINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Strong Heal Gadget", onMap, 500, SkillType.BOON, 20, 1, 1, 1, 300, InfluenceType.SELFINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -161,7 +166,7 @@ public class ItemFactory {
     //Bane Weapons
     public static WeaponItem makeLinearBaneGadget(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.BANE, 0, -15, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Linear Damage Gadget", onMap, 5000, SkillType.BANE, 15,  5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, true);
+        WeaponItem w = new WeaponItem ("Linear Damage Gadget", onMap, 500, SkillType.BANE, 15,  5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, true);
         //must add world as observer
         w.registerObserver(world);
 
@@ -170,7 +175,7 @@ public class ItemFactory {
 
     public static WeaponItem makeAngularBaneGadget(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.BANE, 0, -20, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Angular Damage Gadget", onMap, 5000, SkillType.BANE, 15,  5, 1, 1, 300, InfluenceType.ANGULARINFLUENCE, skill, true);
+        WeaponItem w = new WeaponItem ("Angular Damage Gadget", onMap, 500, SkillType.BANE, 15,  5, 1, 1, 300, InfluenceType.ANGULARINFLUENCE, skill, true);
         //must add world as observer
         w.registerObserver(world);
 
@@ -179,7 +184,7 @@ public class ItemFactory {
 
     public static WeaponItem makeCircularBaneGadget(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.BANE, 0, -20, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Circular Damage Gadget", onMap, 5000, SkillType.BANE, 15,  5, 1, 1, 300, InfluenceType.CIRCULARINFLUENCE, skill, true);
+        WeaponItem w = new WeaponItem ("Circular Damage Gadget", onMap, 500, SkillType.BANE, 15,  5, 1, 1, 300, InfluenceType.CIRCULARINFLUENCE, skill, true);
         //must add world as observer
         w.registerObserver(world);
 
@@ -189,7 +194,7 @@ public class ItemFactory {
     //Staff Weapons
     public static WeaponItem makeBadStaff(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.STAFF, 0, -10, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Bad Staff", onMap, 5000, SkillType.STAFF, 0,  1, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Bad Staff", onMap, 500, SkillType.STAFF, 0,  1, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -198,7 +203,7 @@ public class ItemFactory {
 
     public static WeaponItem makeStaff(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.STAFF, 0, -15, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Staff", onMap, 5000, SkillType.STAFF, 0,  1, 1, 1, 300,InfluenceType.LINEARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Staff", onMap, 500, SkillType.STAFF, 0,  1, 1, 1, 300,InfluenceType.LINEARINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -207,7 +212,7 @@ public class ItemFactory {
 
     public static WeaponItem makeGoodStaff(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.STAFF, 0, -20, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Good Staff", onMap, 5000, SkillType.STAFF, 0,  1, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
+        WeaponItem w = new WeaponItem ("Good Staff", onMap, 500, SkillType.STAFF, 0,  1, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, false);
         //must add world as observer
         w.registerObserver(world);
 
@@ -219,7 +224,7 @@ public class ItemFactory {
     //Ranged Weapons
     public static WeaponItem makeBadGun(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.RANGEDWEAPON, 0, -10, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Bad Gun", onMap, 5000, SkillType.RANGEDWEAPON, 15, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, true);
+        WeaponItem w = new WeaponItem ("Bad Gun", onMap, 1000, SkillType.RANGEDWEAPON, 15, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, true);
         //must add world as observer
         w.registerObserver(world);
 
@@ -228,7 +233,7 @@ public class ItemFactory {
 
     public static WeaponItem makeGun(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.RANGEDWEAPON, 0, -15, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Gun", onMap, 5000, SkillType.RANGEDWEAPON, 15, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, true);
+        WeaponItem w = new WeaponItem ("Gun", onMap, 1000, SkillType.RANGEDWEAPON, 15, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, true);
         //must add world as observer
         w.registerObserver(world);
 
@@ -237,7 +242,7 @@ public class ItemFactory {
 
     public static WeaponItem makeGoodGun(World world, boolean onMap) {
         SkillCommand skill = new SkillCommand(SkillType.RANGEDWEAPON, 0, -20, new ModifyHealthCommand(), null);
-        WeaponItem w = new WeaponItem ("Good Gun", onMap, 5000, SkillType.RANGEDWEAPON, 15, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, true);
+        WeaponItem w = new WeaponItem ("Good Gun", onMap, 1000, SkillType.RANGEDWEAPON, 15, 5, 1, 1, 300, InfluenceType.LINEARINFLUENCE, skill, true);
         //must add world as observer
         w.registerObserver(world);
 

@@ -11,6 +11,7 @@ import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitycontrol.EntityController;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
+import entity.entitymodel.Equipment;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.*;
 import maps.tile.Direction;
@@ -171,10 +172,10 @@ public class EntityTest {
         actor = new Entity(new Vector(Direction.N, 0), actorStats, actorEffects, actorActorInteractions, actorInventory, true);
         actee = new Entity(new Vector(Direction.N, 0), acteeStats, acteeEffects, acteeActorInteractions, acteeInventory, true);
 
-        EntityController actorController = new HumanEntityController(actor,null,
+        EntityController actorController = new HumanEntityController(actor,new Equipment(0, actorInventory, actor),
                 null, null);
 
-        EntityController acteeController = new NpcEntityController(actee, null,
+        EntityController acteeController = new NpcEntityController(actee, new Equipment(0, acteeInventory, actee),
                 null, new HostileAI(new ArrayList<>(), actor, null),
                 new FriendlyAI(acteeActeeInteractions, null, false), false);
 
