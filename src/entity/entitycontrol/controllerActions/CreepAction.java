@@ -47,7 +47,7 @@ public class CreepAction extends ControllerAction {
             controlledEntity.addActorInteraction(backStab);
         }
 
-        isCreeping = !isCreeping;
+
     }
 
     @Override
