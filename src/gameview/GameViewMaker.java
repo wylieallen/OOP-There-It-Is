@@ -28,7 +28,6 @@ import items.InteractiveItem;
 import items.Item;
 import items.ItemFactory;
 import items.takeableitems.QuestItem;
-import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
 import maps.Influence.InfluenceType;

@@ -149,8 +149,8 @@ public class Vehicle extends Entity {
         if (!hasDriver()) {
             this.interact(mover);
         } else {
-            mover.getController().notifyInteraction(mover, driver);
-            // does driver need to know?
+            if (!driver.getController().isAggroed() || mover.getConcealment() == 0)
+                mover.getController().notifyInteraction(mover, driver);
         }
         return false;
     }
