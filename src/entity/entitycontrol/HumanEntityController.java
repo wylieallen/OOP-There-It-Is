@@ -213,8 +213,10 @@ public class HumanEntityController extends EntityController implements Controlle
                         interaction.interact(getEntity(), getCurrentInteractee());
                     } else if (currentInteractee == null){
                         System.out.println("Interactee is null");
+                        notifyFreeMove(getControlledEntity());
                     } else if (cursorIndex >= listOfInteractions.size()){
                         System.out.println("bad index on interactions");
+                        notifyFreeMove(getControlledEntity());
                     }
 
                 }
@@ -369,8 +371,8 @@ public class HumanEntityController extends EntityController implements Controlle
                         TakeableItem use = getControlledEntity().getItem(cursorIndex);
                         getControlledEntity().removeFromInventory(use);
                         use.activate(currentInteractee.getController().getEquipment());
-                        notifyFreeMove(getControlledEntity());
                     }
+                    notifyFreeMove(getControlledEntity());
                 }
             }
         });

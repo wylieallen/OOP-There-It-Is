@@ -10,7 +10,11 @@ public class UseItemInteraction implements EntityInteraction {
 
     @Override
     public boolean interact(Entity actor, Entity actee) {
-        actor.getController().notifyUseItem(actor, actee.getController());
+        if (actor.getInventorySize() > 0) {
+            actor.getController().notifyUseItem(actor, actee.getController());
+        } else {
+            actor.getController().notifyFreeMove(actor);
+        }
         return true;
     }
 
