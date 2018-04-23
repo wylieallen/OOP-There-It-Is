@@ -4,6 +4,7 @@ import entity.entitycontrol.controllerActions.*;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import entity.entitymodel.Inventory;
+import entity.entitymodel.interactions.EntityInteraction;
 import gameview.GamePanel;
 import items.takeableitems.WearableItem;
 import maps.tile.Direction;
@@ -31,6 +32,9 @@ public class HumanEntityController extends EntityController implements Controlle
     private Set<KeyListener> inventoryManagementKeyListeners;
     // todo: entity interaction may take a little more work since we can't pre-initialize the actee's keylisteners
     private Set<KeyListener> entityInteractionKeyListeners;
+    private List <EntityInteraction> listOfInteractions;
+    private Entity currentInteractee;
+
     private Set<KeyListener> shoppingKeyListeners;
     private Set<KeyListener> levelUpKeyListeners;
 
@@ -54,6 +58,7 @@ public class HumanEntityController extends EntityController implements Controlle
 
     // Inventory Menu keycodes:
     private int useInventoryItemKeyCode = KeyEvent.VK_ENTER;
+    private int selectInteractionKeyCode = KeyEvent.VK_ENTER;
 
     public HumanEntityController(Entity entity, Equipment equipment, Coordinate entityLocation, GamePanel view) {
         super(entity, equipment, entityLocation, new ArrayList<>());
@@ -89,6 +94,7 @@ public class HumanEntityController extends EntityController implements Controlle
         }
 
         activeListeners = new HashSet<>();
+        listOfInteractions = new ArrayList<>();
 
         initializeFreeMove(entity);
         initializeInventoryManagement(entity);
@@ -166,8 +172,8 @@ public class HumanEntityController extends EntityController implements Controlle
     private void initializeEntityInteraction(Entity entity)
     {
         entityInteractionKeyListeners = new HashSet<>();
-/*
-        inventoryManagementKeyListeners.add(new KeyAdapter()
+
+        entityInteractionKeyListeners.add(new KeyAdapter()
         {
             public void keyPressed(KeyEvent e)
             {
@@ -176,7 +182,7 @@ public class HumanEntityController extends EntityController implements Controlle
             }
         });
 
-        inventoryManagementKeyListeners.add(new KeyAdapter()
+        entityInteractionKeyListeners.add(new KeyAdapter()
         {
             public void keyPressed(KeyEvent e)
             {
@@ -185,37 +191,25 @@ public class HumanEntityController extends EntityController implements Controlle
             }
         });
 
-        inventoryManagementKeyListeners.add(new KeyAdapter()
+        entityInteractionKeyListeners.add(new KeyAdapter()
         {
             public void keyPressed(KeyEvent e)
             {
-                if(e.getKeyCode() == useInventoryItemKeyCode)
+                if(e.getKeyCode() == selectInteractionKeyCode)
                 {
-                    int cursorIndex = view.getInventoryCursorIndex();
-                    Inventory inventory = entity.getInventory();
-                    if(cursorIndex >= inventory.getItems().size())
-                    {
-                        cursorIndex -= inventory.getItems().size();
-                        if(cursorIndex >= getEquipment().getWearables().size())
-                        {
-                            cursorIndex -= getEquipment().getWearables().size();
-                            getEquipment().getWeapons().get(cursorIndex).activate(getEquipment());
-                        }
-                        else
-                        {
-                            WearableItem[] wearables = new WearableItem[0];
-                            wearables = getEquipment().getWearables().values().toArray(wearables);
-                            wearables[cursorIndex].activate(getEquipment());
-                        }
-                    }
-                    else
-                    {
-                        inventory.select(cursorIndex).activate(getEquipment());
+                    int cursorIndex = view.getInteractionCursorIndex();
+                    if (cursorIndex < listOfInteractions.size() && currentInteractee != null) {
+                        EntityInteraction interaction = listOfInteractions.get(cursorIndex);
+                        interaction.interact(getEntity(), currentInteractee);
+                        notifyFreeMove(getControlledEntity());
+                    } else if (currentInteractee == null){
+                        notifyFreeMove(getControlledEntity());
+                    } else {
+                        System.out.println("bad index on interactions");
                     }
                 }
             }
-        }); */
-        //todo
+        });
     }
 
     private void initializeFreeMove(Entity entity)
@@ -333,7 +327,10 @@ public class HumanEntityController extends EntityController implements Controlle
             for(ControllerAction action : actions)
             {
                 action.accept(this);
+
             }
+
+            refreshActiveList();
         }
 
     }
@@ -362,6 +359,7 @@ public class HumanEntityController extends EntityController implements Controlle
 
     @Override
     public void interact(EntityController interacter) {
+
         //TODO
     }
 
@@ -372,6 +370,7 @@ public class HumanEntityController extends EntityController implements Controlle
             if(view.initialized())
             {
                 view.disableInventoryCursor();
+                view.disableInteraction();
             }
             view.clearKeyListeners();
             for (KeyListener k : freeMoveKeyListeners) {
@@ -511,7 +510,26 @@ public class HumanEntityController extends EntityController implements Controlle
     @Override
     public void notifyInteraction(Entity player, Entity interactee) {
         //TODO : set active list to interaction list
+        currentInteractee = interactee;
+        listOfInteractions = interactee.interact(player);
+
+        for (KeyListener k : activeListeners) {
+            view.removeKeyListener(k);
+        }
+
+        for (KeyListener k : entityInteractionKeyListeners) {
+            view.addKeyListener(k);
+        }
+
+        activeListeners = entityInteractionKeyListeners;
+        view.enableInteraction();
+
     }
+
+    private Entity getCurrentInteractee () { return currentInteractee; }
+
+    @Override
+    public List<EntityInteraction> getInteractionList () { return listOfInteractions; }
 
     @Override
     public void notifyShopping(Entity trader1, Entity trader2) {

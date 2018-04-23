@@ -464,4 +464,20 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     {
         stats.modifyMaxHealth(-amount);
     }
+
+    public void addActorInteraction (EntityInteraction interaction) {
+        actorInteractions.add(interaction);
+    }
+
+    public void removeActorInteraction (EntityInteraction interaction) {
+        actorInteractions.remove(interaction);
+    }
+
+    public void addActeeInteraction (EntityInteraction interaction) {
+        acteeInteractions.add(interaction);
+    }
+
+    public void removeActeeInteraction (EntityInteraction interaction) {
+        acteeInteractions.remove(interaction);
+    }
 }

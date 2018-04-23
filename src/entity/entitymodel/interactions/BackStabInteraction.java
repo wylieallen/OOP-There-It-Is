@@ -1,9 +1,8 @@
 package entity.entitymodel.interactions;
 
 import entity.entitymodel.Entity;
-import skills.SkillType;
-import entity.entitymodel.interactions.EntityInteraction;
 import savingloading.Visitor;
+import skills.SkillType;
 
 /**
  * Created by dontf on 4/13/2018.
@@ -32,6 +31,9 @@ public class BackStabInteraction implements EntityInteraction {
             actor.increaseXP(xpIncrease);
         }
     }
+
+    @Override
+    public String name () { return "Back Stab"; }
 
     @Override
     public void accept(Visitor v) {
