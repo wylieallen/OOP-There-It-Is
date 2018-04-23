@@ -64,7 +64,7 @@ public class GameViewMaker
     private Map<World, WorldDisplayable> worldDisplayableMap;
     private Entity player;
 
-    private boolean loadFromFile = true;
+    private boolean loadFromFile = false;
 
     private Game game;
 

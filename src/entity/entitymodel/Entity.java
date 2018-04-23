@@ -48,11 +48,6 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         this(new Vector(), new EntityStats(), new ArrayList<>(), new ArrayList<>(),
                 new Inventory(), true);
 
-        // todo: take this out when we're done testing and ready to actually make Smashers/Summoners/Sneaks
-        for(SkillType skill : SkillType.values())
-        {
-            increaseSkillLevel(skill, 1);
-        }
     }
 
     public Entity(Vector movementVector,
