@@ -18,6 +18,9 @@ public class TalkInteraction implements EntityInteraction {
         random = new Random();
         this.messages = messages;
         messages.add("What in Object Orientation?");
+        messages.add("Eat my shorts!");
+        messages.add("Don't touch me!");
+        messages.add("Hello");
     }
 
     @Override
