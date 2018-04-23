@@ -158,6 +158,11 @@ public class ImageMaker
         return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/interactives/transitionitem.png"), ITEM_HEIGHT);
     }
 
+    public static Displayable makeTeleporterDisplayable2()
+    {
+        return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/interactives/transitionitem2.png"), ITEM_HEIGHT);
+    }
+
     public static Displayable makeBrawlingWeaponDisplayable()
     {
         return new ImageDisplayable(new Point(22, 5), loadImage("assets/items/takeables/brawlingweapon.png"), ITEM_HEIGHT);
@@ -257,9 +262,33 @@ public class ImageMaker
                 new ImageDisplayable(new Point(0, 0), loadImage("assets/blank.png"), ITEM_HEIGHT));
 
         displayable.add(trap::hasFired, new ImageDisplayable(new Point(8, 8), loadImage("assets/maps/firedtrap.png"), ITEM_HEIGHT));
-        displayable.add(trap::isVisible, new ImageDisplayable(new Point(8, 8), loadImage("assets/maps/trap.png"), ITEM_HEIGHT));
+        displayable.add(trap::isVisible, new ImageDisplayable(new Point(16, 16), loadImage("assets/maps/trap.png"), ITEM_HEIGHT));
 
         return displayable;
+    }
+
+    public static Displayable makeHeartDisplayable() {
+        return new ImageDisplayable(new Point(16, 16), loadImage("assets/maps/heart.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeArrowDisplayable() {
+        return new ImageDisplayable(new Point(16, 16), loadImage("assets/maps/arrow.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeSkullDisplayable() {
+        return new ImageDisplayable(new Point(16, 16), loadImage("assets/maps/skull.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeStarDisplayable() {
+        return new ImageDisplayable(new Point(16, 16), loadImage("assets/maps/star.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeArmorDisplayable() {
+        return new ImageDisplayable(new Point(16, 16), loadImage("assets/items/wearables/armor.png"), ITEM_HEIGHT);
+    }
+
+    public static Displayable makeRingDisplayable() {
+        return new ImageDisplayable(new Point(16, 16), loadImage("assets/items/wearables/ring.png"), ITEM_HEIGHT);
     }
 
 

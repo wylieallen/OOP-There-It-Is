@@ -61,7 +61,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
         for(SpawnObservable spawner : spriteSpawnerMap.keySet()){
             spawner.registerObserver(this);
         }
-        System.out.println("SpriteSpawnerMap" + spawnerMap.toString());
+//        System.out.println("SpriteSpawnerMap" + spawnerMap.toString());
         this.camera = new Point(0, 0);
         this.worlds = worlds;
         super.add(activeWorldDisplayable = worlds.get(initialWorld));
