@@ -40,14 +40,12 @@ import maps.tile.LocalWorldTile;
 import maps.tile.OverWorldTile;
 import maps.trajectorymodifier.River;
 import maps.world.*;
-import savingloading.LoadingParser;
 import skills.SkillType;
 import spawning.SpawnObservable;
 import utilities.Coordinate;
 import utilities.Vector;
 
 import java.awt.*;
-import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.List;
 

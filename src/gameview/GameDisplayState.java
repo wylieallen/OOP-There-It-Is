@@ -10,8 +10,6 @@ import guiframework.displayable.CompositeDisplayable;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
 import guiframework.displayable.StringDisplayable;
-import items.InteractiveItem;
-import items.takeableitems.TakeableItem;
 import maps.Influence.InfluenceArea;
 import maps.world.Game;
 import maps.world.World;
