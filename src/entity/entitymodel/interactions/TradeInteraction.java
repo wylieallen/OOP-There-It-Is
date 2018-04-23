@@ -20,6 +20,8 @@ public class TradeInteraction implements EntityInteraction {
         shoper = actor;
         shopKeeper = actee;
         costMultiplier = baseMultiplier / shoper.getSkillLevel(SkillType.BARGAIN);
+        actor.getController().notifyShopping(actee);
+        actee.getController().notifyShopping(actor);
         return true;
     }
 

@@ -52,7 +52,7 @@ public class InventoryDisplayable extends CompositeDisplayable
     {
         super.clear();
         add(background);
-        add(new StringDisplayable(new Point(4, 16), "Player Inventory:", Color.BLACK, 1));
+        add(new StringDisplayable(new Point(4, 16), entity.getName() + " has $" + entity.getGold(), Color.BLACK, 1));
 
         int numInventorySlots = entity.getInventory().getItems().size();
         for(int i = 0; i < numInventorySlots; i++)
@@ -62,7 +62,7 @@ public class InventoryDisplayable extends CompositeDisplayable
             String itemName = (item == null) ? "EMPTY" : item.getName();
             add(new StringDisplayable(new Point(4, 32 + (i * 16)), () -> "Slot " + (index + 1) + ": " + itemName, Color.BLACK, 1));
         }
-        add(new StringDisplayable(new Point(4, 48 + (numInventorySlots * 16)), "Player Equipment:", Color.BLACK, 1));
+        add(new StringDisplayable(new Point(4, 48 + (numInventorySlots * 16)), "Equipped: ", Color.BLACK, 1));
         Equipment equipment = entity.getController().getEquipment();
         int modifier = 0;
         for(EquipSlot equipSlot : equipment.getWearables().keySet())
@@ -115,4 +115,8 @@ public class InventoryDisplayable extends CompositeDisplayable
     }
 
 
+    public Entity getEntity()
+    {
+        return entity;
+    }
 }

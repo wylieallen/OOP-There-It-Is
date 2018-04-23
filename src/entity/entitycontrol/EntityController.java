@@ -48,7 +48,7 @@ public abstract class EntityController implements Visitable, DialogObservable{
     public abstract void notifyInventoryManagment(Entity e);
     public abstract void notifyInteraction(Entity player, Entity interactee);
     public abstract List<EntityInteraction> getInteractionList ();
-    public abstract void notifyShopping(Entity trader1, Entity trader2);
+    public abstract void notifyShopping(Entity trader);
     public abstract void notifyLevelUp(Entity e);
     public abstract void notifyMainMenu(Entity e);
     public abstract void notifyUseItem(Entity player, EntityController interactee);

@@ -265,4 +265,44 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
     {
         gameDisplayState.saveGame();
     }
+
+    public void enableTradingDisplayable(Entity trader)
+    {
+        gameDisplayState.enableTradingDisplayable(trader);
+    }
+
+    public void decrementTradeIndex()
+    {
+        gameDisplayState.decrementTradeIndex();
+    }
+
+    public void incrementTradeIndex()
+    {
+        gameDisplayState.incrementTradeIndex();
+    }
+
+    public void toggleActiveTradeInventory()
+    {
+        gameDisplayState.toggleActiveTradeInventory();
+    }
+
+    public void disableTradingDisplayables()
+    {
+        gameDisplayState.disableTradingDisplayables();
+    }
+
+    public Entity getBuyer()
+    {
+        return gameDisplayState.getBuyer();
+    }
+
+    public Entity getSeller()
+    {
+        return gameDisplayState.getSeller();
+    }
+
+    public int getTradingCursorIndex()
+    {
+        return gameDisplayState.getTradingCursorIndex();
+    }
 }

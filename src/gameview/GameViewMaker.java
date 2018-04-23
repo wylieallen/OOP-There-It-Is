@@ -16,6 +16,7 @@ import entity.entitycontrol.controllerActions.DismountAction;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.PickPocketInteraction;
 import entity.entitymodel.interactions.TalkInteraction;
+import entity.entitymodel.interactions.TradeInteraction;
 import entity.entitymodel.interactions.UseItemInteraction;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
@@ -26,6 +27,7 @@ import items.InteractiveItem;
 import items.Item;
 import items.ItemFactory;
 import items.takeableitems.QuestItem;
+import items.takeableitems.TakeableItem;
 import items.takeableitems.WeaponItem;
 import items.takeableitems.WearableItem;
 import maps.Influence.InfluenceType;
@@ -636,6 +638,18 @@ public class GameViewMaker
         killEffect = new OneShotAreaEffect(new KillCommand(), false, "Kill Area Effect");
         spriteMap.put(killEffect, ImageMaker.makeSkullDisplayable());
         tiles.get(new Coordinate(-7, 6)).addEI(killEffect);
+
+        Entity shopkeeper = createNPC(new Coordinate(2, 1), player, false, false);
+        shopkeeper.addActeeInteraction(new TradeInteraction());
+        shopkeeper.addItem(new QuestItem("Thingamajig", false, 12));
+        shopkeeper.addItem(new QuestItem("Thingamajig", false, 12));
+        shopkeeper.addItem(new QuestItem("Thingamajig", false, 12));
+        shopkeeper.addItem(new QuestItem("Thingamajig", false, 12));
+        shopkeeper.addItem(new QuestItem("Thingamajig", false, 12));
+        shopkeeper.increaseGold(1000);
+        shopkeeper.setName("Jeebs");
+        spriteMap.put(shopkeeper, ImageMaker.makeShopKeepDisplayable());
+        tiles.get(new Coordinate(2, 1)).setEntity(shopkeeper);
 
         AreaEffect levelUp = new OneShotAreaEffect(new LevelUpCommand(), false, "Level Up Area Effect");
         spriteMap.put(levelUp, ImageMaker.makeArrowDisplayable());

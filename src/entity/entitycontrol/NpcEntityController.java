@@ -70,7 +70,7 @@ public class NpcEntityController extends EntityController {
     }
 
     @Override
-    public void notifyShopping(Entity trader1, Entity trader2) {
+    public void notifyShopping(Entity trader) {
         //TODO
     }
 

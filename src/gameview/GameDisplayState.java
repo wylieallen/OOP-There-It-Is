@@ -35,6 +35,8 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     private Map<World, WorldDisplayable> worlds;
     private WorldDisplayable activeWorldDisplayable;
     private InventoryDisplayable inventoryDisplayable;
+    private InventoryDisplayable npcInventoryDisplayable;
+    private InventoryDisplayable activeShopDisplayable;
     private SaveVisitor saveVisitor = new SaveVisitor("test");
     private long timeSinceLastSave = 0;
     private LevelUpDisplayable levelUpDisplayable;
@@ -78,7 +80,7 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
         playerStatus.add(new StringDisplayable(new Point(4, 128),() -> "Cncl:   " + player.getConcealment(), Color.BLACK, 1));
         playerStatus.add(new StringDisplayable(new Point(4, 144),() -> "Speed:  " + player.getBaseMoveSpeed(), Color.BLACK, 1));
         playerStatus.add(new StringDisplayable(new Point(4, 160),() -> "Loc: " + game.getCoordinate(player), Color.BLACK, 1));
-        playerStatus.add(new StringDisplayable(new Point(4, 176),() -> "Vec: " + player.getMovementVector(), Color.BLACK, 1));
+        playerStatus.add(new StringDisplayable(new Point(4, 176),() -> "Gold: " + player.getMovementVector(), Color.BLACK, 1));
         playerStatus.add(new StringDisplayable(new Point(4, 190),() -> "VecDir: " + player.getMovementDirection(), Color.BLACK, 1));
         widgets.add(playerStatus);
 
@@ -254,5 +256,64 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     public void saveGame()
     {
         game.accept(saveVisitor);
+    }
+
+    public void enableTradingDisplayable(Entity trader)
+    {
+        widgets.add(npcInventoryDisplayable = new InventoryDisplayable(new Point(256, 256), trader));
+        activeShopDisplayable = inventoryDisplayable;
+        activeShopDisplayable.adjustCursorIndex(1);
+    }
+
+    public void decrementTradeIndex()
+    {
+        activeShopDisplayable.adjustCursorIndex(-1);
+    }
+
+    public void incrementTradeIndex()
+    {
+        activeShopDisplayable.adjustCursorIndex(1);
+    }
+
+    public void toggleActiveTradeInventory()
+    {
+        activeShopDisplayable.setCursorIndex(-1);
+        if(activeShopDisplayable == inventoryDisplayable)
+        {
+            activeShopDisplayable = npcInventoryDisplayable;
+        }
+        else
+        {
+            activeShopDisplayable = inventoryDisplayable;
+        }
+        activeShopDisplayable.adjustCursorIndex(1);
+    }
+
+    public void disableTradingDisplayables()
+    {
+        widgets.remove(npcInventoryDisplayable);
+        inventoryDisplayable.setCursorIndex(-1);
+    }
+
+    public Entity getSeller()
+    {
+        return activeShopDisplayable.getEntity();
+    }
+
+    public Entity getBuyer()
+    {
+        if(activeShopDisplayable == inventoryDisplayable)
+        {
+            return npcInventoryDisplayable.getEntity();
+        }
+        else
+        {
+            return inventoryDisplayable.getEntity();
+        }
+    }
+
+    public int getTradingCursorIndex()
+    {
+        return activeShopDisplayable.getCursorIndex();
     }
 }

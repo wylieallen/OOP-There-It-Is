@@ -56,7 +56,6 @@ public class HumanEntityController extends EntityController implements Controlle
 
     private Map<Integer, Integer> weaponSlotKeyCodes;
 
-    private int moveKeyCode = KeyEvent.VK_SHIFT;
     // todo: finish adding more keycodes
 
     // Inventory Menu keycodes:
@@ -177,6 +176,83 @@ public class HumanEntityController extends EntityController implements Controlle
     private void initializeShopping(Entity entity)
     {
         shoppingKeyListeners = new HashSet<>();
+
+        shoppingKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.N))
+                    view.decrementTradeIndex();
+            }
+        });
+
+        shoppingKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.S))
+                    view.incrementTradeIndex();
+            }
+        });
+
+        shoppingKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == directionalMoveKeyCodes.get(Direction.NE)
+                        || e.getKeyCode() == directionalMoveKeyCodes.get(Direction.SE)
+                        || e.getKeyCode() == directionalMoveKeyCodes.get(Direction.NW)
+                        || e.getKeyCode() == directionalMoveKeyCodes.get(Direction.SW))
+                {
+                    view.toggleActiveTradeInventory();
+                }
+            }
+        });
+
+        shoppingKeyListeners.add(new KeyAdapter()
+        {
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                if(e.getKeyCode() == useInventoryItemKeyCode)
+                {
+                    // Determine active inventory (player or NPC?)
+                    // Determine selected item based on cursor
+                    // Check if possible to complete the transaction
+                        // i.e., if buyer has gold and inventory space
+                    // If so, perform the transaction
+                    Entity buyer = view.getBuyer();
+                    Entity seller = view.getSeller();
+                    TakeableItem item = seller.getItem(view.getTradingCursorIndex());
+                    double price = 10.0 *((double)seller.getSkillLevel(SkillType.BARGAIN) / (double) buyer.getSkillLevel(SkillType.BARGAIN));
+                    if(item != null && buyer.getGold() > price && buyer.addToInventory(item))
+                    {
+                        seller.removeFromInventory(item);
+                        buyer.decreaseGold(price);
+                        seller.increaseGold(price);
+                    }
+                }
+            }
+        });
+
+        shoppingKeyListeners.add(new KeyAdapter(){
+           @Override
+           public void keyPressed(KeyEvent e)
+           {
+               if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+               {
+                   for(KeyListener k : shoppingKeyListeners)
+                   {
+                       view.removeKeyListener(k);
+                   }
+                   view.disableTradingDisplayables();
+                   notifyFreeMove(entity);
+               }
+           }
+        });
     }
 
     private void initializeEntityInteraction(Entity entity)
@@ -607,8 +683,18 @@ public class HumanEntityController extends EntityController implements Controlle
     public List<EntityInteraction> getInteractionList () { return listOfInteractions; }
 
     @Override
-    public void notifyShopping(Entity trader1, Entity trader2) {
+    public void notifyShopping(Entity trader) {
         //TODO set active list to shopping list
+        if(view != null)
+        {
+            view.disableInteraction();
+            for(KeyListener k : entityInteractionKeyListeners)
+                view.removeKeyListener(k);
+
+            view.enableTradingDisplayable(trader);
+            for(KeyListener k : shoppingKeyListeners)
+                view.addKeyListener(k);
+        }
     }
 
     @Override
