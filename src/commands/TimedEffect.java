@@ -18,6 +18,7 @@ public class TimedEffect {
 
     public void trigger(Entity affectedEntity){
         command.trigger(affectedEntity);
+        lastUpdateTime = Game.getCurrentTime();
     }
 
     public void decrementTimeRemaining() {

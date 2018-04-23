@@ -4,6 +4,7 @@ package entity.entitycontrol;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
+import entity.entitymodel.interactions.EntityInteraction;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameview.displayable.widget.DialogObservable;
@@ -15,6 +16,7 @@ import spawning.SpawnObserver;
 import utilities.Coordinate;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public abstract class EntityController implements Visitable, DialogObservable{
@@ -45,6 +47,7 @@ public abstract class EntityController implements Visitable, DialogObservable{
     public abstract void notifyFreeMove(Entity e);
     public abstract void notifyInventoryManagment(Entity e);
     public abstract void notifyInteraction(Entity player, Entity interactee);
+    public abstract List<EntityInteraction> getInteractionList ();
     public abstract void notifyShopping(Entity trader1, Entity trader2);
     public abstract void notifyLevelUp(Entity e);
     public abstract void notifyMainMenu(Entity e);
@@ -90,6 +93,7 @@ public abstract class EntityController implements Visitable, DialogObservable{
 
         // checking if entity is trying to dismount
         if(dismounting) {
+            System.out.println("dismounting");
             if (dismountTo(mapOfContainers.get(entityLocation))) {
                 controlledEntity.setOnMap(true);
                 inVehicle = false;
@@ -97,6 +101,7 @@ public abstract class EntityController implements Visitable, DialogObservable{
                 mount = null;
             }
             dismounting = false;
+            System.out.println(mount == null);
         }
 
     }

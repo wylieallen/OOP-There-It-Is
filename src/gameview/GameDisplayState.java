@@ -1,11 +1,12 @@
 package gameview;
 
 import entity.entitymodel.Entity;
-import entity.entitymodel.Equipment;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.displayable.widget.DialogBoxDisplayable;
+import gameview.displayable.widget.InteractionDisplayable;
 import gameview.displayable.widget.InventoryDisplayable;
+import gameview.displayable.widget.LevelUpDisplayable;
 import gameview.util.ImageMaker;
 import guiframework.DisplayState;
 import guiframework.displayable.CompositeDisplayable;
@@ -41,6 +42,8 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     private InventoryDisplayable inventoryDisplayable;
     private SaveVisitor saveVisitor = new SaveVisitor("test");
     private long timeSinceLastSave = 0;
+    private LevelUpDisplayable levelUpDisplayable;
+    private InteractionDisplayable interactionDisplayable;
 
     private static final int RENDERING_FRAMES_PER_GAME_TICK = 10;
     private int gameTickCountdown = RENDERING_FRAMES_PER_GAME_TICK;
@@ -86,8 +89,13 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
         inventoryDisplayable = new InventoryDisplayable(new Point(16, 256), player);
         widgets.add(inventoryDisplayable);
 
-        DialogBoxDisplayable dialogueToPlayer = new DialogBoxDisplayable(new Point(1024, 16), player.getController());
+        interactionDisplayable = new InteractionDisplayable(new Point(160 + 32, 448), player.getController());
+        widgets.add(interactionDisplayable);
+
+        DialogBoxDisplayable dialogueToPlayer = new DialogBoxDisplayable(new Point(950, 16), player.getController());
         widgets.add(dialogueToPlayer);
+
+        levelUpDisplayable = new LevelUpDisplayable(new Point(256, 256), player);
     }
 
 
@@ -165,7 +173,6 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
         spriteSpawnerMap.put(spawner,projectileSprite);
     }
 
-
     public void decrementInventoryDisplayableIndex()
     {
         inventoryDisplayable.adjustCursorIndex(-1);
@@ -185,5 +192,47 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
     {
         return inventoryDisplayable.getCursorIndex();
     }
+
+    public void decrementLevelUpDisplayableIndex()
+    {
+        levelUpDisplayable.modifyIndex(-1);
+    }
+
+    public void incrementLevelUpDisplayableIndex()
+    {
+        levelUpDisplayable.modifyIndex(1);
+    }
+
+    public void enableLevelUpDisplayable()
+    {
+        widgets.add(levelUpDisplayable);
+    }
+
+    public void disableLevelUpDisplayable()
+    {
+        widgets.remove(levelUpDisplayable);
+    }
+
+    public int getLevelUpDisplayableIndex()
+    {
+        return levelUpDisplayable.getCursorIndex();
+    }
+
+    public void decrementInteractionDisplayableIndex () {
+        interactionDisplayable.adjustCursorIndex (-1);
+    }
+
+    public void incrementInteractionDisplayableIndex () {
+        interactionDisplayable.adjustCursorIndex (1);
+    }
+
+    public int getInteractionDisplayableIndex() {return interactionDisplayable.getCursorIndex (); }
+
+    public void disableInteraction () {
+        interactionDisplayable.disable ();
+    }
+
+    public void enableInteraction () { interactionDisplayable.enable(); }
+
 
 }

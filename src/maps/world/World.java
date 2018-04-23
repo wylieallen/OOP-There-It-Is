@@ -27,4 +27,5 @@ public interface World extends SpawnObserver, Visitable {
     Coordinate getEntityCoordinate(Entity e);
     void notifySpawn(InfluenceArea IA, SpawnObservable spawner);
     Tile getTileForCoordinate(Coordinate c);
+    void clearInfluenceAreas();
 }

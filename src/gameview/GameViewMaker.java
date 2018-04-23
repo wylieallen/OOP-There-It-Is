@@ -1,10 +1,10 @@
 package gameview;
 
+import commands.KillCommand;
+import commands.LevelUpCommand;
 import commands.ModifyHealthCommand;
 import commands.TransitionCommand;
-import commands.*;
 import commands.reversiblecommands.BuffHealthCommand;
-import commands.reversiblecommands.ReversibleCommand;
 import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.AI.PetAI;
@@ -12,12 +12,17 @@ import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.DismountAction;
+import entity.entitycontrol.controllerActions.ObserveAction;
+import entity.entitymodel.Entity;
+import entity.entitymodel.EntityStats;
+import entity.entitymodel.Equipment;
+import entity.entitymodel.Inventory;
 import entity.entitymodel.*;
+import entity.entitymodel.interactions.TalkInteraction;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
 import gameview.util.ImageMaker;
-import guiframework.displayable.ConditionalDisplayable;
 import guiframework.displayable.Displayable;
 import guiframework.displayable.ImageDisplayable;
 import items.InteractiveItem;
@@ -32,6 +37,7 @@ import maps.entityimpaction.AreaEffect;
 import maps.entityimpaction.InfiniteAreaEffect;
 import maps.entityimpaction.OneShotAreaEffect;
 import maps.entityimpaction.Trap;
+import maps.movelegalitychecker.Obstacle;
 import maps.movelegalitychecker.Terrain;
 import maps.tile.Direction;
 import maps.tile.LocalWorldTile;
@@ -43,6 +49,7 @@ import skills.SkillType;
 import spawning.SpawnObservable;
 import utilities.Coordinate;
 import utilities.Vector;
+
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -162,6 +169,25 @@ public class GameViewMaker
         player.addCompatibleTerrain(Terrain.SPACE);
         player.setMovementObserver(panel);
         player.addToInventory(new QuestItem("Radio", false, 0));
+        String playerClass = "Sneak";
+        switch(playerClass) {
+            case "Smasher":
+                player.addSkill(SkillType.BRAWLING, 1);
+                player.addSkill(SkillType.ONEHANDEDWEAPON, 1);
+                player.addSkill(SkillType.TWOHANDEDWEAPON, 1);
+                break;
+            case "Summoner":
+                player.addSkill(SkillType.ENCHANTMENT, 1);
+                player.addSkill(SkillType.BOON, 1);
+                player.addSkill(SkillType.BANE, 1);
+                player.addSkill(SkillType.STAFF, 1);
+                break;
+            case "Sneak":
+                player.addSkill(SkillType.CREEP, 1);
+                player.addSkill(SkillType.DETECTANDREMOVETRAP, 1);
+                player.addSkill(SkillType.RANGEDWEAPON, 1);
+                break;
+        }
 
         Coordinate npcLoc = new Coordinate(-2, 0);
 
@@ -224,6 +250,11 @@ public class GameViewMaker
         game.setPlayerController(new HumanEntityController(player, new Equipment(10, player.getInventory(), player), game.getCoordinate(player), panel));
 
         player.getController().addAction(new DismountAction(player.getController()));
+        ObserveAction observe = new ObserveAction(player);
+        observe.setController(player.getController());
+        observe.registerObserver(foggyWorldsList.get(1));
+        player.getController().addAction(observe);
+        spawnerMap.put(observe, ImageMaker.makeYellowProjectileDisplayable());
 
         //setup world transitions
         //local world 1
@@ -309,6 +340,7 @@ public class GameViewMaker
         PetAI friendly = new PetAI(entity.getActeeInteractions(), player, new HashMap<>(), false);
         NpcEntityController controller = new NpcEntityController(entity, e, loc, hostile, friendly, isHostile);
         entity.setController(controller);
+        entity.addActeeInteraction(new TalkInteraction(new ArrayList<String>()));
 
         return entity;
     }
@@ -331,6 +363,12 @@ public class GameViewMaker
         }
 
         LocalWorld world = new LocalWorld(tiles, new HashSet<>());
+
+
+        Vehicle thingy = createVehicle(new Coordinate(2, 2));
+        thingy.hurtEntity(990);
+        world.getTile(new Coordinate(4, 4)).setEntity(thingy);
+        spriteMap.put(thingy, ImageMaker.makeVehicleDisplayable());
 
         //Add npc
         Coordinate npcLoc = new Coordinate(-2, 0);
@@ -355,38 +393,47 @@ public class GameViewMaker
         axe = ItemFactory.makeBadAxe(world, true);
         world.getTile(new Coordinate(-6, -2)).addEI(axe);
         spriteMap.put(axe, ImageMaker.makeTwoHandedWeaponDisplayable());
+        spawnerMap.put(axe, ImageMaker.makeBlueProjectileDisplayable());
 
         axe = ItemFactory.makeAxe(world, true);
         world.getTile(new Coordinate(-6, -1)).addEI(axe);
         spriteMap.put(axe, ImageMaker.makeTwoHandedWeaponDisplayable());
+        spawnerMap.put(axe, ImageMaker.makeBlueProjectileDisplayable());
 
         axe = ItemFactory.makeGoodAxe(world, true);
         world.getTile(new Coordinate(-6, 0)).addEI(axe);
         spriteMap.put(axe, ImageMaker.makeTwoHandedWeaponDisplayable());
+        spawnerMap.put(axe, ImageMaker.makeBlueProjectileDisplayable());
 
-        Item sword = ItemFactory.makeBadSword(world, true);
+        WeaponItem sword = ItemFactory.makeBadSword(world, true);
         world.getTile(new Coordinate(-5, -2)).addEI(sword);
         spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+        spawnerMap.put(sword, ImageMaker.makeBlueProjectileDisplayable());
 
         sword = ItemFactory.makeSword(world, true);
         world.getTile(new Coordinate(-5, -1)).addEI(sword);
         spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+        spawnerMap.put(sword, ImageMaker.makeBlueProjectileDisplayable());
 
         sword = ItemFactory.makeGoodSword(world, true);
         world.getTile(new Coordinate(-5, 0)).addEI(sword);
         spriteMap.put(sword, ImageMaker.makeLaserSwordDisplayable());
+        spawnerMap.put(sword, ImageMaker.makeBlueProjectileDisplayable());
 
-        Item brawling = ItemFactory.makeBadGlove(world, true);
+        WeaponItem brawling = ItemFactory.makeBadGlove(world, true);
         world.getTile(new Coordinate(-4, -2)).addEI(brawling);
         spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());
+        spawnerMap.put(brawling, ImageMaker.makeBlueProjectileDisplayable());
 
         brawling = ItemFactory.makeGlove(world, true);
         world.getTile(new Coordinate(-4, -1)).addEI(brawling);
         spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());
+        spawnerMap.put(brawling, ImageMaker.makeBlueProjectileDisplayable());
 
         brawling = ItemFactory.makeGoodGlove(world, true);
         world.getTile(new Coordinate(-4, 0)).addEI(brawling);
         spriteMap.put(brawling, ImageMaker.makeBrawlingWeaponDisplayable());
+        spawnerMap.put(brawling, ImageMaker.makeBlueProjectileDisplayable());
 
         for(int i = 2; i <= 10; ++i) {
             npc = createNPC (new Coordinate(-6, i), player, false, false);
@@ -416,56 +463,68 @@ public class GameViewMaker
 
         LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
-        Item gadget = ItemFactory.makeConfuseGadget(world, true);
+        WeaponItem gadget = ItemFactory.makeConfuseGadget(world, true);
         world.getTile(new Coordinate(-6, -2)).addEI(gadget);
         spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable1());
+        spawnerMap.put(gadget, ImageMaker.makeYellowProjectileDisplayable());
 
         gadget = ItemFactory.makeParalyzeGadget(world, true);
         world.getTile(new Coordinate(-6, -1)).addEI(gadget);
         spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable1());
+        spawnerMap.put(gadget, ImageMaker.makeYellowProjectileDisplayable());
 
         gadget = ItemFactory.makePacifyGadget(world, true);
         world.getTile(new Coordinate(-6, 0)).addEI(gadget);
         spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable1());
+        spawnerMap.put(gadget, ImageMaker.makeYellowProjectileDisplayable());
 
         gadget = ItemFactory.makeHealGadget(world, true);
         world.getTile(new Coordinate(-5, -2)).addEI(gadget);
         spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable2());
+        spawnerMap.put(gadget, ImageMaker.makeGreenProjectileDisplayable());
 
         gadget = ItemFactory.makeStaminaRegenGadget(world, true);
         world.getTile(new Coordinate(-5, -1)).addEI(gadget);
         spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable2());
+        spawnerMap.put(gadget, ImageMaker.makeGreenProjectileDisplayable());
 
         gadget = ItemFactory.makeStrongHealGadget(world, true);
         world.getTile(new Coordinate(-5, 0)).addEI(gadget);
         spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable2());
+        spawnerMap.put(gadget, ImageMaker.makeGreenProjectileDisplayable());
 
         gadget = ItemFactory.makeLinearBaneGadget(world, true);
         world.getTile(new Coordinate(-4, -2)).addEI(gadget);
         spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable3());
+        spawnerMap.put(gadget, ImageMaker.makeRedProjectileDisplayable());
 
         gadget = ItemFactory.makeAngularBaneGadget(world, true);
         world.getTile(new Coordinate(-4, -1)).addEI(gadget);
         spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable3());
+        spawnerMap.put(gadget, ImageMaker.makeRedProjectileDisplayable());
 
         gadget = ItemFactory.makeCircularBaneGadget(world, true);
         world.getTile(new Coordinate(-4, 0)).addEI(gadget);
         spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable3());
+        spawnerMap.put(gadget, ImageMaker.makeRedProjectileDisplayable());
 
         gadget = ItemFactory.makeBadStaff(world, true);
         world.getTile(new Coordinate(-3, -2)).addEI(gadget);
         spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable4());
+        spawnerMap.put(gadget, ImageMaker.makeBlueProjectileDisplayable());
 
         gadget = ItemFactory.makeStaff(world, true);
         world.getTile(new Coordinate(-3, -1)).addEI(gadget);
         spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable4());
+        spawnerMap.put(gadget, ImageMaker.makeBlueProjectileDisplayable());
 
         gadget = ItemFactory.makeGoodStaff(world, true);
         world.getTile(new Coordinate(-3, 0)).addEI(gadget);
         spriteMap.put(gadget, ImageMaker.makeGadgetDisplayable4());
+        spawnerMap.put(gadget, ImageMaker.makeBlueProjectileDisplayable());
 
         for(int i = 2; i <= 10; ++i) {
-            Entity npc = createNPC (new Coordinate(-6, i), player, false, false);
+            Entity npc = createNPC (new Coordinate(-6, i), player, false, true);
             world.getTile(new Coordinate(-6, i)).setEntity(npc);
             spriteMap.put(npc, ImageMaker.makeEnemyDisplayable2());
         }
@@ -494,17 +553,20 @@ public class GameViewMaker
 
         LocalWorld world = new LocalWorld(tiles, new HashSet<>());
 
-        Item gun = ItemFactory.makeBadGun(world, true);
+        WeaponItem gun = ItemFactory.makeBadGun(world, true);
         world.getTile(new Coordinate(-6, -2)).addEI(gun);
         spriteMap.put(gun, ImageMaker.makeRangedWeaponDisplayable());
+        spawnerMap.put(gun, ImageMaker.makeRedProjectileDisplayable());
 
         gun = ItemFactory.makeGun(world, true);
         world.getTile(new Coordinate(-6, -1)).addEI(gun);
         spriteMap.put(gun, ImageMaker.makeRangedWeaponDisplayable());
+        spawnerMap.put(gun, ImageMaker.makeRedProjectileDisplayable());
 
         gun = ItemFactory.makeGoodGun(world, true);
         world.getTile(new Coordinate(-6, 0)).addEI(gun);
         spriteMap.put(gun, ImageMaker.makeRangedWeaponDisplayable());
+        spawnerMap.put(gun, ImageMaker.makeRedProjectileDisplayable());
 
 
         for(int i = 2; i <= 10; ++i) {
@@ -542,6 +604,11 @@ public class GameViewMaker
                 }
                 else {
                     LocalWorldTile tile = new LocalWorldTile(new HashSet<>(), Terrain.GRASS, null, new HashSet<>(), new HashSet<>());
+                    if((x == 5 && coordinate.y() == 0 && z == -5) || (x == 4 && coordinate.y() == 0 && z == -4)){
+                        Obstacle ob = ItemFactory.makeBarrelObstacle();
+                        tile.addMLC(ob);
+                        spriteMap.put(ob,ImageMaker.makeBarrelDisplayable());
+                    }
                     tiles.put(coordinate, tile);
                 }
             }

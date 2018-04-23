@@ -6,6 +6,7 @@ import guiframework.DisplayPanel;
 import maps.world.TransitionObserver;
 import maps.world.World;
 import utilities.Coordinate;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,7 +15,7 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
 {
     private boolean initialized = false;
     private GameDisplayState gameDisplayState;
-    
+
     public GamePanel(Dimension size)
     {
         super(size);
@@ -159,7 +160,6 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
         gameDisplayState.decrementInventoryDisplayableIndex();
     }
 
-
     public void incrementInventoryDisplayableIndex()
     {
         gameDisplayState.incrementInventoryDisplayableIndex();
@@ -169,4 +169,48 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
     {
         gameDisplayState.disableInventoryCursor();
     }
+
+    public void decrementLevelUpDisplayableIndex()
+    {
+        gameDisplayState.decrementLevelUpDisplayableIndex();
+    }
+
+    public void incrementLevelUpDisplayableIndex()
+    {
+        gameDisplayState.incrementLevelUpDisplayableIndex();
+    }
+
+    public void disableLevelUpDisplayable()
+    {
+        gameDisplayState.disableLevelUpDisplayable();
+    }
+
+    public void enableLevelUpDisplayable()
+    {
+        gameDisplayState.enableLevelUpDisplayable();
+    }
+
+    public int getLevelUpCursorIndex() { return gameDisplayState.getLevelUpDisplayableIndex(); }
+
+    public int getInteractionCursorIndex()
+    {
+        return gameDisplayState.getInteractionDisplayableIndex();
+    }
+
+    public void decrementInteractionDisplayableIndex()
+    {
+        gameDisplayState.decrementInteractionDisplayableIndex();
+    }
+
+    public void incrementInteractionDisplayableIndex()
+    {
+        gameDisplayState.incrementInteractionDisplayableIndex();
+    }
+
+    public void disableInteraction()
+    {
+        gameDisplayState.disableInteraction();
+    }
+
+    public void enableInteraction () { gameDisplayState.enableInteraction(); }
 }

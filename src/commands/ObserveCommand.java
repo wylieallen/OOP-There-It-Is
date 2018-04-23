@@ -52,9 +52,10 @@ public class ObserveCommand implements Command {
             case 3:
                 message = itemObservation(e.getInventory(), distance);
                 break;
+            default:
+                message = "*wisper from the dark*  you are not alone";
         }
 
-        System.out.println(message);
         if(controller != null)
             controller.notifyAllObservers(message);
     }

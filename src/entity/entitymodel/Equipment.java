@@ -24,7 +24,7 @@ public class Equipment implements Visitable {
     private int maxSize;
     private Inventory inventory;
     private Entity entity;
-    private List<SpawnObserver> spawnObservers;
+    private Set<SpawnObserver> spawnObservers;
 
     public Equipment(int maxSize, Inventory inventory, Entity entity) {
         this.maxSize = maxSize;
@@ -32,7 +32,7 @@ public class Equipment implements Visitable {
         this.entity = entity;
         this.wearables = new HashMap<>();
         this.weapons = new WeaponItem[defaultWeaponsSize];
-        this.spawnObservers = new ArrayList<>();
+        this.spawnObservers = new HashSet<>();
     }
 
     public Equipment(Map<EquipSlot,
@@ -47,7 +47,7 @@ public class Equipment implements Visitable {
         this.maxSize = maxSize;
         this.inventory = inventory;
         this.entity = entity;
-        this.spawnObservers = new ArrayList<>();
+        this.spawnObservers = new HashSet<>();
     }
 
     public void add (WearableItem wearable) {
@@ -73,6 +73,7 @@ public class Equipment implements Visitable {
         for (int i = 0; i < weapons.length; ++i) {
             if (weapons[i] == null) {
                 weapons [i] = weapon;
+                weapon.setSpawnObservers(spawnObservers);
                 return;
             }
         }
@@ -135,6 +136,10 @@ public class Equipment implements Visitable {
                 weaponsList.add(weapons[i]);
         }
         return weaponsList;
+    }
+
+    public int getNumWeaponSlots() {
+        return weapons.length;
     }
 
     public Map<EquipSlot, WearableItem> getWearables(){

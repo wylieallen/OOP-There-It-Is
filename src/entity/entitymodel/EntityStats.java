@@ -46,7 +46,7 @@ public class EntityStats implements Visitable {
     {
 
         this(new HashMap<>(), 30, 1000, 1000, 100, 100, 1,
-                10, 0, 5, 1, 100, false, false,new HashSet<Terrain>(defaultCompatibleTerrains));
+                10, 0, 5, 3, 100, false, false,new HashSet<Terrain>(defaultCompatibleTerrains));
     }
 
     public EntityStats(Map<SkillType, Integer> skills,
@@ -209,12 +209,8 @@ public class EntityStats implements Visitable {
 
     public void increaseSkillLevel (SkillType s, int amount) {
         int curLevel = skills.getOrDefault(s, defaultValue);
-
-        if (curLevel != defaultValue) {
-            curLevel = Math.min(maxSkillLevel, curLevel + amount);
-            skills.replace(s, curLevel);
-        }
-
+        curLevel = Math.min(maxSkillLevel, curLevel + amount);
+        skills.put(s, curLevel);
     }
 
     public boolean getIsSearching() { return isSearching; }
@@ -256,6 +252,13 @@ public class EntityStats implements Visitable {
         return skills;
     }
 
+    public void addSkill(SkillType skill, int level) {
+        if(!skills.containsKey(skill))
+        {
+            skills.put(skill, level);
+        }
+    }
+
     @Override
     public void accept(Visitor v) {
         v.visitEntityStats(this);
@@ -282,8 +285,9 @@ public class EntityStats implements Visitable {
     }
 
     public boolean tryToMove(double moveSpeed) {
-        if(moveSpeed == 0)
+        if(moveSpeed == 0){
             return false;
+        }
 
         if(Game.getCurrentTime() - lastMoveTime >= (int)(1000.0 / moveSpeed)) {
             lastMoveTime = Game.getCurrentTime();

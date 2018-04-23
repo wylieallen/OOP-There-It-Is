@@ -52,6 +52,7 @@ public class Game implements TransitionObserver, Visitable {
             activeWorld.remove(e);
             setActiveWorld(target);
             activeWorld.add(p, e);
+            activeWorld.clearInfluenceAreas();
             if(transitionObserver != null)
                 transitionObserver.notifyTransition(e, target, p);
         }

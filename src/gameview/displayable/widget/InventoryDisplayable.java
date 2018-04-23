@@ -23,8 +23,8 @@ public class InventoryDisplayable extends CompositeDisplayable
     {
         super(origin, 1);
         this.entity = entity;
-        update();
         cursorIndex = -1;
+        update();
     }
 
     public void adjustCursorIndex(int delta)

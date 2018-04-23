@@ -2,12 +2,10 @@ package entity.vehicle;
 
 import commands.TimedEffect;
 import entity.entitycontrol.EntityController;
-import entity.entitycontrol.controllerActions.DismountAction;
 import entity.entitymodel.Entity;
 import entity.entitymodel.EntityStats;
 import entity.entitymodel.Inventory;
 import entity.entitymodel.interactions.EntityInteraction;
-import entity.entitymodel.interactions.MountInteraction;
 import items.takeableitems.TakeableItem;
 import maps.tile.Tile;
 import savingloading.Visitor;
@@ -26,6 +24,7 @@ import java.util.Map;
 public class Vehicle extends Entity {
 
     private Entity driver;
+    private int driverTriedToDitch;
 
     public Vehicle(Vector movementVector,
                    EntityStats stats,
@@ -37,6 +36,7 @@ public class Vehicle extends Entity {
     {
         super(movementVector, stats, effects, actorInteractions, inventory, isOnMap, "Default");
         this.driver = driver;
+        driverTriedToDitch = 0;
     }
 
     public Vehicle(Vector vector,
@@ -48,18 +48,17 @@ public class Vehicle extends Entity {
     {
         super(vector, stats, effects, actorInteractions, inventory, isOnMap, "Default");
         this.driver = null;
+        driverTriedToDitch = 0;
     }
 
     @Override
     public List <EntityInteraction> interact (Entity actor) {
+
         if (!hasDriver()) {
             setDriver(actor);
             actor.setMount (this);
-            // after mounting you interact with mount, maybe use item?
-            return new ArrayList<>();
         }
 
-        actor.getController().notifyInteraction(actor, driver);
         return new ArrayList<>();
     }
 
@@ -123,9 +122,31 @@ public class Vehicle extends Entity {
     }
 
     @Override
+    public void levelUp () {
+        if (hasDriver()) {
+            driver.levelUp();
+        }
+        super.levelUp();
+    }
+
+    @Override
+    public boolean hurtEntity (int amount) {
+        if (super.hurtEntity(amount) && hasDriver()) {
+            driver.getController().notifyDismount();
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
     public boolean canMoveHere (Entity mover) {
-        MountInteraction mountingTime = new MountInteraction();
-        mountingTime.interact(mover, this);
+        if (!hasDriver()) {
+            this.interact(mover);
+        } else {
+            mover.getController().notifyInteraction(mover, driver);
+            // does driver need to know?
+        }
         return false;
     }
 
@@ -134,6 +155,24 @@ public class Vehicle extends Entity {
         if (hasDriver())
             driver.notifyMovement();
         super.notifyMovement();
+    }
+
+    @Override
+    public boolean expired () {
+        if (hasDriver() && driver.expired()) {
+            driver = null;
+        }
+
+        if ((!hasDriver() || driverTriedToDitch > 25) && super.expired()) {
+            return true;
+        }
+
+        if (hasDriver() && super.expired()) {
+            driver.getController().notifyDismount();
+            ++driverTriedToDitch;
+        }
+
+        return false;
     }
 
     @Override

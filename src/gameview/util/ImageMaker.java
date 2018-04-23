@@ -25,6 +25,7 @@ public class ImageMaker
     private static int ENTITY_HEIGHT = 999;
     private static int FOG_HEIGHT = 2000;
     private static int PROJECTILE_HEIGHT = 1100;
+    private static int OBSTACLE_HEIGHT = 400;
 
     private static Shape hexShape = makeHexShape();
 
@@ -243,6 +244,10 @@ public class ImageMaker
         return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/redprojectile.png"), PROJECTILE_HEIGHT);
     }
 
+    public static Displayable makeBarrelDisplayable(){
+        return new ImageDisplayable(new Point(16,16), loadImage("assets/maps/obstacle.png"), OBSTACLE_HEIGHT);
+    }
+
     public static Displayable makeYellowProjectileDisplayable() {
         return new ImageDisplayable(new Point(22, 22), loadImage("assets/maps/yellowprojectile.png"), PROJECTILE_HEIGHT);
     }
@@ -256,6 +261,9 @@ public class ImageMaker
 
         return displayable;
     }
+
+
+
 
     // Todo: split BufferedImage creation off into a separate class
     public static BufferedImage makeBorderedHex(Color color)

@@ -1,22 +1,23 @@
 package items.takeableitems;
 
-import commands.Command;
 import commands.skillcommands.SkillCommand;
 import entity.entitymodel.Entity;
 import entity.entitymodel.Equipment;
 import gameobject.GameObject;
 import maps.Influence.InfluenceArea;
-import maps.Influence.StaticInfluenceArea;
-import savingloading.Visitor;
 import maps.Influence.InfluenceType;
+import maps.Influence.StaticInfluenceArea;
 import maps.Influence.expandingInfluenceArea;
+import savingloading.Visitor;
 import skills.SkillType;
 import spawning.SpawnObservable;
 import spawning.SpawnObserver;
 import utilities.Coordinate;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class WeaponItem extends TakeableItem implements SpawnObservable {
 
@@ -24,7 +25,7 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
     private long attackSpeed;
     private SkillType requiredSkill;
     private int staminaCost;
-    private List<SpawnObserver> spawnObservers;
+    private Set<SpawnObserver> spawnObservers;
     private int maxRadius;
     private long expansionInterval;
     private long updateInterval;
@@ -42,7 +43,7 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
         this.attackSpeed = attackSpeed;
         this.requiredSkill = requiredSkill;
         this.staminaCost = staminaCost;
-        spawnObservers = new ArrayList<>();
+        spawnObservers = new HashSet<>();
         this.maxRadius = maxRadius;
         this.expansionInterval = expansionInterval;
         this.updateInterval = updateInterval;
@@ -64,17 +65,22 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
     }
 
     public void attack(Entity attacker, Coordinate location) {
+        System.out.println(attacker.getSkillLevel(requiredSkill));
         if(!attacker.containsSkill(requiredSkill))
+        {
+            System.out.println("Attacker does not have requisite skill " + requiredSkill);
             return;
+        }
 
         int skillLevel = attacker.getSkillLevel(requiredSkill);
 //        System.out.println("attack with skill level " + skillLevel);
         command.setLevel(skillLevel);
         boolean canAttack = attacker.tryToAttack(attackSpeed, staminaCost);
+        System.out.println(canAttack);
         if(canAttack) {
             ArrayList<GameObject> whitelist = new ArrayList<>();
             if(influenceType != InfluenceType.SELFINFLUENCE)
-                whitelist.add(attacker);
+                whitelist.add(attacker.getEntity());
             InfluenceArea ia;
             if(makesExpandingArea) {
                 ia = new expandingInfluenceArea(influenceType, attacker.getMovementDirection(),
@@ -111,8 +117,7 @@ public class WeaponItem extends TakeableItem implements SpawnObservable {
         spawnObservers.remove(SO);
     }
 
-    public void setSpawnObservers (List<SpawnObserver> newObservers) {
-        spawnObservers.clear();
+    public void setSpawnObservers (Set<SpawnObserver> newObservers) {
         spawnObservers.addAll(newObservers);
     }
 

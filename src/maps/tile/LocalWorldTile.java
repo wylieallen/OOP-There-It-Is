@@ -68,6 +68,7 @@ public class LocalWorldTile extends Tile {
         trajectoryModifiers.forEach(GameObject::update);
         entityImpactors.forEach(GameObject::update);
 
+
     }
 
     @Override

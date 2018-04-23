@@ -20,7 +20,7 @@ public class HostileAI extends AI {
     public HostileAI(List<EntityInteraction> interactions, Entity entity, Map<Coordinate, Direction> path){
         super(interactions, path);
         target = entity;
-        targetsLastPosition = new Coordinate(0, 0);
+        targetsLastPosition = null;
     }
 
     @Override
@@ -30,16 +30,17 @@ public class HostileAI extends AI {
 
         if (target != null) {
             targetPosition = findTarget(map);
-            if ((isVisible(targetPosition, location, e) && targetsLastPosition != targetPosition)|| (targetsLastPosition == null)) {
+            if ((targetsLastPosition == null) || (isVisible(targetPosition, location, e) && targetsLastPosition != targetPosition && target.getConcealment() != 0)) {
                 setPath(location, targetPosition, e.getCompatibleTerrains(), map);
                 targetsLastPosition = targetPosition;
             }
         } else {
            targetPosition = findNewTarget (map, location);
+           targetsLastPosition = targetPosition;
            setPath(location, targetPosition, e.getCompatibleTerrains(), map);
         }
 
-        if (targetIsNeghbor (location)) {
+        if (targetIsNeghbor (location) && target != null && target.getConcealment() != 0) {
             e.setFacing(location.direction(targetPosition));
             e.setMoving();
 
@@ -57,7 +58,7 @@ public class HostileAI extends AI {
 
     private Coordinate findTarget (Map <Coordinate, Tile> map) {
         for (Coordinate c : map.keySet()) {
-            if (map.get(c).has(target)) {
+            if (map.get(c).has(target.getEntity())) {
                 return c;
             }
         }

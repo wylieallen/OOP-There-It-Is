@@ -28,7 +28,7 @@ import java.util.Set;
 public class Entity implements GameObject, MoveLegalityChecker, Visitable
 {
 
-    private final int levelUpIncreament = 100;
+    private final int levelUpIncrement = 100;
 
     private Direction facing;
     private Vector movementVector;
@@ -47,8 +47,12 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     {
         this(new Vector(), new EntityStats(), new ArrayList<>(), new ArrayList<>(),
                 new Inventory(), true);
-        this.increaseSkillLevel(SkillType.BINDWOUNDS, 1);
-        System.out.println("Entity bindwounds skill level " + getSkillLevel(SkillType.BINDWOUNDS));
+
+        // todo: take this out when we're done testing and ready to actually make Smashers/Summoners/Sneaks
+        for(SkillType skill : SkillType.values())
+        {
+            increaseSkillLevel(skill, 1);
+        }
     }
 
     public Entity(Vector movementVector,
@@ -202,21 +206,24 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     public int getCurXP () { return stats.getCurXP(); }
 
     public int getCurLevel () {
-        return getCurXP() / levelUpIncreament;
+        return getCurXP() / levelUpIncrement;
     }
 
     public void increaseXP (int amount) {
 
-        boolean leveled = (getCurXP() % levelUpIncreament) + amount >= levelUpIncreament;
+        boolean leveled = (getCurXP() % levelUpIncrement) + amount >= levelUpIncrement;
         stats.setCurXP(getCurXP() + amount);
 
         if (leveled)
+        {
+            increaseSkillPoints(1);
             controller.notifyLevelUp(this);
+        }
 
     }
 
     public void levelUp() {
-        increaseXP(levelUpIncreament - getCurXP());
+        increaseXP(levelUpIncrement - getCurXP());
     }
 
     public int getUnusedSkillPoints () { return stats.getUnspentSkillPoints(); }
@@ -299,6 +306,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
     public int getSkillLevel (SkillType s) { return stats.getSkillLevel(s); }
 
     public void increaseSkillLevel (SkillType s, int amount) { stats.increaseSkillLevel (s, amount); }
+
+    public void addSkill(SkillType s, int startingLevel) { stats.addSkill(s, startingLevel); }
 
     public boolean isOnMap () {
         return onMap;
@@ -458,5 +467,21 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
 
     public void setName(String name){
         this.name = name;
+    }
+
+    public void addActorInteraction (EntityInteraction interaction) {
+        actorInteractions.add(interaction);
+    }
+
+    public void removeActorInteraction (EntityInteraction interaction) {
+        actorInteractions.remove(interaction);
+    }
+
+    public void addActeeInteraction (EntityInteraction interaction) {
+        acteeInteractions.add(interaction);
+    }
+
+    public void removeActeeInteraction (EntityInteraction interaction) {
+        acteeInteractions.remove(interaction);
     }
 }

@@ -30,6 +30,9 @@ public class PickPocketInteraction implements EntityInteraction {
     }
 
     @Override
+    public String name () { return "Pick Pocket"; }
+
+    @Override
     public void accept(Visitor v) {
         v.visitPickPocketInteraction(this);
     }
