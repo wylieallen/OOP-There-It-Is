@@ -63,10 +63,16 @@ public class HumanEntityController extends EntityController implements Controlle
     private int useInventoryItemKeyCode = KeyEvent.VK_ENTER;
     private int selectInteractionKeyCode = KeyEvent.VK_ENTER;
 
+
+    // TODO: give entity bonuses on enrage and anti-bonuses on pacify
+    private boolean isAggroed;
+
     public HumanEntityController(Entity entity, Equipment equipment, Coordinate entityLocation, GamePanel view) {
         super(entity, equipment, entityLocation, new ArrayList<>());
         this.spawnObservableActions = new ArrayList<>();
         this.view = view;
+
+        isAggroed = false;
 
         directionalMoveKeyCodes = new HashMap<>();
         directionalMoveKeyCodes.put(Direction.N, KeyEvent.VK_W);
@@ -649,10 +655,22 @@ public class HumanEntityController extends EntityController implements Controlle
     }
 
     @Override
-    public void enrage(Entity e) {}
+    public void enrage(Entity e) {
+        if (!isAggroed) {
+            getControlledEntity().healEntity(10);
+        }
+        isAggroed = true;
+    }
 
     @Override
-    public void pacify() {}
+    public void pacify() {
+        isAggroed = false;
+    }
+
+    @Override
+    public boolean isAggroed () {
+        return isAggroed;
+    }
 
     @Override
     public void accept(Visitor v) {

@@ -62,7 +62,8 @@ public class NpcEntityController extends EntityController {
 
     @Override
     public void notifyInteraction(Entity player, Entity interactee) {
-
+        if (!isAggro())
+            player.getController().notifyInteraction(player, interactee);
     }
 
     @Override
@@ -112,6 +113,11 @@ public class NpcEntityController extends EntityController {
             activeAi = nonAggroAi;
             updateActeeInteractions();
         }
+    }
+
+    @Override
+    public boolean isAggroed () {
+        return isAggro();
     }
 
     public void updateActeeInteractions() {

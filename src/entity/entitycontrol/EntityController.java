@@ -58,6 +58,7 @@ public abstract class EntityController implements Visitable, DialogObservable{
 
     public abstract void enrage(Entity e);
     public abstract void pacify();
+    public abstract boolean isAggroed ();
 
     protected Entity getControlledEntity() { return controlledEntity; }
 
