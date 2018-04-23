@@ -6,6 +6,7 @@ import commands.skillcommands.SkillCommand;
 import entity.entitycontrol.AI.*;
 import entity.entitycontrol.EntityController;
 import entity.entitycontrol.HumanEntityController;
+import entity.entitycontrol.KeyRole;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitycontrol.controllerActions.ControllerAction;
 import entity.entitycontrol.controllerActions.ControllerActionFactory;
@@ -112,6 +113,9 @@ public class LoadingParser {
     }
 
     private void loadPlayer(JSONObject playerJson, GamePanel gamePanel){
+        JSONArray keybindings = playerJson.getJSONArray("KeyBindings");
+        loadKeyBindings(keybindings);
+
         Vector movementVector = new Vector();
         JSONObject entityStatsJson = playerJson.getJSONObject("Stats");
         EntityStats entityStats = loadEntityStats(entityStatsJson);
@@ -132,6 +136,61 @@ public class LoadingParser {
         spawnerMap.put(observe, ImageMaker.makeYellowProjectileDisplayable());
         Displayable displayable = loadDisplayable(playerJson.getString("Name"));
         spriteMap.put(player, displayable);
+    }
+
+    private void loadKeyBindings(JSONArray keybindings) {
+        //List<Object> keybindingsList = keybindings.toList();
+        for(Object keybinding: keybindings) {
+            JSONObject binding = (JSONObject) keybinding;
+            KeyRole k = loadKeyBinding(binding.getString("Name"));
+            k.setPrimaryKeycode(binding.getInt("Primary"));
+            k.setSecondaryKeycode(binding.getInt("Secondary"));
+        }
+    }
+
+    private KeyRole loadKeyBinding(String keybinding) {
+        switch(keybinding) {
+            case "MOVE_N":
+                return KeyRole.MOVE_N;
+            case "MOVE_S":
+                return KeyRole.MOVE_S;
+            case "MOVE_SE":
+                return KeyRole.MOVE_SE;
+            case "MOVE_SW":
+                return KeyRole.MOVE_SW;
+            case "MOVE_NE":
+                return KeyRole.MOVE_NE;
+            case "MOVE_NW":
+                return KeyRole.MOVE_NW;
+            case "BIND_WOUNDS":
+                return KeyRole.BIND_WOUNDS;
+            case "OBSERVE":
+                return KeyRole.OBSERVE;
+            case "TOGGLE_CREEP":
+                return KeyRole.TOGGLE_CREEP;
+            case "TOGGLE_SEARCH":
+                return KeyRole.TOGGLE_SEARCH;
+            case "DISMOUNT":
+                return KeyRole.DISMOUNT;
+            case "MANAGE_INVENTORY":
+                return KeyRole.MANAGE_INVENTORY;
+            case "MANAGE_SKILLS":
+                return KeyRole.MANAGE_SKILLS;
+            case "MANAGE_CONTROLS":
+                return KeyRole.MANAGE_CONTROLS;
+            case "ATTACK1":
+                return KeyRole.ATTACK1;
+            case "ATTACK2":
+                return KeyRole.ATTACK2;
+            case "ATTACK3":
+                return KeyRole.ATTACK3;
+            case "ATTACK4":
+                return KeyRole.ATTACK4;
+            case "ATTACK5":
+                return KeyRole.ATTACK5;
+            default:
+                return KeyRole.MOVE_N;
+        }
     }
 
     private void loadOverWorld(JSONObject overWorldJson) {

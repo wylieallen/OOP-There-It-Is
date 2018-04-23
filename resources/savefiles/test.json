@@ -1,15 +1,113 @@
 {
  "Player": {
+  "ActorInteractions": [{"Name": "UseItemInteraction"}],
+  "InVehicle": false,
+  "Name": "Smasher",
   "ActeeInteractions": [{"Name": "UseItemInteraction"}],
   "Type": "Player",
   "Equipment": {
    "Weapons": [],
    "Wearables": {}
   },
-  "ActorInteractions": [{"Name": "UseItemInteraction"}],
-  "InVehicle": false,
-  "X": 0,
-  "DirectionFacing": "N",
+  "X": 2,
+  "KeyBindings": [
+   {
+    "Secondary": 87,
+    "Primary": 104,
+    "Name": "MOVE_N"
+   },
+   {
+    "Secondary": 83,
+    "Primary": 98,
+    "Name": "MOVE_S"
+   },
+   {
+    "Secondary": 68,
+    "Primary": 99,
+    "Name": "MOVE_SE"
+   },
+   {
+    "Secondary": 65,
+    "Primary": 97,
+    "Name": "MOVE_SW"
+   },
+   {
+    "Secondary": 69,
+    "Primary": 105,
+    "Name": "MOVE_NE"
+   },
+   {
+    "Secondary": 81,
+    "Primary": 103,
+    "Name": "MOVE_NW"
+   },
+   {
+    "Secondary": -1,
+    "Primary": 66,
+    "Name": "BIND_WOUNDS"
+   },
+   {
+    "Secondary": -1,
+    "Primary": 79,
+    "Name": "OBSERVE"
+   },
+   {
+    "Secondary": -1,
+    "Primary": 17,
+    "Name": "TOGGLE_CREEP"
+   },
+   {
+    "Secondary": -1,
+    "Primary": 16,
+    "Name": "TOGGLE_SEARCH"
+   },
+   {
+    "Secondary": -1,
+    "Primary": 61,
+    "Name": "DISMOUNT"
+   },
+   {
+    "Secondary": -1,
+    "Primary": 73,
+    "Name": "MANAGE_INVENTORY"
+   },
+   {
+    "Secondary": -1,
+    "Primary": 76,
+    "Name": "MANAGE_SKILLS"
+   },
+   {
+    "Secondary": -1,
+    "Primary": 27,
+    "Name": "MANAGE_CONTROLS"
+   },
+   {
+    "Secondary": 32,
+    "Primary": 49,
+    "Name": "ATTACK1"
+   },
+   {
+    "Secondary": -1,
+    "Primary": 50,
+    "Name": "ATTACK2"
+   },
+   {
+    "Secondary": -1,
+    "Primary": 51,
+    "Name": "ATTACK3"
+   },
+   {
+    "Secondary": -1,
+    "Primary": 52,
+    "Name": "ATTACK4"
+   },
+   {
+    "Secondary": -1,
+    "Primary": 53,
+    "Name": "ATTACK5"
+   }
+  ],
+  "DirectionFacing": "NULL",
   "Stats": {
    "CurrentHealth": 1000,
    "Gold": 100,
@@ -18,8 +116,8 @@
    "BaseMoveSpeed": 30,
    "UnspentSkillPoints": 0,
    "Terrains": [
-    "GRASS",
-    "SPACE"
+    "SPACE",
+    "GRASS"
    ],
    "MaxHealth": 1000,
    "MaxMana": 100,
@@ -28,24 +126,23 @@
    "Skills": {
     "BINDWOUNDS": 1,
     "OBSERVATION": 1,
+    "BARGAIN": 1,
     "BRAWLING": 1,
     "ONEHANDEDWEAPON": 1,
-    "BARGAIN": 1,
     "TWOHANDEDWEAPON": 1
    },
    "ManaRegenRate": 1,
    "CurrentXP": 10,
    "CurrentMana": 100
   },
-  "Y": 0,
+  "Y": 1,
   "IsAggro": false,
   "Inventory": [{
    "OnMap": false,
    "Type": "Quest",
    "QuestId": 0,
    "Name": "Radio"
-  }],
-  "Name": "Smasher"
+  }]
  },
  "LocalWorlds": {
   "0004": {
@@ -2185,7 +2282,7 @@
      },
      "ActorInteractions": [],
      "InVehicle": false,
-     "X": -4,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 1000,
@@ -2195,6 +2292,7 @@
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
       "Terrains": [
+       "SPACE",
        "GRASS",
        "WATER"
       ],
@@ -2211,7 +2309,7 @@
       "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": -4,
+     "Y": 2,
      "IsAggro": true,
      "Inventory": [],
      "Name": "Vehicle"
@@ -2225,7 +2323,7 @@
      },
      "ActorInteractions": [],
      "InVehicle": false,
-     "X": -4,
+     "X": 2,
      "DirectionFacing": "NULL",
      "Stats": {
       "CurrentHealth": 1000,
@@ -2235,6 +2333,7 @@
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
       "Terrains": [
+       "SPACE",
        "GRASS",
        "WATER"
       ],
@@ -2251,7 +2350,7 @@
       "CurrentXP": 10,
       "CurrentMana": 100
      },
-     "Y": -4,
+     "Y": 2,
      "IsAggro": true,
      "Inventory": [],
      "Name": "Vehicle"
@@ -4221,6 +4320,7 @@
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
       "Terrains": [
+       "SPACE",
        "GRASS",
        "WATER"
       ],
@@ -4261,6 +4361,7 @@
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
       "Terrains": [
+       "SPACE",
        "GRASS",
        "WATER"
       ],
@@ -10506,6 +10607,7 @@
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
       "Terrains": [
+       "SPACE",
        "GRASS",
        "WATER"
       ],
@@ -10546,6 +10648,7 @@
       "BaseMoveSpeed": 1030,
       "UnspentSkillPoints": 0,
       "Terrains": [
+       "SPACE",
        "GRASS",
        "WATER"
       ],

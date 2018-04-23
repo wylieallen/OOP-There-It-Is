@@ -8,6 +8,7 @@ import entity.entitycontrol.AI.HostileAI;
 import entity.entitycontrol.AI.PatrolAI;
 import entity.entitycontrol.AI.PetAI;
 import entity.entitycontrol.HumanEntityController;
+import entity.entitycontrol.KeyRole;
 import entity.entitycontrol.NpcEntityController;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.*;
@@ -117,6 +118,20 @@ public class SaveVisitor implements Visitor {
         addInVehicle(h.isInVehicle());
         addCoordinates(h.getEntityLocation());
         h.getEquipment().accept(this);
+        addKeyBindings(h);
+    }
+
+    private void addKeyBindings(HumanEntityController h) {
+        JSONArray keybindings = new JSONArray();
+        for(KeyRole k : KeyRole.values()) {
+            JSONObject binding = new JSONObject();
+            binding.put("Name", k.name());
+            binding.put("Primary", k.getPrimaryKeycode());
+            binding.put("Secondary", k.getSecondaryKeycode());
+            keybindings.put(binding);
+        }
+        currentEntityJson.put("KeyBindings", keybindings);
+
     }
 
     @Override
