@@ -694,7 +694,6 @@ public class SaveVisitor implements Visitor {
 
     @Override
     public void visitGame(Game g) {
-        saveFileJson = new JSONObject();
 
         visitEntity(g.getPlayer());
         visitOverWorld(g.getOverWorld());
@@ -722,5 +721,24 @@ public class SaveVisitor implements Visitor {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        reset();
+    }
+
+    private void reset(){
+        saveFileJson = new JSONObject();
+        playerJson = new JSONObject();
+        overWorldJson = new JSONObject();
+        localWorldJsons = new ArrayList<>();
+
+        currentEntityJson = null;
+        currentCommandJson = null;
+        currentSkillCommandJson = null;
+        currentTileJson = null;
+        currentAiJson = null;
+        itemJsonsQueue = new ArrayDeque<>();
+        interactionsQueue = new ArrayDeque<>();
+        transitionCommandJsons = new HashMap<>();
+        entityFound = false;
     }
 }
