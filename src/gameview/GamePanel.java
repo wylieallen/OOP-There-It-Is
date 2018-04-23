@@ -191,7 +191,7 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
     }
 
     public int getLevelUpCursorIndex() { return gameDisplayState.getLevelUpDisplayableIndex(); }
-    
+
     public int getInteractionCursorIndex()
     {
         return gameDisplayState.getInteractionDisplayableIndex();

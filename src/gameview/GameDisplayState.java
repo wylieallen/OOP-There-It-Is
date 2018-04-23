@@ -160,7 +160,6 @@ public class GameDisplayState extends DisplayState implements SpawnObserver
         spriteSpawnerMap.put(spawner,projectileSprite);
     }
 
-
     public void decrementInventoryDisplayableIndex()
     {
         inventoryDisplayable.adjustCursorIndex(-1);
