@@ -12,6 +12,7 @@ public class MountInteraction implements EntityInteraction {
     @Override
     public boolean interact(Entity actor, Entity actee) {
         actee.interact(actor);
+        actor.getController().notifyFreeMove(actor);
         return true;
     }
 

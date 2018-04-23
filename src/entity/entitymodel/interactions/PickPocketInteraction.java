@@ -23,9 +23,11 @@ public class PickPocketInteraction implements EntityInteraction {
                 actor.addToInventory(picked);
                 actor.increaseXP(xpIncrease);
             }
+            actor.getController().notifyFreeMove(actor);
             return true;
         }
 
+        actor.getController().notifyFreeMove(actor);
         return false;
     }
 

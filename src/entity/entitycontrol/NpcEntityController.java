@@ -62,7 +62,7 @@ public class NpcEntityController extends EntityController {
 
     @Override
     public void notifyInteraction(Entity player, Entity interactee) {
-        //TODO
+
     }
 
     @Override
@@ -77,6 +77,11 @@ public class NpcEntityController extends EntityController {
 
     @Override
     public void notifyLevelUp(Entity e) {
+        //TODO
+    }
+
+    @Override
+    public void notifyUseItem (Entity player, EntityController interactee) {
         //TODO
     }
 

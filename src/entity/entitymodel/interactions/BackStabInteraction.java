@@ -18,6 +18,7 @@ public class BackStabInteraction implements EntityInteraction {
         if (SkillType.CREEP.checkSuccess(actor.getSkillLevel(SkillType.CREEP), 1)) {
             actee.hurtEntity(SkillType.CREEP.calculateModification(baseDamage, 1, actor.getSkillLevel(SkillType.CREEP)));
             actor.increaseXP(xpIncrease);
+            actor.getController().notifyFreeMove(actor);
             return true;
         }
 

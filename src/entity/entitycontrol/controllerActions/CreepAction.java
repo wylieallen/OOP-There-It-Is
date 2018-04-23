@@ -37,7 +37,7 @@ public class CreepAction extends ControllerAction {
             isCreeping = false;
             controlledEntity.increaseConcealment(cachedConcealmentDifference);
             controlledEntity.increaseBaseMoveSpeed(cachedSpeedDifference);
-            controlledEntity.addActorInteraction(backStab);
+            controlledEntity.removeActorInteraction(backStab);
         }
         else if(!isCreeping){
             isCreeping = true;
@@ -45,7 +45,7 @@ public class CreepAction extends ControllerAction {
             controlledEntity.decreaseConcealment(cachedConcealmentDifference);
             cachedSpeedDifference = (int)(controlledEntity.getBaseMoveSpeed() * 0.98);
             controlledEntity.decreaseBaseMoveSpeed(cachedSpeedDifference);
-            controlledEntity.removeActorInteraction(backStab);
+            controlledEntity.addActorInteraction(backStab);
         }
     }
 

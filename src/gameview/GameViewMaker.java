@@ -16,6 +16,7 @@ import entity.entitycontrol.controllerActions.ObserveAction;
 import entity.entitymodel.*;
 import entity.entitymodel.interactions.PickPocketInteraction;
 import entity.entitymodel.interactions.TalkInteraction;
+import entity.entitymodel.interactions.UseItemInteraction;
 import entity.vehicle.Vehicle;
 import gameobject.GameObject;
 import gameview.displayable.sprite.WorldDisplayable;
@@ -166,6 +167,7 @@ public class GameViewMaker
         player.setMovementObserver(panel);
         player.addToInventory(new QuestItem("Radio", false, 0));
         player.addActorInteraction(new PickPocketInteraction());
+        player.addActorInteraction(new UseItemInteraction());
         String playerClass = "Sneak";
         switch(playerClass) {
             case "Smasher":

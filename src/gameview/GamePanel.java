@@ -213,4 +213,26 @@ public class GamePanel extends DisplayPanel implements TransitionObserver, Movem
     }
 
     public void enableInteraction () { gameDisplayState.enableInteraction(); }
+
+    public int getUseItemCursorIndex()
+    {
+        return gameDisplayState.getUseItemDisplayableIndex();
+    }
+
+    public void decrementUseItemDisplayableIndex()
+    {
+        gameDisplayState.decrementUseItemDisplayableIndex();
+    }
+
+    public void incrementUseItemDisplayableIndex()
+    {
+        gameDisplayState.incrementUseItemDisplayableIndex();
+    }
+
+    public void disableUseItem()
+    {
+        gameDisplayState.disableUseItem();
+    }
+
+    public void enableUseItem () { gameDisplayState.enableUseItem(); }
 }

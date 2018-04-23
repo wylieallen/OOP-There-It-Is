@@ -408,6 +408,8 @@ public class Entity implements GameObject, MoveLegalityChecker, Visitable
         return inventory;
     }
 
+    public int getInventorySize () {return inventory.getSize (); }
+
     public String getName(){
         return name;
     }
