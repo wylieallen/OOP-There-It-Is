@@ -226,7 +226,9 @@ public class LoadingParser {
                 terrain = loadTerrain(tileJson.getString("Terrain"));
             }
             if (tileJson.has("Obstacle")){
-                moveLegalityCheckers.add(new Obstacle());
+                Obstacle obs = new Obstacle();
+                spriteMap.put(obs,ImageMaker.makeBarrelDisplayable());
+                moveLegalityCheckers.add(obs);
             }
             if (tileJson.has("River")){
                 JSONObject riverJson = tileJson.getJSONObject("River");
