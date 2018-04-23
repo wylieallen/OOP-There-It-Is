@@ -14,7 +14,7 @@ public class SaveVistorTest {
     public void SaveVisitorTest(){
         Visitor v = new SaveVisitor("test");
         GameViewMaker g = new GameViewMaker();
-        g.makeGameDisplayState(new GamePanel(new Dimension()));
+        g.makeGameDisplayState(new GamePanel(new Dimension()), "Smasher");
         Game game = g.getGame();
         game.accept(v);
     }

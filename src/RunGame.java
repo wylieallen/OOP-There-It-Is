@@ -26,12 +26,26 @@ public class RunGame
         JMenuBar bar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
 
-        JMenuItem newGame = new JMenuItem("Start New Game");
-        newGame.addActionListener(e -> {
-            panel.startNewGame();
+        JMenuItem newSummonerGame = new JMenuItem("Start New Summoner Game");
+        newSummonerGame.addActionListener(e -> {
+            panel.startNewGame("Summoner");
         });
 
-        menu.add(newGame);
+        menu.add(newSummonerGame);
+
+        JMenuItem newSneakGame = new JMenuItem("Start New Sneak Game");
+        newSneakGame.addActionListener(e -> {
+            panel.startNewGame("Sneak");
+        });
+
+        menu.add(newSneakGame);
+
+        JMenuItem newSmasherGame = new JMenuItem("Start New Smasher Game");
+        newSmasherGame.addActionListener(e -> {
+            panel.startNewGame("Smasher");
+        });
+
+        menu.add(newSmasherGame);
 
         JMenuItem loadGame = new JMenuItem("Load Game");
         loadGame.addActionListener(e ->
